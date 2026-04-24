@@ -1,0 +1,735 @@
+<!-- File: sheener/RiskAssessmentTest/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Risk Assessment Analysis Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Sans+Pro:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.3/echarts.min.js"></script>
+    <style>
+        :root {
+            --primary-navy: #1a2332;
+            --secondary-gray: #6b7280;
+            --accent-orange: #ff8c00;
+            --risk-high: #dc2626;
+            --risk-medium: #f59e0b;
+            --risk-low: #059669;
+            --bg-light: #fafafa;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--primary-navy);
+            line-height: 1.6;
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-navy) 0%, #2d3748 100%);
+            color: white;
+            padding: 4rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('./resources/hero-risk-assessment.png');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.2;
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #ffffff 0%, var(--accent-orange) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: #e2e8f0;
+            margin-bottom: 2rem;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .dashboard-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e5e7eb;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary-navy);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .risk-matrix-container {
+            grid-column: 1 / -1;
+            position: relative;
+        }
+
+        .risk-matrix {
+            display: grid;
+            grid-template-columns: repeat(5, 80px);
+            grid-template-rows: repeat(5, 80px);
+            gap: 4px;
+            margin: 2rem auto;
+            width: fit-content;
+            position: relative;
+            padding: 2rem 4rem 4rem 6rem;
+        }
+
+        .risk-matrix-cell {
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .risk-matrix-cell:hover {
+            border-color: var(--accent-orange);
+            background: #fef7ed;
+        }
+
+        .risk-point {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .risk-point:hover {
+            transform: scale(1.3);
+            z-index: 10;
+        }
+
+        .risk-level-h {
+            background-color: var(--risk-high);
+        }
+
+        .risk-level-m {
+            background-color: var(--risk-medium);
+        }
+
+        .risk-level-l {
+            background-color: var(--risk-low);
+        }
+
+        .axis-label {
+            font-size: 0.875rem;
+            color: var(--secondary-gray);
+            font-weight: 500;
+        }
+
+        .axis-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--primary-navy);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .filters-section {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .filter-select {
+            padding: 0.5rem 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            background: white;
+            font-size: 0.875rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .filter-select:focus {
+            outline: none;
+            border-color: var(--accent-orange);
+        }
+
+        .search-input {
+            padding: 0.5rem 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            min-width: 250px;
+            transition: border-color 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--accent-orange);
+        }
+
+        .process-flow {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            overflow-x: auto;
+            padding: 1rem 0;
+        }
+
+        .process-step {
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 1rem;
+            min-width: 200px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .process-step:hover {
+            border-color: var(--accent-orange);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .step-number {
+            background: var(--accent-orange);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .step-content h4 {
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--primary-navy);
+        }
+
+        .step-stats {
+            display: flex;
+            gap: 0.5rem;
+            font-size: 0.75rem;
+        }
+
+        .step-stats span {
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            color: white;
+            font-weight: 500;
+        }
+
+        .step-stats .high-risk {
+            background: var(--risk-high);
+        }
+
+        .step-stats .medium-risk {
+            background: var(--risk-medium);
+        }
+
+        .step-stats .low-risk {
+            background: var(--risk-low);
+        }
+
+        .process-arrow {
+            font-size: 1.5rem;
+            color: var(--secondary-gray);
+            font-weight: bold;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .metric-item {
+            text-align: center;
+            padding: 1rem;
+            background: #f8fafc;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .metric-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary-navy);
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-value.high-risk {
+            color: var(--risk-high);
+        }
+
+        .metric-label {
+            font-size: 0.875rem;
+            color: var(--secondary-gray);
+            font-weight: 500;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            margin: 2rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .modal-header {
+            padding: 2rem 2rem 1rem;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: between;
+            align-items: center;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--secondary-gray);
+            padding: 0.5rem;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        .modal-close:hover {
+            background: #f3f4f6;
+        }
+
+        .task-detail-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 2rem;
+            padding: 2rem 2rem 0;
+        }
+
+        .risk-badge {
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            color: white;
+            font-weight: bold;
+            font-size: 0.875rem;
+        }
+
+        .detail-section {
+            margin-bottom: 2rem;
+            padding: 0 2rem;
+        }
+
+        .detail-section h4 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--primary-navy);
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 0.5rem;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .info-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .info-item label {
+            font-weight: 600;
+            color: var(--secondary-gray);
+            font-size: 0.875rem;
+        }
+
+        .info-item span {
+            color: var(--primary-navy);
+            font-weight: 500;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            font-size: 0.875rem;
+        }
+
+        .btn-primary {
+            background: var(--accent-orange);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #e67e00;
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: #f8fafc;
+            color: var(--primary-navy);
+            border: 2px solid #e5e7eb;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent-orange);
+            background: #fef7ed;
+        }
+
+        .navigation {
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .nav-logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-navy);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: var(--secondary-gray);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--accent-orange);
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .risk-matrix {
+                grid-template-columns: repeat(5, 60px);
+                grid-template-rows: repeat(5, 60px);
+                padding: 1rem 3rem 3rem 5rem;
+            }
+            
+            .filter-group {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .search-input {
+                min-width: auto;
+            }
+            
+            .process-flow {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .process-step {
+                min-width: auto;
+            }
+            
+            .process-arrow {
+                transform: rotate(90deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navigation">
+        <div class="nav-container">
+            <div class="nav-logo">Risk Assessment Pro</div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link active">Dashboard</a>
+                <a href="tasks.html" class="nav-link">Task Analysis</a>
+                <a href="controls.html" class="nav-link">Controls Management</a>
+                <a href="reports.html" class="nav-link">Reports</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Risk Assessment Analysis</h1>
+                <p class="hero-subtitle">Comprehensive analysis of operational risks with interactive visualization and control management</p>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">18</span>
+                        <span class="stat-label">Total Tasks</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">4</span>
+                        <span class="stat-label">High Risk</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">8.9</span>
+                        <span class="stat-label">Avg Risk Rating</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="container" style="margin-top: 2rem;">
+        <!-- Filters Section -->
+        <div class="filters-section">
+            <div class="filter-group">
+                <select id="risk-level-filter" class="filter-select">
+                    <option value="all">All Risk Levels</option>
+                    <option value="H">High Risk</option>
+                    <option value="M">Medium Risk</option>
+                    <option value="L">Low Risk</option>
+                </select>
+                
+                <select id="process-phase-filter" class="filter-select">
+                    <option value="all">All Process Phases</option>
+                    <option value="Setup">Setup</option>
+                    <option value="Setup/Op./Handl.">Setup/Operation/Handling</option>
+                    <option value="Op./Handl.">Operation/Handling</option>
+                    <option value="Maint">Maintenance</option>
+                </select>
+                
+                <select id="category-filter" class="filter-select">
+                    <option value="all">All Categories</option>
+                    <option value="RECEIPTING AND STORAGE OF MATERIAL">Receipting & Storage</option>
+                    <option value="TRANSPORT TO POINT OF CONNECTION / HANDLING IN ENVIRONMENT">Transport & Handling</option>
+                    <option value="PRECHECK ACTIVITIES">Precheck Activities</option>
+                    <option value="OPERATION OF VESSEL / ENERGY OPERATIONS">Vessel & Energy Operations</option>
+                    <option value="CLEANING OPERATION">Cleaning Operations</option>
+                    <option value="WASTE DISPOSAL AND MANAGEMENT">Waste Management</option>
+                </select>
+                
+                <input type="text" id="search-input" class="search-input" placeholder="Search tasks, hazards, or risks...">
+            </div>
+        </div>
+
+        <!-- Dashboard Grid -->
+        <div class="dashboard-grid">
+            <!-- Risk Matrix -->
+            <div class="dashboard-card risk-matrix-container">
+                <h2 class="card-title">
+                    <span>🎯</span>
+                    Interactive Risk Matrix
+                </h2>
+                <div id="risk-matrix" class="risk-matrix"></div>
+                <div class="matrix-legend">
+                    <div class="legend-item">
+                        <div class="legend-color risk-level-h"></div>
+                        <span>High Risk (15-25)</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color risk-level-m"></div>
+                        <span>Medium Risk (5-12)</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color risk-level-l"></div>
+                        <span>Low Risk (1-4)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Process Flow -->
+            <div class="dashboard-card">
+                <h2 class="card-title">
+                    <span>🔄</span>
+                    Process Flow Analysis
+                </h2>
+                <div id="process-flow" class="process-flow"></div>
+            </div>
+
+            <!-- Risk Distribution Chart -->
+            <div class="dashboard-card">
+                <h2 class="card-title">
+                    <span>📊</span>
+                    Risk Distribution
+                </h2>
+                <div id="risk-distribution-chart" style="height: 300px;"></div>
+            </div>
+
+            <!-- Risk Metrics -->
+            <div class="dashboard-card">
+                <h2 class="card-title">
+                    <span>📈</span>
+                    Risk Metrics
+                </h2>
+                <div id="risk-metrics" class="stats-grid"></div>
+            </div>
+
+            <!-- Phase Distribution -->
+            <div class="dashboard-card">
+                <h2 class="card-title">
+                    <span>⚙️</span>
+                    Process Phase Distribution
+                </h2>
+                <div id="phase-distribution"></div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="dashboard-card">
+                <h2 class="card-title">
+                    <span>⚡</span>
+                    Quick Actions
+                </h2>
+                <div class="quick-actions">
+                    <button class="btn btn-primary" onclick="window.location.href='tasks.html'">
+                        View All Tasks
+                    </button>
+                    <button class="btn btn-secondary" onclick="window.location.href='controls.html'">
+                        Manage Controls
+                    </button>
+                    <button class="btn btn-secondary" onclick="generateReport()">
+                        Generate Report
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Task Detail Modal -->
+    <div id="task-modal" class="modal modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="modal-close">&times;</button>
+            </div>
+            <div id="modal-content"></div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer style="background: var(--primary-navy); color: white; padding: 2rem 0; margin-top: 4rem; text-align: center;">
+        <div class="container">
+            <p>&copy; 2024 Risk Assessment Pro. Professional risk management and safety analysis.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="main.js"></script>
+    <script>
+        function generateReport() {
+            alert('Report generation feature would be implemented here. This would create a comprehensive PDF report of all risk assessments.');
+        }
+    </script>
+</body>
+</html>

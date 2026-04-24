@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+    <!-- sheener/DocVersionTraining.html -->
+<html lang="en">
+<head>
+  <title>Document Reading & Quiz</title>
+  <meta charset="UTF-8">
+  <style>
+    body { font-family: Arial; background: #F9FAFB; padding:20px; }
+    .container { max-width:800px; margin:auto; background: white; border-radius:10px; box-shadow:0 2px 8px #eee; padding:30px;}
+    h2 { color: #0266bf; }
+    .doc-viewer { margin-bottom: 30px; }
+    .quiz { margin-bottom: 30px; }
+    .question { margin-bottom: 16px; }
+    button { padding:10px 30px; background:#0266bf; color:white; border:none; border-radius:5px; font-size:16px;}
+    .success { color: green; }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h2>Safety Statement Induction</h2>
+  <div class="doc-viewer" id="docViewer">
+    <!-- File viewer injected here -->
+    <iframe id="docFrame" src="URL_TO_DOCUMENT_FILE" width="100%" height="430px" frameborder="0"></iframe>
+    <!-- For Word: use a Web Office viewer URL, for PDF use native browser or PDF.js -->
+  </div>
+  <div class="quiz" id="quizForm">
+    <h3>Assessment – Please answer all 5 questions below:</h3>
+    <form id="quiz">
+      <!-- Questions injected here dynamically from backend/API -->
+    </form>
+    <button onclick="submitQuiz()">Submit Answers</button>
+    <div id="resultMsg"></div>
+  </div>
+</div>
+<script>
+// === Mock Dynamic Questions (replace with API call/DB data in production) ===
+const quizQuestions = [
+  {id:1, text:"What is the purpose of the safety statement?", type:"text"},
+  {id:2, text:"Who is responsible for safety in the workplace?", type:"text"},
+  {id:3, text:"True or False: The safety statement must be reviewed annually.", type:"radio", options:["True","False"]},
+  {id:4, text:"Where can you access the latest safety statement?", type:"text"},
+  {id:5, text:"List two actions to take if you identify a hazard.", type:"text"}
+];
+
+// === Render Quiz Questions ===
+function renderQuiz() {
+  const form = document.getElementById('quiz');
+  form.innerHTML = '';
+  quizQuestions.forEach(q => {
+    let field = `<div class="question"><label>${q.text}</label><br>`;
+    if(q.type === "text") {
+      field += `<input name="q${q.id}" type="text" required>`;
+    } else if(q.type === "radio") {
+      q.options.forEach(opt=>{
+        field += `<label><input type="radio" name="q${q.id}" value="${opt}" required> ${opt}</label> `;
+      });
+    }
+    field += `</div>`;
+    form.innerHTML += field;
+  });
+}
+renderQuiz();
+
+// === Submit Handler (to backend/API) ===
+function submitQuiz() {
+  const form = document.getElementById('quiz');
+  const answers = {};
+  quizQuestions.forEach(q => {
+    answers[q.id] = form['q'+q.id].value;
+  });
+  // TODO: Ajax POST to backend/service with user/document/version/answers
+  document.getElementById('resultMsg').innerHTML = "<div class='success'>Thank you! Answers submitted.</div>";
+  // Optionally hide quiz, show next steps...
+}
+</script>
+</body>
+</html>

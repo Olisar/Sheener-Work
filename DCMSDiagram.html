@@ -1,0 +1,74 @@
+<!-- File: sheener/DCMSDiagram.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Caliber DMS Workflow</title>
+  <!-- Mermaid.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f4f6f8;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+    .diagram-container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .mermaid {
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Caliber DMS Workflow</h1>
+
+<div class="diagram-container">
+  <div class="mermaid">
+    flowchart TB
+      A([Initiate Document<br>Preparation Request]) --> B{QA Approver<br>Review}
+      B -- Rejected --> Z([Request Canceled<br>or Returned])
+      B -- Approved --> C([Create/Revise Document])
+      C --> D([Submit Document<br>for Review])
+      D --> E([Department Review])
+      E --> F([Department Manager Review])
+      F --> G([Quality Approver Review])
+      G --> H((Optional Cross-Functional<br>Team Review))
+      H --> I{Review Comments?}
+      I -- Yes --> C
+      I -- No --> J([Approve])
+      J --> K{Training Required?}
+      K -- Yes --> L([Confirmation<br>of Training])
+      K -- No --> M([Initiate Document<br>Effective Date Request])
+      L --> M
+      M --> N{Proposed Effective<br>Date Acceptable?}
+      N -- No --> M
+      N -- Yes --> O([Approve &<br>Document Made Effective])
+  </div>
+</div>
+
+<script>
+  // Initialize Mermaid with a custom theme and settings
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: 'forest',        // You can try 'default', 'dark', 'forest', 'neutral', or 'base'
+    flowchart: {
+      curve: 'basis'        // Gives the lines a smoother curve
+    }
+  });
+</script>
+
+</body>
+</html>

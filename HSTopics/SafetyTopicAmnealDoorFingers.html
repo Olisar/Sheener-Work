@@ -1,0 +1,384 @@
+<!-- File: sheener/HSTopics/SafetyTopicAmnealDoorFingers.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../img/favicon/faviconAY.ico">
+    <title>Amneal Access Safety Tips</title>
+    <style>
+        /* Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body and General Settings */
+        body {
+            font-family: Arial, sans-serif;
+            color: #333;
+            background-color: #F2F2F2;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background-color: #003366;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0 20px;
+            z-index: 1000;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .header-container {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            max-width: 1000px;
+            justify-content: center;
+            position: relative;
+        }
+
+        .logo-container {
+            position: absolute;
+            left: 20px;
+        }
+
+        .logo {
+            height: 40px;
+        }
+
+        .header-title {
+            color: #FFFFFF;
+            font-size: 1.5em;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        /* Smooth scrolling behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Hero Section */
+        #hero {
+            position: relative;
+            transition: transform 0.5s ease-in-out;
+            height: calc(100vh - 60px);
+            overflow: hidden;
+            padding-top: 60px;
+        }
+
+        .hero-hidden {
+            transform: translateY(-100%);
+            transition: transform 0.5s ease;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(100%);
+        }
+
+        .hero-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #FFFFFF;
+            text-align: center;
+        }
+
+        .hero-text h1 {
+            font-size: 3.2em;
+            margin-bottom: 20px;
+        }
+
+        .hero-text p {
+            font-size: 1.6em;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Tips Section */
+        #topics {
+            margin-top: 0;
+            padding-top: 20px;
+            position: relative;
+        }
+
+        .tips {
+            max-width: 700px;
+            margin: 40px auto;
+            padding: 0 15px;
+            text-align: center;
+        }
+
+        /* Centered Snow Image Styling */
+        .centered-snow-icon {
+            margin: 20px 0;
+            text-align: center;
+            margin-bottom: 100px;
+            transform: scale(1.8);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1.8);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(2);
+                opacity: 0.9;
+            }
+
+            100% {
+                transform: scale(1.8);
+                opacity: 1;
+            }
+        }
+
+        /* Tip Box Styling */
+        .tip {
+            background-color: #FFFFFF;
+            border-left: 4px solid #b88d00;
+            padding: 15px 20px;
+            margin: 15px 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            transform: scale(0.9);
+            opacity: 1;
+        }
+
+        .tip.active {
+            transform: scale(1.1);
+            opacity: 1;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .tip h2 {
+            font-size: 1.8em;
+            color: #003366;
+        }
+
+        .tip p {
+            font-size: 1.2em;
+            color: #555;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            background-color: #d9a460ff;
+            color: #FFFFFF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        footer a {
+            color: #FFFFFF;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-logo {
+            width: 60px;
+
+        }
+
+        .flashing-arrow {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .flashing-arrow img {
+            width: 40px;
+            animation: flash 1.5s infinite;
+        }
+
+        @keyframes flash {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            50% {
+                opacity: 0.6;
+                transform: translateY(10px);
+            }
+        }
+
+        /* Styles for the previous icon */
+        .previous-icon {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            font-size: 2rem;
+            color: white;
+            cursor: pointer;
+            text-decoration: none;
+            z-index: 1001;
+            /* Ensure it's above other elements */
+        }
+
+        .previous-icon:hover {
+            color: #03bcf4;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo-container">
+                <img src="../img/Amneal_Logo_new.svg" alt="Amneal Logo" class="logo">
+            </div>
+            <div class="header-title">
+                EHS Newsletter
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Image Section -->
+    <section id="hero">
+        <img src="../img/doorjam.jpg" alt="doorjam" class="hero-image">
+        <div class="hero-text">
+            <div class="centered-snow-icon">
+                <img src="../img/sign1.svg" alt="Sign Icon" width="80">
+            </div>
+            <h1>Door Jam Safety Tips</h1>
+            <p>"Keep hands clear – doors may close automatically."</p>
+            <div class="flashing-arrow">
+                <img src="../img/arrow.svg" alt="Flashing Arrow" />
+            </div>
+        </div>
+    </section>
+
+    <!-- Tips Section -->
+    <main>
+        <section id="topics">
+            <div class="tips">
+                <div class="tip" id="tip-1">
+                    <h2>1. Be Aware Around Doors</h2>
+                    <p>Always stay alert when working near doors, especially auto-closing ones.</p>
+                    <p>Check surroundings before opening or moving near a door hinge area.</p>
+                </div>
+                <div class="tip" id="tip-2">
+                    <h2>2. Watch Your Hands</h2>
+                    <p>Keep hands clear of door frames and hinges while adjusting or lifting materials near doors.</p>
+                    <p>Never rest hands or fingers in the hinge area of any door, even temporarily.</p>
+                </div>
+                <div class="tip" id="tip-3">
+                    <h2>3. Understand Auto-Closing Mechanisms</h2>
+                    <p>Auto-closing doors activate without warning. Know which doors have this feature and treat them
+                        with caution.</p>
+                    <p>Report any faulty or overly forceful door closures to Facilities immediately.</p>
+                </div>
+                <div class="tip" id="tip-4">
+                    <h2>4. Safe Lifting Near Doors</h2>
+                    <p>Ensure safe body positioning when lifting or reaching for items near doors.</p>
+                    <p>Avoid turning your back or leaning into doors while handling materials.</p>
+                </div>
+
+                <div class="tip" id="tip-6">
+                    <p><strong>The illustrations below highlight the risks of placing hands near door hinges.</strong>
+                    </p>
+                    <img src="../img/Door2.png" alt="amneal" class="hero-image">
+                    <br> <br><br> <br>
+                    <img src="../img/Door1.png" alt="amneal" class="hero-image">
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <a href="../img/Lessons_Learned_EHS%20Amneal%20Door%20Frame%20and%20figers.pdf" target="_blank">Reference:
+            Global Amneal Lessons Learned - EHS Amneal Door Frame and Fingers</a>
+        <img src="../Amneal_Logo_new.svg" alt="Amneal" class="footer-logo">
+    </footer>
+
+
+    <a class="previous-icon" onclick="history.back()">&#x21A9;</a>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tips = document.querySelectorAll('.tip');
+            const heroSection = document.getElementById('hero');
+            const topicsSection = document.getElementById('topics');
+            const headerHeight = document.querySelector('header').offsetHeight;
+
+            let currentIndex = 0;
+            let isInTopics = false;
+
+            tips[currentIndex].classList.add('active');
+
+            function activateTip(index) {
+                tips.forEach((tip, i) => {
+                    tip.classList.remove('active');
+                    if (i === index) {
+                        tip.classList.add('active');
+                        tip.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                });
+            }
+
+            window.addEventListener('wheel', (event) => {
+                const scrollPosition = window.scrollY;
+                const topicsStart = topicsSection.offsetTop - headerHeight;
+
+                if (event.deltaY > 0) {
+                    if (!isInTopics && scrollPosition < topicsStart) {
+                        isInTopics = true;
+                        topicsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        currentIndex = 0;
+                        activateTip(currentIndex);
+                    } else if (isInTopics && currentIndex < tips.length - 1) {
+                        currentIndex++;
+                        activateTip(currentIndex);
+                    }
+                } else if (event.deltaY < 0) {
+                    if (isInTopics && currentIndex > 0) {
+                        currentIndex--;
+                        activateTip(currentIndex);
+                    } else if (isInTopics && currentIndex === 0) {
+                        isInTopics = false;
+                        heroSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                }
+            });
+
+            window.addEventListener('keydown', (event) => {
+                if (event.key === 'ArrowDown' && currentIndex < tips.length - 1) {
+                    currentIndex++;
+                    activateTip(currentIndex);
+                } else if (event.key === 'ArrowUp' && currentIndex > 0) {
+                    currentIndex--;
+                    activateTip(currentIndex);
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

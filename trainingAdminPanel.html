@@ -1,0 +1,1247 @@
+<!-- sheener/trainingAdminPanel.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Training Management Admin Panel</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="shortcut icon" href="img/favicon/faviconAY.ico">
+  <script src="js/navbar.js" defer></script>
+  <style>
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 25px;
+      background: #fafbfc;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+    }
+
+    .centered-container {
+      width: 100%;
+      max-width: 1400px;
+      margin: 0 auto;
+      margin-top: 80px;
+    }
+
+    h1,
+    h2 {
+      color: #005499;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 15px;
+    }
+
+    th,
+    td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+
+    th {
+      background: #363636;
+      color: white;
+    }
+
+    .section {
+      background: #f1f7fa;
+      padding: 18px;
+      margin-bottom: 18px;
+      border-radius: 8px;
+    }
+
+    /* Enhanced Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .modal-content {
+      background: #fff;
+      padding: 0;
+      border-radius: 12px;
+      width: 95%;
+      max-width: 700px;
+      max-height: 95vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+    }
+
+    .modal-header {
+      background: #363636;
+      color: white;
+      padding: 18px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-header h2 {
+      margin: 0;
+      color: white;
+      font-size: 1.3em;
+    }
+
+    .close {
+      cursor: pointer;
+      font-size: 1.8em;
+      color: rgba(255, 255, 255, 0.8);
+      transition: color 0.2s;
+      line-height: 1;
+    }
+
+    .close:hover {
+      color: white;
+    }
+
+    .modal-body {
+      padding: 24px;
+      overflow-y: auto;
+      flex: 1;
+      min-height: 0;
+    }
+
+    /* Form Controls */
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: #333;
+    }
+
+    .form-group select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      background: white;
+      font-size: 15px;
+      box-sizing: border-box;
+    }
+
+    /* Preview Section */
+    .preview-section {
+      margin-top: 20px;
+      border-top: 2px solid #e0e8f0;
+      padding-top: 20px;
+    }
+
+    .preview-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .preview-section iframe {
+      width: 100%;
+      height: 300px;
+      border: 1px solid #e0e8f0;
+      border-radius: 6px;
+      background: #f6f8fb;
+    }
+
+    /* Workflow Steps */
+    .workflow-steps {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .step {
+      flex: 1;
+      text-align: center;
+      padding: 16px;
+      background: #e8f0fe;
+      border-radius: 8px;
+      color: #5f7daf;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+
+    .step.active {
+      background: #005499;
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 84, 153, 0.3);
+    }
+
+    .step.completed {
+      background: #43a047;
+      color: white;
+    }
+
+    /* Actions & Buttons */
+    .modal-actions {
+      padding: 18px 24px;
+      background: #f8f9fb;
+      border-top: 1px solid #e0e8f0;
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+    }
+
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background: #2584fa;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #1a6de0;
+    }
+
+    .btn-secondary {
+      background: #e0e8f0;
+      color: #333;
+    }
+
+    .btn-secondary:hover {
+      background: #d0d8e0;
+    }
+
+    .btn-success {
+      background: #43a047;
+      color: white;
+    }
+
+    .btn-success:hover {
+      background: #388e3c;
+    }
+
+    /* Loading Overlay */
+    .loading-overlay {
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(255, 255, 255, 0.9);
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+    }
+
+    .loading-overlay.active {
+      display: flex;
+    }
+
+    .spinner {
+      border: 3px solid #f3f3f3;
+      border-top: 3px solid #005499;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* Feedback Message */
+    .feedback-message {
+      display: none;
+      padding: 12px 16px;
+      border-radius: 6px;
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+
+    .feedback-message.success {
+      background: #e8f5e9;
+      color: #2e7d32;
+      border: 1px solid #c8e6c9;
+    }
+
+    .feedback-message.error {
+      background: #ffebee;
+      color: #c62828;
+      border: 1px solid #ffcdd2;
+    }
+
+    /* Induction Link */
+    .induction-link {
+      background: #e8f5e9;
+      border: 1px solid #c8e6c9;
+      color: #2e7d32;
+      padding: 12px;
+      border-radius: 6px;
+      margin-top: 12px;
+      text-align: center;
+    }
+
+    .induction-link a {
+      color: #2e7d32;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .induction-link a:hover {
+      text-decoration: underline;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    /* Autocomplete styles for Modal */
+    .autocomplete-container {
+      position: relative;
+      width: 100%;
+    }
+
+    .autocomplete-items {
+      position: absolute;
+      border: 1px solid #d4d4d4;
+      border-bottom: none;
+      border-top: none;
+      z-index: 99;
+      top: 100%;
+      left: 0;
+      right: 0;
+      max-height: 250px;
+      overflow-y: auto;
+      background-color: #fff;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      border-radius: 0 0 8px 8px;
+    }
+
+    .autocomplete-item {
+      padding: 10px 15px;
+      cursor: pointer;
+      border-bottom: 1px solid #eee;
+      font-size: 14px;
+      transition: background 0.2s;
+    }
+
+    .autocomplete-item:hover {
+      background-color: #f0f7ff;
+    }
+
+    .autocomplete-item strong {
+      color: #005499;
+    }
+
+    #personSearchInput {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 15px;
+      box-sizing: border-box;
+      transition: border-color 0.2s;
+    }
+
+    #personSearchInput:focus {
+      border-color: #2584fa;
+      outline: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="centered-container">
+    <h1>Training Management Admin</h1>
+
+    <div class="section">
+      <h2>Training Assignments</h2>
+      <button onclick="openAssignTrainingModal()" class="step active"> Assign Training Session</button>
+      <table id="assignmentsTable">
+        <thead>
+          <tr>
+            <th>Person</th>
+            <th>Doc Version</th>
+            <th>Status</th>
+            <th>Link</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <div class="section">
+      <h2>People</h2>
+      <div style="margin-bottom: 15px;">
+        <input type="text" id="peopleSearchInput" placeholder="🔍 Search people by name, email, or position..."
+          style="width: 100%; padding: 12px 16px; border: 2px solid #e0e8f0; border-radius: 8px; font-size: 15px; transition: all 0.3s; box-sizing: border-box;"
+          oninput="filterPeopleTable(this.value)"
+          onfocus="this.style.borderColor='#005499'; this.style.boxShadow='0 0 0 3px rgba(0, 84, 153, 0.1)';"
+          onblur="this.style.borderColor='#e0e8f0'; this.style.boxShadow='none';">
+      </div>
+      <div id="peopleFilterInfo" style="margin-bottom: 10px; color: #666; font-size: 14px; display: none;">
+        <span id="peopleFilterCount"></span>
+      </div>
+      <table id="peopleTable">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Position</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <div class="section">
+      <h2>Document Versions</h2>
+      <table id="docVersionsTable">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Filename/Label</th>
+            <th>Path</th>
+            <th>MIME</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <!-- Enhanced Assignment Modal -->
+    <div class="modal" id="assignModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Assign Training Session</h2>
+          <span class="close" onclick="closeAssignModal()">&times;</span>
+        </div>
+
+        <div class="modal-body">
+          <div class="workflow-steps">
+            <div class="step active" id="step-indicator-1">Select Order</div>
+            <div class="step" id="step-indicator-2">Select Person</div>
+            <div class="step" id="step-indicator-3">Select Document</div>
+            <div class="step" id="step-indicator-4">Confirm</div>
+          </div>
+
+          <div class="feedback-message" id="feedbackMessage"></div>
+          <div class="induction-link hidden" id="inductionLink"></div>
+
+          <form id="assignForm">
+            <div class="form-group" id="orderSelectionGroup">
+              <label>Choose Assignment Flow:</label>
+              <div style="display: flex; gap: 15px; margin-top: 8px;">
+                <label style="display: flex; align-items: center; cursor: pointer; font-weight: normal;">
+                  <input type="radio" name="assignOrder" value="personFirst" checked onchange="renderOrder()"
+                    id="orderPersonFirst">
+                  <span style="margin-left: 6px;">Person → Document</span>
+                </label>
+                <label style="display: flex; align-items: center; cursor: pointer; font-weight: normal;">
+                  <input type="radio" name="assignOrder" value="docFirst" onchange="renderOrder()" id="orderDocFirst">
+                  <span style="margin-left: 6px;">Document → Person</span>
+                </label>
+              </div>
+            </div>
+
+            <div id="step1-container" class="form-group" style="display: none;"></div>
+            <div id="step2-container" class="form-group" style="display: none;"></div>
+
+            <div id="preview-container" class="preview-section" style="display: none;">
+              <div class="preview-header">
+                <strong>Document Preview</strong>
+                <span id="preview-filename" style="color: #666;"></span>
+              </div>
+              <div style="position: relative;">
+                <div class="loading-overlay" id="previewLoading">
+                  <div class="spinner"></div>
+                </div>
+                <iframe id="previewFrame" src="" width="100%" height="300"></iframe>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn-secondary" onclick="closeAssignModal()">Cancel</button>
+          <button type="button" class="btn-primary" id="confirmAssignBtn" onclick="submitAssignment()" disabled>Assign
+            Training</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div id="topbar"></div>
+  <div id="navbar"></div>
+
+  <script>
+    let people = [];
+    let docVersions = [];
+    let selectedPerson = null;
+    let selectedDoc = null;
+    let editingAssignmentId = null;
+    let editMode = false;
+    let editingField = null; // 'person' or 'doc' - indicates which field is being edited
+
+    async function fetchData(url, errorMsg) {
+      try {
+        const res = await fetch(url);
+        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+        const data = await res.json();
+        return Array.isArray(data) ? data : (data.data || []);
+      } catch (error) {
+        console.error(`Error fetching ${url}:`, error);
+        showFeedback(`${errorMsg}: ${error.message}`, 'error');
+        return [];
+      }
+    }
+
+    async function fetchPeople() { return await fetchData('php/get_people.php', 'Failed to load people'); }
+    async function fetchDocVersions() { return await fetchData('php/get_documentversions.php', 'Failed to load documents'); }
+    async function fetchTrainingAssignments() {
+      return await fetchData('php/get_training_assignments.php', 'Failed to load training assignments');
+    }
+    function renderPeopleTable() {
+      const tbody = document.getElementById('peopleTable').querySelector('tbody');
+      if (!people.length) {
+        tbody.innerHTML = '<tr><td colspan="4" style="text-align: center; padding: 20px;">No people found</td></tr>';
+        return;
+      }
+      tbody.innerHTML = people.map(p => {
+        const firstName = (p.first_name || p.FirstName || '').trim();
+        const lastName = (p.last_name || p.LastName || '').trim();
+        const position = (p.Position || '').trim();
+        const companyName = (p.company_name || '').trim();
+        const email = (p.Email || '').trim();
+        const fullName = `${firstName} ${lastName}`.trim() || 'Unknown';
+        let displayName = fullName;
+        if (position) displayName += ` - ${position}`;
+        if (companyName) displayName += ` - ${companyName}`;
+        return `<tr>
+      <td>${displayName}</td>
+      <td>${email || '—'}</td>
+      <td>${position || '—'}</td>
+      <td><span style="color: green;">● Active</span></td>
+    </tr>`;
+      }).join('');
+
+      // Initially keep the list empty as per user request
+      if (typeof filterPeopleTable === 'function') {
+        filterPeopleTable('');
+      }
+    }
+
+    function filterPeopleTable(searchTerm) {
+      const table = document.getElementById('peopleTable');
+      const tbody = table.querySelector('tbody');
+      const rows = tbody.getElementsByTagName('tr');
+      const filterInfo = document.getElementById('peopleFilterInfo');
+      const filterCount = document.getElementById('peopleFilterCount');
+
+      // Normalize search term
+      const search = searchTerm.toLowerCase().trim();
+
+      let visibleCount = 0;
+      let totalCount = rows.length;
+
+      // If search is empty, keep the list empty as requested
+      if (!search) {
+        for (let row of rows) {
+          row.style.display = 'none';
+        }
+        filterInfo.style.display = 'block';
+        filterCount.textContent = 'Please type to search for a person...';
+        filterCount.style.color = '#005499';
+        filterCount.style.fontWeight = '500';
+        return;
+      }
+
+      // Filter rows
+      for (let row of rows) {
+        const cells = row.getElementsByTagName('td');
+        if (cells.length === 0) continue; // Skip if no cells (shouldn't happen)
+
+        // Get text content from name, email, and position columns
+        const name = (cells[0]?.textContent || '').toLowerCase();
+        const email = (cells[1]?.textContent || '').toLowerCase();
+        const position = (cells[2]?.textContent || '').toLowerCase();
+
+        // Check if search term matches any field
+        const matches = name.includes(search) ||
+          email.includes(search) ||
+          position.includes(search);
+
+        if (matches) {
+          row.style.display = '';
+          visibleCount++;
+        } else {
+          row.style.display = 'none';
+        }
+      }
+
+      // Show filter info
+      filterInfo.style.display = 'block';
+      if (visibleCount === 0) {
+        filterCount.textContent = `No matches found for "${searchTerm}"`;
+        filterCount.style.color = '#c62828';
+      } else if (visibleCount === totalCount) {
+        filterCount.textContent = `Showing all ${totalCount} people`;
+        filterCount.style.color = '#666';
+      } else {
+        filterCount.textContent = `Showing ${visibleCount} of ${totalCount} people`;
+        filterCount.style.color = '#005499';
+      }
+    }
+
+
+    function renderVersionsTable() {
+      const tbody = document.getElementById('docVersionsTable').querySelector('tbody');
+      if (!docVersions.length) {
+        tbody.innerHTML = '<tr><td colspan="4" style="text-align: center; padding: 20px;">No document versions found</td></tr>';
+        return;
+      }
+      tbody.innerHTML = docVersions.map(v => {
+        const versionId = v.VersionID || v.id || '—';
+        const filename = v.OriginalFilename || v.name || '—';
+        const filePath = v.FilePath || '—';
+        const mimeType = v.MimeType || '—';
+        const versionLabel = v.RevisionLabel ? v.RevisionLabel : '';
+        const docTitle = v.DocumentTitle ? v.DocumentTitle : '';
+        let displayStr = '';
+        if (versionLabel) displayStr += `${versionLabel} - `;
+        if (docTitle) displayStr += `${docTitle} - `;
+        displayStr += filename;
+        return `<tr>
+      <td>${versionId}</td>
+      <td>${displayStr}</td>
+      <td style="font-size: 0.9em; color: #666;">${filePath}</td>
+      <td><span style="font-family: monospace; font-size: 0.85em;">${mimeType}</span></td>
+    </tr>`;
+      }).join('');
+    }
+    function renderAssignmentsTable() {
+      const tbody = document.getElementById('assignmentsTable').querySelector('tbody');
+      if (!window.trainingAssignments || !window.trainingAssignments.length) {
+        tbody.innerHTML = '<tr><td colspan="4" style="text-align: center; padding: 20px;">No training assignments found</td></tr>';
+        return;
+      }
+      tbody.innerHTML = window.trainingAssignments.map(a => {
+        const personName = a.person_name || 'Unknown';
+        const docVersion = a.RevisionLabel ? `${a.RevisionLabel} - ${a.OriginalFilename}` : (a.OriginalFilename || '—');
+        const status = a.status || 'pending';
+        const statusColor = {
+          'pending': '#ff9800',
+          'in-progress': '#2196f3',
+          'completed': '#43a047',
+          'overdue': '#c62828'
+        }[status] || '#666';
+        const inductionUrl = `induction.html?person_id=${a.person_id || ''}&doc_version_id=${a.doc_version_id || ''}&quiz_id=${a.doc_version_id || ''}`;
+
+        // Ensure all values are numbers or null
+        const assignmentId = a.id || null;
+        const personId = a.person_id || null;
+        const docId = a.doc_version_id || null;
+
+        return `<tr>
+      <td><span class="edit-person-link" style="color: #2584fa; cursor: pointer; text-decoration: underline;" data-assignment-id="${assignmentId}" data-person-id="${personId}" data-doc-id="${docId}" title="Click to edit document for this person">${personName}${a.person_position ? ' (' + a.person_position + ')' : ''}</span></td>
+      <td><span class="edit-doc-link" style="color: #2584fa; cursor: pointer; text-decoration: underline;" data-assignment-id="${assignmentId}" data-person-id="${personId}" data-doc-id="${docId}" title="Click to edit person for this document">${docVersion}</span></td>
+      <td><span style="color: ${statusColor}; font-weight: 600;">${status.charAt(0).toUpperCase() + status.slice(1).replace('-', ' ')}</span></td>
+      <td><a href="${inductionUrl}" target="_blank" style="color: #2584fa; text-decoration: none;">Open Training →</a></td>
+    </tr>`;
+      }).join('');
+
+      // Attach event listeners after rendering
+      attachAssignmentTableListeners();
+    }
+
+    // Store the handler function reference to avoid duplicate listeners
+    let assignmentTableClickHandler = null;
+
+    function attachAssignmentTableListeners() {
+      const tbody = document.getElementById('assignmentsTable').querySelector('tbody');
+      if (!tbody) return;
+
+      // Remove existing listener if it exists
+      if (assignmentTableClickHandler) {
+        tbody.removeEventListener('click', assignmentTableClickHandler);
+      }
+
+      // Create and store the handler function
+      assignmentTableClickHandler = function (e) {
+        const target = e.target;
+
+        // Handle person click (edit document)
+        if (target.classList.contains('edit-person-link')) {
+          e.preventDefault();
+          e.stopPropagation();
+          const assignmentId = target.getAttribute('data-assignment-id');
+          const personId = target.getAttribute('data-person-id');
+          const docId = target.getAttribute('data-doc-id');
+
+          const assignmentIdNum = assignmentId && assignmentId !== 'null' && assignmentId !== '' ? parseInt(assignmentId) : null;
+          const personIdNum = personId && personId !== 'null' && personId !== '' ? parseInt(personId) : null;
+          const docIdNum = docId && docId !== 'null' && docId !== '' ? parseInt(docId) : null;
+
+          console.log('Edit person clicked:', { assignmentId: assignmentIdNum, personId: personIdNum, docId: docIdNum });
+          openEditModalForPerson(assignmentIdNum, personIdNum, docIdNum);
+          return false;
+        }
+
+        // Handle document click (edit person)
+        if (target.classList.contains('edit-doc-link')) {
+          e.preventDefault();
+          e.stopPropagation();
+          const assignmentId = target.getAttribute('data-assignment-id');
+          const personId = target.getAttribute('data-person-id');
+          const docId = target.getAttribute('data-doc-id');
+
+          const assignmentIdNum = assignmentId && assignmentId !== 'null' && assignmentId !== '' ? parseInt(assignmentId) : null;
+          const personIdNum = personId && personId !== 'null' && personId !== '' ? parseInt(personId) : null;
+          const docIdNum = docId && docId !== 'null' && docId !== '' ? parseInt(docId) : null;
+
+          console.log('Edit doc clicked:', { assignmentId: assignmentIdNum, personId: personIdNum, docId: docIdNum });
+          openEditModalForDocument(assignmentIdNum, personIdNum, docIdNum);
+          return false;
+        }
+      };
+
+      // Attach the listener
+      tbody.addEventListener('click', assignmentTableClickHandler);
+    }
+
+    function openAssignTrainingModal(assignmentId = null, preSelectedPersonId = null, preSelectedDocId = null) {
+      editingAssignmentId = assignmentId;
+      editMode = assignmentId !== null;
+      if (!editMode) {
+        editingField = null; // Reset when not in edit mode
+      }
+
+      // Update modal title
+      const modalTitle = document.querySelector('#assignModal .modal-header h2');
+      modalTitle.textContent = editMode ? 'Edit Training Assignment' : 'Assign Training Session';
+
+      // Update button text
+      const confirmBtn = document.getElementById('confirmAssignBtn');
+      confirmBtn.textContent = editMode ? 'Update Assignment' : 'Assign Training';
+
+      // Hide/disable order selection in edit mode
+      const orderGroup = document.getElementById('orderSelectionGroup');
+      if (editMode) {
+        orderGroup.style.display = 'none';
+        document.getElementById('orderPersonFirst').disabled = true;
+        document.getElementById('orderDocFirst').disabled = true;
+      } else {
+        orderGroup.style.display = 'block';
+        document.getElementById('orderPersonFirst').disabled = false;
+        document.getElementById('orderDocFirst').disabled = false;
+      }
+
+      document.getElementById('assignModal').style.display = 'flex';
+      renderOrder(preSelectedPersonId, preSelectedDocId);
+    }
+
+    function openEditModalForPerson(assignmentId, personId, currentDocId) {
+      // Open modal to edit document for this person
+      // Pass currentDocId so it can be pre-selected but user can change it
+      console.log('openEditModalForPerson called with:', { assignmentId, personId, currentDocId });
+
+      if (!assignmentId || !personId) {
+        console.error('Missing required parameters:', { assignmentId, personId });
+        showFeedback('Error: Missing assignment or person information', 'error');
+        return;
+      }
+
+      editingField = 'person'; // Editing document, person is fixed
+      openAssignTrainingModal(assignmentId, personId, currentDocId);
+    }
+
+    function openEditModalForDocument(assignmentId, currentPersonId, docId) {
+      // Open modal to edit person for this document
+      // Pass currentPersonId so it can be pre-selected but user can change it
+      console.log('openEditModalForDocument called with:', { assignmentId, currentPersonId, docId });
+
+      if (!assignmentId || !docId) {
+        console.error('Missing required parameters:', { assignmentId, docId });
+        showFeedback('Error: Missing assignment or document information', 'error');
+        return;
+      }
+
+      editingField = 'doc'; // Editing person, doc is fixed
+      openAssignTrainingModal(assignmentId, currentPersonId, docId);
+    }
+
+    function closeAssignModal() {
+      document.getElementById('assignModal').style.display = 'none';
+      document.getElementById('assignForm').reset();
+      document.getElementById('step1-container').style.display = 'none';
+      document.getElementById('step2-container').style.display = 'none';
+      document.getElementById('preview-container').style.display = 'none';
+      document.getElementById('confirmAssignBtn').disabled = true;
+      document.getElementById('inductionLink').classList.add('hidden');
+      selectedPerson = null;
+      selectedDoc = null;
+      editingAssignmentId = null;
+      editMode = false;
+      editingField = null;
+      updateStepIndicators(1);
+      hideFeedback();
+
+      // Reset modal title and button
+      const modalTitle = document.querySelector('#assignModal .modal-header h2');
+      modalTitle.textContent = 'Assign Training Session';
+      const confirmBtn = document.getElementById('confirmAssignBtn');
+      confirmBtn.textContent = 'Assign Training';
+
+      // Re-enable order selection
+      const orderGroup = document.getElementById('orderSelectionGroup');
+      orderGroup.style.display = 'block';
+      document.getElementById('orderPersonFirst').disabled = false;
+      document.getElementById('orderDocFirst').disabled = false;
+    }
+
+    function updateStepIndicators(activeStep) {
+      for (let i = 1; i <= 4; i++) {
+        const stepEl = document.getElementById(`step-indicator-${i}`);
+        stepEl.classList.remove('active', 'completed');
+        if (i < activeStep) stepEl.classList.add('completed');
+        else if (i === activeStep) stepEl.classList.add('active');
+      }
+    }
+
+    function renderOrder(preSelectedPersonId = null, preSelectedDocId = null) {
+      const order = document.querySelector('input[name="assignOrder"]:checked').value;
+      const step1Container = document.getElementById('step1-container');
+      const step2Container = document.getElementById('step2-container');
+
+      step1Container.innerHTML = step2Container.innerHTML = '';
+      step1Container.style.display = step2Container.style.display = 'none';
+      document.getElementById('preview-container').style.display = 'none';
+      updateStepIndicators(1);
+
+      if (!people.length) {
+        step1Container.innerHTML = '<p style="color: #c62828;">No people available. Please refresh the page.</p>';
+        step1Container.style.display = 'block';
+        return;
+      }
+      if (!docVersions.length) {
+        step1Container.innerHTML = '<p style="color: #c62828;">No document versions available. Please refresh the page.</p>';
+        step1Container.style.display = 'block';
+        return;
+      }
+
+      // Determine order based on edit mode
+      let actualOrder = order;
+      if (editMode) {
+        if (editingField === 'person') {
+          // Editing document for a person - use personFirst flow (person is fixed)
+          actualOrder = 'personFirst';
+          document.querySelector('input[name="assignOrder"][value="personFirst"]').checked = true;
+        } else if (editingField === 'doc') {
+          // Editing person for a document - use docFirst flow (doc is fixed)
+          actualOrder = 'docFirst';
+          document.querySelector('input[name="assignOrder"][value="docFirst"]').checked = true;
+        } else if (preSelectedPersonId) {
+          // Fallback: if editingField not set but person is pre-selected
+          actualOrder = 'personFirst';
+          document.querySelector('input[name="assignOrder"][value="personFirst"]').checked = true;
+        } else if (preSelectedDocId) {
+          // Fallback: if editingField not set but doc is pre-selected
+          actualOrder = 'docFirst';
+          document.querySelector('input[name="assignOrder"][value="docFirst"]').checked = true;
+        }
+      }
+
+      if (actualOrder === 'personFirst') {
+        const personDisabled = (editMode && editingField === 'person') ? 'disabled' : '';
+        const personLabel = (editMode && editingField === 'person') ? 'Step 2: Person (Fixed)' : 'Step 2: Select Person';
+        step1Container.innerHTML = `
+      <label>${personLabel}</label>
+      <div class="autocomplete-container">
+        <input type="text" id="personSearchInput" placeholder="Type to search person..." 
+               oninput="filterPeopleInModal(this.value)" autocomplete="off" ${personDisabled}>
+        <input type="hidden" id="aperson" value="">
+        <div id="personSearchResults" class="autocomplete-items"></div>
+      </div>`;
+
+        const docDisabled = (editMode && editingField === 'person') ? '' : 'disabled';
+        const docLabel = (editMode && editingField === 'person') ? 'Step 3: Select Document Version (Change)' : 'Step 3: Select Document Version';
+        step2Container.innerHTML = `
+      <label>${docLabel}</label>
+      <select id="adoc" onchange="handleDocSelect(this.value)" ${docDisabled}>
+        <option value="">-- Choose a Document --</option>
+        ${docVersions.map(d => {
+          const versionId = d.VersionID || d.id || '';
+          const filePath = d.FilePath || '';
+          const filename = d.OriginalFilename || d.name || 'Unknown';
+          const docTitle = d.DocumentTitle ? ` (${d.DocumentTitle})` : '';
+          const versionLabel = d.RevisionLabel ? ` - ${d.RevisionLabel}` : '';
+          const selected = (preSelectedDocId && versionId == preSelectedDocId) ? 'selected' : '';
+          return `<option value="${versionId}" data-path="${filePath}" data-filename="${filename}${versionLabel}${docTitle}" ${selected}>${filename}${versionLabel}${docTitle}</option>`;
+        }).join('')}
+      </select>`;
+
+        // Now that both elements are rendered, set values and trigger handlers
+        setTimeout(() => {
+          if (preSelectedPersonId) {
+            const personInput = document.getElementById('personSearchInput');
+            if (personInput) {
+              const p = people.find(x => (x.people_id || x.id) == preSelectedPersonId);
+              if (p) {
+                const firstName = (p.first_name || p.FirstName || '').trim();
+                const lastName = (p.last_name || p.LastName || '').trim();
+                const fullName = `${firstName} ${lastName}`.trim() || 'Unknown';
+                personInput.value = fullName;
+                selectPersonInModal(preSelectedPersonId, fullName);
+              }
+            }
+          }
+        }, 10);
+      } else {
+        const docDisabled = (editMode && editingField === 'doc') ? 'disabled' : '';
+        const docLabel = (editMode && editingField === 'doc') ? 'Step 2: Document (Fixed)' : 'Step 2: Select Document Version';
+        step1Container.innerHTML = `
+      <label>${docLabel}</label>
+      <select id="adoc" onchange="handleDocSelect(this.value)" ${docDisabled}>
+        <option value="">-- Choose a Document --</option>
+        ${docVersions.map(d => {
+          const versionId = d.VersionID || d.id || '';
+          const filePath = d.FilePath || '';
+          const filename = d.OriginalFilename || d.name || 'Unknown';
+          const docTitle = d.DocumentTitle ? ` (${d.DocumentTitle})` : '';
+          const versionLabel = d.RevisionLabel ? ` - ${d.RevisionLabel}` : '';
+          const selected = (preSelectedDocId && versionId == preSelectedDocId) ? 'selected' : '';
+          return `<option value="${versionId}" data-path="${filePath}" data-filename="${filename}${versionLabel}${docTitle}" ${selected}>${filename}${versionLabel}${docTitle}</option>`;
+        }).join('')}
+      </select>`;
+
+        const personDisabled = (editMode && editingField === 'doc') ? '' : 'disabled';
+        const personLabel = (editMode && editingField === 'doc') ? 'Step 3: Select Person (Change)' : 'Step 3: Select Person';
+        step2Container.innerHTML = `
+      <label>${personLabel}</label>
+      <div class="autocomplete-container">
+        <input type="text" id="personSearchInput" placeholder="Type to search person..." 
+               oninput="filterPeopleInModal(this.value)" autocomplete="off" ${personDisabled}>
+        <input type="hidden" id="aperson" value="">
+        <div id="personSearchResults" class="autocomplete-items"></div>
+      </div>`;
+
+        // Now that both elements are rendered, set values and trigger handlers
+        setTimeout(() => {
+          if (preSelectedDocId) {
+            const docSelect = document.getElementById('adoc');
+            if (docSelect) {
+              docSelect.value = preSelectedDocId;
+              handleDocSelect(preSelectedDocId);
+
+              if (preSelectedPersonId) {
+                const personInput = document.getElementById('personSearchInput');
+                if (personInput) {
+                  const p = people.find(x => (x.people_id || x.id) == preSelectedPersonId);
+                  if (p) {
+                    const firstName = (p.first_name || p.FirstName || '').trim();
+                    const lastName = (p.last_name || p.LastName || '').trim();
+                    const fullName = `${firstName} ${lastName}`.trim() || 'Unknown';
+                    personInput.value = fullName;
+                    selectPersonInModal(preSelectedPersonId, fullName);
+                  }
+                }
+              }
+            }
+          }
+        }, 10);
+      }
+
+      step1Container.style.display = 'block';
+      step2Container.style.display = 'block';
+    }
+
+    // New Autocomplete search functions
+    function filterPeopleInModal(searchTerm) {
+      const filter = searchTerm.toLowerCase().trim();
+      const resultsDiv = document.getElementById('personSearchResults');
+      resultsDiv.innerHTML = '';
+
+      if (!filter) {
+        resultsDiv.style.display = 'none';
+        return;
+      }
+
+      const matches = people.filter(p => {
+        const firstName = (p.first_name || p.FirstName || '').toLowerCase();
+        const lastName = (p.last_name || p.LastName || '').toLowerCase();
+        const position = (p.Position || '').toLowerCase();
+        return firstName.includes(filter) || lastName.includes(filter) || position.includes(filter);
+      });
+
+      if (matches.length === 0) {
+        const item = document.createElement('div');
+        item.className = 'autocomplete-item';
+        item.style.cursor = 'default';
+        item.style.color = '#999';
+        item.textContent = 'No matches found';
+        resultsDiv.appendChild(item);
+      } else {
+        matches.slice(0, 30).forEach(p => {
+          const firstName = (p.first_name || p.FirstName || '').trim();
+          const lastName = (p.last_name || p.LastName || '').trim();
+          const position = (p.Position || '').trim();
+          const fullName = `${firstName} ${lastName}`.trim() || 'Unknown';
+          const personId = p.people_id || p.id || '';
+
+          const item = document.createElement('div');
+          item.className = 'autocomplete-item';
+          item.innerHTML = `<strong>${fullName}</strong> ${position ? '<span style="color:#666; font-size:0.9em;">- ' + position + '</span>' : ''}`;
+          item.onclick = () => selectPersonInModal(personId, fullName);
+          resultsDiv.appendChild(item);
+        });
+      }
+      resultsDiv.style.display = 'block';
+    }
+
+    function selectPersonInModal(id, name) {
+      selectedPerson = id;
+      const input = document.getElementById('personSearchInput');
+      const hidden = document.getElementById('aperson');
+      const resultsDiv = document.getElementById('personSearchResults');
+
+      if (input) input.value = name;
+      if (hidden) hidden.value = id;
+      if (resultsDiv) resultsDiv.style.display = 'none';
+
+      handlePersonSelect(id);
+    }
+
+    // Close results when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.autocomplete-container')) {
+        const results = document.getElementById('personSearchResults');
+        if (results) results.style.display = 'none';
+      }
+    });
+
+    function handlePersonSelect(personId) {
+      selectedPerson = personId;
+      if (personId) {
+        if (document.querySelector('input[name="assignOrder"]:checked').value === 'personFirst') {
+          const docSelect = document.getElementById('adoc');
+          if (docSelect) {
+            docSelect.disabled = false;
+          }
+          updateStepIndicators(3);
+        } else {
+          updateStepIndicators(selectedDoc ? 4 : 2);
+        }
+      } else {
+        selectedPerson = null;
+        const confirmBtn = document.getElementById('confirmAssignBtn');
+        if (confirmBtn) {
+          confirmBtn.disabled = true;
+        }
+      }
+      checkIfReadyToPreview();
+    }
+
+    function handleDocSelect(docId) {
+      selectedDoc = docId;
+      const docSelect = document.getElementById('adoc');
+      if (docId && docSelect) {
+        const selectedOption = docSelect.options[docSelect.selectedIndex];
+        const filename = selectedOption ? selectedOption.getAttribute('data-filename') : '';
+        const path = selectedOption ? selectedOption.getAttribute('data-path') : '';
+
+        if (document.querySelector('input[name="assignOrder"]:checked').value === 'docFirst') {
+          const personSelect = document.getElementById('aperson');
+          if (personSelect) {
+            personSelect.disabled = false;
+          }
+          updateStepIndicators(selectedPerson ? 4 : 3);
+        } else {
+          updateStepIndicators(selectedPerson ? 4 : 3);
+        }
+
+        const previewFilename = document.getElementById('preview-filename');
+        if (previewFilename) {
+          previewFilename.textContent = filename || '';
+        }
+        showPreview(path);
+      } else {
+        const previewContainer = document.getElementById('preview-container');
+        if (previewContainer) {
+          previewContainer.style.display = 'none';
+        }
+        selectedDoc = null;
+      }
+      checkIfReadyToPreview();
+    }
+
+    function checkIfReadyToPreview() {
+      const isReady = selectedPerson && selectedDoc;
+      document.getElementById('confirmAssignBtn').disabled = !isReady;
+      if (isReady) updateStepIndicators(4);
+    }
+
+    function showPreview(path) {
+      const container = document.getElementById('preview-container');
+      const loadingOverlay = document.getElementById('previewLoading');
+      const iframe = document.getElementById('previewFrame');
+
+      container.style.display = 'block';
+      loadingOverlay.classList.add('active');
+
+      const fullPath = path.startsWith('/') ? path : `/sheener/${path}`;
+      iframe.src = fullPath;
+
+      iframe.onload = () => { setTimeout(() => loadingOverlay.classList.remove('active'), 300); };
+      iframe.onerror = () => {
+        loadingOverlay.classList.remove('active');
+        iframe.srcdoc = '<html><body style="display:flex;justify-content:center;align-items:center;height:100%;font-family:sans-serif;color:#999;">Preview not available for this file type.</body></html>';
+      };
+    }
+
+    function showFeedback(message, type = 'success') {
+      const feedbackEl = document.getElementById('feedbackMessage');
+      feedbackEl.textContent = message;
+      feedbackEl.className = `feedback-message ${type}`;
+      feedbackEl.style.display = 'block';
+      setTimeout(() => { feedbackEl.style.display = 'none'; }, type === 'error' ? 8000 : 5000);
+    }
+
+    function hideFeedback() {
+      document.getElementById('feedbackMessage').style.display = 'none';
+    }
+
+    function showInductionLink(personId, docId) {
+      const linkDiv = document.getElementById('inductionLink');
+      const inductionUrl = `induction.html?person_id=${personId}&doc_version_id=${docId}&quiz_id=${docId}`;
+      linkDiv.innerHTML = `
+    <strong>✓ Training assigned!</strong><br>
+    <a href="${inductionUrl}" target="_blank">
+      Click here to open the induction quiz →
+    </a>
+  `;
+      linkDiv.classList.remove('hidden');
+    }
+
+    async function submitAssignment() {
+      if (!selectedPerson || !selectedDoc) {
+        showFeedback('Please select both a person and a document.', 'error');
+        return;
+      }
+
+      const assignBtn = document.getElementById('confirmAssignBtn');
+      const originalBtnText = assignBtn.textContent;
+      assignBtn.disabled = true;
+      assignBtn.textContent = editMode ? 'Updating...' : 'Assigning...';
+
+      try {
+        const url = editMode ? 'php/update_training_assignment.php' : 'php/assign_training.php';
+        const body = editMode ? {
+          assignmentId: editingAssignmentId,
+          personId: selectedPerson,
+          docVersionId: selectedDoc
+        } : {
+          personId: selectedPerson,
+          docVersionId: selectedDoc,
+          assignedBy: 'admin'
+        };
+
+        const response = await fetch(url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(body)
+        });
+
+        const contentType = response.headers.get('content-type');
+        if (!contentType || !contentType.includes('application/json')) {
+          const text = await response.text();
+          console.error('Non-JSON response:', text.substring(0, 200));
+          throw new Error('Server returned non-JSON response. Check console for details.');
+        }
+
+        const result = await response.json();
+
+        if (response.ok && result.success) {
+          showFeedback(`✓ Training ${editMode ? 'updated' : 'assigned'} successfully!`, 'success');
+
+          // Refresh assignments table
+          window.trainingAssignments = await fetchTrainingAssignments();
+          renderAssignmentsTable();
+
+          // Close modal and return to admin portal after a brief delay
+          setTimeout(() => {
+            closeAssignModal();
+          }, 1500);
+        } else {
+          throw new Error(result.message || `Failed to ${editMode ? 'update' : 'assign'} training`);
+        }
+      } catch (error) {
+        console.error('Assignment error:', error);
+        showFeedback(`✗ Error: ${error.message}`, 'error');
+        assignBtn.disabled = false;
+        assignBtn.textContent = originalBtnText;
+      }
+    }
+    async function refreshAllData() {
+      people = await fetchPeople();
+      docVersions = await fetchDocVersions();
+      window.trainingAssignments = await fetchTrainingAssignments();
+      renderPeopleTable();
+      renderVersionsTable();
+      renderAssignmentsTable();
+    }
+
+    window.onload = async () => {
+      await refreshAllData();
+
+      // Check if returning from a quiz (URL parameter)
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('quiz_completed') === 'true') {
+        showFeedback('Quiz completed! Assignment status updated.', 'success');
+        // Remove parameter from URL
+        window.history.replaceState({}, document.title, window.location.pathname);
+      }
+    };
+
+    // Refresh data when page becomes visible (user returns from another tab/window)
+    document.addEventListener('visibilitychange', async () => {
+      if (!document.hidden) {
+        await refreshAllData();
+      }
+    });
+  </script>
+  <script src="js/main.js" defer></script>
+  <script src="js/topbar.js" defer></script>
+</body>
+
+</html>

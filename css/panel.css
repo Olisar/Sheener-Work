@@ -1,0 +1,107 @@
+/* File: sheener/css/panel.css */
+/* panel.css - Styling for panel layout */
+
+/* General styles for the panel */
+/* panel.css */
+.optipanel {
+    width: 300px;
+    background: #f5f5f5;
+    padding: 10px;
+    border: 1px solid #ccc;
+    position: fixed;
+    right: 0;
+    top: 100px;
+}
+
+
+/* Header styles */
+.optiheader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 12px;
+}
+
+.optiheader .title {
+    font-size: 1.25em;
+    font-weight: bold;
+}
+
+.optiheader .result-url {
+    color: #666;
+    font-size: 0.9em;
+    text-decoration: none;
+}
+
+/* Panel content styling */
+.optibody {
+    line-height: 1.6;
+    font-size: 1em;
+    color: #333;
+}
+
+.optibody.w3body .w3-example {
+    background-color: #f0f0f0;
+    padding: 12px;
+    margin-top: 8px;
+    border-left: 3px solid #ffa500;
+}
+
+/* Prettify code blocks within the panel */
+.pre-surround {
+    position: relative;
+    padding: 10px;
+    background: #272822;
+    color: #f8f8f2;
+    border-radius: 6px;
+    margin: 12px 0;
+}
+
+.prettyprint {
+    overflow-x: auto;
+    white-space: pre;
+    padding: 12px;
+    font-family: "Courier New", Courier, monospace;
+}
+
+/* Footer or additional information styling */
+.optifoot {
+    border-top: 1px solid #ddd;
+    padding-top: 8px;
+    margin-top: 16px;
+    text-align: right;
+    font-size: 0.85em;
+    color: #999;
+}
+
+/* Adjust background color for dark mode */
+.optisearchbox.dark {
+    background-color: #333;
+}
+
+.optisearchbox.dark .optipanel {
+    background-color: #444;
+    color: #f9f9f9;
+}
+
+.optisearchbox.dark .optiheader .result-url {
+    color: #bbb;
+}
+
+.optisearchbox.dark .prettyprint {
+    background: #1e1e1e;
+}
+
+/* Watermark styling */
+.watermark {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    opacity: 0.15;
+    font-size: 2em;
+    pointer-events: none;
+}
+
+

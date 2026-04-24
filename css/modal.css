@@ -1,0 +1,720 @@
+/* File: sheener/css/modal.css */
+/**
+ * Standardized Modal Styles
+ * Centralized modal positioning, z-index, and styling for consistent behavior across the project
+ * 
+ * Z-Index Hierarchy:
+ * - Topbar: 1100 (defined in styles.css)
+ * - Standard Modals: 1200 (above topbar)
+ * - Nested Modals: 1300 (above standard modals)
+ * - Overlay Modals: 1400 (above nested modals)
+ */
+
+/* ============================================
+   MODAL OVERLAY - Base Styles
+   ============================================ */
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    z-index: 1200; /* Above topbar (1100) */
+    overflow-y: auto;
+    padding: 60px 20px;
+    box-sizing: border-box;
+}
+
+.modal-overlay.hidden {
+    display: none;
+}
+
+/* Ensure modals are always above topbar */
+.modal-overlay:not(.hidden) {
+    z-index: 1200 !important;
+}
+
+/* ============================================
+   MODAL CONTENT - Standard Container
+   ============================================ */
+
+.modal-content {
+    background: white;
+    border-radius: 8px;
+    padding: 0 !important;
+    max-width: 700px;
+    width: 90%;
+    max-height: 90vh;
+    overflow: hidden;
+    margin: 20px auto;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 1201; /* Above overlay */
+}
+
+/* Modal content size variants */
+.modal-content.modal-sm {
+    max-width: 400px;
+}
+
+.modal-content.modal-md {
+    max-width: 700px;
+}
+
+.modal-content.modal-lg {
+    max-width: 900px;
+}
+
+.modal-content.modal-xl {
+    max-width: 1200px;
+}
+
+/* ============================================
+   MODAL HEADER - Title and Close Button
+   ============================================ */
+
+.modal-header {
+    padding: 15px 30px !important;
+    margin-bottom: 0 !important;
+    position: sticky;
+    top: 0;
+    background: linear-gradient(135deg, #0A2F64 0%, #0d3d7a 100%);
+    z-index: 10;
+    border-bottom: 1px solid #e9ecef;
+    flex-shrink: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 8px 8px 0 0;
+}
+
+.modal-header .title-text {
+    color: white;
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.modal-header .header-icons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.modal-header .edit-icon {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    filter: brightness(0) invert(1);
+    transition: opacity 0.2s;
+}
+
+.modal-header .edit-icon:hover {
+    opacity: 0.7;
+}
+
+/* ============================================
+   MODAL BODY - Scrollable Content Area
+   ============================================ */
+
+.modal-body {
+    padding: 20px 30px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    flex: 1;
+    min-height: 0;
+}
+
+/* Custom scrollbar for modal body */
+.modal-body::-webkit-scrollbar {
+    width: 8px;
+}
+
+.modal-body::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.modal-body::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.modal-body::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-body:not(:hover)::-webkit-scrollbar-thumb {
+    background-color: transparent;
+}
+
+/* ============================================
+   MODAL FOOTER - Action Buttons
+   ============================================ */
+
+.modal-footer {
+    padding: 20px 30px;
+    margin-top: 0;
+    border-top: 1px solid #e9ecef;
+    flex-shrink: 0;
+    position: sticky;
+    bottom: 0;
+    background: white;
+    z-index: 10;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    border-radius: 0 0 8px 8px;
+}
+
+/* ============================================
+   MODAL FORM - For Edit/Create Forms
+   ============================================ */
+
+.modal-form {
+    padding: 20px 30px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    flex: 1;
+    min-height: 0;
+}
+
+/* ============================================
+   MODAL FIELD GROUPS - Form Layout
+   ============================================ */
+
+.modal-field-group {
+    margin-bottom: 20px !important;
+    clear: both !important;
+    width: 100% !important;
+    grid-column: 1 / -1 !important; /* Force full width in any parent grid */
+}
+
+.modal-field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.modal-field-row-3 {
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.modal-field-row-4 {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.modal-field {
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-field-full {
+    grid-column: 1 / -1;
+}
+
+.modal-field label {
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #333;
+    font-size: 14px;
+}
+
+.modal-field .form-control,
+.modal-field .form-control-plaintext {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: border-color 0.2s;
+    height: 38px;
+    min-height: 38px;
+    box-sizing: border-box;
+    line-height: 1.4;
+    display: flex;
+    align-items: center;
+}
+
+.modal-field select.form-control {
+    height: 38px;
+    min-height: 38px;
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+}
+
+.modal-field input.form-control {
+    height: 38px;
+    min-height: 38px;
+}
+
+.modal-field .form-control:focus {
+    outline: none;
+    border-color: #287ae6;
+    box-shadow: 0 0 0 2px rgba(40, 122, 230, 0.1);
+}
+
+.modal-field textarea.form-control {
+    min-height: 80px;
+    height: auto;
+    resize: vertical;
+    padding: 8px 12px;
+    line-height: 1.5;
+}
+
+.modal-field .form-control-plaintext {
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    height: 38px;
+    min-height: 38px;
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+}
+
+/* Risk Rating Wrapper */
+.risk-rating-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 38px;
+}
+
+.risk-rating-wrapper input {
+    flex: 1;
+}
+
+.risk-rating-wrapper .risk-rating-label {
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+/* ============================================
+   MODAL BUTTONS - Standardized Styles
+   ============================================
+   Note: Button styles are now defined in buttons.css
+   This section maintains modal-specific button spacing and layout
+   */
+
+.modal-footer .btn {
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+    font-size: 14px;
+}
+
+/* Button color styles are now in buttons.css - using CSS variables for consistency */
+
+/* ============================================
+   NESTED MODALS - Higher Z-Index
+   ============================================ */
+
+.modal-overlay.modal-nested {
+    z-index: 1300 !important;
+}
+
+.modal-overlay.modal-nested .modal-content {
+    z-index: 1301 !important;
+}
+
+/* ============================================
+   OVERLAY MODALS - Highest Z-Index
+   ============================================ */
+
+.modal-overlay.modal-overlay-high {
+    z-index: 1400 !important;
+}
+
+.modal-overlay.modal-overlay-high .modal-content {
+    z-index: 1401 !important;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+@media (max-width: 768px) {
+    .modal-content {
+        width: 95%;
+        max-width: 95%;
+        margin: 10px auto;
+    }
+
+    .modal-header,
+    .modal-body,
+    .modal-footer {
+        padding: 15px 20px;
+    }
+
+    .modal-field-row {
+        grid-template-columns: 1fr;
+    }
+
+    .modal-field-row-3,
+    .modal-field-row-4 {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes modalSlideIn {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.modal-overlay:not(.hidden) {
+    animation: modalFadeIn 0.2s ease-out;
+}
+
+.modal-overlay:not(.hidden) .modal-content {
+    animation: modalSlideIn 0.3s ease-out;
+}
+
+/* ============================================
+   ACCESSIBILITY
+   ============================================ */
+
+.modal-overlay[aria-hidden="true"] {
+    display: none !important;
+}
+
+.modal-overlay[aria-hidden="true"] * {
+    pointer-events: none;
+}
+
+/* Focus trap for keyboard navigation */
+.modal-content:focus {
+    outline: none;
+}
+
+/* ============================================
+   UTILITY CLASSES
+   ============================================ */
+
+.modal-scrollable {
+    overflow-y: auto;
+    max-height: calc(90vh - 200px);
+}
+
+.modal-no-padding .modal-body {
+    padding: 0;
+}
+
+.modal-compact .modal-header,
+.modal-compact .modal-body,
+.modal-compact .modal-footer {
+    padding: 15px 20px;
+}
+
+
+/* ============================================
+   FIXED FOOTER EXTENSION & GRID FORMS
+   Extracted from sop_list.php to be global
+   ============================================ */
+
+/* Modal with fixed footer */
+.modal-content-with-footer {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    max-height: 75vh;
+    overflow: hidden;
+}
+
+.modal-content-with-footer .modal-header {
+    padding: 25px 25px 15px 25px;
+    margin-bottom: 0;
+    flex-shrink: 0;
+}
+
+.modal-content-with-footer .modal-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0 25px;
+    min-height: 0;
+}
+
+.modal-content-with-footer .modal-footer-fixed {
+    position: sticky;
+    bottom: 0;
+    background-color: #fff;
+    padding: 15px 25px;
+    border-top: 1px solid #e9ecef;
+    margin-top: auto;
+    flex-shrink: 0;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+    display: flex;
+    justify-content: flex-end;
+}
+
+.modal-content-with-footer .modal-footer-fixed button {
+    padding: 10px 20px;
+    background-color: #287ae6;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.modal-content-with-footer .modal-footer-fixed button:hover {
+    background-color: #0056b3;
+}
+
+.modal-content-with-footer .modal-footer-fixed button.btn-edit-footer {
+    background-color: #f39c12;
+}
+
+.modal-content-with-footer .modal-footer-fixed button.btn-edit-footer:hover {
+    background-color: #d35400;
+}
+
+/* Modal Form Grid System */
+.modal-content form,
+.modal-content .modal-form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+/* Ensure modal sections span full width when inside a grid form */
+.modal-content form > .modal-body,
+.modal-content form > .modal-footer {
+    grid-column: 1 / -1;
+}
+
+.modal-content .form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-content .form-group-full {
+    grid-column: 1 / -1;
+}
+
+.modal-content .form-group-2col {
+    grid-column: span 1;
+}
+
+.modal-content .form-actions {
+    margin-top: 10px;
+}
+
+.modal-content label {
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #333;
+    font-size: 14px;
+}
+
+.modal-content textarea {
+    min-height: 80px;
+    resize: vertical;
+}
+
+/* Base Data Field Styles (Shared) */
+.modal-content input,
+.modal-content select,
+.modal-content textarea,
+.view-mode .view-field {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: all 0.3s;
+    background-color: #fff;
+    color: #333;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: inherit;
+    line-height: normal;
+}
+
+.modal-content input:focus,
+.modal-content select:focus,
+.modal-content textarea:focus {
+    outline: none;
+    border-color: #287ae6;
+    box-shadow: 0 0 0 2px rgba(40, 122, 230, 0.1);
+}
+
+/* View Mode Specifics */
+.view-mode .view-field {
+    height: 38px;
+    min-height: 38px;
+    display: flex;
+    align-items: center;
+}
+
+/* Ensure Readonly inputs and textareas in View Mode match the grid */
+.view-mode textarea.view-field {
+    height: auto;
+    min-height: 80px;
+}
+
+.view-mode .view-field[readonly] {
+    background-color: #ffffff;
+    cursor: default;
+}
+
+.view-mode label {
+    color: #333;
+}
+
+/* ============================================
+   LOADING OVERLAY - Standardized Progress Indicator
+   ============================================ */
+
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(15, 23, 42, 0.75);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 100000;
+    transition: all 0.5s ease;
+}
+
+.loading-overlay.show {
+    display: flex !important;
+}
+
+.loading-spinner-container {
+    background: rgba(255, 255, 255, 0.98);
+    padding: 45px;
+    border-radius: 28px;
+    box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.4);
+    text-align: center;
+    min-width: 320px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    animation: modalSlideIn 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.loading-spinner-icon {
+    position: relative;
+    width: 90px;
+    height: 90px;
+    margin: 0 auto 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.loading-spinner-icon i {
+    font-size: 45px;
+    color: #0A2F64;
+    z-index: 5;
+}
+
+.loading-spinner-icon::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: rgba(10, 47, 100, 0.1);
+    animation: premiumPulse 2s infinite ease-out;
+}
+
+.loading-spinner-icon::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 4px solid #f1f5f9;
+    border-top-color: #0A2F64;
+    animation: premiumRotate 1.2s infinite cubic-bezier(0.45, 0, 0.55, 1);
+}
+
+@keyframes premiumPulse {
+    0% { transform: scale(0.6); opacity: 1; }
+    100% { transform: scale(1.6); opacity: 0; }
+}
+
+@keyframes premiumRotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading-spinner-text {
+    font-size: 20px;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0;
+    letter-spacing: -0.02em;
+}
+
+.loading-spinner-subtext {
+    font-size: 15px;
+    color: #475569;
+    margin-top: 10px;
+    line-height: 1.6;
+    max-width: 260px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.loading-progress-bar {
+    width: 100%;
+    height: 6px;
+    background: #f1f5f9;
+    border-radius: 10px;
+    margin-top: 30px;
+    overflow: hidden;
+    position: relative;
+}
+
+.loading-progress-bar-fill {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, #0A2F64, #3B82F6, #0A2F64);
+    animation: loadingProgressMove 1.8s infinite ease-in-out;
+}
+
+@keyframes loadingProgressMove {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+/* Base spin animation for Font Awesome is fa-spin */

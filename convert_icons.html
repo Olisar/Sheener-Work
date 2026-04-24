@@ -1,0 +1,81 @@
+<!-- File: sheener/convert_icons.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Icon Converter</title>
+</head>
+<body>
+    <h1>Converting Icons...</h1>
+    <img id="source" src="img/AmnealAppLogo.svg" style="display:none" onload="processImages()">
+    <div id="status">Waiting for image...</div>
+
+    <script>
+        function processImages() {
+            const img = document.getElementById('source');
+            const status = document.getElementById('status');
+            
+            // Wait a bit to ensure full SVG render (sometimes needed for fonts etc)
+            setTimeout(async () => {
+                try {
+                    status.innerHTML = "Processing 192...";
+                    await createAndSaveIcon(img, 192, 'icon-192x192.png');
+                    
+                    status.innerHTML = "Processing 512...";
+                    await createAndSaveIcon(img, 512, 'icon-512x512.png');
+                    
+                    status.innerHTML = "Done! You can close this.";
+                    document.body.style.backgroundColor = "lightgreen";
+                } catch (e) {
+                    status.innerHTML = "Error: " + e.message;
+                    document.body.style.backgroundColor = "lightcoral";
+                }
+            }, 500);
+        }
+
+        function createAndSaveIcon(img, size, filename) {
+            return new Promise((resolve, reject) => {
+                const canvas = document.createElement('canvas');
+                canvas.width = size;
+                canvas.height = size;
+                const ctx = canvas.getContext('2d');
+
+                // Fill background
+                ctx.fillStyle = '#0A2F64';
+                ctx.fillRect(0, 0, size, size);
+                
+                // Draw image (centered, contain)
+                // Since logo is nearly square, we can pad it slightly or stretch.
+                // Best looks for app icons is often a bit of padding.
+                const padding = size * 0.1; // 10% padding
+                const dWidth = size - (padding * 2);
+                const dHeight = size - (padding * 2);
+                
+                ctx.drawImage(img, padding, padding, dWidth, dHeight);
+
+                const dataUrl = canvas.toDataURL('image/png');
+
+                fetch('save_icon.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        filename: filename,
+                        image: dataUrl
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        console.log('Saved ' + filename);
+                        resolve();
+                    } else {
+                        reject(new Error(data.error));
+                    }
+                })
+                .catch(error => reject(error));
+            });
+        }
+    </script>
+</body>
+</html>

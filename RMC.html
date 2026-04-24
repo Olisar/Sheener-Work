@@ -1,0 +1,1199 @@
+<!-- File: sheener/RMC.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Risk Management Center - Risk Register System</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="img/favicon/faviconAY.ico">
+    <script src="js/navbar.js" defer></script>
+    <script src="js/topbar.js" defer></script>
+    <style>
+        :root {
+            --rmc-primary: #0A2F64;
+            --rmc-secondary: #2f5d9e;
+            --rmc-success: #27ae60;
+            --rmc-warning: #f39c12;
+            --rmc-danger: #e74c3c;
+            --rmc-info: #17a2b8;
+            --rmc-light: #ecf0f1;
+            --rmc-dark: #2c3e50;
+        }
+
+        .rmc-container {
+            margin-left: 50px;
+            margin-top: 72px;
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: calc(100vh - 72px);
+        }
+
+        .rmc-header {
+            background: linear-gradient(135deg, var(--rmc-primary) 0%, var(--rmc-secondary) 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .rmc-header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .rmc-header p {
+            margin: 10px 0 0 0;
+            opacity: 0.95;
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.95);
+            font-weight: 400;
+        }
+
+        .stats-grid {
+            display: flex;
+            flex-direction: row;
+            gap: 20px;
+            margin-bottom: 30px;
+            flex-wrap: nowrap;
+        }
+
+        .stats-grid .stat-card {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: var(--stat-color, var(--rmc-primary));
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .stat-card.risk-critical {
+            --stat-color: var(--rmc-danger);
+        }
+
+        .stat-card.risk-high {
+            --stat-color: var(--rmc-warning);
+        }
+
+        .stat-card.risk-medium {
+            --stat-color: var(--rmc-info);
+        }
+
+        .stat-card.risk-low {
+            --stat-color: var(--rmc-success);
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+            background: var(--stat-color, var(--rmc-primary));
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--rmc-dark);
+            margin: 10px 0;
+        }
+
+        .stat-label {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .stat-change {
+            font-size: 0.85rem;
+            margin-top: 5px;
+        }
+
+        .stat-change.positive {
+            color: var(--rmc-success);
+        }
+
+        .stat-change.negative {
+            color: var(--rmc-danger);
+        }
+
+        .rmc-content {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .content-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .content-header h2 {
+            margin: 0;
+            color: var(--rmc-dark);
+            font-size: 1.8rem;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn-rmc {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .btn-rmc-primary {
+            background: var(--rmc-primary);
+            color: white;
+        }
+
+        .btn-rmc-primary:hover {
+            background: var(--rmc-secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+        }
+
+        .btn-rmc-secondary {
+            background: var(--rmc-light);
+            color: var(--rmc-dark);
+        }
+
+        .btn-rmc-secondary:hover {
+            background: #d5dbdb;
+        }
+
+        .filters-bar {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            padding: 20px;
+            background: var(--rmc-light);
+            border-radius: 10px;
+        }
+
+        .filter-group {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .filter-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: var(--rmc-dark);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .filter-group select,
+        .filter-group input {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .filter-group select:focus,
+        .filter-group input:focus {
+            outline: none;
+            border-color: var(--rmc-secondary);
+        }
+
+        .risks-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .risks-table thead {
+            background: var(--rmc-primary);
+            color: white;
+        }
+
+        .risks-table th {
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .risks-table tbody tr {
+            border-bottom: 1px solid #e0e0e0;
+            transition: background-color 0.2s ease;
+        }
+
+        .risks-table tbody tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        .risks-table td {
+            padding: 15px;
+            vertical-align: middle;
+        }
+
+        .risk-code {
+            font-family: 'Courier New', monospace;
+            font-weight: 600;
+            color: var(--rmc-primary);
+        }
+
+        .risk-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .badge-critical {
+            background: #fee;
+            color: var(--rmc-danger);
+            border: 1px solid var(--rmc-danger);
+        }
+
+        .badge-high {
+            background: #fff4e6;
+            color: var(--rmc-warning);
+            border: 1px solid var(--rmc-warning);
+        }
+
+        .badge-medium {
+            background: #e6f7ff;
+            color: var(--rmc-info);
+            border: 1px solid var(--rmc-info);
+        }
+
+        .badge-low {
+            background: #e6ffe6;
+            color: var(--rmc-success);
+            border: 1px solid var(--rmc-success);
+        }
+
+        .badge-status {
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .status-active {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-closed {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .status-escalated {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .status-monitoring {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .action-buttons-cell {
+            display: flex;
+            gap: 5px;
+        }
+
+        .btn-icon {
+            width: 32px;
+            height: 32px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .btn-icon-view {
+            background: var(--rmc-info);
+            color: white;
+        }
+
+        .btn-icon-view:hover {
+            background: #138496;
+        }
+
+        .btn-icon-edit {
+            background: var(--rmc-warning);
+            color: white;
+        }
+
+        .btn-icon-edit:hover {
+            background: #e0a800;
+        }
+
+        .loading-spinner {
+            text-align: center;
+            padding: 40px;
+            color: var(--rmc-secondary);
+        }
+
+        .loading-spinner i {
+            font-size: 2rem;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #7f8c8d;
+        }
+
+        .empty-state i {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        .empty-state h3 {
+            margin: 0 0 10px 0;
+            color: var(--rmc-dark);
+        }
+
+        @media (max-width: 1200px) {
+            .stats-grid {
+                flex-wrap: wrap;
+            }
+
+            .stats-grid .stat-card {
+                flex: 1 1 calc(50% - 10px);
+                min-width: 250px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .rmc-container {
+                margin-left: 0;
+                padding: 15px;
+            }
+
+            .stats-grid {
+                flex-direction: column;
+            }
+
+            .stats-grid .stat-card {
+                flex: 1 1 100%;
+            }
+
+            .content-header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .filters-bar {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="navbar"></div>
+    <div id="topbar"></div>
+
+    <main class="rmc-container">
+        <div class="rmc-header">
+            <h1><i class="fas fa-shield-alt"></i> Risk Management Center</h1>
+            <p>Comprehensive Risk Register Management System for Pharmaceutical Manufacturing</p>
+        </div>
+
+        <div class="stats-grid" id="statsGrid">
+            <div class="stat-card risk-critical">
+                <div class="stat-header">
+                    <div>
+                        <div class="stat-label">Critical Risks</div>
+                        <div class="stat-value" id="statCritical">0</div>
+                    </div>
+                    <div class="stat-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                </div>
+            </div>
+
+            <div class="stat-card risk-high">
+                <div class="stat-header">
+                    <div>
+                        <div class="stat-label">High Risks</div>
+                        <div class="stat-value" id="statHigh">0</div>
+                    </div>
+                    <div class="stat-icon"><i class="fas fa-exclamation-circle"></i></div>
+                </div>
+            </div>
+
+            <div class="stat-card risk-medium">
+                <div class="stat-header">
+                    <div>
+                        <div class="stat-label">Medium Risks</div>
+                        <div class="stat-value" id="statMedium">0</div>
+                    </div>
+                    <div class="stat-icon"><i class="fas fa-info-circle"></i></div>
+                </div>
+            </div>
+
+            <div class="stat-card risk-low">
+                <div class="stat-header">
+                    <div>
+                        <div class="stat-label">Total Active Risks</div>
+                        <div class="stat-value" id="statTotal">0</div>
+                    </div>
+                    <div class="stat-icon"><i class="fas fa-clipboard-list"></i></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="rmc-content">
+            <div class="content-header">
+                <h2>
+                    <i class="fas fa-list"></i> Risk Register
+                    <span id="riskCount"
+                        style="font-size: 1rem; color: #7f8c8d; font-weight: normal; margin-left: 10px;">
+                        (<span id="riskCountValue">0</span> risks)
+                    </span>
+                </h2>
+                <div class="action-buttons">
+                    <button class="btn-rmc btn-rmc-primary" id="btnAddRisk">
+                        <i class="fas fa-plus"></i> New Risk
+                    </button>
+                    <button class="btn-rmc btn-rmc-secondary" id="btnVerify">
+                        <i class="fas fa-check-circle"></i> Verify Data
+                    </button>
+                    <button class="btn-rmc btn-rmc-secondary" id="btnExport">
+                        <i class="fas fa-download"></i> Export
+                    </button>
+                    <button class="btn-rmc btn-rmc-secondary" id="btnRefresh">
+                        <i class="fas fa-sync-alt"></i> Refresh
+                    </button>
+                </div>
+            </div>
+
+            <div class="filters-bar">
+                <div class="filter-group">
+                    <label><i class="fas fa-filter"></i> Category</label>
+                    <select id="filterCategory">
+                        <option value="">All Categories</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label><i class="fas fa-tag"></i> Status</label>
+                    <select id="filterStatus">
+                        <option value="">All Status</option>
+                        <option value="Active">Active</option>
+                        <option value="Closed">Closed</option>
+                        <option value="Escalated">Escalated</option>
+                        <option value="Monitoring">Monitoring</option>
+                        <option value="Under Review">Under Review</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label><i class="fas fa-layer-group"></i> Risk Level</label>
+                    <select id="filterRiskLevel">
+                        <option value="">All Levels</option>
+                        <option value="Critical">Critical</option>
+                        <option value="High">High</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Low">Low</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label><i class="fas fa-search"></i> Search</label>
+                    <input type="text" id="searchInput" placeholder="Search risks...">
+                </div>
+            </div>
+
+            <div id="risksContainer">
+                <div class="loading-spinner">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <p>Loading risks...</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        class RiskManagementCenter {
+            constructor() {
+                this.risks = [];
+                this.categories = [];
+                this.filters = {
+                    category: '',
+                    status: '',
+                    riskLevel: '',
+                    search: ''
+                };
+                this.init();
+            }
+
+            async init() {
+                await this.loadCategories();
+                await this.loadDashboardStats();
+                await this.loadRisks();
+                this.attachEventListeners();
+                // Auto-verify on load (optional - can be removed if not needed)
+                // this.verifyAllRisks();
+            }
+
+            async loadCategories() {
+                try {
+                    const response = await fetch('php/api_risk_register.php?action=list_categories');
+                    const data = await response.json();
+                    console.log('Categories response:', data);
+                    if (data.success) {
+                        this.categories = data.data;
+                        console.log(`Loaded ${this.categories.length} categories`);
+                        this.renderCategoryFilter();
+                    } else {
+                        console.error('Failed to load categories:', data.error);
+                    }
+                } catch (error) {
+                    console.error('Error loading categories:', error);
+                }
+            }
+
+            renderCategoryFilter() {
+                const select = document.getElementById('filterCategory');
+                // Clear existing options except "All Categories"
+                select.innerHTML = '<option value="">All Categories</option>';
+
+                // Get unique parent categories (remove duplicates by both ID and name)
+                const seenById = new Set();
+                const seenByName = new Set();
+                const parentCategories = this.categories.filter(c => {
+                    // Only include parent categories (no parent_category_id)
+                    if (!c.parent_category_id) {
+                        // Check for duplicates by ID
+                        if (seenById.has(c.category_id)) {
+                            return false;
+                        }
+                        // Check for duplicates by name (case-insensitive)
+                        const nameKey = c.category_name.toLowerCase().trim();
+                        if (seenByName.has(nameKey)) {
+                            return false;
+                        }
+                        seenById.add(c.category_id);
+                        seenByName.add(nameKey);
+                        return true;
+                    }
+                    return false;
+                });
+
+                // Sort by name
+                parentCategories.sort((a, b) => a.category_name.localeCompare(b.category_name));
+
+                parentCategories.forEach(category => {
+                    const option = document.createElement('option');
+                    option.value = category.category_id;
+                    option.textContent = category.category_name;
+                    // Add risk count if available
+                    if (category.risk_count > 0) {
+                        option.textContent += ` (${category.risk_count})`;
+                    }
+                    select.appendChild(option);
+                });
+
+                console.log(`Rendered ${parentCategories.length} unique categories`);
+            }
+
+            async loadDashboardStats() {
+                try {
+                    const response = await fetch('php/api_risk_register.php?action=dashboard_stats');
+                    const data = await response.json();
+                    if (data.success) {
+                        this.updateStats(data.data);
+                        console.log('Dashboard stats loaded:', data.data);
+                    } else {
+                        console.error('Failed to load stats:', data.error);
+                        this.showError('Failed to load dashboard statistics: ' + (data.error || 'Unknown error'));
+                    }
+                } catch (error) {
+                    console.error('Error loading stats:', error);
+                    this.showError('Network error loading dashboard statistics: ' + error.message);
+                }
+            }
+
+            updateStats(stats) {
+                const riskLevels = {};
+                stats.risks_by_level.forEach(item => {
+                    riskLevels[item.inherent_risk_level] = parseInt(item.count);
+                });
+
+                document.getElementById('statCritical').textContent = riskLevels.Critical || 0;
+                document.getElementById('statHigh').textContent = riskLevels.High || 0;
+                document.getElementById('statMedium').textContent = riskLevels.Medium || 0;
+                document.getElementById('statTotal').textContent = stats.total_risks || 0;
+            }
+
+            async loadRisks() {
+                try {
+                    let url = 'php/api_risk_register.php?action=list';
+                    const params = new URLSearchParams();
+
+                    if (this.filters.category) params.append('category_id', this.filters.category);
+                    if (this.filters.status) params.append('status', this.filters.status);
+                    if (this.filters.search) params.append('search', this.filters.search);
+
+                    if (params.toString()) url += '&' + params.toString();
+
+                    console.log('Loading risks from:', url);
+                    const response = await fetch(url);
+                    const data = await response.json();
+
+                    console.log('Risks response:', data);
+
+                    if (data.success) {
+                        this.risks = data.data;
+                        console.log(`Loaded ${this.risks.length} risks`);
+                        document.getElementById('riskCountValue').textContent = this.risks.length;
+                        this.renderRisks();
+                    } else {
+                        console.error('Failed to load risks:', data.error);
+                        this.showError('Failed to load risks: ' + (data.error || 'Unknown error'));
+                    }
+                } catch (error) {
+                    console.error('Error loading risks:', error);
+                    this.showError('Network error loading risks: ' + error.message);
+                }
+            }
+
+            renderRisks() {
+                const container = document.getElementById('risksContainer');
+
+                if (this.risks.length === 0) {
+                    container.innerHTML = `
+                        <div class="empty-state">
+                            <i class="fas fa-inbox"></i>
+                            <h3>No Risks Found</h3>
+                            <p>No risks match your current filters. Try adjusting your search criteria.</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                let html = `
+                    <table class="risks-table">
+                        <thead>
+                            <tr>
+                                <th>Risk Code</th>
+                                <th>Title</th>
+                                <th>Category</th>
+                                <th>Risk Level</th>
+                                <th>Status</th>
+                                <th>Date Identified</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                `;
+
+                this.risks.forEach(risk => {
+                    const riskLevel = risk.current_risk_level || 'Low';
+                    const riskScore = risk.current_risk_score || 0;
+
+                    html += `
+                        <tr>
+                            <td><span class="risk-code">${this.escapeHtml(risk.risk_code)}</span></td>
+                            <td><strong>${this.escapeHtml(risk.risk_title)}</strong></td>
+                            <td>${this.escapeHtml(risk.category_name || 'N/A')}</td>
+                            <td>
+                                <span class="risk-badge badge-${riskLevel.toLowerCase()}">
+                                    ${riskLevel} (${riskScore})
+                                </span>
+                            </td>
+                            <td>
+                                <span class="badge-status status-${risk.status.toLowerCase().replace(' ', '-')}">
+                                    ${this.escapeHtml(risk.status)}
+                                </span>
+                            </td>
+                            <td>${new Date(risk.date_identified).toLocaleDateString()}</td>
+                            <td>
+                                <div class="action-buttons-cell">
+                                    <button class="btn-icon btn-icon-view" onclick="rmc.viewRisk(${risk.risk_id})" title="View Details">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="btn-icon btn-icon-edit" onclick="rmc.editRisk(${risk.risk_id})" title="Edit">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+                });
+
+                html += `
+                        </tbody>
+                    </table>
+                `;
+
+                container.innerHTML = html;
+
+                // Log verification info
+                console.log('Rendered risks:', this.risks.map(r => r.risk_code));
+                this.checkExpectedRisks();
+            }
+
+            checkExpectedRisks() {
+                // Expected risks from sample data (all categories)
+                const expectedRiskCodes = [
+                    'QR-001', 'QR-002', 'QR-003', 'QR-004',
+                    'REG-001', 'REG-002', 'REG-003',
+                    'MFG-001', 'MFG-002', 'MFG-003', 'MFG-004',
+                    'SC-001', 'SC-002', 'SC-003',
+                    'RD-001', 'RD-002', 'RD-003',
+                    'ENV-001', 'ENV-002', 'ENV-003',
+                    'OHS-001', 'OHS-002', 'OHS-003',
+                    'ENG-001', 'ENG-002', 'ENG-003',
+                    'IT-001', 'IT-002', 'IT-003',
+                    'FIN-001', 'FIN-002', 'FIN-003',
+                    'REP-001', 'REP-002', 'REP-003',
+                    'LEG-001', 'LEG-002', 'LEG-003'
+                ];
+                const foundCodes = this.risks.map(r => r.risk_code);
+                const missing = expectedRiskCodes.filter(code => !foundCodes.includes(code));
+                const found = expectedRiskCodes.filter(code => foundCodes.includes(code));
+
+                console.log('=== Risk Verification ===');
+                console.log(`Total Expected: ${expectedRiskCodes.length} risks`);
+                console.log(`Found: ${found.length} risks`);
+                console.log(`Missing: ${missing.length} risks`);
+                console.log(`Status: ${found.length}/${expectedRiskCodes.length} expected risks found`);
+
+                if (missing.length > 0) {
+                    console.warn('⚠ Missing risks:', missing);
+                    console.log('Note: Some risks may not be created yet. Run populate scripts to create them.');
+                } else if (found.length === expectedRiskCodes.length) {
+                    console.log('✓ All expected risks are present!');
+                }
+
+                // Group by category prefix
+                const byCategory = {};
+                foundCodes.forEach(code => {
+                    const prefix = code.split('-')[0];
+                    if (!byCategory[prefix]) byCategory[prefix] = [];
+                    byCategory[prefix].push(code);
+                });
+                console.log('Risks by category:', byCategory);
+            }
+
+            attachEventListeners() {
+                document.getElementById('filterCategory').addEventListener('change', (e) => {
+                    this.filters.category = e.target.value;
+                    this.loadRisks();
+                });
+
+                document.getElementById('filterStatus').addEventListener('change', (e) => {
+                    this.filters.status = e.target.value;
+                    this.loadRisks();
+                });
+
+                document.getElementById('filterRiskLevel').addEventListener('change', (e) => {
+                    this.filters.riskLevel = e.target.value;
+                    this.loadRisks();
+                });
+
+                document.getElementById('searchInput').addEventListener('input', (e) => {
+                    this.filters.search = e.target.value;
+                    clearTimeout(this.searchTimeout);
+                    this.searchTimeout = setTimeout(() => this.loadRisks(), 300);
+                });
+
+                document.getElementById('btnRefresh').addEventListener('click', () => {
+                    this.loadDashboardStats();
+                    this.loadRisks();
+                });
+
+                document.getElementById('btnAddRisk').addEventListener('click', () => {
+                    alert('Add Risk functionality - to be implemented');
+                });
+
+                document.getElementById('btnExport').addEventListener('click', () => {
+                    alert('Export functionality - to be implemented');
+                });
+
+                document.getElementById('btnVerify').addEventListener('click', () => {
+                    this.verifyAllRisks();
+                });
+            }
+
+            async verifyAllRisks() {
+                // Expected risks from sample data (original + comprehensive)
+                const expectedRisks = [
+                    // Original sample risks
+                    { code: 'QR-001', title: 'Out of Specification (OOS) Test Results' },
+                    { code: 'REG-001', title: 'Data Integrity Violations in Electronic Records' },
+                    { code: 'MFG-001', title: 'Critical Equipment Failure During Production' },
+                    // Quality & Product Risks
+                    { code: 'QR-002', title: 'Particle Size Distribution (PSD) Variability' },
+                    { code: 'QR-003', title: 'Formulation Stability Failures' },
+                    { code: 'QR-004', title: 'Sterility Failure in Aseptic Processing' },
+                    // Regulatory & Compliance Risks
+                    { code: 'REG-002', title: 'FDA Form 483 Observation Risk' },
+                    { code: 'REG-003', title: 'Validation Documentation Inadequacies' },
+                    // Manufacturing & Process Risks
+                    { code: 'MFG-002', title: 'Critical Equipment Calibration Failures' },
+                    { code: 'MFG-003', title: 'Critical Process Parameter Drift' },
+                    { code: 'MFG-004', title: 'Filling Accuracy and Precision Failures' },
+                    // Supply Chain & Material Risks
+                    { code: 'SC-001', title: 'API Supplier Qualification Failures' },
+                    { code: 'SC-002', title: 'Raw Material Shortage and Supply Disruption' },
+                    { code: 'SC-003', title: 'Cold Chain Breach During Transportation' },
+                    // R&D & Clinical Development Risks
+                    { code: 'RD-001', title: 'Clinical Protocol Design Flaws' },
+                    { code: 'RD-002', title: 'Patient Recruitment and Retention Challenges' },
+                    { code: 'RD-003', title: 'Clinical Data Integrity Failures' },
+                    // Environmental Risks
+                    { code: 'ENV-001', title: 'VOC Emissions Exceeding Regulatory Limits' },
+                    { code: 'ENV-002', title: 'API Residues in Wastewater' },
+                    { code: 'ENV-003', title: 'Hazardous Waste Disposal Non-Compliance' },
+                    // Occupational Health & Safety Risks
+                    { code: 'OHS-001', title: 'Occupational Exposure to Potent APIs' },
+                    { code: 'OHS-002', title: 'Pressurized System Failure and Explosion' },
+                    { code: 'OHS-003', title: 'Fire and Explosion Hazards in Solvent Areas' },
+                    // Energy Management Risks
+                    { code: 'ENG-001', title: 'Energy Cost Volatility Impact' },
+                    { code: 'ENG-002', title: 'Utility Supply Interruption and Power Outages' },
+                    { code: 'ENG-003', title: 'HVAC System Energy Inefficiency' },
+                    // Cybersecurity & IT Risks
+                    { code: 'IT-001', title: 'Ransomware Attack on Manufacturing Systems' },
+                    { code: 'IT-002', title: 'Patient Data Breach and Privacy Violations' },
+                    { code: 'IT-003', title: 'MES/SCADA System Vulnerabilities' },
+                    // Financial & Commercial Risks
+                    { code: 'FIN-001', title: 'Reimbursement Cuts and Pricing Pressures' },
+                    { code: 'FIN-002', title: 'Market Access Restrictions' },
+                    { code: 'FIN-003', title: 'Competitor Product Launch Impact' },
+                    // Reputational & Strategic Risks
+                    { code: 'REP-001', title: 'Public Product Quality Failure' },
+                    { code: 'REP-002', title: 'Negative Media Coverage and Crisis' },
+                    { code: 'REP-003', title: 'Stakeholder Confidence Loss' },
+                    // Legal & Litigation Risks
+                    { code: 'LEG-001', title: 'Product Liability Lawsuit Risk' },
+                    { code: 'LEG-002', title: 'Patent Infringement Claims' },
+                    { code: 'LEG-003', title: 'Employment Law Violations' }
+                ];
+
+                try {
+                    const response = await fetch('php/api_risk_register.php?action=list');
+                    const data = await response.json();
+
+                    if (!data.success) {
+                        alert('Error loading risks: ' + (data.error || 'Unknown error'));
+                        return;
+                    }
+
+                    const loadedRisks = data.data;
+                    let verificationReport = '=== Risk Verification Report ===\n\n';
+                    verificationReport += `Total Risks in Database: ${loadedRisks.length}\n`;
+                    verificationReport += `Expected Risks: ${expectedRisks.length}\n\n`;
+
+                    // Check each expected risk
+                    verificationReport += 'Expected Risks Status:\n';
+                    verificationReport += '─'.repeat(50) + '\n';
+
+                    expectedRisks.forEach(expected => {
+                        const found = loadedRisks.find(r => r.risk_code === expected.code);
+                        if (found) {
+                            verificationReport += `✓ ${expected.code} - ${expected.title}\n`;
+                            verificationReport += `  Status: ${found.status} | Level: ${found.current_risk_level || 'N/A'} | Category: ${found.category_name || 'N/A'}\n`;
+                        } else {
+                            verificationReport += `✗ ${expected.code} - ${expected.title} - NOT FOUND\n`;
+                        }
+                    });
+
+                    verificationReport += '\n' + '─'.repeat(50) + '\n';
+                    verificationReport += 'All Loaded Risks:\n';
+                    loadedRisks.forEach(risk => {
+                        verificationReport += `  • ${risk.risk_code} - ${risk.risk_title} (${risk.status})\n`;
+                    });
+
+                    // Show in modal or alert
+                    this.showVerificationModal(verificationReport, loadedRisks, expectedRisks);
+
+                } catch (error) {
+                    alert('Error verifying risks: ' + error.message);
+                    console.error('Verification error:', error);
+                }
+            }
+
+            showVerificationModal(report, loadedRisks, expectedRisks) {
+                // Create modal
+                const modal = document.createElement('div');
+                modal.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0,0,0,0.7);
+                    z-index: 10000;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                `;
+
+                const modalContent = document.createElement('div');
+                modalContent.style.cssText = `
+                    background: white;
+                    border-radius: 15px;
+                    padding: 30px;
+                    max-width: 800px;
+                    max-height: 80vh;
+                    overflow-y: auto;
+                    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+                `;
+
+                const foundCount = expectedRisks.filter(e =>
+                    loadedRisks.find(r => r.risk_code === e.code)
+                ).length;
+
+                modalContent.innerHTML = `
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                        <h2 style="margin: 0; color: #0A2F64;">
+                            <i class="fas fa-clipboard-check"></i> Risk Verification Report
+                        </h2>
+                        <button onclick="this.closest('[style*=\"position: fixed\"]').remove()" 
+                                style="background: #e74c3c; color: white; border: none; width: 30px; height: 30px; border-radius: 50%; cursor: pointer; font-size: 18px;">×</button>
+                    </div>
+                    
+                    <div style="background: ${foundCount === expectedRisks.length ? '#d4edda' : '#fff3cd'}; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid ${foundCount === expectedRisks.length ? '#27ae60' : '#f39c12'};">
+                        <strong>Summary:</strong> ${foundCount} of ${expectedRisks.length} expected risks found
+                        ${foundCount === expectedRisks.length ? ' ✓ All risks present!' : ' ⚠ Some risks missing'}
+                    </div>
+
+                    <div style="margin-bottom: 20px;">
+                        <h3 style="color: #2f5d9e; margin-bottom: 10px;">Expected Risks Status</h3>
+                        <table style="width: 100%; border-collapse: collapse;">
+                            <thead>
+                                <tr style="background: #0A2F64; color: white;">
+                                    <th style="padding: 10px; text-align: left;">Code</th>
+                                    <th style="padding: 10px; text-align: left;">Title</th>
+                                    <th style="padding: 10px; text-align: center;">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${expectedRisks.map(e => {
+                    const found = loadedRisks.find(r => r.risk_code === e.code);
+                    return `
+                                        <tr style="border-bottom: 1px solid #ddd;">
+                                            <td style="padding: 10px;"><code>${e.code}</code></td>
+                                            <td style="padding: 10px;">${e.title}</td>
+                                            <td style="padding: 10px; text-align: center;">
+                                                ${found ?
+                            `<span style="color: #27ae60; font-weight: bold;">✓ Found</span><br>
+                                                     <small style="color: #7f8c8d;">${found.status} | ${found.current_risk_level || 'N/A'}</small>`
+                            :
+                            `<span style="color: #e74c3c; font-weight: bold;">✗ Missing</span>`
+                        }
+                                            </td>
+                                        </tr>
+                                    `;
+                }).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div>
+                        <h3 style="color: #2f5d9e; margin-bottom: 10px;">All Risks in Database (${loadedRisks.length})</h3>
+                        <div style="max-height: 300px; overflow-y: auto; border: 1px solid #ddd; border-radius: 5px; padding: 10px;">
+                            ${loadedRisks.length > 0 ?
+                        loadedRisks.map(r => `
+                                    <div style="padding: 8px; border-bottom: 1px solid #eee;">
+                                        <strong><code>${r.risk_code}</code></strong> - ${r.risk_title}
+                                        <br><small style="color: #7f8c8d;">Category: ${r.category_name || 'N/A'} | Status: ${r.status} | Level: ${r.current_risk_level || 'N/A'}</small>
+                                    </div>
+                                `).join('')
+                        : '<p style="color: #7f8c8d;">No risks found in database</p>'
+                    }
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 20px; padding-top: 20px; border-top: 2px solid #ddd;">
+                        <pre style="background: #f8f9fa; padding: 15px; border-radius: 5px; font-size: 11px; max-height: 200px; overflow-y: auto;">${report}</pre>
+                    </div>
+
+                    <div style="margin-top: 20px; text-align: right;">
+                        <button onclick="this.closest('[style*=\"position: fixed\"]').remove()" 
+                                style="background: #0A2F64; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: 600;">
+                            Close
+                        </button>
+                    </div>
+                `;
+
+                modal.appendChild(modalContent);
+                document.body.appendChild(modal);
+
+                // Close on background click
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) {
+                        modal.remove();
+                    }
+                });
+            }
+
+            viewRisk(riskId) {
+                window.location.href = `risk_detail.html?id=${riskId}`;
+            }
+
+            editRisk(riskId) {
+                window.location.href = `risk_edit.html?id=${riskId}`;
+            }
+
+            showError(message) {
+                const container = document.getElementById('risksContainer');
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <h3>Error</h3>
+                        <p>${message}</p>
+                    </div>
+                `;
+            }
+
+            escapeHtml(text) {
+                const div = document.createElement('div');
+                div.textContent = text;
+                return div.innerHTML;
+            }
+        }
+
+        // Initialize Risk Management Center
+        let rmc;
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('Initializing Risk Management Center...');
+            rmc = new RiskManagementCenter();
+
+            // Add debug panel toggle (Ctrl+D)
+            document.addEventListener('keydown', (e) => {
+                if (e.ctrlKey && e.key === 'd') {
+                    e.preventDefault();
+                    toggleDebugPanel();
+                }
+            });
+        });
+
+        // Debug Panel
+        function toggleDebugPanel() {
+            let panel = document.getElementById('debugPanel');
+            if (!panel) {
+                panel = document.createElement('div');
+                panel.id = 'debugPanel';
+                panel.style.cssText = `
+                    position: fixed;
+                    bottom: 20px;
+                    right: 20px;
+                    width: 400px;
+                    max-height: 500px;
+                    background: white;
+                    border: 2px solid #0A2F64;
+                    border-radius: 10px;
+                    padding: 15px;
+                    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+                    z-index: 10000;
+                    overflow-y: auto;
+                `;
+                panel.innerHTML = `
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                        <h3 style="margin: 0; color: #0A2F64;">Debug Panel (Ctrl+D)</h3>
+                        <button onclick="document.getElementById('debugPanel').remove()" style="background: #e74c3c; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer;">×</button>
+                    </div>
+                    <div id="debugContent" style="font-family: monospace; font-size: 12px;">
+                        <p>Debug information will appear here...</p>
+                    </div>
+                `;
+                document.body.appendChild(panel);
+            } else {
+                panel.remove();
+            }
+        }
+
+        function logDebug(message, data = null) {
+            const debugContent = document.getElementById('debugContent');
+            if (debugContent) {
+                const time = new Date().toLocaleTimeString();
+                debugContent.innerHTML += `<div style="margin-bottom: 5px; padding: 5px; background: #f8f9fa; border-left: 3px solid #2f5d9e;">
+                    <strong>[${time}]</strong> ${message}
+                    ${data ? '<pre style="margin: 5px 0 0 0; font-size: 10px;">' + JSON.stringify(data, null, 2) + '</pre>' : ''}
+                </div>`;
+                debugContent.scrollTop = debugContent.scrollHeight;
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,33 @@
+# PHP/Composer
+vendor/
+composer.phar
+.php-cs-fixer.cache
+
+# Node/JS
+node_modules/
+dist/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# XAMPP / Local Server
+tmp/
+uploads/*
+!uploads/.gitkeep
+logs/
+*.log
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Secrets
+*.env
+.env
+.env.*
+
+# OS
+Thumbs.db
+.DS_Store

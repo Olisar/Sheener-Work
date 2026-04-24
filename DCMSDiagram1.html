@@ -1,0 +1,234 @@
+<!-- File: sheener/DCMSDiagram1.html -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Custom Flowchart Renderer - Revised</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      background: #f4f6f8;
+      font-family: Arial, sans-serif;
+    }
+    #canvas {
+      border: 1px solid #ccc;
+      background: #fff;
+      display: block;
+      margin: 20px auto;
+    }
+    #fileInput {
+      display: block;
+      margin: 0 auto 20px auto;
+    }
+    h1 { text-align: center; }
+  </style>
+</head>
+<body>
+  <h1>Custom Flowchart Renderer - Revised</h1>
+  <input type="file" id="fileInput" accept=".json,.canvas">
+  <canvas id="canvas" width="1000" height="1400"></canvas>
+
+  <script>
+    // Draw a rounded rectangle with a border radius of r.
+    function drawRoundedRect(ctx, x, y, width, height, r) {
+      ctx.beginPath();
+      ctx.moveTo(x + r, y);
+      ctx.lineTo(x + width - r, y);
+      ctx.quadraticCurveTo(x + width, y, x + width, y + r);
+      ctx.lineTo(x + width, y + height - r);
+      ctx.quadraticCurveTo(x + width, y + height, x + width - r, y + height);
+      ctx.lineTo(x + r, y + height);
+      ctx.quadraticCurveTo(x, y + height, x, y + height - r);
+      ctx.lineTo(x, y + r);
+      ctx.quadraticCurveTo(x, y, x + r, y);
+      ctx.closePath();
+      ctx.fill();
+      ctx.stroke();
+    }
+
+    // Draw a rounded diamond shape with a corner radius r.
+    function drawRoundedDiamond(ctx, x, y, width, height, r) {
+      const top    = { x: x + width / 2, y: y };
+      const right  = { x: x + width, y: y + height / 2 };
+      const bottom = { x: x + width / 2, y: y + height };
+      const left   = { x: x, y: y + height / 2 };
+
+      function offsetPoint(A, B, r) {
+        const angle = Math.atan2(B.y - A.y, B.x - A.x);
+        return { x: A.x + r * Math.cos(angle), y: A.y + r * Math.sin(angle) };
+      }
+
+      const topRight   = offsetPoint(top, right, r);
+      const topLeft    = offsetPoint(top, left, r);
+      const rightTop   = offsetPoint(right, top, r);
+      const rightBottom= offsetPoint(right, bottom, r);
+      const bottomRight= offsetPoint(bottom, right, r);
+      const bottomLeft = offsetPoint(bottom, left, r);
+      const leftBottom = offsetPoint(left, bottom, r);
+      const leftTop    = offsetPoint(left, top, r);
+
+      ctx.beginPath();
+      ctx.moveTo(topLeft.x, topLeft.y);
+      ctx.quadraticCurveTo(top.x, top.y, topRight.x, topRight.y);
+      ctx.lineTo(rightTop.x, rightTop.y);
+      ctx.quadraticCurveTo(right.x, right.y, rightBottom.x, rightBottom.y);
+      ctx.lineTo(bottomRight.x, bottomRight.y);
+      ctx.quadraticCurveTo(bottom.x, bottom.y, bottomLeft.x, bottomLeft.y);
+      ctx.lineTo(leftBottom.x, leftBottom.y);
+      ctx.quadraticCurveTo(left.x, left.y, leftTop.x, leftTop.y);
+      ctx.closePath();
+      ctx.fill();
+      ctx.stroke();
+    }
+
+    // Draw a connector from (sx, sy) to (tx, ty) using horizontal then vertical segments
+    // with a 4px rounded corner at the turn.
+    function drawConnector(ctx, sx, sy, tx, ty, r) {
+      ctx.beginPath();
+      ctx.moveTo(sx, sy);
+      // If both coordinates differ, use an L-shape.
+      if (sx !== tx && sy !== ty) {
+        // Draw horizontal segment, stopping r pixels short of tx.
+        if (tx > sx) {
+          ctx.lineTo(tx - r, sy);
+        } else {
+          ctx.lineTo(tx + r, sy);
+        }
+        // Draw the rounded corner.
+        ctx.arcTo(tx, sy, tx, ty, r);
+        ctx.lineTo(tx, ty);
+      } else {
+        // If one coordinate is the same, draw a straight line.
+        ctx.lineTo(tx, ty);
+      }
+      ctx.stroke();
+    }
+
+    // Render the canvas using the provided JSON data.
+    // Data structure:
+    // { "nodes": { "nodeID": { x, y, width, height, content } }, "edges": [ { source, target } ] }
+    function renderCanvas(data) {
+      const canvas = document.getElementById('canvas');
+      const ctx = canvas.getContext('2d');
+      ctx.lineWidth = 2;
+      ctx.lineJoin = 'round';
+
+      // Clear the canvas.
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Draw connectors using only horizontal and vertical lines with rounded corners.
+      if (data.edges) {
+        ctx.strokeStyle = '#555';
+        data.edges.forEach(edge => {
+          const source = data.nodes[edge.source];
+          const target = data.nodes[edge.target];
+          if (source && target) {
+            const sx = source.x + source.width / 2;
+            const sy = source.y + source.height / 2;
+            const tx = target.x + target.width / 2;
+            const ty = target.y + target.height / 2;
+            drawConnector(ctx, sx, sy, tx, ty, 4);
+          }
+        });
+      }
+
+      // Light fill color for nodes.
+      const nodeFillColor = "#e6f7ff";
+
+      // Decision nodes to be drawn as diamonds.
+      const decisionNodes = new Set(["B", "I", "K", "N"]);
+
+      if (data.nodes) {
+        Object.keys(data.nodes).forEach(key => {
+          const node = data.nodes[key];
+          ctx.fillStyle = nodeFillColor;
+          ctx.strokeStyle = '#000';
+
+          if (decisionNodes.has(key)) {
+            drawRoundedDiamond(ctx, node.x, node.y, node.width, node.height, 4);
+          } else {
+            drawRoundedRect(ctx, node.x, node.y, node.width, node.height, 4);
+          }
+
+          // Draw centered text (supports multi-line with <br>).
+          ctx.fillStyle = '#000';
+          ctx.font = '14px Arial';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          const lines = node.content.split(/<br\s*\/?>/i);
+          const lineHeight = 16;
+          lines.forEach((line, index) => {
+            ctx.fillText(
+              line,
+              node.x + node.width / 2,
+              node.y + node.height / 2 - ((lines.length - 1) * lineHeight) / 2 + index * lineHeight
+            );
+          });
+        });
+      }
+    }
+
+    // File input handler.
+    document.getElementById('fileInput').addEventListener('change', function(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          const jsonData = JSON.parse(e.target.result);
+          renderCanvas(jsonData);
+        } catch (err) {
+          console.error('Error parsing file:', err);
+        }
+      };
+      reader.readAsText(file);
+    });
+
+    // Example canvas data with estimated coordinates from the SVG.
+    const exampleCanvasData = {
+      "nodes": {
+        "A": { "x": 500, "y": 20, "width": 250, "height": 70, "content": "Initiate Document<br>Preparation Request" },
+        "B": { "x": 500, "y": 120, "width": 250, "height": 70, "content": "QA Approver<br>Review" },
+        "Z": { "x": 100, "y": 220, "width": 250, "height": 70, "content": "Request Canceled<br>or Returned" },
+        "C": { "x": 500, "y": 220, "width": 250, "height": 70, "content": "Create/Revise Document" },
+        "D": { "x": 500, "y": 320, "width": 250, "height": 70, "content": "Submit Document<br>for Review" },
+        "E": { "x": 500, "y": 420, "width": 250, "height": 70, "content": "Department Review" },
+        "F": { "x": 500, "y": 520, "width": 250, "height": 70, "content": "Department Manager Review" },
+        "G": { "x": 500, "y": 620, "width": 250, "height": 70, "content": "Quality Approver Review" },
+        "H": { "x": 500, "y": 720, "width": 250, "height": 70, "content": "Optional Cross-Functional<br>Team Review" },
+        "I": { "x": 500, "y": 820, "width": 250, "height": 70, "content": "Review Comments?" },
+        "J": { "x": 500, "y": 920, "width": 250, "height": 70, "content": "Approve" },
+        "K": { "x": 500, "y": 1020, "width": 250, "height": 70, "content": "Training Required?" },
+        "L": { "x": 250, "y": 1120, "width": 250, "height": 70, "content": "Confirmation<br>of Training" },
+        "M": { "x": 500, "y": 1120, "width": 250, "height": 70, "content": "Initiate Document<br>Effective Date Request" },
+        "N": { "x": 500, "y": 1220, "width": 250, "height": 70, "content": "Proposed Effective<br>Date Acceptable?" },
+        "O": { "x": 500, "y": 1320, "width": 250, "height": 70, "content": "Approve &<br>Document Made Effective" }
+      },
+      "edges": [
+        { "source": "A", "target": "B" },
+        { "source": "B", "target": "Z" },
+        { "source": "B", "target": "C" },
+        { "source": "C", "target": "D" },
+        { "source": "D", "target": "E" },
+        { "source": "E", "target": "F" },
+        { "source": "F", "target": "G" },
+        { "source": "G", "target": "H" },
+        { "source": "H", "target": "I" },
+        { "source": "I", "target": "C" },
+        { "source": "I", "target": "J" },
+        { "source": "J", "target": "K" },
+        { "source": "K", "target": "L" },
+        { "source": "K", "target": "M" },
+        { "source": "L", "target": "M" },
+        { "source": "M", "target": "N" },
+        { "source": "N", "target": "M" },
+        { "source": "N", "target": "O" }
+      ]
+    };
+
+    // Render the example data on load.
+    renderCanvas(exampleCanvasData);
+  </script>
+</body>
+</html>

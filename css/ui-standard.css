@@ -1,0 +1,303 @@
+/* File: sheener/css/ui-standard.css */
+/* 
+   UI Standard Styles
+   Standardized components for Page Headers, Toolbars, and Actions 
+*/
+
+:root {
+    --header-bg: #2c2c2c;
+    --toolbar-bg: #404040;
+    --accent-blue: #3498db;
+    --accent-blue-hover: #2980b9;
+    --text-white: #ffffff;
+    --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.15);
+    --border-radius: 8px;
+    --sidebar-width: 70px;
+    --page-margin-right: 20px;
+}
+
+/* Page Header (Dark Top Section) */
+.page-header {
+    background: var(--header-bg);
+    padding: 15px 30px;
+    margin-top: 20px;
+    margin-left: var(--sidebar-width);
+    margin-right: var(--page-margin-right);
+    margin-bottom: 0;
+    box-shadow: var(--shadow-sm);
+    border-top-left-radius: var(--border-radius);
+    border-top-right-radius: var(--border-radius);
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: calc(100% - (var(--sidebar-width) + var(--page-margin-right)));
+    box-sizing: border-box;
+    position: relative;
+    z-index: 10;
+}
+
+.page-header h1 {
+    margin: 0;
+    color: var(--text-white);
+    font-size: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.page-header .header-actions {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+/* Bottom Toolbar (Lighter Grey Bottom Section) */
+.bottom-toolbar {
+    background: var(--toolbar-bg);
+    padding: 10px 30px;
+    margin-top: 0;
+    margin-left: var(--sidebar-width);
+    margin-right: var(--page-margin-right);
+    margin-bottom: 20px;
+    box-shadow: var(--shadow-lg);
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: var(--border-radius);
+    border-bottom-right-radius: var(--border-radius);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: calc(100% - (var(--sidebar-width) + var(--page-margin-right)));
+    box-sizing: border-box;
+    position: relative;
+    z-index: 5;
+    color: var(--text-white);
+}
+
+.bottom-toolbar * {
+    background: transparent;
+}
+
+
+/* Search Input Styling */
+.search-input {
+    padding: 8px 15px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    font-size: 14px;
+    min-width: 250px;
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: white !important;
+}
+
+.search-input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* Action Buttons */
+.btn-add {
+    background: var(--accent-blue);
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.3s;
+    white-space: nowrap;
+}
+
+.btn-add:hover {
+    background: var(--accent-blue-hover);
+    transform: translateY(-1px);
+}
+
+/* View Controls & Filters inside Toolbar */
+.bottom-toolbar .btn-view,
+.bottom-toolbar .btn-zoom,
+.bottom-toolbar .btn-nav,
+.bottom-toolbar .btn-collapse,
+.page-header .btn-view {
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.bottom-toolbar .btn-view:hover,
+.bottom-toolbar .btn-zoom:hover,
+.bottom-toolbar .btn-nav:hover,
+.bottom-toolbar .btn-collapse:hover,
+.page-header .btn-view:hover {
+    background: rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 255, 255, 0.6);
+}
+
+.btn-view.active {
+    background: #3498db !important;
+    border-color: #3498db !important;
+    color: white !important;
+    font-weight: 600;
+}
+
+
+/* Generic Filters Bar inside Toolbar */
+.bottom-toolbar .filters-bar {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.bottom-toolbar .filter-select {
+    padding: 6px 10px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    font-size: 12px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    cursor: pointer;
+}
+
+.bottom-toolbar .filter-select option {
+    background: #333;
+    color: white;
+}
+
+/* Match SearchableDropdown in bottom-toolbar to other filters */
+.bottom-toolbar .searchable-dropdown .dropdown-input {
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: white !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    padding: 8px 30px 8px 12px !important;
+    height: 38px;
+    font-weight: 500;
+}
+
+.bottom-toolbar .searchable-dropdown .dropdown-toggle {
+    color: rgba(255, 255, 255, 0.6) !important;
+}
+
+.bottom-toolbar .searchable-dropdown .dropdown-input::placeholder {
+    color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.bottom-toolbar .searchable-dropdown .dropdown-menu {
+    background: #333;
+    border: 1px solid #444;
+}
+
+.bottom-toolbar .searchable-dropdown .dropdown-item {
+    color: white;
+    border-bottom: 1px solid #444;
+}
+
+.bottom-toolbar .searchable-dropdown .dropdown-item:hover {
+    background: #444;
+}
+
+.bottom-toolbar .searchable-dropdown .dropdown-search {
+    background: #222;
+}
+
+.bottom-toolbar .searchable-dropdown .dropdown-search-input {
+    background: #444;
+    color: white;
+    border-color: #555;
+}
+
+/* Meta Info items inside Bottom Toolbar */
+.meta-item-standard {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.meta-item-standard i {
+    color: #3498db;
+    font-size: 14px;
+}
+
+.meta-item-standard span {
+    font-weight: 500;
+}
+
+/* Standard Status Badge styles */
+.badge {
+    padding: 6px 12px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: inline-block;
+}
+
+.badge.Open {
+    background: #fff3cd !important;
+    color: #856404 !important;
+}
+
+.badge.In-Progress {
+    background: #cfe2ff !important;
+    color: #084298 !important;
+}
+
+.badge.Closed {
+    background: #d1e7dd !important;
+    color: #0f5132 !important;
+}
+
+
+
+/* Standard Table Action Buttons */
+.action-buttons-wrapper {
+    display: flex;
+    gap: 5px;
+    justify-content: flex-end;
+}
+
+.btn-table-action {
+    width: 30px;
+    height: 30px;
+    border: none;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 14px;
+    color: white;
+}
+
+.btn-table-action.btn-view {
+    background: #3498db;
+}
+
+.btn-table-action.btn-edit {
+    background: #f39c12;
+}
+
+.btn-table-action.btn-delete {
+    background: #e74c3c;
+}
+
+.btn-table-action:hover {
+    transform: translateY(-1px);
+    filter: brightness(0.9);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}

@@ -1,0 +1,400 @@
+<!-- File: sheener/ProcessMap.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Process Map</title>
+    <link rel="shortcut icon" href="img/favicon/faviconAY.ico">
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- Updated script reference -->
+
+
+</head>
+
+<body>
+    <div id="topbar"></div>
+    <div id="navbar"></div>
+    <main class="planner-main-horizontal">
+
+        <div class="process-map">
+            <div class="process">
+                <div class="process-name" onclick="toggleVisibility(event)">Research and Development</div>
+                <div class="content hidden">
+                    <div class="step">
+                        <div class="step-name" onclick="toggleVisibility(event)">Formulation development</div>
+                        <div class="content hidden">
+                            <div class="substep">
+                                <div class="substep-name">API selection and characterization</div>
+                            </div>
+                            <div class="substep">
+                                <div class="substep-name">Excipient selection (e.g., lactose for DPIs)</div>
+                            </div>
+                            <div class="substep">
+                                <div class="substep-name">Stability testing</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-name" onclick="toggleVisibility(event)">Device design and prototyping</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-name" onclick="toggleVisibility(event)">Pre-clinical studies</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="process">
+                <div class="process-name" onclick="toggleVisibility(event)">Raw Material Management</div>
+                <div class="content hidden">
+                    <div class="step">
+                        <div class="step-name" onclick="toggleVisibility(event)">Incoming material quality control</div>
+                        <div class="content hidden">
+                            <div class="substep">
+                                <div class="substep-name">Visual inspection</div>
+                            </div>
+                            <div class="substep">
+                                <div class="substep-name">Quality conformance testing</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-name" onclick="toggleVisibility(event)">Storage of raw materials</div>
+                        <div class="content hidden">
+                            <div class="substep">
+                                <div class="substep-name">API (Active Pharmaceutical Ingredient)</div>
+                            </div>
+                            <div class="substep">
+                                <div class="substep-name">Excipients</div>
+                            </div>
+                            <div class="substep">
+                                <div class="substep-name">Propellants (for MDIs)</div>
+                            </div>
+                            <div class="substep">
+                                <div class="substep-name">Packaging materials</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="process">
+                <div class="process-name" onclick="toggleVisibility(event)">API Processing</div>
+                <div class="content hidden">
+                    <div class="step">
+                        <div class="step-name" onclick="toggleVisibility(event)">API micronization</div>
+                        <div class="content hidden">
+                            <div class="substep">
+                                <div class="substep-name">Milling to achieve desired particle size</div>
+                            </div>
+                            <div class="substep">
+                                <div class="substep-name">Particle size distribution analysis</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-name" onclick="toggleVisibility(event)">Crystallinity and surface morphology
+                            testing</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="process">
+                <div class="process-name" onclick="toggleVisibility(event)">Formulation Preparation</div>
+                <div class="content hidden">
+                    <div class="step">
+                        <div class="step-name" onclick="toggleVisibility(event)">For DPIs</div>
+                        <div class="content hidden">
+                            <div class="substep">
+                                <div class="substep-name">Blending of micronized API with carrier (e.g., lactose)</div>
+                            </div>
+                            <div class="substep">
+                                <div class="substep-name">Homogenization</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-name" onclick="toggleVisibility(event)">For MDIs</div>
+                        <div class="content hidden">
+                            <div class="substep">
+                                <div class="substep-name">Preparation of drug suspension/solution</div>
+                            </div>
+                            <div class="substep">
+                                <div class="substep-name">Mixing with propellant</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="process">
+                <div class="process-name" onclick="toggleVisibility(event)">Device Components Manufacturing</div>
+                <div class="content hidden">
+                    <div class="step">
+                        <div class="step-name" onclick="toggleVisibility(event)">Injection molding of plastic components
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-name" onclick="toggleVisibility(event)">Metal components fabrication (e.g.,
+                            canisters for MDIs)</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-name" onclick="toggleVisibility(event)">Assembly of device parts</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="process">
+                <div class="process-name" onclick="toggleVisibility(event)">Filling and Assembly</div>
+                <div class="content hidden">
+                    <div class="step">
+                        <div class="step-name" onclick="toggleVisibility(event)">For DPIs</div>
+                        <div class="content hidden">
+                            <div class="substep">
+                                <div class="substep-name">Powder filling into blisters or reservoirs</div>
+                            </div>
+                            <div class="substep">
+                                <div class="substep-name">Device assembly</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-name" onclick="toggleVisibility(event)">For MDIs</div>
+                        <div class="content hidden">
+                            <div class="substep">
+                                <div class="substep-name">Canister filling with drug formulation and propellant</div>
+                            </div>
+                            <div class="substep">
+                                <div class="substep-name">Valve crimping</div>
+                            </div>
+                            <div class="substep">
+                                <div class="substep-name">Actuator attachment</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="process">
+                <div class="process-name" onclick="toggleVisibility(event)">In-Process Quality Control</div>
+                <div class="content hidden">
+                    <div class="step">
+                        <div class="step-name" onclick="toggleVisibility(event)">Weight checks</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-name" onclick="toggleVisibility(event)">Leak testing</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-name" onclick="toggleVisibility(event)">Dose uniformity testing</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-name" onclick="toggleVisibility(event)">Particle size distribution analysis
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="process">
+                <div class="process-name" onclick="toggleVisibility(event)">Packaging</div>
+                <div class="content hidden">
+                    <div class="step">
+                        <div class="step-name" onclick="toggleVisibility(event)">Primary packaging</div>
+                        <div class="content hidden">
+                            <div class="substep">
+                                <div class="substep-name">Blister packing for DPIs</div>
+                            </div>
+                            <div class="substep">
+                                <div class="substep-name">Canister sealing for MDIs</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-name" onclick="toggleVisibility(event)">Secondary packaging</div>
+                        <div class="content hidden">
+                            <div class="substep">
+                                <div class="substep-name">Carton boxing</div>
+                            </div>
+                            <div class="substep">
+                                <div class="substep-name">Patient information leaflet insertion</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="process">
+                <div class="process-name" onclick="toggleVisibility(event)">Labeling</div>
+                <div class="content hidden">
+                    <div class="step">
+                        <div class="step-name" onclick="toggleVisibility(event)">Printing of batch number and expiry
+                            date</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-name" onclick="toggleVisibility(event)">Application of product labels</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="process">
+                <div class="process-name" onclick="toggleVisibility(event)">Quality Assurance Testing</div>
+                <div class="content hidden">
+                    <div class="step">
+                        <div class="step-name" onclick="toggleVisibility(event)">Visual inspection</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-name" onclick="toggleVisibility(event)">Aerodynamic particle size distribution
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-name" onclick="toggleVisibility(event)">Delivered dose uniformity</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-name" onclick="toggleVisibility(event)">Leak rate testing (for MDIs)</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-name" onclick="toggleVisibility(event)">Moisture content analysis (for DPIs)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="process">
+                <div class="process-name" onclick="toggleVisibility(event)">Sterilization (if required)</div>
+                <div class="content hidden">
+                    <div class="step">
+                        <div class="step-name" onclick="toggleVisibility(event)">Ethylene oxide (EO) sterilization</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-name" onclick="toggleVisibility(event)">Bioburden testing</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-name" onclick="toggleVisibility(event)">Residual EO testing</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="process">
+                <div class="process-name" onclick="toggleVisibility(event)">Final Product Testing</div>
+                <div class="content hidden">
+                    <div class="step">
+                        <div class="step-name" onclick="toggleVisibility(event)">Stability testing</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-name" onclick="toggleVisibility(event)">Batch release testing</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="process">
+                <div class="process-name" onclick="toggleVisibility(event)">Warehousing and Distribution</div>
+                <div class="content hidden">
+                    <div class="step">
+                        <div class="step-name" onclick="toggleVisibility(event)">Storage under controlled conditions
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-name" onclick="toggleVisibility(event)">Shipment preparation</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-name" onclick="toggleVisibility(event)">Distribution to wholesalers or
+                            pharmacies</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="process">
+                <div class="process-name" onclick="toggleVisibility(event)">Post-Market Surveillance</div>
+                <div class="content hidden">
+                    <div class="step">
+                        <div class="step-name" onclick="toggleVisibility(event)">Pharmacovigilance</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-name" onclick="toggleVisibility(event)">Complaint handling</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-name" onclick="toggleVisibility(event)">Continuous product improvement</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelector('.process-map').addEventListener('click', function (event) {
+                if (event.target.classList.contains('process-name') ||
+                    event.target.classList.contains('step-name') ||
+                    event.target.classList.contains('substep-name')) {
+                    event.stopPropagation();
+                    var content = event.target.nextElementSibling;
+                    if (content.classList.contains('hidden')) {
+                        content.classList.remove('hidden');
+                    } else {
+                        content.classList.add('hidden');
+                    }
+                }
+            });
+        });
+
+
+        function toggleVisibility(event) {
+            event.stopPropagation(); // Prevent the event from bubbling up to parent elements
+            var content = event.target.nextElementSibling;
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+            } else {
+                content.classList.add('hidden');
+            }
+        }
+    </script>
+
+    <style>
+        .process-map {
+            margin-left: 20px;
+            width: 100%;
+            max-width: 800px;
+            padding: 20px;
+        }
+
+        .process,
+        .step,
+        .substep {
+            margin: 10px;
+            padding: 10px;
+            border-left: 3px solid #ccc;
+        }
+
+        .process {
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .step {
+            background-color: #e9e9ef;
+            margin-left: 20px;
+        }
+
+        .substep {
+            background-color: #d9d9db;
+            margin-left: 20px;
+        }
+
+        .process-name,
+        .step-name,
+        .substep-name {
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+    <script src="js/navbar.js" defer></script>
+    <script src="js/topbar.js" defer></script>
+
+</body>
+
+</html>

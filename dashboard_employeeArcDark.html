@@ -1,0 +1,550 @@
+<!-- File: sheener/dashboard_employeeArcDark.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EHS Management System</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      transition: all 0.3s ease-in-out;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+/* Light & Dark Mode Variables */
+:root {
+  /* Dark Mode */
+  --bg-color: #1a1a1a;
+  --text-color: #ffffff;
+  --sidebar-bg: #111;
+  --content-bg: #2a2a2a; /* Slightly lighter than before for better contrast */
+  --nav-bg: #034081;
+  --icon-color: #ffffff;
+  --search-bg: #3a3a3a; /* Lightened for better balance */
+  --search-text: white;
+  --search-placeholder: #ccc;
+  --tooltip-bg: rgba(0, 0, 0, 0.9); /* Slightly darker for better readability */
+  --tooltip-text: white;
+  --hover-bg: #1b91ff;
+  --hover-text: #ffffff; /* Added for consistency */
+}
+
+.light-mode {
+  /* Light Mode */
+  --bg-color: #f4f4f4;
+  --text-color: #333;
+  --sidebar-bg: #ffffff;
+  --content-bg: #ffffff;
+  --nav-bg: #007bff;
+  --icon-color: #333;
+  --search-bg: #f0f0f0; /* Slightly darker for better contrast */
+  --search-text: #000000;
+  --search-placeholder: #adadad;
+  --tooltip-bg: rgba(240, 240, 240, 0.95); /* Slightly darker for better readability */
+  --tooltip-text: #333;
+  --hover-bg: #005bb5; /* Darker blue for better contrast in light mode */
+  --hover-text: #ffffff; /* Added for consistency */
+}
+
+
+
+
+
+    /* Header */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem;
+      background-color: var(--nav-bg);
+      color: #fff;
+    }
+    header .header-left {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    header img {
+  width: 104px; /* 130px → 104px (reduced by 20%) */
+  height: 43px; /* 54px → 43px (reduced by 20%) */
+  object-fit: cover;
+
+}
+
+    header h1 {
+      font-size: 1.5rem;
+      margin: 0;
+      margin-left: 1.5rem;
+    }
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .header-right i {
+      color: white;
+      cursor: pointer;
+    }
+    
+    /* Sidebar */
+    .container {
+      display: flex;
+      height: 100%;
+    }
+
+
+/* Sidebar - Default Collapsed State */
+.sidebar {
+  width: 60px; /* Start in collapsed mode */
+  background-color: var(--sidebar-bg);
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  transition: width 0.3s ease;
+  overflow: hidden;
+}
+
+.sidebar.expanded {
+  width: 250px; /* Expands when toggled */
+}
+
+/* Hide Text by Default */
+.sidebar a span {
+  display: none;
+}
+
+/* Show Text When Expanded */
+.sidebar.expanded a span {
+  display: inline;
+}
+
+
+        /* Sidebar Toggle Button Wrapper */
+        .sidebar-toggle-container {
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+            margin-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+        }
+
+/* Sidebar Toggle Button */
+.sidebar-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: #1b91ff;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    border-radius: 5px;
+    transition: transform 0.3s ease-in-out;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Sidebar Expanded: Move Toggle to the Right */
+.sidebar.expanded .sidebar-toggle-container {
+    justify-content: flex-end;
+}
+
+
+/* Ensure Icon Stays Centered */
+.sidebar-toggle i {
+    min-width: 24px;
+    text-align: center;
+    transition: transform 0.3s ease-in-out; /* Transition on the icon */
+}
+
+
+
+/* Sidebar Expanded: Keep Hover Effect Active */
+.sidebar.expanded .sidebar-toggle {
+    transform: scaleX(-1);
+}
+
+/* ... (rest of your CSS) ... */
+        /* Sidebar Toggle Hover Effect */
+        .sidebar-toggle:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+
+
+        /* Ensure Icon Stays Centered */
+        .sidebar-toggle i {
+            min-width: 24px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+
+
+/* Sidebar Links - Default */
+.sidebar a {
+  text-decoration: none;
+  color: var(--text-color);
+  padding: 12px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: background 0.3s ease, color 0.2s ease;
+  white-space: nowrap;
+  overflow: hidden;
+  position: relative;
+  justify-content: flex-start;
+}
+
+/* Sidebar Icon Styling */
+.sidebar a i {
+  min-width: 24px;
+  text-align: center;
+  font-size: 1.2rem;
+  margin-left: -4px;
+}
+
+/* Dark Mode Hover */
+.sidebar a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ffffff; /* White text in dark mode */
+}
+
+/* Light Mode Hover */
+.light-mode .sidebar a:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  color: #000000; /* Black text in light mode */
+}
+
+/* Sidebar Active Link - Dark Mode */
+.sidebar a.active {
+  background-color: #1b91ff;
+  color: #ffffff;
+}
+
+/* Sidebar Active Link - Light Mode */
+.light-mode .sidebar a.active {
+  background-color: #007bff;
+  color: #ffffff;
+}
+
+
+
+
+
+
+    /* Main Content */
+    .main-content {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+    }
+
+    /* Top Bar */
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: var(--content-bg);
+      padding: 10px 20px;
+      border-radius: 8px;
+    }
+
+    .search-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Default Dark Mode Styles */
+.search-box, .search-container select {
+  background-color: var(--search-bg);
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  color: var(--search-text);
+  width: 250px;
+}
+
+.search-box::placeholder {
+  color: var(--search-placeholder);
+}
+
+
+
+
+    .top-bar span {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    /* Theme Toggle */
+    .theme-toggle {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1.2rem;
+    }
+    
+    /* Workspace Sections */
+    .workspace {
+      flex-grow: 1;
+      background-color: var(--content-bg);
+      margin-top: 15px;
+      border-radius: 8px;
+      padding: 20px;
+      display: none;
+    }
+    .workspace.active {
+      display: block;
+    }
+
+
+    /* Events & OFI Buttons */
+.navbar-buttons {
+  display: flex;
+  flex-direction: row; /* Ensures they are inline */
+  justify-content: center; /* Centers them */
+  gap: 10px; /* Adds spacing */
+  margin: 10px auto;
+}
+
+.navbar-buttons button {
+  background-color: var(--nav-bg);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background 0.3s ease-in-out, transform 0.2s ease;
+}
+
+.navbar-buttons button:hover {
+  background-color: #1b91ff; /* Matches active state */
+}
+
+.navbar-buttons button:active {
+  transform: scale(0.98); /* Slight click effect */
+}
+
+/* Tooltip Container */
+/* Tooltip Container */
+.tooltip {
+  position: relative;
+  display: inline-block;
+  background-color: var(--nav-bg);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background 0.3s ease-in-out, transform 0.2s ease;
+}
+
+/* Tooltip Text */
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 245px;
+  background-color: var(--tooltip-bg); /* Adapts to light or dark mode */
+  color: var(--tooltip-text); /* Adapts to light or dark mode */
+  text-align: center;
+  border-radius: 5px;
+  padding: 8px;
+  position: absolute;
+  bottom: 130%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out, transform 0.2s ease-in-out;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  z-index: 10;
+}
+
+/* Tooltip Arrow */
+.tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 6px;
+  border-style: solid;
+  border-color: var(--tooltip-bg) transparent transparent transparent;
+}
+
+/* Show Tooltip on Hover with Delay */
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+  transform: translateX(-50%) translateY(-3px);
+  transition-delay: 0.1s;
+}
+
+/* Button Hover Effect */
+.tooltip:hover {
+  background-color: var(--hover-bg); /* Adaptive background color */
+  transform: translateY(-2px);
+}
+
+.tooltip:active {
+  transform: scale(0.98);
+}
+
+
+
+  </style>
+</head>
+<body class="dark-mode">
+  
+  <!-- Header -->
+  <header>
+    <div class="header-left">
+      <img src="Amneal_Logo_new.svg" alt="Amneal Logo">
+      <h1>SHEEnerg Management System</h1>
+    </div>
+    <div class="header-right">
+      <button class="theme-toggle" onclick="toggleTheme()"><i class="fas fa-adjust"></i></button>
+      <i class="far fa-bell"></i>
+      <i class="fas fa-user"></i>
+    </div>
+  </header>
+
+  <div class="container">
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+      <!-- Sidebar Toggle Button -->
+      <div class="sidebar-toggle-container">
+        <button class="sidebar-toggle" onclick="toggleSidebar()"><i class="fas fa-chevron-left"></i></button>
+      </div>
+    
+      <!-- Sidebar Links -->
+      <a href="#" class="active" onclick="showSection('dashboard', event)">
+        <i class="fas fa-home"></i><span> Dashboard</span>
+      </a>
+      <a href="#" onclick="showSection('eventofi', event)">
+        <i class="fas fa-exclamation-triangle"></i><span> Event and OFI</span>
+      </a>
+      <a href="#" onclick="showSection('risk', event)">
+        <i class="fas fa-shield-alt"></i><span> Risk Management</span>
+      </a>
+      <a href="#" onclick="showSection('compliance', event)">
+        <i class="fas fa-file-alt"></i><span> Compliance</span>
+      </a>
+      <a href="#" onclick="showSection('documents', event)">
+        <i class="fas fa-folder-open"></i><span> Document Control</span>
+      </a>
+      <a href="#" onclick="showSection('reporting', event)">
+        <i class="fas fa-chart-bar"></i><span> Reporting</span>
+      </a>
+      <a href="#" onclick="showSection('admin', event)">
+        <i class="fas fa-user-cog"></i><span> Admin</span>
+      </a>
+    </div>
+    
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="top-bar">
+        <div class="search-container">
+          <input type="text" class="search-box" placeholder="Search...">
+          <select>
+            <option>All</option>
+            <option>Documents</option>
+            <option>Events and OFIs</option>
+            <option>Reports</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="dashboard-section" class="workspace active">
+        <h2>Dashboard</h2>
+        <p>Welcome to the EHS Management System.</p>
+      </div>
+
+      
+      <div id="eventofi-section" class="workspace">
+        <h2>Events and OFIs</h2>
+        <p>Manage Events and OFIs reporting and investigations.</p>
+      
+        <div class="navbar-buttons">
+          <button class="tooltip" onclick="showSection('events', event)">
+            Events
+            <span class="tooltiptext">Incident or Near Miss occurrence list</span>
+          </button>
+          <button class="tooltip" onclick="showSection('ofi', event)">
+            OFI
+            <span class="tooltiptext">Opportunity for Improvement list</span>
+          </button>
+        </div>
+      </div>
+      
+      <div id="risk-section" class="workspace">
+        <h2>Risk Management</h2>
+        <p>Monitor and assess risks effectively.</p>
+      </div>
+      <div id="compliance-section" class="workspace">
+        <h2>Compliance</h2>
+        <p>Ensure regulatory compliance and audits.</p>
+      </div>
+      <div id="documents-section" class="workspace">
+        <h2>Document Control</h2>
+        <p>Manage important EHS documents and procedures.</p>
+      </div>
+      <div id="reporting-section" class="workspace">
+        <h2>Reporting</h2>
+        <p>Generate and analyze reports and metrics.</p>
+      </div>
+      <div id="admin-section" class="workspace">
+        <h2>Administration</h2>
+        <p>Manage system settings and users.</p>
+      </div>
+
+    </main>
+  </div>
+
+  <script>
+
+    function toggleSidebar() {
+  const sidebar = document.querySelector('.sidebar');
+  sidebar.classList.toggle('expanded'); // Expands the sidebar
+}
+
+    function toggleTheme() {
+      document.body.classList.toggle('light-mode');
+    }
+    function showSection(section, event) {
+      // Hide all sections
+      document.querySelectorAll('.workspace').forEach(sec => sec.classList.remove('active'));
+      
+      // Remove active state from all sidebar items
+      document.querySelectorAll('.sidebar a').forEach(item => item.classList.remove('active'));
+      
+      // Show selected section
+      document.getElementById(section + '-section').classList.add('active');
+
+      // Add active class to clicked item
+      event.currentTarget.classList.add('active');
+    }
+  </script>
+
+</body>
+</html>

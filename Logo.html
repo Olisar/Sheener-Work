@@ -1,0 +1,87 @@
+<!-- File: sheener/Logo.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spinning Logo Animation</title>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0;
+        }
+
+        .container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            perspective: 1000px;
+        }
+
+        .polyline {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transform-origin: center;
+            animation: spinAndAlign 3s infinite ease-in-out;
+        }
+
+        @keyframes spinAndAlign {
+            0% {
+                transform: rotateY(0deg);
+            }
+            50% {
+                transform: rotateY(180deg);
+            }
+            100% {
+                transform: rotateY(360deg);
+            }
+        }
+
+        svg {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="polyline">
+            <svg viewBox="0 0 200 200">
+                <polyline points="50,150 100,25 150,150" stroke="orange" stroke-width="3" fill="none" />
+            </svg>
+        </div>
+        <div class="polyline">
+            <svg viewBox="0 0 200 200">
+                <polyline points="60,140 100,35 140,140" stroke="orange" stroke-width="3" fill="none" />
+            </svg>
+        </div>
+        <div class="polyline">
+            <svg viewBox="0 0 200 200">
+                <polyline points="70,130 100,45 130,130" stroke="orange" stroke-width="3" fill="none" />
+            </svg>
+        </div>
+        <div class="polyline">
+            <svg viewBox="0 0 200 200">
+                <polyline points="80,120 100,55 120,120" stroke="orange" stroke-width="3" fill="none" />
+            </svg>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const polylines = document.querySelectorAll('.polyline');
+
+            polylines.forEach((polyline, index) => {
+                polyline.style.animationDelay = `${index * 0.1}s`;
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1219 @@
+/* File: sheener/css/task_center.css */
+/* Task Center Styles */
+:root {
+    --topbar-height: 85px;
+    --navbar-width: 50px;
+}
+
+.task-center-container {
+    margin-top: var(--topbar-height);
+    margin-left: var(--navbar-width);
+    min-height: calc(100vh - var(--topbar-height));
+    width: calc(100% - var(--navbar-width));
+    background-color: #f5f5f5;
+    box-sizing: border-box;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+/* Standardized UI components (Page Header & Toolbar) are now handled by ui-standard.css */
+
+
+.view-controls {
+    background: transparent !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    display: flex !important;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 15px;
+    width: 100%;
+    box-sizing: border-box;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+.view-switcher {
+    display: flex !important;
+    gap: 5px;
+    visibility: visible !important;
+    opacity: 1 !important;
+    z-index: 10;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.btn-view {
+    padding: 6px 12px;
+    border: 1px solid #ddd;
+    background: #f8f9fa;
+    color: #333;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+    visibility: visible !important;
+    opacity: 1 !important;
+    flex-shrink: 0;
+}
+
+.btn-view:hover {
+    background: #e9ecef;
+    border-color: #3498db;
+    color: #3498db;
+}
+
+.btn-view.active {
+    background: #3498db;
+    color: white;
+    border-color: #3498db;
+    font-weight: 600;
+}
+
+.filters-bar {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    flex-wrap: nowrap;
+    flex: 1;
+    justify-content: flex-end;
+    min-width: 0;
+    overflow: visible;
+}
+
+.filter-select {
+    padding: 6px 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 12px;
+    background: white;
+    cursor: pointer;
+    min-width: 120px;
+    max-width: 140px;
+    width: 130px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex-shrink: 0;
+}
+
+.tasks-container {
+    margin-top: 0;
+    margin-left: 70px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    max-width: calc(100% - 90px);
+    box-sizing: border-box;
+}
+
+.tasks-list-view,
+.tasks-kanban-view,
+.tasks-calendar-view {
+    display: none;
+    background: white;
+    padding: 30px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.tasks-list-view.active,
+.tasks-kanban-view.active,
+.tasks-calendar-view.active {
+    display: block;
+}
+
+.task-item-list {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    border-left: 4px solid #3498db;
+    margin-bottom: 15px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.task-item-list:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transform: translateX(5px);
+}
+
+.task-item-list-high {
+    border-left-color: #e74c3c;
+}
+
+.task-item-list-medium {
+    border-left-color: #f39c12;
+}
+
+.task-item-list-low {
+    border-left-color: #27ae60;
+}
+
+.task-header-list {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    margin-bottom: 10px;
+}
+
+.task-title-list {
+    font-weight: 600;
+    color: #0A2F64;
+    font-size: 1.1rem;
+}
+
+.task-priority-badge {
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.priority-high {
+    background: #e74c3c;
+    color: white;
+}
+
+.priority-medium {
+    background: #f39c12;
+    color: white;
+}
+
+.priority-low {
+    background: #27ae60;
+    color: white;
+}
+
+.task-meta-list {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.task-description-list {
+    color: #666;
+    margin: 10px 0;
+}
+
+/* Kanban Styles */
+.kanban-columns {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.kanban-column {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 10px;
+    min-height: 500px;
+}
+
+.kanban-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #e0e0e0;
+}
+
+.kanban-header h3 {
+    margin: 0;
+    color: #0A2F64;
+    font-size: 1rem;
+}
+
+.kanban-count {
+    background: #3498db;
+    color: white;
+    padding: 1px 6px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+}
+
+.kanban-items {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.kanban-item {
+    background: white;
+    padding: 10px;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    transition: all 0.25s ease;
+    border: 1px solid #eee;
+}
+
+.kanban-item:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transform: translateY(-1px);
+    border-color: #3498db;
+}
+
+.kanban-item-title {
+    font-weight: 700;
+    color: #0A2F64;
+    margin-bottom: 4px;
+    font-size: 0.85rem;
+    line-height: 1.25;
+}
+
+.kanban-item-meta {
+    font-size: 0.72rem;
+    color: #6c757d;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.kanban-item-meta i {
+    width: 12px;
+    margin-right: 2px;
+}
+
+/* Event Type Colors - Border Left for List View */
+.event-item-list-ofi {
+    border-left-color: #3498db;
+}
+
+.event-item-list-adverse-event {
+    border-left-color: #e74c3c;
+}
+
+.event-item-list-defects {
+    border-left-color: #f39c12;
+}
+
+.event-item-list-noncompliance {
+    border-left-color: #9b59b6;
+}
+
+/* Event Type Colors - Kanban Items */
+.kanban-item.event-type-ofi {
+    border-left: 4px solid #3498db;
+}
+
+.kanban-item.event-type-adverse-event {
+    border-left: 4px solid #e74c3c;
+}
+
+.kanban-item.event-type-defects {
+    border-left: 4px solid #f39c12;
+}
+
+.kanban-item.event-type-noncompliance {
+    border-left: 4px solid #9b59b6;
+}
+
+/* Permit Type Colors - Border Left for List View */
+.permit-item-list-hot-work {
+    border-left-color: #e74c3c;
+}
+
+.permit-item-list-cold-work {
+    border-left-color: #3498db;
+}
+
+.permit-item-list-clearance {
+    border-left-color: #27ae60;
+}
+
+.permit-item-list-work-at-height {
+    border-left-color: #f39c12;
+}
+
+.permit-item-list-confined-space {
+    border-left-color: #9b59b6;
+}
+
+.permit-item-list-electrical-work {
+    border-left-color: #e67e22;
+}
+
+.permit-item-list-general-work {
+    border-left-color: #95a5a6;
+}
+
+/* Permit Type Colors - Kanban Items */
+.kanban-item.permit-type-hot-work {
+    border-left: 4px solid #e74c3c;
+}
+
+.kanban-item.permit-type-cold-work {
+    border-left: 4px solid #3498db;
+}
+
+.kanban-item.permit-type-clearance {
+    border-left: 4px solid #27ae60;
+}
+
+.kanban-item.permit-type-work-at-height {
+    border-left: 4px solid #f39c12;
+}
+
+.kanban-item.permit-type-confined-space {
+    border-left: 4px solid #9b59b6;
+}
+
+.kanban-item.permit-type-electrical-work {
+    border-left: 4px solid #e67e22;
+}
+
+.kanban-item.permit-type-general-work {
+    border-left: 4px solid #95a5a6;
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    padding: 20px 25px;
+    background: linear-gradient(135deg, #0A2F64 0%, #0d3d7a 100%);
+    border-radius: 8px;
+    color: white;
+}
+
+.calendar-header h2 {
+    margin: 0;
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.btn-calendar-nav {
+    padding: 8px 16px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    cursor: pointer;
+    color: white;
+    transition: all 0.2s;
+    font-weight: 600;
+}
+
+.btn-calendar-nav:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: white;
+    transform: translateY(-1px);
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 134px);
+    grid-auto-rows: auto;
+    gap: 10px;
+    align-items: stretch;
+    width: 1000px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.calendar-day {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    min-height: 110px;
+    width: 134px;
+    max-width: 134px;
+    box-sizing: border-box;
+    border: 1px solid #edf2f7;
+    transition: all 0.25s ease;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.calendar-day:hover {
+    background: #e9ecef;
+    border-color: #0A2F64;
+    box-shadow: 0 2px 8px rgba(10, 47, 100, 0.15);
+    transform: translateY(-2px);
+}
+
+.calendar-day:hover .calendar-day-header::after {
+    content: " +";
+    color: #0A2F64;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.calendar-day-header {
+    font-weight: 600;
+    color: #0A2F64;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #e0e0e0;
+    flex: 0 0 auto;
+    height: auto;
+    min-height: auto;
+}
+
+.calendar-day-tasks {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    flex: 1;
+    min-height: 0;
+}
+
+.calendar-task {
+    background: #3498db;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    cursor: pointer;
+}
+
+.calendar-task-high {
+    background: #e74c3c;
+}
+
+.calendar-task-medium {
+    background: #f39c12;
+}
+
+/* Permit Status Colors for Calendar */
+.calendar-task-issued {
+    background: #27ae60;
+}
+
+.calendar-task-active {
+    background: #f39c12;
+}
+
+.calendar-task-closed {
+    background: #95a5a6;
+}
+
+.calendar-task-expired {
+    background: #e74c3c;
+}
+
+.calendar-task-revoked {
+    background: #9b59b6;
+}
+
+.calendar-task-cancelled {
+    background: #c0392b;
+}
+
+/* Event Type Colors for Calendar */
+.calendar-task-event-ofi {
+    background: #3498db;
+}
+
+.calendar-task-event-adverse-event {
+    background: #e74c3c;
+}
+
+.calendar-task-event-defects {
+    background: #f39c12;
+}
+
+.calendar-task-event-noncompliance {
+    background: #9b59b6;
+}
+
+/* Permit Type Colors for Calendar */
+.calendar-task-permit-hot-work {
+    background: #e74c3c;
+}
+
+.calendar-task-permit-cold-work {
+    background: #3498db;
+}
+
+.calendar-task-permit-clearance {
+    background: #27ae60;
+}
+
+.calendar-task-permit-work-at-height {
+    background: #f39c12;
+}
+
+.calendar-task-permit-confined-space {
+    background: #9b59b6;
+}
+
+.calendar-task-permit-electrical-work {
+    background: #e67e22;
+}
+
+.calendar-task-permit-general-work {
+    background: #95a5a6;
+}
+
+.loading-spinner {
+    text-align: center;
+    padding: 50px;
+    color: #666;
+}
+
+.loading-spinner i {
+    font-size: 2rem;
+    margin-right: 10px;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 50px;
+    color: #999;
+}
+
+.empty-state i {
+    font-size: 3rem;
+    margin-bottom: 15px;
+    opacity: 0.5;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+    .kanban-columns {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .kanban-columns {
+        grid-template-columns: 1fr;
+    }
+
+    .calendar-grid {
+        grid-template-columns: repeat(7, 134px);
+        width: 1000px;
+        max-width: 1000px;
+        gap: 5px;
+    }
+
+    .calendar-day {
+        width: 134px;
+        max-width: 134px;
+        min-height: 60px;
+        padding: 8px;
+    }
+}
+
+/* File Upload & Drag-Drop Styles */
+.drag-drop-zone {
+    border: 2px dashed #dee2e6;
+    border-radius: 8px;
+    padding: 25px;
+    text-align: center;
+    background: #f8f9fa;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    margin-bottom: 15px;
+}
+
+.drag-drop-zone.dragover {
+    border-color: #3498db !important;
+    background: #eef7fd !important;
+    color: #3498db !important;
+}
+
+.drag-drop-zone i {
+    font-size: 2rem;
+    color: #adb5bd;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.drag-drop-zone.dragover i {
+    color: #3498db;
+}
+
+.file-list-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    background: white;
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    margin-bottom: 8px;
+    transition: all 0.2s;
+}
+
+.file-list-item:hover {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.file-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.file-name-text {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #2c3e50;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+    text-decoration: none;
+}
+
+.file-name-text:hover {
+    color: #3498db;
+}
+
+.file-meta {
+    font-size: 0.75rem;
+    color: #6c757d;
+}
+
+/* Modal View Improvements */
+/* ============================================
+   PREMIUM TASK VIEWER STYLES
+   ============================================ */
+
+.task-viewer-modal {
+    background-color: white !important;
+}
+
+.modal-body-wrapper {
+    overflow-y: auto;
+    overflow-x: hidden;
+    flex: 1;
+    display: flex;
+}
+
+.task-main-content {
+    background-color: #fff;
+    min-width: 0;
+    /* Critical for flex items to handle overflow correctly */
+}
+
+/* Timeline Row Styles */
+.task-timeline-row {
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.02);
+}
+
+.border-right-light {
+    border-right: 1px solid #e9ecef;
+}
+
+.timeline-item span:first-child {
+    font-size: 0.7rem !important;
+    letter-spacing: 0.05em;
+}
+
+.timeline-item span:last-child {
+    font-size: 0.95rem;
+}
+
+.task-detail-title {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    margin-bottom: 0.5rem;
+    line-height: 1.2;
+}
+
+.icon-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.bg-primary-light {
+    background-color: #e7f0fd;
+}
+
+.bg-success-light {
+    background-color: #eaf8f1;
+}
+
+.bg-info-light {
+    background-color: #e5f6f8;
+}
+
+.bg-warning-light {
+    background-color: #fff8e6;
+}
+
+.task-meta-sidebar {
+    border-left: 1px solid #e5e7eb;
+}
+
+.meta-card {
+    border-bottom: 1px solid #f0f0f0;
+    padding-bottom: 1.5rem;
+}
+
+.meta-card:last-child {
+    border-bottom: none;
+}
+
+.shadow-xs {
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.badge-outline-primary {
+    color: #0A2F64;
+    border: 1px solid #0A2F64;
+    background: transparent;
+}
+
+.premium-list-container {
+    min-height: 60px;
+    border-color: #eee !important;
+}
+
+/* Scrollbar styling for premium sections */
+.premium-list-container::-webkit-scrollbar,
+.task-main-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.premium-list-container::-webkit-scrollbar-thumb,
+.task-main-content::-webkit-scrollbar-thumb {
+    background-color: #e5e7eb;
+    border-radius: 10px;
+}
+
+/* Bootstrap Fallbacks - Essential Utilities */
+.d-flex {
+    display: flex !important;
+}
+
+.flex-column {
+    flex-direction: column !important;
+}
+
+.justify-content-between {
+    justify-content: space-between !important;
+}
+
+.align-items-center {
+    align-items: center !important;
+}
+
+.ms-2 {
+    margin-left: 0.5rem !important;
+}
+
+.me-2 {
+    margin-right: 0.5rem !important;
+}
+
+.me-3 {
+    margin-right: 1rem !important;
+}
+
+.mb-2 {
+    margin-bottom: 0.5rem !important;
+}
+
+.mb-3 {
+    margin-bottom: 1rem !important;
+}
+
+.mb-4 {
+    margin-bottom: 1.5rem !important;
+}
+
+.mb-5 {
+    margin-bottom: 3rem !important;
+}
+
+.p-3 {
+    padding: 1rem !important;
+}
+
+.p-4 {
+    padding: 1.5rem !important;
+}
+
+.pt-3 {
+    padding-top: 1rem !important;
+}
+
+.fw-bold {
+    font-weight: 700 !important;
+}
+
+.text-muted {
+    color: #6c757d !important;
+}
+
+.small {
+    font-size: 0.875em !important;
+}
+
+.rounded {
+    border-radius: 0.375rem !important;
+}
+
+.border {
+    border: 1px solid #dee2e6 !important;
+}
+
+.bg-light {
+    background-color: #f8f9fa !important;
+}
+
+.bg-white {
+    background-color: #fff !important;
+}
+
+.text-uppercase {
+    text-transform: uppercase !important;
+}
+
+.w-100 {
+    width: 100% !important;
+}
+
+.flex-grow-1 {
+    flex-grow: 1 !important;
+}
+
+.extra-small {
+    font-size: 0.75em !important;
+}
+
+.text-info {
+    color: #3498db !important;
+}
+
+/* Status Dot Component */
+.status-dot {
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.8);
+}
+
+/* Adjustments for fixed footer */
+.modal-footer {
+    position: sticky;
+    bottom: 0;
+    z-index: 20;
+    border-top: 1px solid #e5e7eb;
+    background-color: white !important;
+}
+
+.view-box-container {
+    min-height: 80px;
+    max-height: 250px;
+    overflow-y: auto;
+    background-color: #fcfcfc !important;
+}
+
+.view-box-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.view-box-container::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 3px;
+}
+
+.view-mode .view-field {
+    min-height: 38px;
+    display: flex;
+    align-items: center;
+}
+
+/* Fix for unreadable white font in task modals */
+.task-viewer-modal select.form-select,
+.task-viewer-modal input.form-control,
+.task-viewer-modal textarea.form-control,
+.task-viewer-modal .dropdown-input {
+    color: #2c3e50 !important;
+}
+
+.task-viewer-modal select.form-select option {
+    color: #333;
+}
+
+/* Ensure filter selects are also readable in light modals */
+.modal-overlay .filter-select {
+    color: #333 !important;
+}
+
+/* Premium Task Meta Dashboard */
+.task-meta-dashboard {
+    transition: all 0.3s ease;
+}
+
+.meta-stat-item {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    height: 100%;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.meta-stat-item:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    background: #ffffff;
+}
+
+.meta-stat-item label {
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    color: #64748b !important;
+}
+
+.meta-stat-item .truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    display: block;
+}
+
+@media (min-width: 768px) {
+    .border-start-md {
+        border-left: 1px solid #f1f5f9;
+    }
+}
+
+@media (min-width: 992px) {
+    .border-start-lg {
+        border-left: 1px solid #f1f5f9;
+    }
+}
+
+/* Section Icons & Headers */
+.gradient-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Enhanced Badges */
+.badge {
+    font-weight: 700 !important;
+    letter-spacing: 0.02em;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    padding: 0.4em 0.8em !important;
+}
+
+/* Modal Grid System (Standardized 2026-03-31) */
+.modal-grid {
+    display: grid;
+    gap: 1.25rem;
+    margin-bottom: 1.5rem;
+}
+
+.modal-grid.grid-2 { grid-template-columns: repeat(2, 1fr); }
+.modal-grid.grid-3 { grid-template-columns: repeat(3, 1fr); }
+.modal-grid.grid-4 { grid-template-columns: repeat(4, 1fr); }
+.modal-grid.grid-5 { grid-template-columns: repeat(5, 1fr); }
+.modal-grid.grid-6 { grid-template-columns: repeat(6, 1fr); }
+
+/* Field Span modifiers */
+.span-2 { grid-column: span 2; }
+.span-full { grid-column: 1 / -1; }
+
+@media (max-width: 992px) {
+    .modal-grid.grid-4, .modal-grid.grid-5, .modal-grid.grid-6 {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .modal-grid.grid-2, .modal-grid.grid-3, .modal-grid.grid-4, .modal-grid.grid-5, .modal-grid.grid-6 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 576px) {
+    .modal-grid {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+.bg-primary {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
+    color: #ffffff !important;
+}
+
+.bg-success {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+    color: #ffffff !important;
+}
+
+.bg-info {
+    background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%) !important;
+    color: #ffffff !important;
+}
+
+.bg-warning {
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%) !important;
+    color: #ffffff !important; /* User requested white font for contrast */
+}
+
+/* Premium Cards */
+.premium-list-container {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: 1px solid #e2e8f0;
+}
+
+.premium-list-container:hover {
+    box-shadow: 0 8px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Edit Form Field Styling */
+.meta-form-card {
+    transition: border-color 0.2s, background-color 0.2s, box-shadow 0.2s;
+    background-color: #f8fafc !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 10px;
+}
+
+.meta-form-card:focus-within {
+    border-color: #3b82f6 !important;
+    background-color: #fff !important;
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1) !important;
+}
+
+/* Question Section Enhancement */
+.task-sections-stack .task-section {
+    position: relative;
+    padding-bottom: 3rem;
+    margin-bottom: 2rem;
+}
+
+/* Standardized Modal Architecture (Fixed Header/Footer, Scrollable Body) */
+.task-viewer-modal {
+    display: flex !important;
+    flex-direction: column !important;
+    max-height: 90vh !important;
+    /* Standard height */
+    overflow: hidden !important;
+}
+
+.task-viewer-modal .modal-content {
+    max-height: 90vh !important;
+    overflow: hidden !important;
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+.task-viewer-modal .modal-body-wrapper {
+    flex: 1 !important;
+    overflow-y: auto !important;
+    min-height: 0;
+}
+
+.task-viewer-modal .modal-header {
+    flex-shrink: 0 !important;
+    z-index: 1050;
+    background: linear-gradient(135deg, #363636 0%, #2c2c2c 100%) !important;
+    border-bottom: 1px solid #1a1a1a;
+    padding: 1rem 2rem !important;
+    color: white !important;
+}
+
+.task-viewer-modal .modal-header .title-text {
+    color: white !important;
+    font-weight: 700;
+    font-size: 1.1rem;
+    letter-spacing: 0.5px;
+}
+
+.task-viewer-modal .modal-header .header-icons img {
+    filter: brightness(0) invert(1);
+    opacity: 0.8;
+    transition: opacity 0.2s;
+    width: 14px;
+    height: 14px;
+}
+
+.task-viewer-modal .modal-header .header-icons img:hover {
+    opacity: 1;
+}
+
+.task-viewer-modal .modal-footer {
+    flex-shrink: 0 !important;
+    z-index: 1040;
+    background: #ffffff !important;
+    border-top: 1px solid #e2e8f0;
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* Remove any secondary "lifts" (internal scrollboxes) */
+.view-box-container,
+.premium-list-container {
+    max-height: none !important;
+    overflow-y: visible !important;
+}
+
+.task-viewer-modal .modal-header-sticky {
+    /* Standardized with main header gradient */
+    background: linear-gradient(135deg, #363636 0%, #2c2c2c 100%) !important;
+}
+
+.view-box-container {
+    min-height: 80px;
+    background-color: #fcfcfc !important;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 1rem;
+}
+
+/* Bottom Toolbar Refinements */
+.bottom-toolbar .dropdown-toggle {
+    color: #4a5568 !important;
+}
+
+.bottom-toolbar .filter-select, 
+.bottom-toolbar .dropdown-input {
+    border-color: #cbd5e0;
+    font-weight: 500;
+    padding: 8px 12px !important; /* Match search input feel */
+    height: 38px;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.bottom-toolbar .btn-view {
+    border-color: #cbd5e0;
+    padding: 8px 16px !important;
+    height: 38px;
+    transition: all 0.2s ease;
+}
+
+.bottom-toolbar .btn-view:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.bottom-toolbar .btn-add {
+    padding: 8px 20px !important;
+    height: 38px;
+    font-weight: 600;
+    box-shadow: 0 4px 6px rgba(52, 152, 219, 0.3);
+}
+
+.bottom-toolbar .btn-add:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 8px rgba(52, 152, 219, 0.4);
+}

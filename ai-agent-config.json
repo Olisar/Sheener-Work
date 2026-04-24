@@ -1,0 +1,438 @@
+{
+  "version": "1.0",
+  "lastUpdated": "2025-12-07",
+  "description": "AI Agent Configuration - Maps pages, actions, modals, and API endpoints for intelligent navigation and data access",
+  
+  "actionSynonyms": {
+    "create": ["create", "add", "new", "make", "generate", "open create modal", "open add modal", "open new modal", "insert"],
+    "view": ["view", "show", "display", "see", "open", "look at", "check", "inspect", "examine", "review"],
+    "edit": ["edit", "modify", "change", "update", "alter", "revise", "adjust"],
+    "delete": ["delete", "remove", "erase", "clear", "drop"],
+    "review": ["review", "approve", "reject", "validate", "verify", "check"]
+  },
+  
+  "pages": {
+    "people_list.php": {
+      "title": "People List",
+      "category": "6Ps",
+      "entityType": "people",
+      "entitySynonyms": ["person", "people", "employee", "employees", "staff", "worker", "workers", "user", "users", "individual", "individuals"],
+      "modals": {
+        "create": {
+          "id": "addPersonModal",
+          "function": "openAddPersonModal",
+          "alternatives": ["openCreatePersonModal", "openNewPersonModal", "openAddModal"]
+        },
+        "edit": {
+          "id": "editPersonModal",
+          "function": "openEditPersonModal",
+          "requiresId": true
+        },
+        "view": {
+          "id": "viewPersonModal",
+          "function": "openViewPersonModal",
+          "requiresId": true
+        }
+      },
+      "apiEndpoints": {
+        "list": "php/get_people.php",
+        "get": "php/get_person.php",
+        "create": "php/api_7ps.php?action=create&type=people",
+        "update": "php/api_7ps.php?action=update&type=people",
+        "delete": "php/api_7ps.php?action=delete&type=people"
+      },
+      "availableActions": ["create", "view", "edit", "delete"],
+      "description": "Manage people/employees. Users can view, create, edit, or delete person entries."
+    },
+    
+    "material_list.php": {
+      "title": "Products/Materials List",
+      "category": "6Ps",
+      "entityType": "products",
+      "entitySynonyms": ["product", "products", "material", "materials", "item", "items"],
+      "modals": {
+        "create": {
+          "id": "addMaterialModal",
+          "function": "openAddMaterialModal",
+          "alternatives": ["openCreateMaterialModal", "openNewMaterialModal", "openAddModal"]
+        },
+        "edit": {
+          "id": "editMaterialModal",
+          "function": "openEditMaterialModal",
+          "requiresId": true
+        },
+        "view": {
+          "id": "viewMaterialModal",
+          "function": "openViewMaterialModal",
+          "requiresId": true
+        }
+      },
+      "apiEndpoints": {
+        "list": "php/get_all_materials.php",
+        "get": "php/api_7ps.php?action=get&type=materials",
+        "create": "php/api_7ps.php?action=create&type=materials",
+        "update": "php/api_7ps.php?action=update&type=materials",
+        "delete": "php/api_7ps.php?action=delete&type=materials"
+      },
+      "availableActions": ["create", "view", "edit", "delete"],
+      "description": "Manage products/materials. Users can view, create, edit, or delete material entries."
+    },
+    
+    "area_list.php": {
+      "title": "Places/Areas List",
+      "category": "6Ps",
+      "entityType": "places",
+      "entitySynonyms": ["place", "places", "area", "areas", "location", "locations", "site", "sites"],
+      "modals": {
+        "create": {
+          "id": "addAreaModal",
+          "function": "openAddAreaModal",
+          "alternatives": ["openCreateAreaModal", "openNewAreaModal", "openAddModal"]
+        },
+        "edit": {
+          "id": "editAreaModal",
+          "function": "openEditAreaModal",
+          "requiresId": true
+        },
+        "view": {
+          "id": "viewAreaModal",
+          "function": "openViewAreaModal",
+          "requiresId": true
+        }
+      },
+      "apiEndpoints": {
+        "list": "php/get_all_areas.php",
+        "get": "php/get_areas.php",
+        "create": "php/api_7ps.php?action=create&type=areas",
+        "update": "php/api_7ps.php?action=update&type=areas",
+        "delete": "php/api_7ps.php?action=delete&type=areas"
+      },
+      "availableActions": ["create", "view", "edit", "delete"],
+      "description": "Manage places/areas. Users can view, create, edit, or delete area entries."
+    },
+    
+    "equipment_list.php": {
+      "title": "Plants/Equipment List",
+      "category": "6Ps",
+      "entityType": "plants",
+      "entitySynonyms": ["plant", "plants", "equipment", "equipments", "machine", "machines", "machinery"],
+      "modals": {
+        "create": {
+          "id": "createEquipmentModal",
+          "function": "openCreateEquipmentModal",
+          "alternatives": ["openAddEquipmentModal", "openNewEquipmentModal", "openAddModal"]
+        },
+        "edit": {
+          "id": "editEquipmentModal",
+          "function": "openEditEquipmentModal",
+          "requiresId": true
+        },
+        "view": {
+          "id": "viewEquipmentModal",
+          "function": "openViewEquipmentModal",
+          "requiresId": true
+        }
+      },
+      "apiEndpoints": {
+        "list": "php/get_all_equip.php",
+        "get": "php/api_7ps.php?action=get&type=equipment",
+        "create": "php/api_7ps.php?action=create&type=equipment",
+        "update": "php/api_7ps.php?action=update&type=equipment",
+        "delete": "php/api_7ps.php?action=delete&type=equipment"
+      },
+      "availableActions": ["create", "view", "edit", "delete"],
+      "description": "Manage plants/equipment. Users can view, create, edit, or delete equipment entries."
+    },
+    
+    "sop_list.php": {
+      "title": "Processes/Documents List",
+      "category": "6Ps",
+      "entityType": "processes",
+      "entitySynonyms": ["process", "processes", "sop", "sops", "document", "documents", "doc", "docs", "procedure", "procedures"],
+      "modals": {
+        "create": {
+          "id": "createEnergyModal",
+          "function": "openCreateEnergyModal",
+          "alternatives": ["openAddDocumentModal", "openCreateDocumentModal", "openNewDocumentModal", "openAddModal"]
+        },
+        "edit": {
+          "id": "editDocumentModal",
+          "function": "openEditDocumentModal",
+          "requiresId": true
+        },
+        "view": {
+          "id": "viewDocumentModal",
+          "function": "openViewDocumentModal",
+          "requiresId": true
+        }
+      },
+      "apiEndpoints": {
+        "list": "php/get_documents.php",
+        "get": "php/get_document.php",
+        "create": "php/api_7ps.php?action=create&type=documents",
+        "update": "php/api_7ps.php?action=update&type=documents",
+        "delete": "php/api_7ps.php?action=delete&type=documents"
+      },
+      "availableActions": ["create", "view", "edit", "delete"],
+      "description": "Manage processes/documents/SOPs. Users can view, create, edit, or delete document entries."
+    },
+    
+    "energy_list.php": {
+      "title": "Power/Energy List",
+      "category": "6Ps",
+      "entityType": "power",
+      "entitySynonyms": ["power", "energy", "energies"],
+      "modals": {
+        "create": {
+          "id": "create-energy-modal",
+          "function": "openCreateEnergyModal",
+          "alternatives": ["openAddEnergyModal", "openNewEnergyModal", "openAddModal"]
+        },
+        "edit": {
+          "id": "editEnergyModal",
+          "function": "openEditEnergyModal",
+          "requiresId": true
+        },
+        "view": {
+          "id": "viewEnergyModal",
+          "function": "openViewEnergyModal",
+          "requiresId": true
+        }
+      },
+      "apiEndpoints": {
+        "list": "php/get_all_energy.php",
+        "get": "php/api_7ps.php?action=get&type=energy",
+        "create": "php/api_7ps.php?action=create&type=energy",
+        "update": "php/api_7ps.php?action=update&type=energy",
+        "delete": "php/api_7ps.php?action=delete&type=energy"
+      },
+      "availableActions": ["create", "view", "edit", "delete"],
+      "description": "Manage power/energy. Users can view, create, edit, or delete energy entries."
+    },
+    
+    "permit_list.php": {
+      "title": "Permit Center",
+      "category": "Permits",
+      "entityType": "permit",
+      "entitySynonyms": ["permit", "permits", "ptw", "permit to work"],
+      "modals": {
+        "create": {
+          "id": "addPermitModal",
+          "function": "openAddPermitModal",
+          "alternatives": ["openCreatePermitModal", "openNewPermitModal"]
+        },
+        "edit": {
+          "id": "editPermitModal",
+          "function": "openEditPermitModal",
+          "requiresId": true
+        },
+        "view": {
+          "id": "viewPermitModal",
+          "function": "openViewPermitModal",
+          "requiresId": true
+        }
+      },
+      "apiEndpoints": {
+        "list": "php/get_all_permits.php",
+        "get": "php/get_permit.php",
+        "create": "php/add_permit.php",
+        "update": "php/update_permit.php",
+        "delete": "php/delete_permit.php"
+      },
+      "availableActions": ["create", "view", "edit", "delete", "review"],
+      "description": "Manage permits/PTW. Users can view, create, edit, delete, or review permit entries."
+    },
+    
+    "task_center.html": {
+      "title": "Task Center",
+      "category": "Tasks",
+      "entityType": "task",
+      "entitySynonyms": ["task", "tasks", "assignment", "assignments", "work item", "work items"],
+      "modals": {
+        "create": {
+          "id": "addTaskModal",
+          "function": "openCreateTaskModal",
+          "alternatives": ["openAddTaskModal", "openNewTaskModal", "openCreateTaskModalFromPermit"]
+        },
+        "edit": {
+          "id": "editTaskModal",
+          "function": "openEditTaskModal",
+          "requiresId": true
+        },
+        "view": {
+          "id": "viewTaskModal",
+          "function": "openViewTaskModal",
+          "requiresId": true
+        }
+      },
+      "apiEndpoints": {
+        "list": "php/api_tasks.php?action=list",
+        "get": "php/get_task.php",
+        "create": "php/api_tasks.php?action=create",
+        "update": "php/api_tasks.php?action=update",
+        "delete": "php/api_tasks.php?action=delete"
+      },
+      "availableActions": ["create", "view", "edit", "delete"],
+      "description": "Manage tasks. Users can view, create, edit, or delete task entries."
+    },
+    
+    "event_center.php": {
+      "title": "Event Center",
+      "category": "Events",
+      "entityType": "event",
+      "entitySynonyms": ["event", "events", "incident", "incidents", "accident", "accidents"],
+      "modals": {
+        "create": {
+          "id": "addEventModal",
+          "function": "openAddEventModal",
+          "alternatives": ["openCreateEventModal", "openNewEventModal", "recordEvent"]
+        },
+        "edit": {
+          "id": "editEventModal",
+          "function": "openEditEventModal",
+          "requiresId": true
+        },
+        "view": {
+          "id": "viewEventModal",
+          "function": "openViewEventModal",
+          "requiresId": true
+        }
+      },
+      "apiEndpoints": {
+        "list": "php/get_all_events.php",
+        "get": "php/get_event.php",
+        "create": "php/add_event.php",
+        "update": "php/update_event.php",
+        "delete": "php/delete_event.php"
+      },
+      "availableActions": ["create", "view", "edit", "delete"],
+      "description": "Manage events/incidents. Users can view, create, edit, or delete event entries."
+    },
+    
+    "event_list.php": {
+      "title": "Event List",
+      "category": "Events",
+      "entityType": "event",
+      "entitySynonyms": ["event", "events", "incident", "incidents"],
+      "modals": {
+        "create": {
+          "id": "addEventModal",
+          "function": "openAddEventModal",
+          "alternatives": ["openCreateEventModal", "openNewEventModal"]
+        },
+        "edit": {
+          "id": "editEventModal",
+          "function": "openEditEventModal",
+          "requiresId": true
+        },
+        "view": {
+          "id": "viewEventModal",
+          "function": "openViewEventModal",
+          "requiresId": true
+        }
+      },
+      "apiEndpoints": {
+        "list": "php/get_all_events.php",
+        "get": "php/get_event.php",
+        "create": "php/add_event.php",
+        "update": "php/update_event.php",
+        "delete": "php/delete_event.php"
+      },
+      "availableActions": ["create", "view", "edit", "delete"],
+      "description": "List and manage events/incidents."
+    },
+    
+    "assessment_list.php": {
+      "title": "Assessment List",
+      "category": "Assessments",
+      "entityType": "assessment",
+      "entitySynonyms": ["assessment", "assessments", "risk assessment", "hira"],
+      "modals": {
+        "create": {
+          "id": "addAssessmentModal",
+          "function": "openAddAssessmentModal",
+          "alternatives": ["openCreateAssessmentModal", "openNewAssessmentModal"]
+        },
+        "edit": {
+          "id": "editAssessmentModal",
+          "function": "openEditAssessmentModal",
+          "requiresId": true
+        },
+        "view": {
+          "id": "viewAssessmentModal",
+          "function": "openViewAssessmentModal",
+          "requiresId": true
+        }
+      },
+      "apiEndpoints": {
+        "list": "php/get_assessments.php",
+        "get": "php/get_assessment.php",
+        "create": "php/add_assessment.php",
+        "update": "php/update_assessment.php",
+        "delete": "php/delete_assessment.php"
+      },
+      "availableActions": ["create", "view", "edit", "delete"],
+      "description": "Manage risk assessments. Users can view, create, edit, or delete assessment entries."
+    },
+    
+    "CC_List.php": {
+      "title": "Change Control List",
+      "category": "Change Control",
+      "entityType": "change_control",
+      "entitySynonyms": ["change control", "change request", "change requests", "cc"],
+      "modals": {
+        "create": {
+          "id": "ccModal",
+          "function": "openCreateCCModal",
+          "alternatives": ["openAddCCModal", "openNewCCModal"]
+        },
+        "edit": {
+          "id": "ccModal",
+          "function": "editChangeControl",
+          "requiresId": true
+        },
+        "view": {
+          "id": "ccModal",
+          "function": "editChangeControl",
+          "requiresId": true
+        }
+      },
+      "apiEndpoints": {
+        "list": "php/get_change_controls.php",
+        "get": "php/get_change_controls.php",
+        "create": "php/add_change_control.php",
+        "update": "php/update_change_control.php",
+        "delete": "php/delete_change_control.php"
+      },
+      "availableActions": ["create", "view", "edit", "delete"],
+      "description": "Manage change control requests. Users can view, create, edit, or delete change control entries."
+    }
+  },
+  
+  "globalModals": {
+    "task": {
+      "create": {
+        "id": "addTaskModal",
+        "function": "openCreateTaskModal",
+        "availableOn": ["permit_list.php", "task_center.html"],
+        "alternatives": ["openCreateTaskModalFromPermit"]
+      }
+    }
+  },
+  
+  "navigation": {
+    "people_list.php": "People List",
+    "material_list.php": "Products List",
+    "area_list.php": "Places List",
+    "equipment_list.php": "Plants List",
+    "sop_list.php": "Processes List",
+    "energy_list.php": "Power List",
+    "permit_list.php": "Permit Center",
+    "task_center.html": "Task Center",
+    "event_center.php": "Event Center",
+    "event_list.php": "Event List",
+    "assessment_list.php": "Assessment List",
+    "CC_List.php": "Change Control List"
+  }
+}
+

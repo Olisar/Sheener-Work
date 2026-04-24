@@ -1,0 +1,9 @@
+[
+  { "id": "1", "type": "process", "text": "Research and Development" },
+  { "id": "2", "type": "step", "text": "Formulation development", "parent": "1" },
+  { "id": "3", "type": "substep", "text": "API selection and characterization", "parent": "2" },
+  { "id": "4", "type": "substep", "text": "Excipient selection (e.g., lactose for DPIs)", "parent": "2" },
+  { "id": "5", "type": "substep", "text": "Stability testing", "parent": "2" },
+  { "id": "6", "type": "step", "text": "Device design and prototyping", "parent": "1" },
+  { "id": "7", "type": "step", "text": "Pre-clinical studies", "parent": "6" }
+]

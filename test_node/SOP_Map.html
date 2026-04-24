@@ -1,0 +1,202 @@
+<!-- File: sheener/test_node/SOP_Map.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../img/favicon/faviconAY.ico">
+    <title>SOP Workflow Map</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 100%;
+            height: 100vh;
+            overflow: auto;
+            position: relative;
+        }
+
+        .document-note {
+            width: 150px;
+            padding: 5px;
+            border-radius: 10px;
+            background: #fffcbb;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: absolute;
+            text-align: left;
+            /* Align text to the left */
+            font-size: 10px;
+            color: #333;
+            cursor: grab;
+            transition: opacity 0.5s;
+        }
+
+        .document-note:active {
+            cursor: grabbing;
+        }
+
+        .document-note h3 {
+            margin: 0;
+            font-size: 12px;
+            color: #000;
+            text-align: center;
+            /* Center the title */
+        }
+
+        .line {
+            stroke: #ff7f50;
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .legend {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            background: #ffffff;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .legend h4 {
+            margin: 0 0 5px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container" id="workflow"></div>
+    <div class="legend">
+        <h4>Legend</h4>
+        <p><strong>Documents:</strong> Represented by yellow sticky notes.</p>
+        <p><strong>Links:</strong> Represent relationships between documents.</p>
+    </div>
+    <script>
+        fetch('./SOP_QMS.json')
+            .then(res => res.json())
+            .then(data => {
+                const documents = data.documents;
+                const relationships = data.relationships;
+
+                const container = document.getElementById('workflow');
+                const verticalGap = 30; // Minimum vertical gap
+                const xStep = 200;
+                let currentX = 20;
+                let currentY = 20;
+
+                const positions = {};
+
+                documents.forEach((doc, index) => {
+                    const note = document.createElement('div');
+                    note.className = 'document-note';
+                    note.innerHTML = `<h3>${doc.title}</h3>
+                                  <p><strong>Doc Number:</strong> ${doc.file}</p>
+                                  <p><strong>Owner:</strong> ${doc.owner}</p>
+                                  <p><strong>Effective Date:</strong> ${doc.effective_date}</p>
+                                  <p><strong>Key Points:</strong></p>
+                                  <ul class="key-points" style="padding-left: 15px;">${doc.key_points.map(point => `<li>${point}</li>`).join('')}</ul>`;
+                    container.appendChild(note);
+
+                    // Position the note dynamically
+                    const noteHeight = note.offsetHeight;
+                    note.style.left = `${currentX}px`;
+                    note.style.top = `${currentY}px`;
+
+                    positions[doc.title] = {
+                        x: currentX + 75, // Center of the note horizontally
+                        y: currentY + noteHeight / 2 // Center of the note vertically
+                    };
+
+                    currentY += noteHeight + verticalGap;
+
+                    // Move to next column if overflowing
+                    if (currentY > window.innerHeight - noteHeight) {
+                        currentX += xStep;
+                        currentY = 20;
+                    }
+
+                    // Add drag functionality
+                    let offsetX, offsetY;
+                    note.addEventListener('mousedown', (e) => {
+                        offsetX = e.clientX - note.getBoundingClientRect().left;
+                        offsetY = e.clientY - note.getBoundingClientRect().top;
+                        note.style.cursor = 'grabbing';
+
+                        const onMouseMove = (event) => {
+                            const newX = event.clientX - offsetX;
+                            const newY = event.clientY - offsetY;
+
+                            note.style.left = `${newX}px`;
+                            note.style.top = `${newY}px`;
+
+                            positions[doc.title].x = newX + 75; // Update center position
+                            positions[doc.title].y = newY + note.offsetHeight / 2; // Update center position
+                            updateConnections();
+                        };
+
+                        document.addEventListener('mousemove', onMouseMove);
+
+                        document.addEventListener('mouseup', () => {
+                            document.removeEventListener('mousemove', onMouseMove);
+                            note.style.cursor = 'grab';
+                        }, { once: true });
+                    });
+                });
+
+                // Draw relationships using SVG paths
+                const svgNS = "http://www.w3.org/2000/svg";
+                const svg = document.createElementNS(svgNS, "svg");
+                svg.style.position = "absolute";
+                svg.style.top = "0";
+                svg.style.left = "0";
+                svg.style.width = "100%";
+                svg.style.height = "100%";
+                svg.style.pointerEvents = "none";
+                container.appendChild(svg);
+
+                const lines = [];
+                relationships.forEach(rel => {
+                    const source = positions[rel.source];
+                    const target = positions[rel.target];
+
+                    if (source && target) {
+                        const line = document.createElementNS(svgNS, "line");
+                        line.setAttribute("x1", source.x);
+                        line.setAttribute("y1", source.y);
+                        line.setAttribute("x2", target.x);
+                        line.setAttribute("y2", target.y);
+                        line.classList.add("line");
+                        svg.appendChild(line);
+                        lines.push(line);
+                    }
+                });
+
+                function updateConnections() {
+                    relationships.forEach((rel, index) => {
+                        const source = positions[rel.source];
+                        const target = positions[rel.target];
+
+                        if (source && target) {
+                            const line = lines[index];
+                            line.setAttribute("x1", source.x);
+                            line.setAttribute("y1", source.y);
+                            line.setAttribute("x2", target.x);
+                            line.setAttribute("y2", target.y);
+                        }
+                    });
+                }
+            });
+    </script>
+</body>
+
+</html>

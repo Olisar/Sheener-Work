@@ -1,0 +1,680 @@
+<!-- File: sheener/HSTopics/SafetyTopicEnvirWasteWater.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!--  -->
+  <!-- sheener/SafetyTopicEnvir1.html  -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Amneal EHS Tips</title>
+  <link rel="shortcut icon" href="../img/favicon/faviconAY.ico" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+      background-color: #F2F2F2;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      height: 60px;
+      background-color: #003366;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .header-container {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      max-width: 1500px;
+      justify-content: center;
+      position: relative;
+    }
+
+    .top-right-icons {
+      position: fixed;
+      top: 10px;
+      right: 20px;
+      display: flex;
+      gap: 15px;
+      z-index: 1000;
+    }
+
+    .previous-icon,
+    .home-icon {
+      font-size: 2rem;
+      color: white;
+      text-decoration: none;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .previous-icon:hover,
+    .home-icon:hover {
+      color: #03bcf4;
+    }
+
+    .logo-container {
+      position: absolute;
+      left: 20px;
+    }
+
+    .logo {
+      height: 40px;
+    }
+
+    .header-title {
+      color: #FFF;
+      font-size: 1.5em;
+      font-weight: bold;
+    }
+
+    #container {
+      height: 100%;
+      width: 100%;
+      transition: transform 0.8s cubic-bezier(.77, 0, .18, 1);
+    }
+
+    .section {
+      height: 100vh;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding-top: 60px;
+      flex-direction: column;
+      text-align: center;
+    }
+
+    #hero {
+      position: relative;
+      background: url('../img/wastewater.jpg') center/cover no-repeat;
+      color: white;
+    }
+
+    #hero::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1));
+      z-index: 1;
+    }
+
+    .hero-text {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-text h1 {
+      font-size: 3em;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+      text-align: left;
+      margin-left: 10vw;
+      max-width: 800px;
+    }
+
+    .hero-text p {
+      font-size: 1.2em;
+      margin-top: 10px;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+      text-align: left;
+      margin-left: 10vw;
+      max-width: 800px;
+    }
+
+    .flashing-arrow {
+      text-align: center;
+      margin-left: 0;
+      margin-top: 20px;
+    }
+
+    .flashing-arrow img {
+      width: 40px;
+      animation: flash 1.5s infinite;
+    }
+
+    @keyframes flash {
+
+      0%,
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      50% {
+        opacity: 0.6;
+        transform: translateY(10px);
+      }
+    }
+
+    .content-wrapper {
+      display: flex;
+      flex-direction: row;
+      height: 100%;
+      width: 100%;
+      align-items: center;
+      justify-content: center;
+      gap: 80px;
+      /* was 200px, then 100px, now more natural */
+    }
+
+
+    .left-image {
+      flex: 0.8;
+      /* was 1 */
+      justify-content: flex-end;
+      padding: 40px 0 40px 40px;
+      box-sizing: border-box;
+    }
+
+
+    .left-image img {
+      max-width: 56%;
+      max-height: 48%;
+      object-fit: cover;
+      border-radius: 8px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .right-text {
+      flex: 1.5;
+      /* Expands text section */
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 40px 40px 40px 0;
+      box-sizing: border-box;
+      max-width: 800px;
+      text-align: left;
+    }
+
+
+    .right-text h2,
+    .right-text p {
+      opacity: 0;
+      transform: translateX(100vw);
+      will-change: transform, opacity;
+    }
+
+    .right-text h2 {
+      font-size: 2.5vw;
+      color: #ffffffbe;
+      margin-bottom: 20px;
+      text-align: left;
+      width: 80%;
+    }
+
+    .right-text p {
+      font-size: 1.5vw;
+      color: #fffdfd;
+      line-height: 1.6;
+      width: 80%;
+      max-width: 100%;
+      text-align: justify;
+    }
+
+
+    .section:nth-child(1) {
+      background-color: #585252;
+    }
+
+    .section:nth-child(2) {
+      background-color: #3f5a7e;
+    }
+
+    .section:nth-child(3) {
+      background-color: #b99423;
+    }
+
+    .section:nth-child(4) {
+      background-color: #6fbf73;
+    }
+
+    .section:nth-child(5) {
+      background-color: #3087b9;
+    }
+
+    .section:nth-child(6) {
+      background-color: #003366;
+      color: white;
+    }
+
+
+
+    footer {
+      background-color: #d9a460;
+      padding: 20px;
+      text-align: center;
+      color: white;
+      width: 100%;
+    }
+
+    footer a {
+      color: white;
+      text-decoration: none;
+    }
+
+    .footer-logo {
+      width: 60px;
+      height: 20px;
+      vertical-align: middle;
+      margin-left: 10px;
+    }
+
+    .page-locator {
+      position: fixed;
+      right: 35px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 17px;
+    }
+
+    .page-dot {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background-color: #fff1c3;
+      opacity: 0.6;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .page-dot:hover {
+      transform: scale(1.3);
+      opacity: 0.9;
+    }
+
+    .page-dot.active {
+      background-color: #93c7fc;
+      opacity: 1;
+      transform: scale(1.5);
+    }
+
+    .page-dot::after {
+      content: attr(data-title);
+      position: absolute;
+      right: 25px;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: #003366;
+      color: white;
+      padding: 5px 10px;
+      border-radius: 4px;
+      font-size: 12px;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .page-dot:hover::after {
+      opacity: 1;
+    }
+
+    @media (max-width: 1024px) {
+      .right-text h2 {
+        font-size: 3vw;
+      }
+
+      .right-text p {
+        font-size: 2vw;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .content-wrapper {
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .left-image,
+      .right-text {
+        padding: 20px;
+        max-width: 100%;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .right-text {
+        align-items: flex-start;
+      }
+
+      .right-text h2,
+      .right-text p {
+        font-size: 5vw;
+        text-align: left;
+        width: 100%;
+      }
+
+      .hero-text h1,
+      .hero-text p,
+      .flashing-arrow {
+        margin-left: 0;
+        max-width: 100vw;
+      }
+
+      .page-locator {
+        right: 10px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .page-locator {
+        display: none;
+      }
+
+      .right-text h2,
+      .right-text p {
+        font-size: 6vw;
+      }
+    }
+
+    .footer-card-link {
+      display: block;
+      max-width: 700px;
+      margin: 40px auto 20px;
+      /* Add top & bottom gap */
+      text-decoration: none;
+      background: none;
+      border: none;
+      outline: none;
+    }
+
+    .footer-card {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 6px 32px rgba(0, 0, 0, 0.10), 0 1.5px 4px rgba(0, 0, 0, 0.07);
+      padding: 40px 32px;
+      /* Even vertical padding */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      transition: transform 0.25s cubic-bezier(.4, 0, .2, 1), box-shadow 0.25s cubic-bezier(.4, 0, .2, 1);
+      cursor: pointer;
+    }
+
+    .footer-card-link:hover .footer-card,
+    .footer-card-link:focus .footer-card {
+      background: #c3e4ff;
+      transform: translateY(-8px) scale(1.03);
+      box-shadow: 0 12px 48px rgba(0, 0, 0, 0.18), 0 3px 12px rgba(0, 0, 0, 0.10);
+    }
+
+    .footer-logo-large {
+      width: 80px;
+      height: auto;
+      margin-bottom: 20px;
+      /* More breathing room below logo */
+    }
+
+    .footer-link-block {
+      color: #003366;
+      font-size: 1.2em;
+      font-weight: bold;
+      margin-top: 20px;
+      /* Added to create spacing from above */
+      margin-bottom: 8px;
+      /* Slightly reduced for tighter feel */
+      transition: color 0.2s;
+    }
+
+    .footer-thanks {
+      margin-top: 8px;
+      /* Reduced for balance */
+      color: #444;
+      font-size: 1.1em;
+      font-style: italic;
+      letter-spacing: 0.01em;
+    }
+  </style>
+  <!-- GSAP CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+</head>
+
+<body>
+  <header>
+    <div class="top-right-icons">
+      <a class="previous-icon" onclick="history.back(); return false;" title="Go Back"><i
+          class="fas fa-arrow-left"></i></a>
+      <a class="home-icon" href="SafetyTopicAA.php" title="Go Home"><i class="fas fa-home"></i></a>
+    </div>
+    <div class="header-container">
+      <div class="logo-container">
+        <img src="../img/Amneal_Logo_new.svg" alt="Amneal Logo" class="logo" />
+      </div>
+      <div class="header-title">Amneal EHS Insights</div>
+    </div>
+  </header>
+
+  <div class="page-locator">
+    <div class="page-dot active" data-title="Home" data-index="0"></div>
+    <div class="page-dot" data-title="Environmental Protection" data-index="1"></div>
+    <div class="page-dot" data-title="Waste Policy and the Circular Economy" data-index="2"></div>
+    <div class="page-dot" data-title="Funding Supports and Schemes" data-index="3"></div>
+    <div class="page-dot" data-title="EU and International Environmental Policy" data-index="4"></div>
+    <div class="page-dot" data-title="References" data-index="5"></div>
+  </div>
+
+  <div id="container">
+    <section class="section" id="hero">
+      <div class="hero-text">
+        <h1>Stop the Drip, Save the Drop</h1>
+        <p style="color: #afebff; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);">
+          <em>Fixing toilet leaks saves water, money, and protects our environment.</em>
+        </p>
+        <div class="flashing-arrow">
+          <img src="../img/arrow.svg" alt="Scroll Down" />
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="content-wrapper">
+        <div class="left-image">
+          <img src="../img/waste1.png" alt="Decorative Lights">
+        </div>
+        <div class="right-text">
+          <h2>Why Toilet Leaks Matter</h2>
+          <p>Toilets are the biggest water users in most homes. A single leaking toilet can waste up to 200 liters of
+            clean water per day. This wasted water not only raises bills but also increases the load on domestic
+            wastewater treatment systems, putting pressure on the environment.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="content-wrapper">
+        <div class="left-image">
+          <img src="../img/waste2.png" alt="Candle">
+        </div>
+        <div class="right-text">
+          <h2>Signs of a Toilet Leak</h2>
+          <p>Look out for running water sounds when the toilet is not in use, stains or ripples in the bowl, or higher
+            water bills with no clear reason. An easy check: add food coloring to the cistern, if color appears in the
+            bowl without flushing, you have a leak.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="content-wrapper">
+        <div class="left-image">
+          <img src="../img/waste3.png" alt="Exit Sign">
+        </div>
+        <div class="right-text">
+          <h2>Environmental & Wastewater Impact</h2>
+          <p>Leaking toilets increase water flow to treatment systems. This overload can reduce treatment efficiency and
+            allow bacteria, phosphorus, and nitrogen to enter groundwater or surface water, increasing pollution risks.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="content-wrapper">
+        <div class="left-image">
+          <img src="../img/waste4.png" alt="Exit Sign">
+        </div>
+        <div class="right-text">
+          <h2>Solutions & Good Practices</h2>
+          <p>Check toilets regularly for leaks, install dual flush systems, and maintain seals and valves. Water-saving
+            habits like efficient flushing reduce wastewater, conserve water resources, and protect the environment.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <a href="https://www.epa.ie/publications/compliance--enforcement/waste-water/2021_CodeofPractice_Web.pdf"
+        target="_blank" class="footer-card-link">
+        <div class="footer-card">
+          <div class="footer-thanks">
+            Learn more about proper domestic wastewater management at the EPA
+          </div>
+
+          <div class="footer-link-block">
+            For more information EPA.ie
+          </div>
+          <img src="../img/EPA.svg" alt="govIE Logo" class="footer-logo-large" />
+        </div>
+      </a>
+    </section>
+
+
+  </div>
+
+  <script>
+    // Custom cubic-bezier for a natural, springy feel
+    const customEasing = "cubic-bezier(0.68, -0.55, 0.27, 1.55)";
+
+    const container = document.getElementById('container');
+    const sections = container.querySelectorAll('.section');
+    const totalSections = sections.length;
+    let currentIndex = 0;
+    let isScrolling = false;
+    const pageDots = document.querySelectorAll('.page-dot');
+
+    // Animate the right-text (slide in with stagger)
+    function animateRightText(sectionIndex) {
+      const currentSection = sections[sectionIndex];
+      const rightText = currentSection.querySelector('.right-text');
+      if (rightText) {
+        const targets = rightText.querySelectorAll('h2, p');
+        // Set initial state for slide-in
+        gsap.set(targets, {
+          opacity: 0,
+          x: window.innerWidth
+        });
+        // Animate in with stagger
+        gsap.to(targets, {
+          x: 0,
+          opacity: 1,
+          duration: 0.8,
+          ease: customEasing,
+          stagger: {
+            each: 0.25,
+            from: "start"
+          }
+        });
+      }
+    }
+
+    // Fade out the right-text before leaving the section
+    function fadeOutRightText(sectionIndex, onComplete) {
+      const currentSection = sections[sectionIndex];
+      const rightText = currentSection.querySelector('.right-text');
+      if (rightText) {
+        const targets = rightText.querySelectorAll('h2, p');
+        gsap.to(targets, {
+          opacity: 0,
+          duration: 0.4,
+          ease: "power1.in",
+          onComplete: onComplete
+        });
+      } else if (onComplete) {
+        onComplete();
+      }
+    }
+
+    function updateSlide(prevIndex = null) {
+      isScrolling = true;
+      pageDots.forEach((dot, index) => {
+        dot.classList.toggle('active', index === currentIndex);
+      });
+
+      // Fade out previous section's text, then scroll, then fade in new
+      if (prevIndex !== null && prevIndex !== currentIndex) {
+        fadeOutRightText(prevIndex, () => {
+          container.style.transform = `translateY(-${currentIndex * 100}vh)`;
+          animateRightText(currentIndex);
+          setTimeout(() => isScrolling = false, 1000);
+        });
+      } else {
+        container.style.transform = `translateY(-${currentIndex * 100}vh)`;
+        animateRightText(currentIndex);
+        setTimeout(() => isScrolling = false, 1000);
+      }
+    }
+
+    function scroll(direction) {
+      if (isScrolling) return;
+      const prevIndex = currentIndex;
+      if (direction === 'down' && currentIndex < totalSections - 1) currentIndex++;
+      else if (direction === 'up' && currentIndex > 0) currentIndex--;
+      updateSlide(prevIndex);
+    }
+
+    function scrollToSection(index) {
+      if (isScrolling) return;
+      const prevIndex = currentIndex;
+      currentIndex = index;
+      updateSlide(prevIndex);
+    }
+
+    pageDots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        scrollToSection(parseInt(dot.getAttribute('data-index')));
+      });
+    });
+
+    window.addEventListener('wheel', (e) => {
+      scroll(e.deltaY > 0 ? 'down' : 'up');
+    });
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowDown') scroll('down');
+      if (e.key === 'ArrowUp') scroll('up');
+    });
+
+    // Initial animation on DOM load
+    window.addEventListener('DOMContentLoaded', () => {
+      animateRightText(0);
+    });
+  </script>
+</body>
+
+</html>

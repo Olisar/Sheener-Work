@@ -1,0 +1,52 @@
+<!-- File: sheener/tree11BMS.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tree 11 BMS Automation Output</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f6f8fa;
+      margin: 0;
+      padding: 0;
+    }
+    h2 {
+      text-align: center;
+      margin-top: 28px;
+      color: #0056b3;
+    }
+    pre {
+      background: #23272e;
+      color: #fffbf1;
+      padding: 20px;
+      border-radius: 8px;
+      font-family: 'Fira Mono', 'Consolas', 'Courier New', monospace;
+      font-size: 15px;
+      max-width: 900px;
+      margin: 32px auto 0 auto;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+      overflow-x: auto;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+    @media (max-width: 600px) {
+      pre { font-size: 13px; padding: 10px; }
+    }
+  </style>
+</head>
+<body>
+  <h2>Tree 11 BMS Automation Output</h2>
+  <pre id="output">Loading...</pre>
+  <script>
+    fetch('PY/bms_output.txt')
+      .then(r => {
+        if (!r.ok) throw new Error('Could not load log file.');
+        return r.text();
+      })
+      .then(txt => document.getElementById('output').textContent = txt)
+      .catch(err => document.getElementById('output').textContent = 'No output or error: ' + err.message);
+  </script>
+</body>
+</html>

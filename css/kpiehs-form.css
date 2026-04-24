@@ -1,0 +1,358 @@
+/* File: sheener/css/kpiehs-form.css */
+:root {
+    --bg-dark: #121212;
+    --card-bg: #c0c4c1;
+    /* Grayish background for cards */
+    --accent-yellow: #f8db08;
+    --accent-green: #008000;
+    --accent-red: #ff0000;
+    --text-dark: #333;
+    --text-light: #fff;
+    --border-radius: 12px;
+}
+
+*:focus {
+    outline: none !important;
+}
+
+.kpi-form-body {
+    background-color: #f4f7f6;
+    font-family: 'Outfit', sans-serif;
+    color: var(--text-dark);
+    margin: 0;
+    padding: 20px;
+    padding-top: 80px;
+    /* Increased buffer to ensure full visibility */
+}
+
+.kpi-dashboard-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    background-color: #e6f2f2;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.kpi-header {
+    background-color: #1a1a1a;
+    color: white;
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 95%;
+    margin: 30px auto 0 auto;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    position: relative;
+    z-index: 10;
+}
+
+.kpi-header h1 {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 700;
+    color: white;
+}
+
+.kpi-header .date-selector {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.kpi-header select {
+    background: #333;
+    color: white;
+    border: 1px solid #444;
+    padding: 8px 15px;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.kpi-header .year-badge {
+    background-color: var(--accent-yellow);
+    color: black;
+    padding: 8px 15px;
+    border-radius: 8px;
+    font-weight: 900;
+    font-size: 24px;
+}
+
+.kpi-main-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 20px;
+    padding: 30px;
+}
+
+/* Section Columns */
+.section-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #444;
+    margin-bottom: 5px;
+}
+
+.section-header i {
+    font-size: 32px;
+}
+
+/* Cards */
+.kpi-card {
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius);
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    min-height: 100px;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.05);
+}
+
+/* Section-specific card backgrounds */
+.hs-section .kpi-card {
+    background-color: #fff6e7;
+    /* Pastel Orange */
+}
+
+.energy-section .kpi-card {
+    background-color: #cdeaff;
+    /* Pastel Blue */
+}
+
+.waste-section .kpi-card {
+    background-color: #c6ffcb;
+    /* Pastel Green */
+}
+
+.kpi-card .card-title {
+    font-size: 14px;
+    font-weight: 800;
+    color: #444;
+    margin-bottom: 10px;
+}
+
+.kpi-card .card-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.kpi-card input {
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid transparent;
+    color: #1a1a1a;
+    font-size: 42px;
+    font-weight: 800;
+    width: 120px;
+    text-align: left;
+    outline: none;
+    border-radius: 8px;
+    padding: 5px 10px;
+    transition: all 0.3s ease;
+}
+
+.kpi-card input:hover {
+    background: rgba(255, 255, 255, 0.4);
+    border-color: rgba(0, 0, 0, 0.1);
+}
+
+.kpi-card input:focus {
+    background: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-color: var(--accent-yellow);
+    color: black;
+}
+
+/* Hide numeric arrows */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+.kpi-card .card-icon,
+.kpi-card .card-icon-img {
+    font-size: 40px;
+    color: #646464;
+    /* Darker for better visibility */
+    opacity: 1 !important;
+}
+
+.kpi-card .card-icon-img {
+    object-fit: contain;
+    /* User uploaded icons with correct color, no filter needed */
+}
+
+.kpi-card .card-icon-img {
+    filter: grayscale(100%) brightness(0.7);
+    object-fit: contain;
+}
+
+/* Specific Card Layouts */
+.double-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+/* Percentage Inputs (Energy/Waste) */
+.percentage-input-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.percentage-box {
+    padding: 8px 10px;
+    border-radius: 8px;
+    font-weight: 800;
+    font-size: 24px;
+    min-width: 110px;
+    /* Slightly wider */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.percentage-box input {
+    background: transparent !important;
+    border: none !important;
+    color: white !important;
+    font-size: 32px !important;
+    font-weight: 900 !important;
+    width: 100px !important;
+    /* Fixed width to allow space for % */
+    text-align: right !important;
+    /* Align right to sit next to % */
+    padding: 0 !important;
+    box-shadow: none !important;
+}
+
+.percentage-box::after {
+    content: '%';
+    font-size: 24px;
+    font-weight: 900;
+    color: white;
+    margin-left: 2px;
+}
+
+.percentage-box.positive {
+    background-color: var(--accent-red);
+    color: white;
+}
+
+.percentage-box.negative {
+    background-color: var(--accent-green);
+    color: white;
+}
+
+.percentage-box.neutral {
+    background-color: #777;
+    color: white;
+}
+
+/* Inspections Card Special */
+.inspections-grid {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    gap: 10px;
+}
+
+.inspections-grid input {
+    font-size: 34px;
+    width: 60px;
+}
+
+.inspections-grid label {
+    font-weight: 800;
+    font-size: 24px;
+}
+
+/* Footer & Submit */
+.kpi-footer {
+    background-color: var(--accent-yellow);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 40px;
+}
+
+.company-logo img {
+    height: 40px;
+}
+
+.save-btn {
+    background: #1a1a1a;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 30px;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.2s;
+}
+
+.save-btn:hover {
+    background: #333;
+    transform: translateY(-2px);
+}
+
+.save-btn:active {
+    transform: translateY(0);
+}
+
+#pdfBtn:hover {
+    background: #f0f0f0 !important;
+}
+
+/* Local loading overlay styles removed to use global standards in modal.css */
+
+
+/* Notification */
+#notification {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 15px 25px;
+    border-radius: 8px;
+    color: white;
+    font-weight: 600;
+    transform: translateY(100px);
+    transition: transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+    z-index: 10000;
+}
+
+#notification.show {
+    transform: translateY(0);
+}
+
+#notification.success {
+    background-color: var(--accent-green);
+}
+
+#notification.error {
+    background-color: var(--accent-red);
+}

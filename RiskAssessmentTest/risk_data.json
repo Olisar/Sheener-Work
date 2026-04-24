@@ -1,0 +1,134 @@
+[
+    {
+        "id": 1,
+        "task": "Chemical Mixing Operation",
+        "category": "Manufacturing / Production",
+        "process_phase": "Production",
+        "risk_level": "H",
+        "risk_rating": 20,
+        "severity": 5,
+        "likelihood": 4,
+        "description": "Mixing hazardous chemicals requires proper PPE and ventilation"
+    },
+    {
+        "id": 2,
+        "task": "Equipment Maintenance",
+        "category": "Maintenance / Operations",
+        "process_phase": "Maintenance",
+        "risk_level": "M",
+        "risk_rating": 12,
+        "severity": 4,
+        "likelihood": 3,
+        "description": "Regular maintenance of production equipment"
+    },
+    {
+        "id": 3,
+        "task": "Quality Control Testing",
+        "category": "Quality Assurance / Testing",
+        "process_phase": "Quality Control",
+        "risk_level": "L",
+        "risk_rating": 6,
+        "severity": 2,
+        "likelihood": 3,
+        "description": "Standard QC testing procedures"
+    },
+    {
+        "id": 4,
+        "task": "Material Handling",
+        "category": "Logistics / Warehouse",
+        "process_phase": "Material Management",
+        "risk_level": "M",
+        "risk_rating": 9,
+        "severity": 3,
+        "likelihood": 3,
+        "description": "Handling and storage of raw materials"
+    },
+    {
+        "id": 5,
+        "task": "Batch Record Review",
+        "category": "Quality Assurance / Documentation",
+        "process_phase": "Documentation",
+        "risk_level": "L",
+        "risk_rating": 4,
+        "severity": 2,
+        "likelihood": 2,
+        "description": "Review of batch manufacturing records"
+    },
+    {
+        "id": 6,
+        "task": "High-Pressure System Operation",
+        "category": "Manufacturing / Production",
+        "process_phase": "Production",
+        "risk_level": "H",
+        "risk_rating": 25,
+        "severity": 5,
+        "likelihood": 5,
+        "description": "Operation of high-pressure systems requires special training"
+    },
+    {
+        "id": 7,
+        "task": "Cleaning and Sanitization",
+        "category": "Manufacturing / Production",
+        "process_phase": "Cleaning",
+        "risk_level": "M",
+        "risk_rating": 8,
+        "severity": 2,
+        "likelihood": 4,
+        "description": "Cleaning procedures for production equipment"
+    },
+    {
+        "id": 8,
+        "task": "Environmental Monitoring",
+        "category": "Quality Assurance / Testing",
+        "process_phase": "Quality Control",
+        "risk_level": "L",
+        "risk_rating": 3,
+        "severity": 1,
+        "likelihood": 3,
+        "description": "Routine environmental monitoring checks"
+    },
+    {
+        "id": 9,
+        "task": "Waste Disposal",
+        "category": "Environmental / Safety",
+        "process_phase": "Waste Management",
+        "risk_level": "M",
+        "risk_rating": 15,
+        "severity": 5,
+        "likelihood": 3,
+        "description": "Proper disposal of hazardous waste materials"
+    },
+    {
+        "id": 10,
+        "task": "Calibration of Instruments",
+        "category": "Quality Assurance / Testing",
+        "process_phase": "Quality Control",
+        "risk_level": "L",
+        "risk_rating": 4,
+        "severity": 2,
+        "likelihood": 2,
+        "description": "Regular calibration of measurement instruments"
+    },
+    {
+        "id": 11,
+        "task": "Hot Work Operations",
+        "category": "Manufacturing / Production",
+        "process_phase": "Production",
+        "risk_level": "H",
+        "risk_rating": 18,
+        "severity": 4,
+        "likelihood": 4,
+        "description": "Welding and cutting operations require fire safety measures"
+    },
+    {
+        "id": 12,
+        "task": "Documentation Updates",
+        "category": "Quality Assurance / Documentation",
+        "process_phase": "Documentation",
+        "risk_level": "L",
+        "risk_rating": 2,
+        "severity": 1,
+        "likelihood": 2,
+        "description": "Updating standard operating procedures"
+    }
+]

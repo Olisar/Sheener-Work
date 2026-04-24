@@ -1,0 +1,845 @@
+<!-- File: sheener/Permittest.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Permit Management System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #02469e;
+            --secondary: #3498db;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #34495e;
+            --gray: #95a5a6;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--dark) 100%);
+            color: white;
+            padding: 10px 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-radius: 0 0 10px 10px;
+            margin-bottom: 10px;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            font-size: 28px;
+        }
+        
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+            gap: 20px;
+        }
+        
+        .sidebar {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        
+        .sidebar-menu {
+            list-style: none;
+        }
+        
+        .sidebar-menu li {
+            margin-bottom: 10px;
+        }
+        
+        .sidebar-menu a {
+            display: block;
+            padding: 12px 15px;
+            color: var(--dark);
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .sidebar-menu a:hover, .sidebar-menu a.active {
+            background-color: var(--secondary);
+            color: white;
+        }
+        
+        .sidebar-menu i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .content {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        
+        .page-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .page-title h2 {
+            color: var(--primary);
+            font-size: 24px;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background-color: var(--secondary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #2980b9;
+        }
+        
+        .btn-success {
+            background-color: var(--success);
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background-color: #27ae60;
+        }
+        
+        .card {
+            background: rgb(237, 248, 250);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            /* border-left: 4px solid var(--secondary); */
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .card-title {
+            font-size: 18px;
+            color: var(--primary);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border 0.3s ease;
+        }
+        
+        .form-control:focus {
+            border-color: var(--secondary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .attachments {
+            border: 2px dashed #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            text-align: center;
+            margin-top: 10px;
+        }
+        
+        .attachments:hover {
+            border-color: var(--secondary);
+        }
+        
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        .table th, .table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .table th {
+            background-color: #f8f9fa;
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        .table tr:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .status-issued {
+            background-color: #e8f4fd;
+            color: var(--secondary);
+        }
+        
+        .status-active {
+            background-color: #e6f7ee;
+            color: var(--success);
+        }
+        
+        .status-expired {
+            background-color: #fbeeee;
+            color: var(--danger);
+        }
+        
+        .alert {
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .alert-success {
+            background-color: #e6f7ee;
+            color: var(--success);
+            border-left: 4px solid var(--success);
+        }
+        
+        .alert-error {
+            background-color: #fbeeee;
+            color: var(--danger);
+            border-left: 4px solid var(--danger);
+        }
+        
+        .alert i {
+            margin-right: 10px;
+            font-size: 20px;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: var(--gray);
+            font-size: 14px;
+        }
+        
+        .tab-container {
+            margin-bottom: 20px;
+        }
+        
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 20px;
+        }
+        
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+        }
+        
+        .tab.active {
+            border-bottom: 3px solid var(--secondary);
+            color: var(--secondary);
+            font-weight: 600;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .tabs {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-id-badge"></i>
+                    Permit Management System
+                </div>
+                <div class="user-info">
+                    <i class="fas fa-user-circle"></i> Admin User
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="main-content">
+            <div class="sidebar">
+                <ul class="sidebar-menu">
+                    <li><a href="#" class="active"><i class="fas fa-home"></i> Dashboard</a></li>
+                    <li><a href="#"><i class="fas fa-file-alt"></i> Permits</a></li>
+                    <li><a href="#"><i class="fas fa-tasks"></i> Tasks</a></li>
+                    <li><a href="#"><i class="fas fa-users"></i> Personnel</a></li>
+                    <li><a href="#"><i class="fas fa-chart-bar"></i> Reports</a></li>
+                    <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
+                </ul>
+            </div>
+            
+            <div class="content">
+                <div class="page-title">
+                    <h2>Permit Management</h2>
+                    <button class="btn btn-primary" id="newPermitBtn">
+                        <i class="fas fa-plus"></i> New Permit
+                    </button>
+                </div>
+                
+                <div class="tab-container">
+                    <div class="tabs">
+                        <div class="tab active" data-tab="create">Create Permit</div>
+                        <div class="tab" data-tab="view">View Permits</div>
+                        <div class="tab" data-tab="attachments">Attachments</div>
+                    </div>
+                    
+                    <div class="tab-content active" id="create-tab">
+                        <div id="messageContainer"></div>
+                        
+                        <form id="permitForm" enctype="multipart/form-data">
+                            <input type="hidden" name="csrf_token" id="csrf_token">
+                            
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Basic Information</h3>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label" for="task_id">Task ID *</label>
+                                    <input type="text" class="form-control" id="task_id" name="task_id" required>
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label class="form-label" for="permit_type">Permit Type *</label>
+                                        <select class="form-control" id="permit_type" name="permit_type" required>
+                                            <option value="">Select Permit Type</option>
+                                            <option value="Hot Work">Hot Work</option>
+                                            <option value="Cold Work">Cold Work</option>
+                                            <option value="Clearance">Clearance</option>
+                                            <option value="Work at Height">Work at Height</option>
+                                            <option value="Confined Space">Confined Space</option>
+                                            <option value="Electrical Work">Electrical Work</option>
+                                            <option value="General Work">General Work</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label class="form-label" for="status">Status *</label>
+                                        <select class="form-control" id="status" name="status" required>
+                                            <option value="Issued" selected>Issued</option>
+                                            <option value="Active">Active</option>
+                                            <option value="Expired">Expired</option>
+                                            <option value="Revoked">Revoked</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Issuance Details</h3>
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label class="form-label" for="issued_by">Issued By *</label>
+                                        <input type="text" class="form-control" id="issued_by" name="issued_by" required>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label class="form-label" for="approved_by">Approved By</label>
+                                        <input type="text" class="form-control" id="approved_by" name="approved_by">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label class="form-label" for="issue_date">Issue Date *</label>
+                                        <input type="date" class="form-control" id="issue_date" name="issue_date" required>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label class="form-label" for="expiry_date">Expiry Date *</label>
+                                        <input type="date" class="form-control" id="expiry_date" name="expiry_date" required>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="card" id="electricalSection" style="display: none;">
+                                <div class="card-header">
+                                    <h3 class="card-title">Electrical Work Details</h3>
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label class="form-label" for="energy_type">Energy Type</label>
+                                        <select class="form-control" id="energy_type" name="energy_type">
+                                            <option value="">Select Energy Type</option>
+                                            <option value="1">Electrical</option>
+                                            <option value="2">Mechanical</option>
+                                            <option value="3">Hydraulic</option>
+                                            <option value="4">Pneumatic</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label class="form-label" for="energy_verifier">Isolation Verified By</label>
+                                        <input type="text" class="form-control" id="energy_verifier" name="energy_verifier">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Conditions & Attachments</h3>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label" for="conditions">Conditions</label>
+                                    <textarea class="form-control" id="conditions" name="conditions" rows="4"></textarea>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label">Attachments</label>
+                                    <div class="attachments">
+                                        <i class="fas fa-cloud-upload-alt" style="font-size: 32px; color: #ccc; margin-bottom: 10px;"></i>
+                                        <p>Drag & drop files here or click to browse</p>
+                                        <input type="file" id="attachments" name="attachments[]" multiple style="display: none;">
+                                        <button type="button" class="btn btn-primary" style="margin-top: 10px;" onclick="document.getElementById('attachments').click()">
+                                            <i class="fas fa-upload"></i> Select Files
+                                        </button>
+                                    </div>
+                                    <div id="fileList" style="margin-top: 10px;"></div>
+                                </div>
+                            </div>
+                            
+                            <div style="text-align: center; margin-top: 30px;">
+                                <button type="submit" class="btn btn-success" style="padding: 12px 30px;">
+                                    <i class="fas fa-save"></i> Create Permit
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <div class="tab-content" id="view-tab">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Existing Permits</h3>
+                                <button class="btn btn-primary" id="refreshPermitsBtn">
+                                    <i class="fas fa-sync-alt"></i> Refresh
+                                </button>
+                            </div>
+                            
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Type</th>
+                                            <th>Task ID</th>
+                                            <th>Issue Date</th>
+                                            <th>Expiry Date</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="permitsTableBody">
+                                        <tr>
+                                            <td colspan="7" style="text-align: center;">Loading permits...</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-content" id="attachments-tab">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Permit Attachments</h3>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label" for="permitSelect">Select Permit</label>
+                                <select class="form-control" id="permitSelect">
+                                    <option value="">Select a permit to view attachments</option>
+                                </select>
+                            </div>
+                            
+                            <div id="attachmentsList" style="margin-top: 20px;">
+                                <p>Select a permit to view its attachments</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>© 2023 Permit Management System | Designed with <i class="fas fa-heart" style="color: #e74c3c;"></i></p>
+        </div>
+    </footer>
+
+    <script>
+        // CSRF Token handling
+        document.addEventListener('DOMContentLoaded', function() {
+            // In a real implementation, you would fetch this from your PHP endpoint
+            document.getElementById('csrf_token').value = '<?php echo bin2hex(random_bytes(32)); ?>';
+            
+            // Set today's date as default for issue date
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('issue_date').value = today;
+            
+            // Set expiry date to 7 days from now
+            const nextWeek = new Date();
+            nextWeek.setDate(nextWeek.getDate() + 7);
+            document.getElementById('expiry_date').value = nextWeek.toISOString().split('T')[0];
+            
+            // Handle permit type change to show/hide electrical section
+            document.getElementById('permit_type').addEventListener('change', function() {
+                const electricalSection = document.getElementById('electricalSection');
+                electricalSection.style.display = this.value === 'Electrical Work' ? 'block' : 'none';
+            });
+            
+            // Handle file selection
+            document.getElementById('attachments').addEventListener('change', function(e) {
+                const fileList = document.getElementById('fileList');
+                fileList.innerHTML = '';
+                
+                if (this.files.length > 0) {
+                    const list = document.createElement('ul');
+                    list.style.listStyle = 'none';
+                    
+                    for (let i = 0; i < this.files.length; i++) {
+                        const listItem = document.createElement('li');
+                        listItem.innerHTML = `<i class="fas fa-file" style="margin-right: 8px;"></i> ${this.files[i].name}`;
+                        list.appendChild(listItem);
+                    }
+                    
+                    fileList.appendChild(list);
+                }
+            });
+            
+            // Form submission
+            document.getElementById('permitForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Basic validation
+                const taskId = document.getElementById('task_id').value;
+                const permitType = document.getElementById('permit_type').value;
+                
+                if (!taskId || !permitType) {
+                    showMessage('Please fill in all required fields', 'error');
+                    return;
+                }
+                
+                // Show loading state
+                const submitBtn = this.querySelector('button[type="submit"]');
+                const originalText = submitBtn.innerHTML;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+                submitBtn.disabled = true;
+                
+                // Create FormData object to handle file uploads
+                const formData = new FormData(this);
+                
+                // Send AJAX request to add_permit.php
+                fetch('Sheener/php/add_permittest.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        showMessage('Permit created successfully! Permit ID: ' + data.permit_id, 'success');
+                        // Reset form
+                        document.getElementById('permitForm').reset();
+                        document.getElementById('fileList').innerHTML = '';
+                        document.getElementById('electricalSection').style.display = 'none';
+                        
+                        // Set default dates again
+                        document.getElementById('issue_date').value = today;
+                        document.getElementById('expiry_date').value = nextWeek.toISOString().split('T')[0];
+                    } else {
+                        showMessage('Error: ' + data.error, 'error');
+                    }
+                })
+                .catch(error => {
+                    showMessage('Network error: ' + error, 'error');
+                })
+                .finally(() => {
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                });
+            });
+            
+            // Tab functionality
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // Remove active class from all tabs
+                    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                    // Add active class to clicked tab
+                    this.classList.add('active');
+                    
+                    // Hide all tab content
+                    document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+                    // Show the corresponding tab content
+                    document.getElementById(this.getAttribute('data-tab') + '-tab').classList.add('active');
+                    
+                    // Load data if viewing permits tab
+                    if (this.getAttribute('data-tab') === 'view') {
+                        loadPermits();
+                    }
+                    
+                    // Load permits dropdown if viewing attachments tab
+                    if (this.getAttribute('data-tab') === 'attachments') {
+                        loadPermitsDropdown();
+                    }
+                });
+            });
+            
+            // Refresh permits button
+            document.getElementById('refreshPermitsBtn').addEventListener('click', function() {
+                loadPermits();
+            });
+            
+            // Permit selection for attachments
+            document.getElementById('permitSelect').addEventListener('change', function() {
+                const permitId = this.value;
+                if (permitId) {
+                    loadAttachments(permitId);
+                } else {
+                    document.getElementById('attachmentsList').innerHTML = '<p>Select a permit to view its attachments</p>';
+                }
+            });
+            
+            // Load initial permits if on view tab
+            if (document.getElementById('view-tab').classList.contains('active')) {
+                loadPermits();
+            }
+        });
+        
+        function showMessage(message, type) {
+            const messageContainer = document.getElementById('messageContainer');
+            const alertDiv = document.createElement('div');
+            alertDiv.className = `alert alert-${type}`;
+            
+            const icon = type === 'success' ? 'check-circle' : 'exclamation-circle';
+            alertDiv.innerHTML = `<i class="fas fa-${icon}"></i> ${message}`;
+            
+            messageContainer.appendChild(alertDiv);
+            
+            // Remove message after 5 seconds
+            setTimeout(() => {
+                alertDiv.remove();
+            }, 5000);
+        }
+        
+        function loadPermits() {
+            const tableBody = document.getElementById('permitsTableBody');
+            tableBody.innerHTML = '<tr><td colspan="7" style="text-align: center;">Loading permits...</td></tr>';
+            
+            // In a real implementation, you would fetch this from your PHP endpoint
+            // For demonstration, we'll use mock data
+            setTimeout(() => {
+                const mockData = [
+                    {id: 101, type: 'Hot Work', task_id: 'TASK-001', issue_date: '2023-06-15', expiry_date: '2023-06-22', status: 'Active'},
+                    {id: 102, type: 'Electrical Work', task_id: 'TASK-005', issue_date: '2023-06-18', expiry_date: '2023-06-25', status: 'Issued'},
+                    {id: 103, type: 'Work at Height', task_id: 'TASK-012', issue_date: '2023-06-10', expiry_date: '2023-06-17', status: 'Expired'}
+                ];
+                
+                tableBody.innerHTML = '';
+                
+                if (mockData.length === 0) {
+                    tableBody.innerHTML = '<tr><td colspan="7" style="text-align: center;">No permits found</td></tr>';
+                    return;
+                }
+                
+                mockData.forEach(permit => {
+                    const row = document.createElement('tr');
+                    
+                    // Determine status badge class
+                    let statusClass = 'status-issued';
+                    if (permit.status === 'Active') statusClass = 'status-active';
+                    if (permit.status === 'Expired') statusClass = 'status-expired';
+                    
+                    row.innerHTML = `
+                        <td>${permit.id}</td>
+                        <td>${permit.type}</td>
+                        <td>${permit.task_id}</td>
+                        <td>${permit.issue_date}</td>
+                        <td>${permit.expiry_date}</td>
+                        <td><span class="status-badge ${statusClass}">${permit.status}</span></td>
+                        <td>
+                            <button class="btn btn-primary" style="padding: 5px 10px;">
+                                <i class="fas fa-eye"></i> View
+                            </button>
+                        </td>
+                    `;
+                    
+                    tableBody.appendChild(row);
+                });
+            }, 1000);
+        }
+        
+        function loadPermitsDropdown() {
+            const permitSelect = document.getElementById('permitSelect');
+            permitSelect.innerHTML = '<option value="">Select a permit to view attachments</option>';
+            
+            // In a real implementation, you would fetch this from your PHP endpoint
+            // For demonstration, we'll use mock data
+            setTimeout(() => {
+                const mockData = [
+                    {id: 101, type: 'Hot Work', task_id: 'TASK-001'},
+                    {id: 102, type: 'Electrical Work', task_id: 'TASK-005'},
+                    {id: 103, type: 'Work at Height', task_id: 'TASK-012'}
+                ];
+                
+                mockData.forEach(permit => {
+                    const option = document.createElement('option');
+                    option.value = permit.id;
+                    option.textContent = `#${permit.id} - ${permit.type} (${permit.task_id})`;
+                    permitSelect.appendChild(option);
+                });
+            }, 500);
+        }
+        
+        function loadAttachments(permitId) {
+            const attachmentsList = document.getElementById('attachmentsList');
+            attachmentsList.innerHTML = '<p>Loading attachments...</p>';
+            
+            // In a real implementation, you would fetch this from get_permit_attachments.php
+            // For demonstration, we'll use mock data
+            setTimeout(() => {
+                const mockData = {
+                    permit_id: permitId,
+                    attachments: [
+                        {file_name: 'safety_checklist.pdf', file_type: 'application/pdf', file_path: 'uploads/safety_checklist.pdf'},
+                        {file_name: 'site_photo.jpg', file_type: 'image/jpeg', file_path: 'uploads/site_photo.jpg'}
+                    ]
+                };
+                
+                if (mockData.attachments.length === 0) {
+                    attachmentsList.innerHTML = '<p>No attachments found for this permit</p>';
+                    return;
+                }
+                
+                let html = '<div class="card"><div class="card-header"><h4>Attachments</h4></div><div class="card-body"><ul style="list-style: none;">';
+                
+                mockData.attachments.forEach(file => {
+                    let icon = 'fa-file';
+                    if (file.file_type.includes('image')) icon = 'fa-file-image';
+                    if (file.file_type.includes('pdf')) icon = 'fa-file-pdf';
+                    
+                    html += `
+                        <li style="padding: 10px; border-bottom: 1px solid #eee;">
+                            <i class="fas ${icon}" style="margin-right: 10px;"></i>
+                            ${file.file_name}
+                            <a href="${file.file_path}" target="_blank" style="float: right;">
+                                <i class="fas fa-download"></i> Download
+                            </a>
+                        </li>
+                    `;
+                });
+                
+                html += '</ul></div></div>';
+                attachmentsList.innerHTML = html;
+            }, 800);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,203 @@
+<!-- File: sheener/dashboard_employee.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ISO Management System</title>
+  
+  <!-- Font Awesome (Public Icon Library) -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+    integrity="sha512-<some-new-SRI-hash>"
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  >
+
+  <style>
+    /* Reset defaults */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f5f7;
+      color: #474747;
+    }
+
+    /* Header Section */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem;
+      background-color: #034081;
+      color: #fff;
+    }
+
+    header .header-left {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    header img {
+      width: 130px;
+      height: 54px;
+      object-fit: cover;
+      transform: scale(0.7);
+    }
+
+    header h1 {
+      font-size: 1.5rem;
+      margin: 0;
+      color: #fff;
+    }
+
+    header .notifications {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #fff;
+    }
+
+    header .notifications i {
+      color: #fff;
+    }
+
+    /* Navigation Bar */
+    nav {
+      background-color: #fff;
+      border-bottom: 1px solid #ddd;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      padding: 0.5rem 1rem;
+    }
+
+    nav li {
+      cursor: pointer;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+    }
+
+    nav li.active { background-color: #1b91ff; color: #ffffff; }
+
+    /* Main Content */
+    main { padding: 1rem; }
+
+    /* Cards Grid */
+    .cards-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .card {
+      width: 20vw;
+      flex: none;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      background-color: #fff;
+      padding: 1rem;
+    }
+
+    .card h3 {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="header-left">
+      <img src="Amneal_Logo_new.svg" alt="Amneal Logo">
+      <h1>SHENER Management System</h1>
+    </div>
+    <div class="notifications">
+      <i class="far fa-bell"></i>
+      <span>Notifications</span>
+    </div>
+  </header>
+
+  <!-- Navigation -->
+  <nav>
+    <ul>
+      <li class="active" onclick="showSection('dashboard', event)">Dashboard</li>
+      <li onclick="showSection('tasks', event)">Tasks</li>
+      <li onclick="showSection('documents', event)">Documents</li>
+    </ul>
+  </nav>
+
+  <!-- Main Content -->
+  <main>
+    <section id="dashboard-section" style="display:block;">
+      <h2>Dashboard</h2>
+      <div class="cards-row">
+        <div class="card">
+          <h3><i class="fas fa-tachometer-alt"></i> Compliance Score</h3>
+          <p>85% Compliance</p>
+          <div class="compliance-bar"><div class="compliance-fill"></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tasks Section -->
+    <section id="tasks-section" style="display:none;">
+      <h2>Tasks</h2>
+      <div class="cards-row">
+        <div class="card">
+          <h3><i class="fas fa-exclamation-circle"></i> High-Risk Tasks</h3>
+          <p>3 tasks require immediate action</p>
+        </div>
+        <div class="card">
+          <h3><i class="fas fa-tasks"></i> Assigned Tasks</h3>
+          <p>4 tasks pending completion</p>
+        </div>
+        <div class="card">
+          <h3><i class="fas fa-clipboard-check"></i> Completed Tasks</h3>
+          <p>8 tasks completed this month</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Documents Section -->
+    <section id="documents-section" style="display:none;">
+      <h2>Documents</h2>
+      <div class="cards-row">
+        <div class="card">
+          <h3><i class="fas fa-folder-open"></i> Policy Documents</h3>
+          <p>12 policy documents updated</p>
+        </div>
+        <div class="card">
+          <h3><i class="fas fa-book"></i> Manuals</h3>
+          <p>1 new Safety Manual available</p>
+          <p>1 new Environmental Manual available</p>
+          <p>1 new Energy Manual available</p>
+        </div>
+        <div class="card">
+          <h3><i class="fas fa-file-upload"></i> Recently Uploaded</h3>
+          <p>5 new documents added this week</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    function showSection(section, event) {
+      document.getElementById('dashboard-section').style.display = 'none';
+      document.getElementById('tasks-section').style.display = 'none';
+      document.getElementById('documents-section').style.display = 'none';
+      document.querySelectorAll('nav li').forEach(item => item.classList.remove('active'));
+      document.getElementById(section + '-section').style.display = 'block';
+      event.target.classList.add('active');
+    }
+  </script>
+</body>
+</html>

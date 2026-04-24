@@ -1,0 +1,1183 @@
+<!-- File: sheener/RiskAssessmentTest/controls.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controls Management - Risk Assessment Pro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Sans+Pro:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.3/echarts.min.js"></script>
+    <style>
+        :root {
+            --primary-navy: #1a2332;
+            --secondary-gray: #6b7280;
+            --accent-orange: #ff8c00;
+            --risk-high: #dc2626;
+            --risk-medium: #f59e0b;
+            --risk-low: #059669;
+            --bg-light: #fafafa;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--primary-navy);
+            line-height: 1.6;
+        }
+
+        .navigation {
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .nav-logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-navy);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: var(--secondary-gray);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--accent-orange);
+        }
+
+        .page-header {
+            background: linear-gradient(135deg, var(--primary-navy) 0%, #2d3748 100%);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .page-subtitle {
+            font-size: 1.125rem;
+            color: #e2e8f0;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .controls-dashboard {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .dashboard-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e5e7eb;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary-navy);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .implementation-overview {
+            grid-column: 1 / -1;
+        }
+
+        .overview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .overview-item {
+            text-align: center;
+            padding: 1.5rem;
+            background: #f8fafc;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .overview-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .overview-label {
+            font-size: 0.875rem;
+            color: var(--secondary-gray);
+            font-weight: 500;
+        }
+
+        .priority-high {
+            color: var(--risk-high);
+        }
+
+        .priority-medium {
+            color: var(--risk-medium);
+        }
+
+        .priority-low {
+            color: var(--risk-low);
+        }
+
+        .controls-list {
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .control-item {
+            background: #f8fafc;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+
+        .control-item:hover {
+            border-color: var(--accent-orange);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .control-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .control-task {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--primary-navy);
+            margin-bottom: 0.25rem;
+        }
+
+        .control-id {
+            background: var(--accent-orange);
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+
+        .control-category {
+            font-size: 0.875rem;
+            color: var(--secondary-gray);
+            margin-bottom: 1rem;
+        }
+
+        .control-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .control-panel {
+            padding: 1rem;
+            border-radius: 6px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .control-panel.current {
+            background: #fef7ed;
+            border-color: var(--risk-medium);
+        }
+
+        .control-panel.recommended {
+            background: #f0fdf4;
+            border-color: var(--risk-low);
+        }
+
+        .panel-title {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--primary-navy);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .panel-content {
+            font-size: 0.875rem;
+            color: var(--secondary-gray);
+            line-height: 1.4;
+        }
+
+        .control-status {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .status-pending {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .status-implemented {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .status-overdue {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .priority-indicator {
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+
+        .priority-high {
+            background: var(--risk-high);
+            color: white;
+        }
+
+        .priority-medium {
+            background: var(--risk-medium);
+            color: white;
+        }
+
+        .priority-low {
+            background: var(--risk-low);
+            color: white;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            font-size: 0.75rem;
+        }
+
+        .btn-primary {
+            background: var(--accent-orange);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #e67e00;
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: #f8fafc;
+            color: var(--primary-navy);
+            border: 1px solid #e5e7eb;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent-orange);
+            background: #fef7ed;
+        }
+
+        .btn-small {
+            padding: 0.25rem 0.5rem;
+            font-size: 0.75rem;
+        }
+
+        .progress-section {
+            margin-top: 1.5rem;
+        }
+
+        .progress-item {
+            margin-bottom: 1rem;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--accent-orange);
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+
+        .chart-container {
+            height: 300px;
+            margin-top: 1rem;
+        }
+
+        .filters-section {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .filter-select {
+            padding: 0.5rem 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            background: white;
+            font-size: 0.875rem;
+            transition: border-color 0.3s ease;
+            min-width: 150px;
+        }
+
+        .filter-select:focus {
+            outline: none;
+            border-color: var(--accent-orange);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            margin: 2rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .modal-header {
+            padding: 2rem 2rem 1rem;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--secondary-gray);
+            padding: 0.5rem;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        .modal-close:hover {
+            background: #f3f4f6;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            padding: 0 2rem;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            color: var(--primary-navy);
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        .form-input, .form-textarea, .form-select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-input:focus, .form-textarea:focus, .form-select:focus {
+            outline: none;
+            border-color: var(--accent-orange);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2rem;
+            }
+            
+            .controls-dashboard {
+                grid-template-columns: 1fr;
+            }
+            
+            .control-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .filter-group {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .filter-select {
+                min-width: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navigation">
+        <div class="nav-container">
+            <div class="nav-logo">Risk Assessment Pro</div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Dashboard</a>
+                <a href="tasks.html" class="nav-link">Task Analysis</a>
+                <a href="controls.html" class="nav-link active">Controls Management</a>
+                <a href="reports.html" class="nav-link">Reports</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1 class="page-title">Controls Management</h1>
+            <p class="page-subtitle">Track implementation of safety controls and manage recommended actions</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Filters -->
+        <div class="filters-section">
+            <div class="filter-group">
+                <select id="status-filter" class="filter-select">
+                    <option value="all">All Status</option>
+                    <option value="pending">Pending</option>
+                    <option value="implemented">Implemented</option>
+                    <option value="overdue">Overdue</option>
+                </select>
+                
+                <select id="priority-filter" class="filter-select">
+                    <option value="all">All Priorities</option>
+                    <option value="high">High Priority</option>
+                    <option value="medium">Medium Priority</option>
+                    <option value="low">Low Priority</option>
+                </select>
+                
+                <button class="btn btn-primary" onclick="controlsApp.showAddControlModal()">
+                    Add Control
+                </button>
+                
+                <button class="btn btn-secondary" onclick="controlsApp.exportControls()">
+                    Export Controls
+                </button>
+            </div>
+        </div>
+
+        <!-- Controls Dashboard -->
+        <div class="controls-dashboard">
+            <!-- Implementation Overview -->
+            <div class="dashboard-card implementation-overview">
+                <h2 class="card-title">
+                    <span>📊</span>
+                    Implementation Overview
+                </h2>
+                <div class="overview-grid">
+                    <div class="overview-item">
+                        <div class="overview-value priority-high">12</div>
+                        <div class="overview-label">Total Controls</div>
+                    </div>
+                    <div class="overview-item">
+                        <div class="overview-value priority-medium">8</div>
+                        <div class="overview-label">Implemented</div>
+                    </div>
+                    <div class="overview-item">
+                        <div class="overview-value priority-low">3</div>
+                        <div class="overview-label">Pending</div>
+                    </div>
+                    <div class="overview-item">
+                        <div class="overview-value priority-high">1</div>
+                        <div class="overview-label">Overdue</div>
+                    </div>
+                </div>
+                
+                <div class="progress-section">
+                    <div class="progress-item">
+                        <div class="progress-label">
+                            <span>Overall Implementation Progress</span>
+                            <span>67%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 67%;"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="progress-item">
+                        <div class="progress-label">
+                            <span>High Priority Controls</span>
+                            <span>75%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 75%;"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="progress-item">
+                        <div class="progress-label">
+                            <span>Medium Priority Controls</span>
+                            <span>60%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 60%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Current Controls -->
+            <div class="dashboard-card">
+                <h2 class="card-title">
+                    <span>🛡️</span>
+                    Current Controls
+                </h2>
+                <div id="current-controls" class="controls-list">
+                    <!-- Controls will be dynamically loaded here -->
+                </div>
+            </div>
+
+            <!-- Recommended Actions -->
+            <div class="dashboard-card">
+                <h2 class="card-title">
+                    <span>⚡</span>
+                    Recommended Actions
+                </h2>
+                <div id="recommended-actions" class="controls-list">
+                    <!-- Recommended actions will be dynamically loaded here -->
+                </div>
+            </div>
+
+            <!-- Implementation Timeline -->
+            <div class="dashboard-card">
+                <h2 class="card-title">
+                    <span>📅</span>
+                    Implementation Timeline
+                </h2>
+                <div id="timeline-chart" class="chart-container"></div>
+            </div>
+
+            <!-- Priority Distribution -->
+            <div class="dashboard-card">
+                <h2 class="card-title">
+                    <span>🎯</span>
+                    Priority Distribution
+                </h2>
+                <div id="priority-chart" class="chart-container"></div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Add Control Modal -->
+    <div id="add-control-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add New Control</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <form id="add-control-form">
+                <div class="form-group">
+                    <label class="form-label">Task ID</label>
+                    <select class="form-select" id="task-select" required>
+                        <option value="">Select a task</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Control Type</label>
+                    <select class="form-select" id="control-type" required>
+                        <option value="current">Current Control</option>
+                        <option value="recommended">Recommended Action</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Control Description</label>
+                    <textarea class="form-textarea" id="control-description" placeholder="Describe the control or action..." required></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Priority Level</label>
+                    <select class="form-select" id="control-priority" required>
+                        <option value="high">High Priority</option>
+                        <option value="medium">Medium Priority</option>
+                        <option value="low">Low Priority</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Target Completion Date</label>
+                    <input type="date" class="form-input" id="completion-date" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Assigned To</label>
+                    <input type="text" class="form-input" id="assigned-to" placeholder="Enter responsible person or team..." required>
+                </div>
+                <div class="action-buttons">
+                    <button type="submit" class="btn btn-primary">Add Control</button>
+                    <button type="button" class="btn btn-secondary" onclick="controlsApp.closeModal()">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer style="background: var(--primary-navy); color: white; padding: 2rem 0; margin-top: 4rem; text-align: center;">
+        <div class="container">
+            <p>&copy; 2024 Risk Assessment Pro. Professional risk management and safety analysis.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="main.js"></script>
+    <script>
+        class ControlsManagementApp {
+            constructor() {
+                this.riskData = [];
+                this.controls = [];
+                this.currentFilters = {
+                    status: 'all',
+                    priority: 'all'
+                };
+                this.init();
+            }
+
+            async init() {
+                await this.loadData();
+                this.setupEventListeners();
+                this.renderControls();
+                this.renderCharts();
+                this.animatePageLoad();
+            }
+
+            async loadData() {
+                try {
+                    const response = await fetch('./risk_data.json');
+                    this.riskData = await response.json();
+                    this.generateControlsData();
+                } catch (error) {
+                    console.error('Error loading risk data:', error);
+                    this.riskData = [];
+                    this.controls = [];
+                }
+            }
+
+            generateControlsData() {
+                // Generate controls data from risk assessment tasks
+                this.controls = this.riskData.map(task => ({
+                    id: `C${task.id}`,
+                    taskId: task.id,
+                    taskName: task.task,
+                    category: task.category,
+                    currentControls: task.current_controls,
+                    recommendedControls: task.recommended_controls,
+                    riskLevel: task.risk_level,
+                    riskRating: task.risk_rating,
+                    priority: task.risk_level === 'H' ? 'high' : task.risk_level === 'M' ? 'medium' : 'low',
+                    status: this.getRandomStatus(),
+                    assignedTo: this.getRandomAssignee(),
+                    targetDate: this.getRandomDate(),
+                    completionDate: null
+                }));
+            }
+
+            getRandomStatus() {
+                const statuses = ['implemented', 'pending', 'overdue'];
+                const weights = [0.6, 0.3, 0.1]; // 60% implemented, 30% pending, 10% overdue
+                const random = Math.random();
+                let sum = 0;
+                for (let i = 0; i < weights.length; i++) {
+                    sum += weights[i];
+                    if (random <= sum) return statuses[i];
+                }
+                return 'pending';
+            }
+
+            getRandomAssignee() {
+                const assignees = [
+                    'Safety Team', 'Maintenance Dept', 'Operations Mgr',
+                    'EHS Coordinator', 'Engineering Team', 'Supervisor',
+                    'Facility Manager', 'Training Dept'
+                ];
+                return assignees[Math.floor(Math.random() * assignees.length)];
+            }
+
+            getRandomDate() {
+                const today = new Date();
+                const futureDate = new Date(today.getTime() + (Math.random() * 90 * 24 * 60 * 60 * 1000)); // Random date within 90 days
+                return futureDate.toISOString().split('T')[0];
+            }
+
+            setupEventListeners() {
+                // Filter event listeners
+                const statusFilter = document.getElementById('status-filter');
+                const priorityFilter = document.getElementById('priority-filter');
+
+                if (statusFilter) {
+                    statusFilter.addEventListener('change', (e) => {
+                        this.currentFilters.status = e.target.value;
+                        this.renderControls();
+                    });
+                }
+
+                if (priorityFilter) {
+                    priorityFilter.addEventListener('change', (e) => {
+                        this.currentFilters.priority = e.target.value;
+                        this.renderControls();
+                    });
+                }
+
+                // Modal event listeners
+                document.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('modal-close') || e.target.classList.contains('modal')) {
+                        this.closeModal();
+                    }
+                });
+
+                // Form submission
+                const addControlForm = document.getElementById('add-control-form');
+                if (addControlForm) {
+                    addControlForm.addEventListener('submit', (e) => {
+                        e.preventDefault();
+                        this.addNewControl();
+                    });
+                }
+            }
+
+            renderControls() {
+                const filteredControls = this.controls.filter(control => {
+                    const matchesStatus = this.currentFilters.status === 'all' || control.status === this.currentFilters.status;
+                    const matchesPriority = this.currentFilters.priority === 'all' || control.priority === this.currentFilters.priority;
+                    return matchesStatus && matchesPriority;
+                });
+
+                this.renderCurrentControls(filteredControls);
+                this.renderRecommendedActions(filteredControls);
+            }
+
+            renderCurrentControls(controls) {
+                const container = document.getElementById('current-controls');
+                if (!container) return;
+
+                container.innerHTML = '';
+
+                controls.filter(c => c.status === 'implemented').forEach((control, index) => {
+                    const controlElement = this.createControlElement(control, 'current');
+                    container.appendChild(controlElement);
+
+                    // Animate appearance
+                    anime({
+                        targets: controlElement,
+                        opacity: [0, 1],
+                        translateX: [-30, 0],
+                        duration: 500,
+                        delay: index * 100,
+                        easing: 'easeOutQuart'
+                    });
+                });
+            }
+
+            renderRecommendedActions(controls) {
+                const container = document.getElementById('recommended-actions');
+                if (!container) return;
+
+                container.innerHTML = '';
+
+                const pendingControls = controls.filter(c => c.status !== 'implemented');
+                
+                pendingControls.forEach((control, index) => {
+                    const controlElement = this.createControlElement(control, 'recommended');
+                    container.appendChild(controlElement);
+
+                    // Animate appearance
+                    anime({
+                        targets: controlElement,
+                        opacity: [0, 1],
+                        translateX: [30, 0],
+                        duration: 500,
+                        delay: index * 100,
+                        easing: 'easeOutQuart'
+                    });
+                });
+            }
+
+            createControlElement(control, type) {
+                const element = document.createElement('div');
+                element.className = 'control-item';
+
+                const statusClass = `status-${control.status}`;
+                const priorityClass = `priority-${control.priority}`;
+
+                element.innerHTML = `
+                    <div class="control-header">
+                        <div>
+                            <div class="control-task">${control.taskName}</div>
+                            <div class="control-id">${control.id}</div>
+                        </div>
+                        <div class="priority-indicator ${priorityClass}">
+                            ${control.priority.toUpperCase()}
+                        </div>
+                    </div>
+                    
+                    <div class="control-category">${control.category}</div>
+                    
+                    <div class="control-content">
+                        <div class="control-panel ${type}">
+                            <div class="panel-title">${type === 'current' ? 'Current Controls' : 'Recommended Actions'}</div>
+                            <div class="panel-content">
+                                ${type === 'current' ? control.currentControls : control.recommendedControls}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="control-status">
+                        <div class="status-badge ${statusClass}">
+                            ${control.status.charAt(0).toUpperCase() + control.status.slice(1)}
+                        </div>
+                        <div class="action-buttons">
+                            ${control.status !== 'implemented' ? `
+                                <button class="btn btn-primary btn-small" onclick="controlsApp.markAsImplemented('${control.id}')">
+                                    Mark Done
+                                </button>
+                            ` : ''}
+                            <button class="btn btn-secondary btn-small" onclick="controlsApp.editControl('${control.id}')">
+                                Edit
+                            </button>
+                        </div>
+                    </div>
+                `;
+
+                return element;
+            }
+
+            renderCharts() {
+                this.renderTimelineChart();
+                this.renderPriorityChart();
+            }
+
+            renderTimelineChart() {
+                const chartElement = document.getElementById('timeline-chart');
+                if (!chartElement) return;
+
+                const chart = echarts.init(chartElement);
+
+                // Generate timeline data
+                const timelineData = this.generateTimelineData();
+
+                const option = {
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: { type: 'shadow' }
+                    },
+                    xAxis: {
+                        type: 'category',
+                        data: timelineData.dates,
+                        axisLabel: { fontSize: 10 }
+                    },
+                    yAxis: {
+                        type: 'value',
+                        name: 'Controls'
+                    },
+                    series: [
+                        {
+                            name: 'Implemented',
+                            type: 'bar',
+                            stack: 'total',
+                            data: timelineData.implemented,
+                            itemStyle: { color: '#059669' }
+                        },
+                        {
+                            name: 'Pending',
+                            type: 'bar',
+                            stack: 'total',
+                            data: timelineData.pending,
+                            itemStyle: { color: '#f59e0b' }
+                        },
+                        {
+                            name: 'Overdue',
+                            type: 'bar',
+                            stack: 'total',
+                            data: timelineData.overdue,
+                            itemStyle: { color: '#dc2626' }
+                        }
+                    ]
+                };
+
+                chart.setOption(option);
+            }
+
+            renderPriorityChart() {
+                const chartElement = document.getElementById('priority-chart');
+                if (!chartElement) return;
+
+                const chart = echarts.init(chartElement);
+
+                const priorityData = this.getPriorityDistribution();
+
+                const option = {
+                    tooltip: {
+                        trigger: 'item',
+                        formatter: '{b}: {c} ({d}%)'
+                    },
+                    series: [{
+                        type: 'pie',
+                        radius: '70%',
+                        data: priorityData,
+                        emphasis: {
+                            itemStyle: {
+                                shadowBlur: 10,
+                                shadowOffsetX: 0,
+                                shadowColor: 'rgba(0, 0, 0, 0.5)'
+                            }
+                        }
+                    }]
+                };
+
+                chart.setOption(option);
+            }
+
+            generateTimelineData() {
+                // Generate sample timeline data for the next 12 weeks
+                const dates = [];
+                const implemented = [];
+                const pending = [];
+                const overdue = [];
+
+                for (let i = 0; i < 12; i++) {
+                    const date = new Date();
+                    date.setDate(date.getDate() + (i * 7));
+                    dates.push(date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }));
+                    
+                    // Generate random data with upward trend
+                    implemented.push(Math.floor(Math.random() * 3) + i);
+                    pending.push(Math.floor(Math.random() * 2) + 1);
+                    overdue.push(Math.floor(Math.random() * 1));
+                }
+
+                return { dates, implemented, pending, overdue };
+            }
+
+            getPriorityDistribution() {
+                const highCount = this.controls.filter(c => c.priority === 'high').length;
+                const mediumCount = this.controls.filter(c => c.priority === 'medium').length;
+                const lowCount = this.controls.filter(c => c.priority === 'low').length;
+
+                return [
+                    { value: highCount, name: 'High Priority', itemStyle: { color: '#dc2626' } },
+                    { value: mediumCount, name: 'Medium Priority', itemStyle: { color: '#f59e0b' } },
+                    { value: lowCount, name: 'Low Priority', itemStyle: { color: '#059669' } }
+                ];
+            }
+
+            showAddControlModal() {
+                const modal = document.getElementById('add-control-modal');
+                const taskSelect = document.getElementById('task-select');
+                
+                // Populate task options
+                taskSelect.innerHTML = '<option value="">Select a task</option>';
+                this.riskData.forEach(task => {
+                    const option = document.createElement('option');
+                    option.value = task.id;
+                    option.textContent = `Task ${task.id}: ${task.task}`;
+                    taskSelect.appendChild(option);
+                });
+
+                modal.style.display = 'flex';
+                anime({
+                    targets: '.modal-content',
+                    opacity: [0, 1],
+                    scale: [0.9, 1],
+                    duration: 300,
+                    easing: 'easeOutQuart'
+                });
+            }
+
+            closeModal() {
+                const modal = document.getElementById('add-control-modal');
+                if (modal) {
+                    anime({
+                        targets: '.modal-content',
+                        opacity: [1, 0],
+                        scale: [1, 0.9],
+                        duration: 200,
+                        easing: 'easeInQuart',
+                        complete: () => {
+                            modal.style.display = 'none';
+                            document.getElementById('add-control-form').reset();
+                        }
+                    });
+                }
+            }
+
+            addNewControl() {
+                const formData = new FormData(document.getElementById('add-control-form'));
+                const newControl = {
+                    id: `C${Date.now()}`,
+                    taskId: formData.get('task-select') || 'custom',
+                    taskName: this.getTaskName(formData.get('task-select')),
+                    category: 'Custom Control',
+                    currentControls: formData.get('control-type') === 'current' ? formData.get('control-description') : '',
+                    recommendedControls: formData.get('control-type') === 'recommended' ? formData.get('control-description') : '',
+                    riskLevel: 'M',
+                    riskRating: 6,
+                    priority: formData.get('control-priority'),
+                    status: 'pending',
+                    assignedTo: formData.get('assigned-to'),
+                    targetDate: formData.get('completion-date'),
+                    completionDate: null
+                };
+
+                this.controls.push(newControl);
+                this.renderControls();
+                this.closeModal();
+                alert('New control added successfully!');
+            }
+
+            getTaskName(taskId) {
+                if (!taskId) return 'Custom Task';
+                const task = this.riskData.find(t => t.id === taskId);
+                return task ? task.task : 'Custom Task';
+            }
+
+            markAsImplemented(controlId) {
+                const control = this.controls.find(c => c.id === controlId);
+                if (control) {
+                    control.status = 'implemented';
+                    control.completionDate = new Date().toISOString().split('T')[0];
+                    this.renderControls();
+                    alert(`Control ${controlId} marked as implemented!`);
+                }
+            }
+
+            editControl(controlId) {
+                alert(`Edit functionality for control ${controlId} would open here.`);
+            }
+
+            exportControls() {
+                alert('Export functionality would generate a comprehensive controls report here.');
+            }
+
+            animatePageLoad() {
+                anime({
+                    targets: '.page-header',
+                    opacity: [0, 1],
+                    translateY: [-30, 0],
+                    duration: 800,
+                    easing: 'easeOutQuart'
+                });
+
+                anime({
+                    targets: '.dashboard-card',
+                    opacity: [0, 1],
+                    translateY: [20, 0],
+                    duration: 600,
+                    delay: anime.stagger(200, {start: 400}),
+                    easing: 'easeOutQuart'
+                });
+            }
+        }
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', () => {
+            window.controlsApp = new ControlsManagementApp();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1003 @@
+<!-- File: sheener/RiskAssessmentTest/reports.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports - Risk Assessment Pro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Sans+Pro:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.3/echarts.min.js"></script>
+    <style>
+        :root {
+            --primary-navy: #1a2332;
+            --secondary-gray: #6b7280;
+            --accent-orange: #ff8c00;
+            --risk-high: #dc2626;
+            --risk-medium: #f59e0b;
+            --risk-low: #059669;
+            --bg-light: #fafafa;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--primary-navy);
+            line-height: 1.6;
+        }
+
+        .navigation {
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .nav-logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-navy);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: var(--secondary-gray);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--accent-orange);
+        }
+
+        .page-header {
+            background: linear-gradient(135deg, var(--primary-navy) 0%, #2d3748 100%);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .page-subtitle {
+            font-size: 1.125rem;
+            color: #e2e8f0;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .reports-dashboard {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .dashboard-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e5e7eb;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary-navy);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .report-generator {
+            grid-column: 1 / -1;
+        }
+
+        .generator-form {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: var(--primary-navy);
+            font-size: 0.875rem;
+        }
+
+        .form-select, .form-input {
+            padding: 0.75rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-select:focus, .form-input:focus {
+            outline: none;
+            border-color: var(--accent-orange);
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            font-size: 0.875rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--accent-orange);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #e67e00;
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: #f8fafc;
+            color: var(--primary-navy);
+            border: 2px solid #e5e7eb;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent-orange);
+            background: #fef7ed;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .report-templates {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .template-card {
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .template-card:hover {
+            border-color: var(--accent-orange);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .template-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--primary-navy);
+            margin-bottom: 0.5rem;
+        }
+
+        .template-description {
+            font-size: 0.875rem;
+            color: var(--secondary-gray);
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .template-features {
+            list-style: none;
+            margin-bottom: 1rem;
+        }
+
+        .template-features li {
+            font-size: 0.75rem;
+            color: var(--secondary-gray);
+            margin-bottom: 0.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .template-features li::before {
+            content: '✓';
+            color: var(--risk-low);
+            font-weight: bold;
+        }
+
+        .chart-container {
+            height: 300px;
+            margin-top: 1rem;
+        }
+
+        .summary-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1rem;
+            background: #f8fafc;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary-navy);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--secondary-gray);
+            font-weight: 500;
+        }
+
+        .recent-reports {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .report-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid #e5e7eb;
+            transition: background-color 0.3s ease;
+        }
+
+        .report-item:hover {
+            background: #f8fafc;
+        }
+
+        .report-info {
+            flex: 1;
+        }
+
+        .report-title {
+            font-weight: 600;
+            color: var(--primary-navy);
+            margin-bottom: 0.25rem;
+        }
+
+        .report-meta {
+            font-size: 0.75rem;
+            color: var(--secondary-gray);
+        }
+
+        .report-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn-small {
+            padding: 0.25rem 0.5rem;
+            font-size: 0.75rem;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            margin: 2rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .modal-header {
+            padding: 2rem 2rem 1rem;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--secondary-gray);
+            padding: 0.5rem;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        .modal-close:hover {
+            background: #f3f4f6;
+        }
+
+        .report-preview {
+            padding: 2rem;
+        }
+
+        .preview-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--accent-orange);
+        }
+
+        .preview-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-navy);
+            margin-bottom: 0.5rem;
+        }
+
+        .preview-date {
+            color: var(--secondary-gray);
+            font-size: 0.875rem;
+        }
+
+        .preview-content {
+            line-height: 1.6;
+        }
+
+        .preview-section {
+            margin-bottom: 2rem;
+        }
+
+        .preview-section h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--primary-navy);
+            margin-bottom: 1rem;
+            border-left: 4px solid var(--accent-orange);
+            padding-left: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2rem;
+            }
+            
+            .reports-dashboard {
+                grid-template-columns: 1fr;
+            }
+            
+            .generator-form {
+                grid-template-columns: 1fr;
+            }
+            
+            .report-templates {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navigation">
+        <div class="nav-container">
+            <div class="nav-logo">Risk Assessment Pro</div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Dashboard</a>
+                <a href="tasks.html" class="nav-link">Task Analysis</a>
+                <a href="controls.html" class="nav-link">Controls Management</a>
+                <a href="reports.html" class="nav-link active">Reports</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1 class="page-title">Risk Assessment Reports</h1>
+            <p class="page-subtitle">Generate comprehensive reports and analysis for risk management</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Report Generator -->
+        <div class="dashboard-card report-generator">
+            <h2 class="card-title">
+                <span>📋</span>
+                Custom Report Generator
+            </h2>
+            
+            <div class="generator-form">
+                <div class="form-group">
+                    <label class="form-label">Report Type</label>
+                    <select class="form-select" id="report-type">
+                        <option value="comprehensive">Comprehensive Risk Assessment</option>
+                        <option value="executive">Executive Summary</option>
+                        <option value="operational">Operational Analysis</option>
+                        <option value="compliance">Compliance Report</option>
+                        <option value="trends">Risk Trends Analysis</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Date Range</label>
+                    <select class="form-select" id="date-range">
+                        <option value="current">Current Assessment</option>
+                        <option value="month">Last Month</option>
+                        <option value="quarter">Last Quarter</option>
+                        <option value="year">Last Year</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Risk Level Focus</label>
+                    <select class="form-select" id="risk-focus">
+                        <option value="all">All Risk Levels</option>
+                        <option value="high">High Risk Only</option>
+                        <option value="medium-high">Medium to High Risk</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Include Sections</label>
+                    <select class="form-select" id="include-sections" multiple>
+                        <option value="summary" selected>Executive Summary</option>
+                        <option value="matrix" selected>Risk Matrix</option>
+                        <option value="tasks" selected>Task Analysis</option>
+                        <option value="controls" selected>Controls Status</option>
+                        <option value="trends" selected>Risk Trends</option>
+                        <option value="recommendations" selected>Recommendations</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="btn-group">
+                <button class="btn btn-primary" onclick="reportsApp.generateReport()">
+                    <span>📊</span>
+                    Generate Report
+                </button>
+                <button class="btn btn-secondary" onclick="reportsApp.previewReport()">
+                    <span>👁️</span>
+                    Preview Report
+                </button>
+                <button class="btn btn-secondary" onclick="reportsApp.scheduleReport()">
+                    <span>⏰</span>
+                    Schedule Report
+                </button>
+            </div>
+        </div>
+
+        <!-- Report Templates -->
+        <div class="dashboard-card">
+            <h2 class="card-title">
+                <span>📄</span>
+                Report Templates
+            </h2>
+            
+            <div class="report-templates">
+                <div class="template-card" onclick="reportsApp.useTemplate('executive')">
+                    <div class="template-title">Executive Summary</div>
+                    <div class="template-description">
+                        High-level overview of risk assessment status, key findings, and strategic recommendations for management.
+                    </div>
+                    <ul class="template-features">
+                        <li>Executive summary with key metrics</li>
+                        <li>High-risk task overview</li>
+                        <li>Implementation status summary</li>
+                        <li>Strategic recommendations</li>
+                    </ul>
+                </div>
+                
+                <div class="template-card" onclick="reportsApp.useTemplate('operational')">
+                    <div class="template-title">Operational Analysis</div>
+                    <div class="template-description">
+                        Detailed analysis of operational risks, process flows, and control effectiveness for operations teams.
+                    </div>
+                    <ul class="template-features">
+                        <li>Detailed task-by-task analysis</li>
+                        <li>Process flow risk mapping</li>
+                        <li>Control effectiveness assessment</li>
+                        <li>Operational recommendations</li>
+                    </ul>
+                </div>
+                
+                <div class="template-card" onclick="reportsApp.useTemplate('compliance')">
+                    <div class="template-title">Compliance Report</div>
+                    <div class="template-description">
+                        Regulatory compliance status, control verification, and audit-ready documentation.
+                    </div>
+                    <ul class="template-features">
+                        <li>Regulatory compliance status</li>
+                        <li>Control implementation verification</li>
+                        <li>Audit trail documentation</li>
+                        <li>Compliance gap analysis</li>
+                    </ul>
+                </div>
+                
+                <div class="template-card" onclick="reportsApp.useTemplate('trends')">
+                    <div class="template-title">Risk Trends Analysis</div>
+                    <div class="template-description">
+                        Historical trend analysis, risk pattern identification, and predictive insights.
+                    </div>
+                    <ul class="template-features">
+                        <li>Risk trend analysis</li>
+                        <li>Pattern identification</li>
+                        <li>Predictive risk modeling</li>
+                        <li>Trend-based recommendations</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Summary Statistics -->
+        <div class="dashboard-card">
+            <h2 class="card-title">
+                <span>📈</span>
+                Current Assessment Summary
+            </h2>
+            
+            <div class="summary-stats">
+                <div class="stat-item">
+                    <div class="stat-value">18</div>
+                    <div class="stat-label">Total Tasks</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" style="color: var(--risk-high);">4</div>
+                    <div class="stat-label">High Risk</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" style="color: var(--risk-medium);">12</div>
+                    <div class="stat-label">Medium Risk</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" style="color: var(--risk-low);">2</div>
+                    <div class="stat-label">Low Risk</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">8.9</div>
+                    <div class="stat-label">Avg Risk Rating</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">67%</div>
+                    <div class="stat-label">Controls Implemented</div>
+                </div>
+            </div>
+            
+            <div id="summary-chart" class="chart-container"></div>
+        </div>
+
+        <!-- Recent Reports -->
+        <div class="dashboard-card">
+            <h2 class="card-title">
+                <span>📚</span>
+                Recent Reports
+            </h2>
+            
+            <div class="recent-reports">
+                <div class="report-item">
+                    <div class="report-info">
+                        <div class="report-title">Monthly Risk Assessment - November 2024</div>
+                        <div class="report-meta">Generated on Nov 13, 2024 | Comprehensive Report | 24 pages</div>
+                    </div>
+                    <div class="report-actions">
+                        <button class="btn btn-small btn-secondary" onclick="reportsApp.viewReport('monthly-nov')">View</button>
+                        <button class="btn btn-small btn-primary" onclick="reportsApp.downloadReport('monthly-nov')">Download</button>
+                    </div>
+                </div>
+                
+                <div class="report-item">
+                    <div class="report-info">
+                        <div class="report-title">Executive Summary - Q4 2024</div>
+                        <div class="report-meta">Generated on Oct 31, 2024 | Executive Summary | 8 pages</div>
+                    </div>
+                    <div class="report-actions">
+                        <button class="btn btn-small btn-secondary" onclick="reportsApp.viewReport('exec-q4')">View</button>
+                        <button class="btn btn-small btn-primary" onclick="reportsApp.downloadReport('exec-q4')">Download</button>
+                    </div>
+                </div>
+                
+                <div class="report-item">
+                    <div class="report-info">
+                        <div class="report-title">Operational Risk Analysis - October 2024</div>
+                        <div class="report-meta">Generated on Oct 15, 2024 | Operational Analysis | 32 pages</div>
+                    </div>
+                    <div class="report-actions">
+                        <button class="btn btn-small btn-secondary" onclick="reportsApp.viewReport('operational-oct')">View</button>
+                        <button class="btn btn-small btn-primary" onclick="reportsApp.downloadReport('operational-oct')">Download</button>
+                    </div>
+                </div>
+                
+                <div class="report-item">
+                    <div class="report-info">
+                        <div class="report-title">Compliance Audit Report - September 2024</div>
+                        <div class="report-meta">Generated on Sep 30, 2024 | Compliance Report | 28 pages</div>
+                    </div>
+                    <div class="report-actions">
+                        <button class="btn btn-small btn-secondary" onclick="reportsApp.viewReport('compliance-sep')">View</button>
+                        <button class="btn btn-small btn-primary" onclick="reportsApp.downloadReport('compliance-sep')">Download</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Report Preview Modal -->
+    <div id="report-preview-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Report Preview</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div id="report-preview-content" class="report-preview">
+                <!-- Report preview content will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer style="background: var(--primary-navy); color: white; padding: 2rem 0; margin-top: 4rem; text-align: center;">
+        <div class="container">
+            <p>&copy; 2024 Risk Assessment Pro. Professional risk management and safety analysis.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="main.js"></script>
+    <script>
+        class ReportsApp {
+            constructor() {
+                this.riskData = [];
+                this.currentReport = null;
+                this.init();
+            }
+
+            async init() {
+                await this.loadData();
+                this.setupEventListeners();
+                this.renderSummaryChart();
+                this.animatePageLoad();
+            }
+
+            async loadData() {
+                try {
+                    const response = await fetch('./risk_data.json');
+                    this.riskData = await response.json();
+                } catch (error) {
+                    console.error('Error loading risk data:', error);
+                    this.riskData = [];
+                }
+            }
+
+            setupEventListeners() {
+                // Modal event listeners
+                document.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('modal-close') || e.target.classList.contains('modal')) {
+                        this.closeModal();
+                    }
+                });
+            }
+
+            renderSummaryChart() {
+                const chartElement = document.getElementById('summary-chart');
+                if (!chartElement) return;
+
+                const chart = echarts.init(chartElement);
+
+                // Generate risk distribution data
+                const riskLevels = ['High Risk', 'Medium Risk', 'Low Risk'];
+                const riskCounts = [4, 12, 2];
+                const categoryData = this.getCategoryDistribution();
+
+                const option = {
+                    tooltip: {
+                        trigger: 'item',
+                        formatter: '{b}: {c} ({d}%)'
+                    },
+                    legend: {
+                        orient: 'horizontal',
+                        bottom: 10,
+                        data: riskLevels
+                    },
+                    series: [
+                        {
+                            name: 'Risk Distribution',
+                            type: 'pie',
+                            radius: ['40%', '70%'],
+                            center: ['25%', '45%'],
+                            data: [
+                                { value: riskCounts[0], name: riskLevels[0], itemStyle: { color: '#dc2626' } },
+                                { value: riskCounts[1], name: riskLevels[1], itemStyle: { color: '#f59e0b' } },
+                                { value: riskCounts[2], name: riskLevels[2], itemStyle: { color: '#059669' } }
+                            ]
+                        },
+                        {
+                            name: 'Category Distribution',
+                            type: 'pie',
+                            radius: ['40%', '70%'],
+                            center: ['75%', '45%'],
+                            data: categoryData
+                        }
+                    ]
+                };
+
+                chart.setOption(option);
+            }
+
+            getCategoryDistribution() {
+                const categories = {};
+                this.riskData.forEach(task => {
+                    categories[task.category] = (categories[task.category] || 0) + 1;
+                });
+
+                const colors = ['#1a2332', '#ff8c00', '#6b7280', '#dc2626', '#f59e0b', '#059669'];
+                return Object.entries(categories).map(([category, count], index) => ({
+                    value: count,
+                    name: category.substring(0, 20) + (category.length > 20 ? '...' : ''),
+                    itemStyle: { color: colors[index % colors.length] }
+                }));
+            }
+
+            generateReport() {
+                const reportType = document.getElementById('report-type').value;
+                const dateRange = document.getElementById('date-range').value;
+                const riskFocus = document.getElementById('risk-focus').value;
+                
+                alert(`Generating ${reportType} report for ${dateRange} with ${riskFocus} risk focus. This would create a comprehensive PDF report with all selected sections.`);
+                
+                // Simulate report generation
+                this.showReportGenerationStatus();
+            }
+
+            previewReport() {
+                const reportType = document.getElementById('report-type').value;
+                this.showReportPreview(reportType);
+            }
+
+            scheduleReport() {
+                alert('Report scheduling feature would open a dialog to set up automated report generation and delivery.');
+            }
+
+            useTemplate(templateType) {
+                // Set the report type based on template
+                document.getElementById('report-type').value = templateType;
+                
+                // Configure other options based on template
+                switch(templateType) {
+                    case 'executive':
+                        document.getElementById('risk-focus').value = 'high';
+                        break;
+                    case 'operational':
+                        document.getElementById('risk-focus').value = 'medium-high';
+                        break;
+                    case 'compliance':
+                        document.getElementById('include-sections').value = ['summary', 'controls', 'recommendations'];
+                        break;
+                    case 'trends':
+                        document.getElementById('date-range').value = 'quarter';
+                        break;
+                }
+                
+                this.previewReport();
+            }
+
+            showReportPreview(reportType) {
+                const modal = document.getElementById('report-preview-modal');
+                const content = document.getElementById('report-preview-content');
+                
+                const previewData = this.generatePreviewContent(reportType);
+                
+                content.innerHTML = `
+                    <div class="preview-header">
+                        <div class="preview-title">${previewData.title}</div>
+                        <div class="preview-date">Generated on ${new Date().toLocaleDateString()}</div>
+                    </div>
+                    
+                    <div class="preview-content">
+                        ${previewData.sections.map(section => `
+                            <div class="preview-section">
+                                <h3>${section.title}</h3>
+                                <p>${section.content}</p>
+                            </div>
+                        `).join('')}
+                    </div>
+                    
+                    <div class="btn-group">
+                        <button class="btn btn-primary" onclick="reportsApp.downloadPreview()">
+                            <span>⬇️</span>
+                            Download PDF
+                        </button>
+                        <button class="btn btn-secondary" onclick="reportsApp.closeModal()">
+                            <span>✕</span>
+                            Close
+                        </button>
+                    </div>
+                `;
+                
+                modal.style.display = 'flex';
+                anime({
+                    targets: '.modal-content',
+                    opacity: [0, 1],
+                    scale: [0.9, 1],
+                    duration: 300,
+                    easing: 'easeOutQuart'
+                });
+            }
+
+            generatePreviewContent(reportType) {
+                const templates = {
+                    comprehensive: {
+                        title: 'Comprehensive Risk Assessment Report',
+                        sections: [
+                            {
+                                title: 'Executive Summary',
+                                content: 'This comprehensive risk assessment report provides a detailed analysis of 18 operational tasks across 6 process categories. The assessment identifies 4 high-risk tasks requiring immediate attention, with an overall average risk rating of 8.9. Current control implementation stands at 67%, with 12 controls fully implemented and 3 pending implementation.'
+                            },
+                            {
+                                title: 'Risk Matrix Analysis',
+                                content: 'The risk matrix analysis reveals that the majority of tasks (66%) fall into the medium risk category, with 22% classified as high risk and 11% as low risk. The highest risk tasks are concentrated in the Transport and Energy Operations phases, requiring enhanced control measures and monitoring.'
+                            },
+                            {
+                                title: 'Control Implementation Status',
+                                content: 'Of the 18 tasks assessed, 12 have fully implemented controls, 3 have controls pending implementation, and 1 is overdue. The implementation rate of 67% indicates good progress, but priority should be given to high-risk tasks to achieve 100% implementation.'
+                            }
+                        ]
+                    },
+                    executive: {
+                        title: 'Executive Risk Summary',
+                        sections: [
+                            {
+                                title: 'Key Findings',
+                                content: 'The risk assessment identifies 4 critical high-risk tasks that require immediate management attention. These tasks involve high-pressure operations and confined space entry, presenting significant safety and operational risks.'
+                            },
+                            {
+                                title: 'Risk Overview',
+                                content: 'Current risk exposure is moderate with 78% of tasks at acceptable risk levels. However, the 4 high-risk tasks contribute disproportionately to overall risk exposure and require priority resource allocation.'
+                            }
+                        ]
+                    },
+                    operational: {
+                        title: 'Operational Risk Analysis',
+                        sections: [
+                            {
+                                title: 'Process Flow Analysis',
+                                content: 'Detailed analysis of the 6 main process phases reveals that Transport & Handling and Energy Operations present the highest risk concentrations. The process flow analysis shows critical dependencies between phases that amplify risk exposure.'
+                            },
+                            {
+                                title: 'Task-Specific Risks',
+                                content: 'Individual task analysis shows that high-pressure system operations (Task 4.3) and confined space cleaning (Task 5.1) present the highest individual risk ratings of 15 and 20 respectively, requiring specialized controls and procedures.'
+                            }
+                        ]
+                    }
+                };
+                
+                return templates[reportType] || templates.comprehensive;
+            }
+
+            viewReport(reportId) {
+                alert(`Viewing report: ${reportId}. This would open the full report viewer with interactive features.`);
+            }
+
+            downloadReport(reportId) {
+                alert(`Downloading report: ${reportId}. This would initiate the PDF download.`);
+            }
+
+            downloadPreview() {
+                alert('Downloading report preview as PDF. This would generate and download the full report.');
+            }
+
+            showReportGenerationStatus() {
+                alert('Report generation in progress... This would show a progress indicator and notify when complete.');
+            }
+
+            closeModal() {
+                const modal = document.getElementById('report-preview-modal');
+                if (modal) {
+                    anime({
+                        targets: '.modal-content',
+                        opacity: [1, 0],
+                        scale: [1, 0.9],
+                        duration: 200,
+                        easing: 'easeInQuart',
+                        complete: () => {
+                            modal.style.display = 'none';
+                        }
+                    });
+                }
+            }
+
+            animatePageLoad() {
+                anime({
+                    targets: '.page-header',
+                    opacity: [0, 1],
+                    translateY: [-30, 0],
+                    duration: 800,
+                    easing: 'easeOutQuart'
+                });
+
+                anime({
+                    targets: '.dashboard-card',
+                    opacity: [0, 1],
+                    translateY: [20, 0],
+                    duration: 600,
+                    delay: anime.stagger(200, {start: 400}),
+                    easing: 'easeOutQuart'
+                });
+
+                anime({
+                    targets: '.template-card',
+                    opacity: [0, 1],
+                    scale: [0.9, 1],
+                    duration: 500,
+                    delay: anime.stagger(100, {start: 800}),
+                    easing: 'easeOutQuart'
+                });
+            }
+        }
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', () => {
+            window.reportsApp = new ReportsApp();
+        });
+    </script>
+</body>
+</html>

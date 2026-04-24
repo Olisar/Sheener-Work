@@ -1,0 +1,4452 @@
+{
+    "activities": {
+        "Structure": [
+            {
+                "Field": "activity_id",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": "auto_increment"
+            },
+            {
+                "Field": "job_id",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "MUL",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "activity_name",
+                "Type": "varchar(255)",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "activity_detail",
+                "Type": "text",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "owner",
+                "Type": "int(11)",
+                "Null": "YES",
+                "Key": "MUL",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "due_date",
+                "Type": "date",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "status",
+                "Type": "enum('Pending','Ongoing','Completed')",
+                "Null": "YES",
+                "Key": "",
+                "Default": "Pending",
+                "Extra": ""
+            },
+            {
+                "Field": "created_at",
+                "Type": "timestamp",
+                "Null": "NO",
+                "Key": "",
+                "Default": "current_timestamp()",
+                "Extra": ""
+            }
+        ],
+        "Foreign Keys": [
+            {
+                "Table": "activities",
+                "Column": "job_id",
+                "Referenced Table": "jobs",
+                "Referenced Column": "job_id"
+            },
+            {
+                "Table": "activities",
+                "Column": "owner",
+                "Referenced Table": "people",
+                "Referenced Column": "people_id"
+            },
+            {
+                "Table": "activities",
+                "Column": "job_id",
+                "Referenced Table": "jobs",
+                "Referenced Column": "job_id"
+            }
+        ]
+    },
+    "approvals": {
+        "Structure": [
+            {
+                "Field": "ApprovalID",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": "auto_increment"
+            },
+            {
+                "Field": "DocumentID",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "MUL",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "ApprovedBy",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "MUL",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "ApprovalStatusID",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "MUL",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "ApprovalDate",
+                "Type": "datetime",
+                "Null": "YES",
+                "Key": "",
+                "Default": "current_timestamp()",
+                "Extra": ""
+            }
+        ],
+        "Foreign Keys": [
+            {
+                "Table": "approvals",
+                "Column": "DocumentID",
+                "Referenced Table": "documents",
+                "Referenced Column": "DocumentID"
+            },
+            {
+                "Table": "approvals",
+                "Column": "ApprovedBy",
+                "Referenced Table": "people",
+                "Referenced Column": "people_id"
+            },
+            {
+                "Table": "approvals",
+                "Column": "ApprovalStatusID",
+                "Referenced Table": "approvalstatuses",
+                "Referenced Column": "StatusID"
+            },
+            {
+                "Table": "approvals",
+                "Column": "ApprovedBy",
+                "Referenced Table": "people",
+                "Referenced Column": "people_id"
+            }
+        ]
+    },
+    "approvalstatuses": {
+        "Structure": [
+            {
+                "Field": "StatusID",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": "auto_increment"
+            },
+            {
+                "Field": "StatusName",
+                "Type": "varchar(100)",
+                "Null": "NO",
+                "Key": "UNI",
+                "Default": null,
+                "Extra": ""
+            }
+        ],
+        "Foreign Keys": []
+    },
+    "assessments": {
+        "Structure": [
+            {
+                "Field": "assessment_id",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": "auto_increment"
+            },
+            {
+                "Field": "task_id",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "MUL",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "assessment_date",
+                "Type": "date",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "assessor_name",
+                "Type": "varchar(255)",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "comments",
+                "Type": "text",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            }
+        ],
+        "Foreign Keys": [
+            {
+                "Table": "assessments",
+                "Column": "task_id",
+                "Referenced Table": "tasks",
+                "Referenced Column": "task_id"
+            }
+        ]
+    },
+    "auditlog": {
+        "Structure": [
+            {
+                "Field": "LogID",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": "auto_increment"
+            },
+            {
+                "Field": "Action",
+                "Type": "varchar(255)",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "PerformedBy",
+                "Type": "int(11)",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "PerformedAt",
+                "Type": "datetime",
+                "Null": "YES",
+                "Key": "",
+                "Default": "current_timestamp()",
+                "Extra": ""
+            },
+            {
+                "Field": "Details",
+                "Type": "text",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "TableAffected",
+                "Type": "varchar(255)",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "ActionDetails",
+                "Type": "longtext",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            }
+        ],
+        "Foreign Keys": []
+    },
+    "auditlogs": {
+        "Structure": [
+            {
+                "Field": "LogID",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": "auto_increment"
+            },
+            {
+                "Field": "Action",
+                "Type": "varchar(255)",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "PerformedBy",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "MUL",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "PerformedAt",
+                "Type": "datetime",
+                "Null": "YES",
+                "Key": "",
+                "Default": "current_timestamp()",
+                "Extra": ""
+            }
+        ],
+        "Foreign Keys": [
+            {
+                "Table": "auditlogs",
+                "Column": "PerformedBy",
+                "Referenced Table": "people",
+                "Referenced Column": "people_id"
+            },
+            {
+                "Table": "auditlogs",
+                "Column": "PerformedBy",
+                "Referenced Table": "people",
+                "Referenced Column": "people_id"
+            }
+        ]
+    },
+    "batch_ingredients": {
+        "Structure": [
+            {
+                "Field": "batch_id",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "ingredient_id",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "quantity",
+                "Type": "decimal(10,2)",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            }
+        ],
+        "Foreign Keys": [
+            {
+                "Table": "batch_ingredients",
+                "Column": "batch_id",
+                "Referenced Table": "batches",
+                "Referenced Column": "batch_id"
+            },
+            {
+                "Table": "batch_ingredients",
+                "Column": "ingredient_id",
+                "Referenced Table": "ingredients",
+                "Referenced Column": "ingredient_id"
+            }
+        ]
+    },
+    "batch_steps": {
+        "Structure": [
+            {
+                "Field": "batch_id",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "step_id",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "start_time",
+                "Type": "datetime",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "end_time",
+                "Type": "datetime",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "notes",
+                "Type": "text",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            }
+        ],
+        "Foreign Keys": [
+            {
+                "Table": "batch_steps",
+                "Column": "batch_id",
+                "Referenced Table": "batches",
+                "Referenced Column": "batch_id"
+            },
+            {
+                "Table": "batch_steps",
+                "Column": "step_id",
+                "Referenced Table": "manufacturing_steps",
+                "Referenced Column": "step_id"
+            }
+        ]
+    },
+    "batches": {
+        "Structure": [
+            {
+                "Field": "batch_id",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": "auto_increment"
+            },
+            {
+                "Field": "batch_number",
+                "Type": "varchar(50)",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "start_time",
+                "Type": "datetime",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "end_time",
+                "Type": "datetime",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "status",
+                "Type": "enum('in-progress','completed','failed')",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "quantity",
+                "Type": "decimal(10,0)",
+                "Null": "NO",
+                "Key": "",
+                "Default": "0",
+                "Extra": ""
+            },
+            {
+                "Field": "product_id",
+                "Type": "int(11)",
+                "Null": "YES",
+                "Key": "MUL",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "production_line_id",
+                "Type": "int(11)",
+                "Null": "YES",
+                "Key": "MUL",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "reject_qty",
+                "Type": "int(11)",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "ProductID",
+                "Type": "int(11)",
+                "Null": "YES",
+                "Key": "MUL",
+                "Default": null,
+                "Extra": ""
+            }
+        ],
+        "Foreign Keys": [
+            {
+                "Table": "batches",
+                "Column": "product_id",
+                "Referenced Table": "materials",
+                "Referenced Column": "MaterialID"
+            },
+            {
+                "Table": "batches",
+                "Column": "ProductID",
+                "Referenced Table": "materials",
+                "Referenced Column": "MaterialID"
+            },
+            {
+                "Table": "batches",
+                "Column": "product_id",
+                "Referenced Table": "product",
+                "Referenced Column": "product_id"
+            },
+            {
+                "Table": "batches",
+                "Column": "product_id",
+                "Referenced Table": "product",
+                "Referenced Column": "product_id"
+            },
+            {
+                "Table": "batches",
+                "Column": "production_line_id",
+                "Referenced Table": "prodlineregister",
+                "Referenced Column": "production_line_id"
+            }
+        ]
+    },
+    "change_requests": {
+        "Structure": [
+            {
+                "Field": "change_request_id",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": "auto_increment"
+            },
+            {
+                "Field": "request_name",
+                "Type": "varchar(255)",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "request_description",
+                "Type": "text",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "requested_by",
+                "Type": "int(11)",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "finding_id",
+                "Type": "int(11)",
+                "Null": "YES",
+                "Key": "MUL",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "status",
+                "Type": "enum('Submitted','Reviewed','Approved','Rejected','Implemented')",
+                "Null": "NO",
+                "Key": "",
+                "Default": "Submitted",
+                "Extra": ""
+            },
+            {
+                "Field": "created_date",
+                "Type": "timestamp",
+                "Null": "NO",
+                "Key": "",
+                "Default": "current_timestamp()",
+                "Extra": ""
+            },
+            {
+                "Field": "project_id",
+                "Type": "int(11)",
+                "Null": "YES",
+                "Key": "MUL",
+                "Default": null,
+                "Extra": ""
+            }
+        ],
+        "Foreign Keys": [
+            {
+                "Table": "change_requests",
+                "Column": "finding_id",
+                "Referenced Table": "findings",
+                "Referenced Column": "finding_id"
+            },
+            {
+                "Table": "change_requests",
+                "Column": "project_id",
+                "Referenced Table": "projects",
+                "Referenced Column": "project_id"
+            }
+        ]
+    },
+    "changecontrol": {
+        "Structure": [
+            {
+                "Field": "id",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": "auto_increment"
+            },
+            {
+                "Field": "target_date",
+                "Type": "date",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "impacted_sites",
+                "Type": "varchar(255)",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "market",
+                "Type": "varchar(255)",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "title",
+                "Type": "varchar(255)",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "change_from",
+                "Type": "text",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "change_to",
+                "Type": "text",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "change_type",
+                "Type": "enum('Major','Minor')",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "justification",
+                "Type": "text",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "created_at",
+                "Type": "timestamp",
+                "Null": "NO",
+                "Key": "",
+                "Default": "current_timestamp()",
+                "Extra": ""
+            },
+            {
+                "Field": "regulatory_approval",
+                "Type": "enum('Yes','No')",
+                "Null": "YES",
+                "Key": "",
+                "Default": "No",
+                "Extra": ""
+            },
+            {
+                "Field": "status",
+                "Type": "enum('Pending','Approved','Rejected')",
+                "Null": "YES",
+                "Key": "",
+                "Default": "Pending",
+                "Extra": ""
+            }
+        ],
+        "Foreign Keys": []
+    },
+    "control_categories": {
+        "Structure": [
+            {
+                "Field": "control_category_id",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": "auto_increment"
+            },
+            {
+                "Field": "category_name",
+                "Type": "varchar(255)",
+                "Null": "NO",
+                "Key": "UNI",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "description",
+                "Type": "text",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            }
+        ],
+        "Foreign Keys": []
+    },
+    "control_types": {
+        "Structure": [
+            {
+                "Field": "control_type_id",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": "auto_increment"
+            },
+            {
+                "Field": "type_name",
+                "Type": "varchar(255)",
+                "Null": "NO",
+                "Key": "UNI",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "description",
+                "Type": "text",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            }
+        ],
+        "Foreign Keys": []
+    },
+    "controls": {
+        "Structure": [
+            {
+                "Field": "control_id",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": "auto_increment"
+            },
+            {
+                "Field": "risk_id",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "MUL",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "control_description",
+                "Type": "text",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "control_type_id",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "MUL",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "status",
+                "Type": "enum('Pending','Implemented','In Progress','Reviewed')",
+                "Null": "YES",
+                "Key": "",
+                "Default": "Pending",
+                "Extra": ""
+            },
+            {
+                "Field": "implementation_date",
+                "Type": "date",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "review_date",
+                "Type": "date",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "responsible_person_id",
+                "Type": "int(11)",
+                "Null": "YES",
+                "Key": "MUL",
+                "Default": null,
+                "Extra": ""
+            }
+        ],
+        "Foreign Keys": [
+            {
+                "Table": "controls",
+                "Column": "risk_id",
+                "Referenced Table": "risks",
+                "Referenced Column": "risk_id"
+            },
+            {
+                "Table": "controls",
+                "Column": "control_type_id",
+                "Referenced Table": "control_categories",
+                "Referenced Column": "control_category_id"
+            },
+            {
+                "Table": "controls",
+                "Column": "responsible_person_id",
+                "Referenced Table": "people",
+                "Referenced Column": "people_id"
+            },
+            {
+                "Table": "controls",
+                "Column": "responsible_person_id",
+                "Referenced Table": "people",
+                "Referenced Column": "people_id"
+            },
+            {
+                "Table": "controls",
+                "Column": "risk_id",
+                "Referenced Table": "risks",
+                "Referenced Column": "risk_id"
+            },
+            {
+                "Table": "controls",
+                "Column": "control_type_id",
+                "Referenced Table": "control_types",
+                "Referenced Column": "control_type_id"
+            }
+        ]
+    },
+    "department_roles": {
+        "Structure": [
+            {
+                "Field": "DepartmentID",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "RoleID",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": ""
+            }
+        ],
+        "Foreign Keys": [
+            {
+                "Table": "department_roles",
+                "Column": "DepartmentID",
+                "Referenced Table": "departments",
+                "Referenced Column": "department_id"
+            },
+            {
+                "Table": "department_roles",
+                "Column": "RoleID",
+                "Referenced Table": "roles",
+                "Referenced Column": "RoleID"
+            }
+        ]
+    },
+    "departments": {
+        "Structure": [
+            {
+                "Field": "department_id",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": "auto_increment"
+            },
+            {
+                "Field": "DepartmentName",
+                "Type": "varchar(100)",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "Location",
+                "Type": "varchar(100)",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            }
+        ],
+        "Foreign Keys": []
+    },
+    "documents": {
+        "Structure": [
+            {
+                "Field": "DocumentID",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": "auto_increment"
+            },
+            {
+                "Field": "Title",
+                "Type": "varchar(255)",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "Description",
+                "Type": "text",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "FilePath",
+                "Type": "varchar(500)",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "UploadedBy",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "MUL",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "UploadedAt",
+                "Type": "datetime",
+                "Null": "YES",
+                "Key": "",
+                "Default": "current_timestamp()",
+                "Extra": ""
+            },
+            {
+                "Field": "DepartmentID",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "MUL",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "StatusID",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "MUL",
+                "Default": null,
+                "Extra": ""
+            }
+        ],
+        "Foreign Keys": [
+            {
+                "Table": "documents",
+                "Column": "UploadedBy",
+                "Referenced Table": "people",
+                "Referenced Column": "people_id"
+            },
+            {
+                "Table": "documents",
+                "Column": "DepartmentID",
+                "Referenced Table": "departments",
+                "Referenced Column": "department_id"
+            },
+            {
+                "Table": "documents",
+                "Column": "StatusID",
+                "Referenced Table": "documentstatuses",
+                "Referenced Column": "StatusID"
+            },
+            {
+                "Table": "documents",
+                "Column": "UploadedBy",
+                "Referenced Table": "people",
+                "Referenced Column": "people_id"
+            }
+        ]
+    },
+    "documentstatuses": {
+        "Structure": [
+            {
+                "Field": "StatusID",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": "auto_increment"
+            },
+            {
+                "Field": "StatusName",
+                "Type": "varchar(100)",
+                "Null": "NO",
+                "Key": "UNI",
+                "Default": null,
+                "Extra": ""
+            }
+        ],
+        "Foreign Keys": []
+    },
+    "documenttags": {
+        "Structure": [
+            {
+                "Field": "DocumentID",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "TagID",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": ""
+            }
+        ],
+        "Foreign Keys": [
+            {
+                "Table": "documenttags",
+                "Column": "DocumentID",
+                "Referenced Table": "documents",
+                "Referenced Column": "DocumentID"
+            },
+            {
+                "Table": "documenttags",
+                "Column": "TagID",
+                "Referenced Table": "tags",
+                "Referenced Column": "TagID"
+            }
+        ]
+    },
+    "documentversions": {
+        "Structure": [
+            {
+                "Field": "VersionID",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": "auto_increment"
+            },
+            {
+                "Field": "DocumentID",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "MUL",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "VersionNumber",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "FilePath",
+                "Type": "varchar(500)",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "CreatedBy",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "MUL",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "CreatedAt",
+                "Type": "datetime",
+                "Null": "YES",
+                "Key": "",
+                "Default": "current_timestamp()",
+                "Extra": ""
+            }
+        ],
+        "Foreign Keys": [
+            {
+                "Table": "documentversions",
+                "Column": "DocumentID",
+                "Referenced Table": "documents",
+                "Referenced Column": "DocumentID"
+            },
+            {
+                "Table": "documentversions",
+                "Column": "CreatedBy",
+                "Referenced Table": "people",
+                "Referenced Column": "people_id"
+            }
+        ]
+    },
+    "energy": {
+        "Structure": [
+            {
+                "Field": "EnergyID",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": "auto_increment"
+            },
+            {
+                "Field": "EnergyName",
+                "Type": "varchar(100)",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "EnergyTypeID",
+                "Type": "int(11)",
+                "Null": "YES",
+                "Key": "MUL",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "Description",
+                "Type": "text",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "Examples",
+                "Type": "text",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            }
+        ],
+        "Foreign Keys": [
+            {
+                "Table": "energy",
+                "Column": "EnergyTypeID",
+                "Referenced Table": "energytype",
+                "Referenced Column": "EnergyTypeID"
+            }
+        ]
+    },
+    "energytype": {
+        "Structure": [
+            {
+                "Field": "EnergyTypeID",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": "auto_increment"
+            },
+            {
+                "Field": "EnergyTypeName",
+                "Type": "varchar(100)",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "Description",
+                "Type": "text",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            }
+        ],
+        "Foreign Keys": []
+    },
+    "findings": {
+        "Structure": [
+            {
+                "Field": "finding_id",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": "auto_increment"
+            },
+            {
+                "Field": "finding_description",
+                "Type": "text",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "reported_by",
+                "Type": "int(11)",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "department_id",
+                "Type": "int(11)",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "status",
+                "Type": "enum('Open','In Progress','Resolved','Closed')",
+                "Null": "NO",
+                "Key": "",
+                "Default": "Open",
+                "Extra": ""
+            },
+            {
+                "Field": "created_date",
+                "Type": "timestamp",
+                "Null": "NO",
+                "Key": "",
+                "Default": "current_timestamp()",
+                "Extra": ""
+            }
+        ],
+        "Foreign Keys": []
+    },
+    "glossary": {
+        "Structure": [
+            {
+                "Field": "id",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": "auto_increment"
+            },
+            {
+                "Field": "term",
+                "Type": "varchar(255)",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "definition",
+                "Type": "text",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "category",
+                "Type": "varchar(100)",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "source",
+                "Type": "varchar(255)",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "created_at",
+                "Type": "timestamp",
+                "Null": "NO",
+                "Key": "",
+                "Default": "current_timestamp()",
+                "Extra": ""
+            },
+            {
+                "Field": "updated_at",
+                "Type": "timestamp",
+                "Null": "NO",
+                "Key": "",
+                "Default": "current_timestamp()",
+                "Extra": "on update current_timestamp()"
+            }
+        ],
+        "Foreign Keys": []
+    },
+    "haz_comment": {
+        "Structure": [
+            {
+                "Field": "HazardCommentID",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "HazComment",
+                "Type": "text",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            }
+        ],
+        "Foreign Keys": []
+    },
+    "haz_controllink": {
+        "Structure": [
+            {
+                "Field": "HazContrLnkID",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "HazardID",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "ContID",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            }
+        ],
+        "Foreign Keys": []
+    },
+    "haz_t": {
+        "Structure": [
+            {
+                "Field": "HazardID",
+                "Type": "int(10) unsigned",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": "auto_increment"
+            },
+            {
+                "Field": "Hazard",
+                "Type": "varchar(255)",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "HazComment",
+                "Type": "text",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "HazardTypeID",
+                "Type": "int(11)",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            }
+        ],
+        "Foreign Keys": []
+    },
+    "haz_type": {
+        "Structure": [
+            {
+                "Field": "HazardTypeID",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "HazardType",
+                "Type": "varchar(255)",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "HazardTypetAbrev",
+                "Type": "varchar(10)",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            }
+        ],
+        "Foreign Keys": []
+    },
+    "hazard_type": {
+        "Structure": [
+            {
+                "Field": "hazard_type_id",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": "auto_increment"
+            },
+            {
+                "Field": "type_name",
+                "Type": "varchar(255)",
+                "Null": "NO",
+                "Key": "UNI",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "description",
+                "Type": "text",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            }
+        ],
+        "Foreign Keys": []
+    },
+    "hazardcatt": {
+        "Structure": [
+            {
+                "Field": "HazardCatID",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "HazardCat",
+                "Type": "varchar(255)",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "Abrev",
+                "Type": "varchar(10)",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            }
+        ],
+        "Foreign Keys": []
+    },
+    "hazards": {
+        "Structure": [
+            {
+                "Field": "hazard_id",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": "auto_increment"
+            },
+            {
+                "Field": "task_id",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "MUL",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "hazard_type_id",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "MUL",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "hazard_description",
+                "Type": "text",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            }
+        ],
+        "Foreign Keys": [
+            {
+                "Table": "hazards",
+                "Column": "task_id",
+                "Referenced Table": "tasks",
+                "Referenced Column": "task_id"
+            },
+            {
+                "Table": "hazards",
+                "Column": "hazard_type_id",
+                "Referenced Table": "hazard_type",
+                "Referenced Column": "hazard_type_id"
+            }
+        ]
+    },
+    "ingredients": {
+        "Structure": [
+            {
+                "Field": "ingredient_id",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": "auto_increment"
+            },
+            {
+                "Field": "ingredient_name",
+                "Type": "varchar(100)",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "unit_of_measure",
+                "Type": "varchar(20)",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "cost_per_unit",
+                "Type": "decimal(10,2)",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            }
+        ],
+        "Foreign Keys": []
+    },
+    "inventory": {
+        "Structure": [
+            {
+                "Field": "InventoryID",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": "auto_increment"
+            },
+            {
+                "Field": "MaterialID",
+                "Type": "int(11)",
+                "Null": "YES",
+                "Key": "MUL",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "Quantity",
+                "Type": "decimal(10,2)",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "Location",
+                "Type": "varchar(100)",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "ExpirationDate",
+                "Type": "date",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "BatchNumber",
+                "Type": "varchar(50)",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            }
+        ],
+        "Foreign Keys": [
+            {
+                "Table": "inventory",
+                "Column": "MaterialID",
+                "Referenced Table": "materials",
+                "Referenced Column": "MaterialID"
+            }
+        ]
+    },
+    "jobs": {
+        "Structure": [
+            {
+                "Field": "job_id",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": "auto_increment"
+            },
+            {
+                "Field": "task_id",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "MUL",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "job_name",
+                "Type": "varchar(255)",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "job_description",
+                "Type": "text",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "assigned_to",
+                "Type": "int(11)",
+                "Null": "YES",
+                "Key": "MUL",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "status",
+                "Type": "enum('Not Started','In Progress','Completed')",
+                "Null": "YES",
+                "Key": "",
+                "Default": "Not Started",
+                "Extra": ""
+            },
+            {
+                "Field": "start_date",
+                "Type": "date",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "finish_date",
+                "Type": "date",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "created_at",
+                "Type": "timestamp",
+                "Null": "NO",
+                "Key": "",
+                "Default": "current_timestamp()",
+                "Extra": ""
+            }
+        ],
+        "Foreign Keys": [
+            {
+                "Table": "jobs",
+                "Column": "task_id",
+                "Referenced Table": "tasks",
+                "Referenced Column": "task_id"
+            },
+            {
+                "Table": "jobs",
+                "Column": "task_id",
+                "Referenced Table": "tasks",
+                "Referenced Column": "task_id"
+            },
+            {
+                "Table": "jobs",
+                "Column": "assigned_to",
+                "Referenced Table": "people",
+                "Referenced Column": "people_id"
+            }
+        ]
+    },
+    "kpi_data": {
+        "Structure": [
+            {
+                "Field": "id",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": "auto_increment"
+            },
+            {
+                "Field": "year",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "sor",
+                "Type": "int(11)",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "action_raised",
+                "Type": "int(11)",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "first_aid",
+                "Type": "int(11)",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "hsa",
+                "Type": "int(11)",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "days_lost",
+                "Type": "int(11)",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "ehs_ncr",
+                "Type": "int(11)",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "safety_meeting",
+                "Type": "int(11)",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "action_closed_percentage",
+                "Type": "float",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "gas_change_percentage",
+                "Type": "float",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "electricity_change_percentage",
+                "Type": "float",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "total_energy_change_percentage",
+                "Type": "float",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "water_change_percentage",
+                "Type": "float",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "co2_emission_change_percentage",
+                "Type": "float",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "hazardous_waste_change_percentage",
+                "Type": "float",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "non_hazardous_waste_change_percentage",
+                "Type": "float",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "month_id",
+                "Type": "int(11)",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "co2_em_change_baseline",
+                "Type": "float",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            }
+        ],
+        "Foreign Keys": []
+    },
+    "manufacturing_steps": {
+        "Structure": [
+            {
+                "Field": "step_id",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": "auto_increment"
+            },
+            {
+                "Field": "step_name",
+                "Type": "varchar(100)",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "step_order",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "duration",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            }
+        ],
+        "Foreign Keys": []
+    },
+    "materials": {
+        "Structure": [
+            {
+                "Field": "MaterialID",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": "auto_increment"
+            },
+            {
+                "Field": "MaterialName",
+                "Type": "varchar(100)",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "MaterialType",
+                "Type": "varchar(50)",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "Description",
+                "Type": "text",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "UnitOfMeasure",
+                "Type": "varchar(20)",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "StorageConditions",
+                "Type": "varchar(100)",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            }
+        ],
+        "Foreign Keys": []
+    },
+    "milestones": {
+        "Structure": [
+            {
+                "Field": "milestone_id",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": "auto_increment"
+            },
+            {
+                "Field": "project_id",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "MUL",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "milestone_name",
+                "Type": "varchar(255)",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "description",
+                "Type": "text",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "due_date",
+                "Type": "date",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "status",
+                "Type": "enum('Not Started','In Progress','Completed')",
+                "Null": "YES",
+                "Key": "",
+                "Default": "Not Started",
+                "Extra": ""
+            }
+        ],
+        "Foreign Keys": [
+            {
+                "Table": "milestones",
+                "Column": "project_id",
+                "Referenced Table": "projects",
+                "Referenced Column": "project_id"
+            }
+        ]
+    },
+    "people": {
+        "Structure": [
+            {
+                "Field": "people_id",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "FirstName",
+                "Type": "varchar(50)",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "LastName",
+                "Type": "varchar(50)",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "DateOfBirth",
+                "Type": "date",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "Email",
+                "Type": "varchar(100)",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "PhoneNumber",
+                "Type": "varchar(15)",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "Position",
+                "Type": "varchar(100)",
+                "Null": "YES",
+                "Key": "MUL",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "IsActive",
+                "Type": "tinyint(1)",
+                "Null": "YES",
+                "Key": "",
+                "Default": "1",
+                "Extra": ""
+            }
+        ],
+        "Foreign Keys": []
+    },
+    "people_departments": {
+        "Structure": [
+            {
+                "Field": "PersonID",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "DepartmentID",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": ""
+            }
+        ],
+        "Foreign Keys": [
+            {
+                "Table": "people_departments",
+                "Column": "PersonID",
+                "Referenced Table": "people",
+                "Referenced Column": "people_id"
+            },
+            {
+                "Table": "people_departments",
+                "Column": "DepartmentID",
+                "Referenced Table": "departments",
+                "Referenced Column": "department_id"
+            }
+        ]
+    },
+    "people_roles": {
+        "Structure": [
+            {
+                "Field": "PersonID",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "RoleID",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": ""
+            }
+        ],
+        "Foreign Keys": [
+            {
+                "Table": "people_roles",
+                "Column": "PersonID",
+                "Referenced Table": "people",
+                "Referenced Column": "people_id"
+            },
+            {
+                "Table": "people_roles",
+                "Column": "RoleID",
+                "Referenced Table": "roles",
+                "Referenced Column": "RoleID"
+            },
+            {
+                "Table": "people_roles",
+                "Column": "PersonID",
+                "Referenced Table": "people",
+                "Referenced Column": "people_id"
+            },
+            {
+                "Table": "people_roles",
+                "Column": "RoleID",
+                "Referenced Table": "roles",
+                "Referenced Column": "RoleID"
+            }
+        ]
+    },
+    "permissions": {
+        "Structure": [
+            {
+                "Field": "PermissionID",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": "auto_increment"
+            },
+            {
+                "Field": "PermissionName",
+                "Type": "varchar(50)",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            }
+        ],
+        "Foreign Keys": []
+    },
+    "permits": {
+        "Structure": [
+            {
+                "Field": "permit_id",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": "auto_increment"
+            },
+            {
+                "Field": "task_id",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "MUL",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "permit_type",
+                "Type": "enum('Hot Work','Cold Work','Work at Height','Confined Space','Electrical Work','General Work')",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "issued_by",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "MUL",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "approved_by",
+                "Type": "int(11)",
+                "Null": "YES",
+                "Key": "MUL",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "issue_date",
+                "Type": "date",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "expiry_date",
+                "Type": "date",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "status",
+                "Type": "enum('Issued','Active','Expired','Revoked')",
+                "Null": "YES",
+                "Key": "",
+                "Default": "Issued",
+                "Extra": ""
+            },
+            {
+                "Field": "conditions",
+                "Type": "text",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            }
+        ],
+        "Foreign Keys": [
+            {
+                "Table": "permits",
+                "Column": "approved_by",
+                "Referenced Table": "people",
+                "Referenced Column": "people_id"
+            },
+            {
+                "Table": "permits",
+                "Column": "task_id",
+                "Referenced Table": "tasks",
+                "Referenced Column": "task_id"
+            }
+        ]
+    },
+    "personalinformation": {
+        "Structure": [
+            {
+                "Field": "PersonalInfoID",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": "auto_increment"
+            },
+            {
+                "Field": "PersonID",
+                "Type": "int(11)",
+                "Null": "YES",
+                "Key": "MUL",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "Username",
+                "Type": "varchar(50)",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "PasswordHash",
+                "Type": "varchar(255)",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "RevisionDate",
+                "Type": "timestamp",
+                "Null": "NO",
+                "Key": "",
+                "Default": "current_timestamp()",
+                "Extra": ""
+            },
+            {
+                "Field": "Role",
+                "Type": "varchar(50)",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "RoleID",
+                "Type": "int(11)",
+                "Null": "YES",
+                "Key": "MUL",
+                "Default": null,
+                "Extra": ""
+            }
+        ],
+        "Foreign Keys": [
+            {
+                "Table": "personalinformation",
+                "Column": "PersonID",
+                "Referenced Table": "people",
+                "Referenced Column": "people_id"
+            },
+            {
+                "Table": "personalinformation",
+                "Column": "RoleID",
+                "Referenced Table": "roles",
+                "Referenced Column": "RoleID"
+            },
+            {
+                "Table": "personalinformation",
+                "Column": "RoleID",
+                "Referenced Table": "roles",
+                "Referenced Column": "RoleID"
+            }
+        ]
+    },
+    "process_map": {
+        "Structure": [
+            {
+                "Field": "id",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": "auto_increment"
+            },
+            {
+                "Field": "type",
+                "Type": "enum('process','step','substep')",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "text",
+                "Type": "varchar(255)",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "parent",
+                "Type": "int(11)",
+                "Null": "YES",
+                "Key": "MUL",
+                "Default": null,
+                "Extra": ""
+            }
+        ],
+        "Foreign Keys": [
+            {
+                "Table": "process_map",
+                "Column": "parent",
+                "Referenced Table": "process_map",
+                "Referenced Column": "id"
+            }
+        ]
+    },
+    "prodlineregister": {
+        "Structure": [
+            {
+                "Field": "production_line_id",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": "auto_increment"
+            },
+            {
+                "Field": "line_name",
+                "Type": "varchar(100)",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "line_description",
+                "Type": "varchar(255)",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "status",
+                "Type": "enum('Active','Inactive','Maintenance')",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "capacity",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "start_date",
+                "Type": "date",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "location",
+                "Type": "varchar(100)",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "created_at",
+                "Type": "timestamp",
+                "Null": "NO",
+                "Key": "",
+                "Default": "current_timestamp()",
+                "Extra": ""
+            },
+            {
+                "Field": "updated_at",
+                "Type": "timestamp",
+                "Null": "NO",
+                "Key": "",
+                "Default": "current_timestamp()",
+                "Extra": "on update current_timestamp()"
+            }
+        ],
+        "Foreign Keys": []
+    },
+    "product": {
+        "Structure": [
+            {
+                "Field": "product_id",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": "auto_increment"
+            },
+            {
+                "Field": "product_name",
+                "Type": "varchar(255)",
+                "Null": "NO",
+                "Key": "MUL",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "product_code",
+                "Type": "varchar(100)",
+                "Null": "NO",
+                "Key": "UNI",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "dosage_form",
+                "Type": "varchar(100)",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "strength",
+                "Type": "varchar(100)",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "active_ingredients",
+                "Type": "text",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "packaging_type",
+                "Type": "varchar(100)",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "storage_conditions",
+                "Type": "varchar(255)",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "shelf_life",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "marketing_authorization_number",
+                "Type": "varchar(100)",
+                "Null": "YES",
+                "Key": "UNI",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "marketing_authorization_holder",
+                "Type": "varchar(255)",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "gmp_status",
+                "Type": "enum('approved','pending','rejected')",
+                "Null": "YES",
+                "Key": "MUL",
+                "Default": "pending",
+                "Extra": ""
+            },
+            {
+                "Field": "date_of_approval",
+                "Type": "date",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "manufacturer_name",
+                "Type": "varchar(255)",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "manufacturer_location",
+                "Type": "varchar(255)",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "batch_size",
+                "Type": "varchar(100)",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "risk_category",
+                "Type": "enum('low','medium','high')",
+                "Null": "YES",
+                "Key": "",
+                "Default": "medium",
+                "Extra": ""
+            },
+            {
+                "Field": "last_audit_date",
+                "Type": "date",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "created_at",
+                "Type": "timestamp",
+                "Null": "NO",
+                "Key": "",
+                "Default": "current_timestamp()",
+                "Extra": ""
+            },
+            {
+                "Field": "updated_at",
+                "Type": "timestamp",
+                "Null": "NO",
+                "Key": "",
+                "Default": "current_timestamp()",
+                "Extra": "on update current_timestamp()"
+            }
+        ],
+        "Foreign Keys": []
+    },
+    "projects": {
+        "Structure": [
+            {
+                "Field": "project_id",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": "auto_increment"
+            },
+            {
+                "Field": "finding_id",
+                "Type": "int(11)",
+                "Null": "YES",
+                "Key": "MUL",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "change_request_id",
+                "Type": "int(11)",
+                "Null": "YES",
+                "Key": "MUL",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "project_name",
+                "Type": "varchar(255)",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "project_description",
+                "Type": "text",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "category",
+                "Type": "enum('Change-Driven','Operational','Compliance','Emergency')",
+                "Null": "YES",
+                "Key": "",
+                "Default": "Change-Driven",
+                "Extra": ""
+            },
+            {
+                "Field": "start_date",
+                "Type": "date",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "end_date",
+                "Type": "date",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "project_manager_id",
+                "Type": "int(11)",
+                "Null": "YES",
+                "Key": "MUL",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "department_id",
+                "Type": "int(11)",
+                "Null": "YES",
+                "Key": "MUL",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "status",
+                "Type": "enum('Not Started','In Progress','On Hold','Completed')",
+                "Null": "YES",
+                "Key": "",
+                "Default": "Not Started",
+                "Extra": ""
+            }
+        ],
+        "Foreign Keys": [
+            {
+                "Table": "projects",
+                "Column": "department_id",
+                "Referenced Table": "departments",
+                "Referenced Column": "department_id"
+            },
+            {
+                "Table": "projects",
+                "Column": "project_manager_id",
+                "Referenced Table": "people",
+                "Referenced Column": "people_id"
+            },
+            {
+                "Table": "projects",
+                "Column": "change_request_id",
+                "Referenced Table": "change_requests",
+                "Referenced Column": "change_request_id"
+            },
+            {
+                "Table": "projects",
+                "Column": "finding_id",
+                "Referenced Table": "findings",
+                "Referenced Column": "finding_id"
+            },
+            {
+                "Table": "projects",
+                "Column": "finding_id",
+                "Referenced Table": "findings",
+                "Referenced Column": "finding_id"
+            },
+            {
+                "Table": "projects",
+                "Column": "change_request_id",
+                "Referenced Table": "change_requests",
+                "Referenced Column": "change_request_id"
+            }
+        ]
+    },
+    "purchaseorderdetails": {
+        "Structure": [
+            {
+                "Field": "PurchaseOrderDetailID",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": "auto_increment"
+            },
+            {
+                "Field": "PurchaseOrderID",
+                "Type": "int(11)",
+                "Null": "YES",
+                "Key": "MUL",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "MaterialID",
+                "Type": "int(11)",
+                "Null": "YES",
+                "Key": "MUL",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "QuantityOrdered",
+                "Type": "decimal(10,2)",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "UnitPrice",
+                "Type": "decimal(10,2)",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            }
+        ],
+        "Foreign Keys": [
+            {
+                "Table": "purchaseorderdetails",
+                "Column": "PurchaseOrderID",
+                "Referenced Table": "purchaseorders",
+                "Referenced Column": "PurchaseOrderID"
+            },
+            {
+                "Table": "purchaseorderdetails",
+                "Column": "MaterialID",
+                "Referenced Table": "materials",
+                "Referenced Column": "MaterialID"
+            }
+        ]
+    },
+    "purchaseorders": {
+        "Structure": [
+            {
+                "Field": "PurchaseOrderID",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": "auto_increment"
+            },
+            {
+                "Field": "SupplierID",
+                "Type": "int(11)",
+                "Null": "YES",
+                "Key": "MUL",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "OrderDate",
+                "Type": "date",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "DeliveryDate",
+                "Type": "date",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "Status",
+                "Type": "varchar(50)",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            }
+        ],
+        "Foreign Keys": [
+            {
+                "Table": "purchaseorders",
+                "Column": "SupplierID",
+                "Referenced Table": "suppliers",
+                "Referenced Column": "SupplierID"
+            }
+        ]
+    },
+    "quality_checks": {
+        "Structure": [
+            {
+                "Field": "check_id",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": "auto_increment"
+            },
+            {
+                "Field": "batch_id",
+                "Type": "int(11)",
+                "Null": "YES",
+                "Key": "MUL",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "check_type",
+                "Type": "varchar(50)",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "result",
+                "Type": "enum('pass','fail')",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "notes",
+                "Type": "text",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            }
+        ],
+        "Foreign Keys": [
+            {
+                "Table": "quality_checks",
+                "Column": "batch_id",
+                "Referenced Table": "batches",
+                "Referenced Column": "batch_id"
+            }
+        ]
+    },
+    "qualitycontrol": {
+        "Structure": [
+            {
+                "Field": "QCRecordID",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": "auto_increment"
+            },
+            {
+                "Field": "MaterialID",
+                "Type": "int(11)",
+                "Null": "YES",
+                "Key": "MUL",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "TestDate",
+                "Type": "date",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "TestResults",
+                "Type": "text",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "Status",
+                "Type": "varchar(50)",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            }
+        ],
+        "Foreign Keys": [
+            {
+                "Table": "qualitycontrol",
+                "Column": "MaterialID",
+                "Referenced Table": "materials",
+                "Referenced Column": "MaterialID"
+            }
+        ]
+    },
+    "ra_assessorlinkt": {
+        "Structure": [
+            {
+                "Field": "RAAssessorLinkID",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "RAID",
+                "Type": "int(10) unsigned",
+                "Null": "NO",
+                "Key": "MUL",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "AssessorID",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "AssessDate",
+                "Type": "datetime",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            }
+        ],
+        "Foreign Keys": [
+            {
+                "Table": "ra_assessorlinkt",
+                "Column": "RAID",
+                "Referenced Table": "ra_registert",
+                "Referenced Column": "RAID"
+            }
+        ]
+    },
+    "ra_commentlinkt": {
+        "Structure": [
+            {
+                "Field": "RAID",
+                "Type": "int(10) unsigned",
+                "Null": "NO",
+                "Key": "MUL",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "CommentDetails",
+                "Type": "varchar(255)",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            }
+        ],
+        "Foreign Keys": [
+            {
+                "Table": "ra_commentlinkt",
+                "Column": "RAID",
+                "Referenced Table": "ra_registert",
+                "Referenced Column": "RAID"
+            }
+        ]
+    },
+    "ra_depownerlinkt": {
+        "Structure": [
+            {
+                "Field": "RAPersResponsLinkID",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "RAID",
+                "Type": "int(10) unsigned",
+                "Null": "NO",
+                "Key": "MUL",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "PersRespID",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            }
+        ],
+        "Foreign Keys": [
+            {
+                "Table": "ra_depownerlinkt",
+                "Column": "RAID",
+                "Referenced Table": "ra_registert",
+                "Referenced Column": "RAID"
+            }
+        ]
+    },
+    "ra_hazardlinkt": {
+        "Structure": [
+            {
+                "Field": "RAHazardLinkID",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "RAID",
+                "Type": "int(10) unsigned",
+                "Null": "NO",
+                "Key": "MUL",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "HazardID",
+                "Type": "int(10) unsigned",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "L1",
+                "Type": "int(11)",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "S1",
+                "Type": "int(11)",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "L2",
+                "Type": "int(11)",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "S2",
+                "Type": "int(11)",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "HazardDetails",
+                "Type": "text",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "RAHazardLinkComm",
+                "Type": "text",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "RAHazLinkReviewDate",
+                "Type": "datetime",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            }
+        ],
+        "Foreign Keys": [
+            {
+                "Table": "ra_hazardlinkt",
+                "Column": "RAID",
+                "Referenced Table": "ra_registert",
+                "Referenced Column": "RAID"
+            }
+        ]
+    },
+    "ra_hazardrevlinkt": {
+        "Structure": [
+            {
+                "Field": "HazardRevLinkID",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "RAID",
+                "Type": "int(10) unsigned",
+                "Null": "NO",
+                "Key": "MUL",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "HazardID",
+                "Type": "int(10) unsigned",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            }
+        ],
+        "Foreign Keys": [
+            {
+                "Table": "ra_hazardrevlinkt",
+                "Column": "RAID",
+                "Referenced Table": "ra_registert",
+                "Referenced Column": "RAID"
+            }
+        ]
+    },
+    "ra_hazcontlink": {
+        "Structure": [
+            {
+                "Field": "HazContLinkID",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "HazardID",
+                "Type": "int(10) unsigned",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "ContID",
+                "Type": "int(10) unsigned",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            }
+        ],
+        "Foreign Keys": []
+    },
+    "ra_persatrisklinkt": {
+        "Structure": [
+            {
+                "Field": "RAPersonelAtRiskLinkID",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "RAID",
+                "Type": "int(10) unsigned",
+                "Null": "NO",
+                "Key": "MUL",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "ID",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            }
+        ],
+        "Foreign Keys": [
+            {
+                "Table": "ra_persatrisklinkt",
+                "Column": "RAID",
+                "Referenced Table": "ra_registert",
+                "Referenced Column": "RAID"
+            }
+        ]
+    },
+    "ra_registert": {
+        "Structure": [
+            {
+                "Field": "RAID",
+                "Type": "int(10) unsigned",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": "auto_increment"
+            },
+            {
+                "Field": "RATitle",
+                "Type": "varchar(255)",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "Select",
+                "Type": "tinyint(1)",
+                "Null": "YES",
+                "Key": "",
+                "Default": "0",
+                "Extra": ""
+            },
+            {
+                "Field": "RA_RevLnkID",
+                "Type": "int(11)",
+                "Null": "YES",
+                "Key": "",
+                "Default": "0",
+                "Extra": ""
+            },
+            {
+                "Field": "InternalRef",
+                "Type": "varchar(255)",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "Done",
+                "Type": "tinyint(1)",
+                "Null": "YES",
+                "Key": "",
+                "Default": "0",
+                "Extra": ""
+            }
+        ],
+        "Foreign Keys": []
+    },
+    "ra_relatdoclinkt": {
+        "Structure": [
+            {
+                "Field": "RARelatDocLnkID",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "RAID",
+                "Type": "int(10) unsigned",
+                "Null": "NO",
+                "Key": "MUL",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "DocID",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            }
+        ],
+        "Foreign Keys": [
+            {
+                "Table": "ra_relatdoclinkt",
+                "Column": "RAID",
+                "Referenced Table": "ra_registert",
+                "Referenced Column": "RAID"
+            }
+        ]
+    },
+    "ra_revlnkt": {
+        "Structure": [
+            {
+                "Field": "RA_RevLnkID",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "RAID",
+                "Type": "int(10) unsigned",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "RevID",
+                "Type": "int(11)",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            }
+        ],
+        "Foreign Keys": []
+    },
+    "ra_risklinkt": {
+        "Structure": [
+            {
+                "Field": "RARiskLinkID",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "RAID",
+                "Type": "int(10) unsigned",
+                "Null": "NO",
+                "Key": "MUL",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "RiskID",
+                "Type": "int(11)",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "RiskDetails",
+                "Type": "text",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            }
+        ],
+        "Foreign Keys": [
+            {
+                "Table": "ra_risklinkt",
+                "Column": "RAID",
+                "Referenced Table": "ra_registert",
+                "Referenced Column": "RAID"
+            }
+        ]
+    },
+    "ra_tasklinkt": {
+        "Structure": [
+            {
+                "Field": "RATaskLinkID",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "RAID",
+                "Type": "int(10) unsigned",
+                "Null": "NO",
+                "Key": "MUL",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "ActSubID",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "ActDetails",
+                "Type": "text",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            }
+        ],
+        "Foreign Keys": [
+            {
+                "Table": "ra_tasklinkt",
+                "Column": "RAID",
+                "Referenced Table": "ra_registert",
+                "Referenced Column": "RAID"
+            }
+        ]
+    },
+    "resources": {
+        "Structure": [
+            {
+                "Field": "resource_id",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": "auto_increment"
+            },
+            {
+                "Field": "resource_name",
+                "Type": "varchar(255)",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "resource_type",
+                "Type": "enum('Equipment','Material','Software','Other')",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "quantity",
+                "Type": "int(11)",
+                "Null": "YES",
+                "Key": "",
+                "Default": "1",
+                "Extra": ""
+            },
+            {
+                "Field": "availability_start",
+                "Type": "date",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "availability_end",
+                "Type": "date",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            }
+        ],
+        "Foreign Keys": []
+    },
+    "risks": {
+        "Structure": [
+            {
+                "Field": "risk_id",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": "auto_increment"
+            },
+            {
+                "Field": "hazard_id",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "MUL",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "risk_description",
+                "Type": "text",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "likelihood_before",
+                "Type": "int(11)",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "severity_before",
+                "Type": "int(11)",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "likelihood_after",
+                "Type": "int(11)",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "severity_after",
+                "Type": "int(11)",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "risk_rate_before",
+                "Type": "int(11)",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": "STORED GENERATED"
+            },
+            {
+                "Field": "risk_rate_after",
+                "Type": "int(11)",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": "STORED GENERATED"
+            }
+        ],
+        "Foreign Keys": [
+            {
+                "Table": "risks",
+                "Column": "hazard_id",
+                "Referenced Table": "hazards",
+                "Referenced Column": "hazard_id"
+            }
+        ]
+    },
+    "rolepermissions": {
+        "Structure": [
+            {
+                "Field": "RoleID",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "PermissionID",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": ""
+            }
+        ],
+        "Foreign Keys": [
+            {
+                "Table": "rolepermissions",
+                "Column": "RoleID",
+                "Referenced Table": "roles",
+                "Referenced Column": "RoleID"
+            },
+            {
+                "Table": "rolepermissions",
+                "Column": "PermissionID",
+                "Referenced Table": "permissions",
+                "Referenced Column": "PermissionID"
+            }
+        ]
+    },
+    "roles": {
+        "Structure": [
+            {
+                "Field": "RoleID",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": "auto_increment"
+            },
+            {
+                "Field": "RoleName",
+                "Type": "varchar(100)",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "Description",
+                "Type": "text",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            }
+        ],
+        "Foreign Keys": []
+    },
+    "sop_data": {
+        "Structure": [
+            {
+                "Field": "id",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": "auto_increment"
+            },
+            {
+                "Field": "Doc_Numb",
+                "Type": "varchar(100)",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "SOP_Title",
+                "Type": "varchar(255)",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "File",
+                "Type": "varchar(100)",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "Owner",
+                "Type": "varchar(100)",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "Prepared_By",
+                "Type": "varchar(100)",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "Reviewed_By",
+                "Type": "text",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "Approved_By",
+                "Type": "varchar(100)",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "Effective_Date",
+                "Type": "date",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "Next_Review_Date",
+                "Type": "date",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "Supersedes",
+                "Type": "varchar(50)",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "Key_Points",
+                "Type": "text",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "Definitions",
+                "Type": "text",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "Purpose",
+                "Type": "text",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "Scope",
+                "Type": "text",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "Responsibilities",
+                "Type": "text",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "History",
+                "Type": "text",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "ref",
+                "Type": "text",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            }
+        ],
+        "Foreign Keys": []
+    },
+    "subtasks": {
+        "Structure": [
+            {
+                "Field": "id",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": "auto_increment"
+            },
+            {
+                "Field": "task_id",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "MUL",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "subtask_detail",
+                "Type": "text",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "owner",
+                "Type": "varchar(255)",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "due_date",
+                "Type": "date",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "cc_id",
+                "Type": "int(11)",
+                "Null": "YES",
+                "Key": "MUL",
+                "Default": null,
+                "Extra": ""
+            }
+        ],
+        "Foreign Keys": [
+            {
+                "Table": "subtasks",
+                "Column": "cc_id",
+                "Referenced Table": "changecontrol",
+                "Referenced Column": "id"
+            }
+        ]
+    },
+    "suppliers": {
+        "Structure": [
+            {
+                "Field": "SupplierID",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": "auto_increment"
+            },
+            {
+                "Field": "SupplierName",
+                "Type": "varchar(100)",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "ContactInformation",
+                "Type": "varchar(100)",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "Address",
+                "Type": "varchar(255)",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            }
+        ],
+        "Foreign Keys": []
+    },
+    "tags": {
+        "Structure": [
+            {
+                "Field": "TagID",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": "auto_increment"
+            },
+            {
+                "Field": "TagName",
+                "Type": "varchar(100)",
+                "Null": "NO",
+                "Key": "UNI",
+                "Default": null,
+                "Extra": ""
+            }
+        ],
+        "Foreign Keys": []
+    },
+    "task_dependencies": {
+        "Structure": [
+            {
+                "Field": "dependency_id",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": "auto_increment"
+            },
+            {
+                "Field": "task_id",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "MUL",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "dependent_task_id",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "MUL",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "dependency_type",
+                "Type": "enum('Finish to Start','Start to Start','Finish to Finish','Start to Finish')",
+                "Null": "YES",
+                "Key": "",
+                "Default": "Finish to Start",
+                "Extra": ""
+            }
+        ],
+        "Foreign Keys": [
+            {
+                "Table": "task_dependencies",
+                "Column": "dependent_task_id",
+                "Referenced Table": "tasks",
+                "Referenced Column": "task_id"
+            },
+            {
+                "Table": "task_dependencies",
+                "Column": "task_id",
+                "Referenced Table": "tasks",
+                "Referenced Column": "task_id"
+            }
+        ]
+    },
+    "task_resources": {
+        "Structure": [
+            {
+                "Field": "task_resource_id",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": "auto_increment"
+            },
+            {
+                "Field": "task_id",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "MUL",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "resource_id",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "MUL",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "quantity_needed",
+                "Type": "int(11)",
+                "Null": "YES",
+                "Key": "",
+                "Default": "1",
+                "Extra": ""
+            }
+        ],
+        "Foreign Keys": [
+            {
+                "Table": "task_resources",
+                "Column": "resource_id",
+                "Referenced Table": "resources",
+                "Referenced Column": "resource_id"
+            },
+            {
+                "Table": "task_resources",
+                "Column": "task_id",
+                "Referenced Table": "tasks",
+                "Referenced Column": "task_id"
+            }
+        ]
+    },
+    "task_status_log": {
+        "Structure": [
+            {
+                "Field": "log_id",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": "auto_increment"
+            },
+            {
+                "Field": "task_id",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "MUL",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "status",
+                "Type": "enum('Not Started','In Progress','Completed','On Hold')",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "changed_by",
+                "Type": "int(11)",
+                "Null": "YES",
+                "Key": "MUL",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "changed_at",
+                "Type": "timestamp",
+                "Null": "NO",
+                "Key": "",
+                "Default": "current_timestamp()",
+                "Extra": ""
+            }
+        ],
+        "Foreign Keys": [
+            {
+                "Table": "task_status_log",
+                "Column": "task_id",
+                "Referenced Table": "tasks",
+                "Referenced Column": "task_id"
+            },
+            {
+                "Table": "task_status_log",
+                "Column": "changed_by",
+                "Referenced Table": "people",
+                "Referenced Column": "people_id"
+            }
+        ]
+    },
+    "tasks": {
+        "Structure": [
+            {
+                "Field": "task_id",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "project_id",
+                "Type": "int(11)",
+                "Null": "YES",
+                "Key": "MUL",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "department_id",
+                "Type": "int(11)",
+                "Null": "YES",
+                "Key": "MUL",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "assigned_to",
+                "Type": "int(11)",
+                "Null": "YES",
+                "Key": "MUL",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "task_name",
+                "Type": "varchar(255)",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "task_description",
+                "Type": "text",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "task_type",
+                "Type": "enum('Project Task','Operational Task','Compliance Task','Emergency Task')",
+                "Null": "NO",
+                "Key": "",
+                "Default": "Project Task",
+                "Extra": ""
+            },
+            {
+                "Field": "recurring",
+                "Type": "tinyint(1)",
+                "Null": "NO",
+                "Key": "",
+                "Default": "0",
+                "Extra": ""
+            },
+            {
+                "Field": "start_date",
+                "Type": "date",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "finish_date",
+                "Type": "date",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "due_date",
+                "Type": "date",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "priority",
+                "Type": "enum('Low','Medium','High')",
+                "Null": "YES",
+                "Key": "",
+                "Default": "Medium",
+                "Extra": ""
+            },
+            {
+                "Field": "status",
+                "Type": "enum('Not Started','In Progress','Completed','On Hold')",
+                "Null": "YES",
+                "Key": "",
+                "Default": "Not Started",
+                "Extra": ""
+            },
+            {
+                "Field": "created_date",
+                "Type": "timestamp",
+                "Null": "NO",
+                "Key": "",
+                "Default": "current_timestamp()",
+                "Extra": ""
+            },
+            {
+                "Field": "updated_date",
+                "Type": "timestamp",
+                "Null": "NO",
+                "Key": "",
+                "Default": "current_timestamp()",
+                "Extra": "on update current_timestamp()"
+            },
+            {
+                "Field": "change_request_id",
+                "Type": "int(11)",
+                "Null": "YES",
+                "Key": "MUL",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "cc_id",
+                "Type": "int(11)",
+                "Null": "YES",
+                "Key": "MUL",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "parent_task_id",
+                "Type": "int(11)",
+                "Null": "YES",
+                "Key": "MUL",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "created_at",
+                "Type": "timestamp",
+                "Null": "NO",
+                "Key": "",
+                "Default": "current_timestamp()",
+                "Extra": ""
+            }
+        ],
+        "Foreign Keys": [
+            {
+                "Table": "tasks",
+                "Column": "change_request_id",
+                "Referenced Table": "change_requests",
+                "Referenced Column": "change_request_id"
+            },
+            {
+                "Table": "tasks",
+                "Column": "department_id",
+                "Referenced Table": "departments",
+                "Referenced Column": "department_id"
+            },
+            {
+                "Table": "tasks",
+                "Column": "assigned_to",
+                "Referenced Table": "people",
+                "Referenced Column": "people_id"
+            },
+            {
+                "Table": "tasks",
+                "Column": "change_request_id",
+                "Referenced Table": "changecontrol",
+                "Referenced Column": "id"
+            },
+            {
+                "Table": "tasks",
+                "Column": "cc_id",
+                "Referenced Table": "changecontrol",
+                "Referenced Column": "id"
+            },
+            {
+                "Table": "tasks",
+                "Column": "parent_task_id",
+                "Referenced Table": "tasks",
+                "Referenced Column": "task_id"
+            }
+        ]
+    },
+    "work_instructions": {
+        "Structure": [
+            {
+                "Field": "instruction_id",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "PRI",
+                "Default": null,
+                "Extra": "auto_increment"
+            },
+            {
+                "Field": "task_id",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "MUL",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "step_number",
+                "Type": "int(11)",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "instruction_text",
+                "Type": "text",
+                "Null": "NO",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            },
+            {
+                "Field": "estimated_time",
+                "Type": "int(11)",
+                "Null": "YES",
+                "Key": "",
+                "Default": null,
+                "Extra": ""
+            }
+        ],
+        "Foreign Keys": [
+            {
+                "Table": "work_instructions",
+                "Column": "task_id",
+                "Referenced Table": "tasks",
+                "Referenced Column": "task_id"
+            }
+        ]
+    }
+}

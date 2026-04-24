@@ -1,0 +1,513 @@
+<!-- File: sheener/investigation_list.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investigation List - Process Management System</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/task_center.css">
+    <link rel="stylesheet" href="css/ui-standard.css">
+    <link rel="stylesheet" href="css/investigation.css">
+    <link rel="stylesheet" href="css/searchable_dropdown.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="shortcut icon" href="img/favicon/faviconAY.ico">
+    <script src="js/navbar.js" defer></script>
+    <script src="js/topbar.js" defer></script>
+    <script src="js/modal.js" defer></script>
+    <style>
+        body {
+            padding-top: 72px;
+            padding-left: var(--navbar-width, 50px);
+            min-height: 100vh;
+            background-color: var(--bg-secondary, #f5f5f5);
+        }
+
+        .investigations-container {
+            background: white;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            border-radius: 8px;
+            margin-top: 0;
+            margin-left: 70px;
+            margin-right: 20px;
+            margin-bottom: 20px;
+            width: calc(100% - 90px);
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        .investigations-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .investigations-table thead {
+            background: var(--dashboard-bg-secondary, #f8fafc);
+        }
+
+        .investigations-table th {
+            padding: 0.75rem 0.5rem;
+            text-align: left;
+            font-weight: 600;
+            color: var(--dashboard-text-secondary, #64748b);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid var(--dashboard-border, #e2e8f0);
+        }
+
+        .investigations-table td {
+            padding: 0.75rem 0.5rem;
+            border-bottom: 1px solid var(--dashboard-border, #e2e8f0);
+            font-size: 0.85rem;
+        }
+
+        .investigations-table tbody tr {
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .investigations-table tbody tr:hover {
+            background: var(--dashboard-bg-secondary, #f8fafc);
+        }
+
+        .investigations-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .investigation-id {
+            font-weight: 600;
+            color: var(--dashboard-primary, #2563eb);
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.2rem 0.6rem;
+            border-radius: 1rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status-badge.open { background: rgba(239, 68, 68, 0.1); color: #ef4444; }
+        .status-badge.under-investigation { background: rgba(59, 130, 246, 0.1); color: #3b82f6; }
+        .status-badge.assessed { background: rgba(245, 158, 11, 0.1); color: #f59e0b; }
+        .status-badge.closed { background: rgba(107, 114, 128, 0.1); color: #6b7280; }
+
+        .type-badge {
+            display: inline-block;
+            padding: 0.2rem 0.6rem;
+            border-radius: 0.5rem;
+            font-size: 0.75rem;
+            background: var(--dashboard-bg-secondary, #f8fafc);
+            color: var(--dashboard-text, #1e293b);
+        }
+
+        .actions-column { width: 100px; text-align: right !important; }
+        .investigations-table td.actions { text-align: right; padding-right: 1rem; }
+        
+        .btn-table-action {
+            width: 26px !important;
+            height: 26px !important;
+            font-size: 12px !important;
+        }
+        
+        .action-buttons-wrapper {
+            gap: 4px !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="navbar"></div>
+    <div id="topbar"></div>
+
+    <!-- Premium Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay show">
+        <div class="loading-spinner-container">
+            <div class="loading-spinner-icon">
+                <i class="fas fa-spinner fa-spin"></i>
+            </div>
+            <div class="loading-spinner-text" id="loadingText">Loading Investigations</div>
+            <div class="loading-spinner-subtext" id="loadingSubtext">Fetching analysis data...</div>
+            <div class="loading-progress-bar">
+                <div class="loading-progress-bar-fill"></div>
+            </div>
+        </div>
+    </div>
+
+    <main class="task-center-container">
+        <header class="page-header">
+            <h1><i class="fas fa-microscope"></i> Investigation List</h1>
+            <div class="header-actions">
+                <input type="search" id="searchInput" placeholder="Search investigations..." class="search-input">
+            </div>
+        </header>
+
+        <div class="bottom-toolbar">
+            <div class="view-controls">
+                <div class="filters-bar">
+                    <select id="filterStatus" class="filter-select">
+                        <option value="">All Status</option>
+                        <option value="Open">Open</option>
+                        <option value="Under Investigation">Under Investigation</option>
+                        <option value="Assessed">Assessed</option>
+                        <option value="Closed">Closed</option>
+                    </select>
+                    <select id="filterType" class="filter-select">
+                        <option value="">All Types</option>
+                        <option value="Incident">Incident</option>
+                        <option value="Near Miss">Near Miss</option>
+                        <option value="Breakdown">Breakdown</option>
+                        <option value="Quality">Quality</option>
+                        <option value="EHS">EHS</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="investigations-container">
+            <div id="loadingState" class="loading-state">
+                <i class="fas fa-spinner fa-spin"></i>
+                <p>Loading investigations...</p>
+            </div>
+            <div id="emptyState" class="empty-state" style="display: none;">
+                <i class="fas fa-search"></i>
+                <p>No investigations found</p>
+            </div>
+            <table class="investigations-table" id="investigationsTable" style="display: none;">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Type</th>
+                        <th>Status</th>
+                        <th>Event Description</th>
+                        <th>Lead</th>
+                        <th>Opened</th>
+                        <th>Closed</th>
+                        <th class="actions-column">Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="investigationsBody">
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <!-- Modal 1: View Investigation Details (Read Only Style) -->
+    <div id="viewInvestigationModal" class="modal-overlay hidden">
+        <div class="modal-content modal-content-with-footer" style="max-width: 900px;">
+            <h3 class="modal-header" style="background: #000 !important; color: #fff !important; padding: 20px 30px !important; border: none !important;">
+                <div class="title-text">Investigation Details: #<span id="viewInvestigationId">-</span></div>
+                <div class="header-icons">
+                    <img src="img/close.svg" alt="Close Icon" onclick="investigationManager.closeViewModal()" class="edit-icon" style="filter: invert(1);">
+                </div>
+            </h3>
+            
+            <div class="modal-body" style="padding: 0;">
+                <!-- Stepper -->
+                <div class="phase-stepper-container" style="padding: 25px 20px; border-bottom: 1px solid #eee;">
+                    <div class="phase-stepper">
+                        <div class="step" data-step="Open"><div class="step-icon"><i class="fas fa-plus"></i></div><div class="step-label">Open</div></div>
+                        <div class="step-line"></div>
+                        <div class="step" data-step="Under Investigation"><div class="step-icon"><i class="fas fa-search"></i></div><div class="step-label">Investigate</div></div>
+                        <div class="step-line"></div>
+                        <div class="step" data-step="Assessed"><div class="step-icon"><i class="fas fa-balance-scale"></i></div><div class="step-label">Assess</div></div>
+                        <div class="step-line"></div>
+                        <div class="step" data-step="Closed"><div class="step-icon"><i class="fas fa-flag-checkered"></i></div><div class="step-label">Act</div></div>
+                    </div>
+                </div>
+
+                <div style="padding: 30px;">
+                    <div class="modal-form-grid" style="margin-bottom: 30px;">
+                        <div class="form-group">
+                            <label>Linked Event</label>
+                            <div class="form-control-plaintext" id="viewEventId">-</div>
+                        </div>
+                        <div class="form-group">
+                            <label>Status</label>
+                            <div id="viewStatusBadge">-</div>
+                        </div>
+                        <div class="form-group">
+                            <label>Investigation Type</label>
+                            <div class="form-control-plaintext" id="viewType">-</div>
+                        </div>
+                        <div class="form-group">
+                            <label>Investigation Lead</label>
+                            <div class="form-control-plaintext" id="viewLead">-</div>
+                        </div>
+                        <div class="form-group-full">
+                            <label>Trigger Reason</label>
+                            <div class="form-control-plaintext" id="viewTrigger">-</div>
+                        </div>
+                        <div class="form-group-full">
+                            <label>Scope Description</label>
+                            <div class="form-control-plaintext" style="min-height: 80px;" id="viewScope">-</div>
+                        </div>
+                    </div>
+
+                    <div class="modal-section" style="padding: 20px 0;">
+                        <div class="modal-section-header">Root Cause Analysis</div>
+                        <div id="viewRCAList" class="rca-list"></div>
+                    </div>
+
+                    <div class="modal-section" style="padding: 20px 0;">
+                        <div class="modal-section-header">Linked Actions (CAPA)</div>
+                        <div id="viewTasksList" class="tasks-list"></div>
+                    </div>
+
+                    <div class="modal-section" style="padding: 20px 0;">
+                        <div class="modal-section-header">Closure Information</div>
+                        <div id="viewClosureStatus" class="closure-validation"></div>
+                        <div class="modal-form-grid mt-3">
+                            <div class="form-group-full">
+                                <label>Root Cause Summary</label>
+                                <div class="form-control-plaintext" style="min-height: 60px;" id="viewRootSummary">-</div>
+                            </div>
+                            <div class="form-group-full">
+                                <label>Lessons Learned</label>
+                                <div class="form-control-plaintext" style="min-height: 60px;" id="viewLessons">-</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer-fixed" style="padding: 20px 30px; display: flex; justify-content: flex-end; align-items: center; gap: 10px; background: white; border-top: 1px solid #eee;">
+                <button type="button" class="btn btn-danger" onclick="investigationManager.generatePDF()" style="background: #e11d48; color: #fff; min-width: 140px; height: 40px; border: none; border-radius: 6px; font-weight: 600;">
+                    <i class="fas fa-file-pdf"></i> Generate PDF
+                </button>
+                <button type="button" class="btn btn-primary" onclick="investigationManager.openEditModal()" style="min-width: 100px; height: 40px; border-radius: 6px; font-weight: 600;">Edit Details</button>
+                <button type="button" class="btn btn-secondary" onclick="investigationManager.closeViewModal()" style="min-width: 100px; height: 40px; border-radius: 6px; font-weight: 600;">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 2: Edit Investigation (Master Modal) -->
+    <div id="editInvestigationModal" class="modal-overlay hidden">
+        <div class="modal-content modal-content-with-footer" style="max-width: 900px;">
+            <h3 class="modal-header" style="background: #000 !important; color: #fff !important; padding: 20px 30px !important; border: none !important;">
+                <div class="title-text">Edit Investigation Information</div>
+                <div class="header-icons">
+                    <img src="img/close.svg" alt="Close Icon" onclick="investigationManager.closeEditModal()" class="edit-icon" style="filter: invert(1);">
+                </div>
+            </h3>
+            
+            <div class="modal-body" style="padding: 0;">
+                <div class="phase-stepper-container" style="padding: 25px 20px; border-bottom: 1px solid #eee;">
+                    <div class="phase-stepper">
+                        <div class="step" data-step="Open"><div class="step-icon"><i class="fas fa-plus"></i></div><div class="step-label">Open</div></div>
+                        <div class="step-line"></div>
+                        <div class="step" data-step="Under Investigation"><div class="step-icon"><i class="fas fa-search"></i></div><div class="step-label">Investigate</div></div>
+                        <div class="step-line"></div>
+                        <div class="step" data-step="Assessed"><div class="step-icon"><i class="fas fa-balance-scale"></i></div><div class="step-label">Assess</div></div>
+                        <div class="step-line"></div>
+                        <div class="step" data-step="Closed"><div class="step-icon"><i class="fas fa-flag-checkered"></i></div><div class="step-label">Act</div></div>
+                    </div>
+                </div>
+
+                <div style="padding: 30px;">
+                    <form id="investigationEditForm" class="modal-form-grid" autocomplete="off">
+                        <input type="hidden" id="investigationIdInput" name="investigation_id">
+                        <div class="form-group">
+                            <label>Investigation Type <span class="text-danger">*</span></label>
+                            <select class="form-control" id="investigationType" name="investigation_type" required>
+                                <option value="Incident">Incident</option>
+                                <option value="Near Miss">Near Miss</option>
+                                <option value="Breakdown">Breakdown</option>
+                                <option value="Quality">Quality</option>
+                                <option value="EHS">EHS</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Investigation Lead <span class="text-danger">*</span></label>
+                            <div id="leadSelect" data-name="lead_id"></div>
+                        </div>
+                        <div class="form-group-full">
+                            <label>Trigger Reason</label>
+                            <input type="text" class="form-control" id="triggerReason" name="trigger_reason">
+                        </div>
+                        <div class="form-group-full">
+                            <label>Scope Description</label>
+                            <textarea class="form-control" id="scopeDescription" name="scope_description" rows="3"></textarea>
+                        </div>
+                    </form>
+
+                    <div class="modal-section" style="padding: 20px 0;">
+                        <div class="modal-section-header">Closure Information</div>
+                        <div class="modal-form-grid">
+                            <div class="form-group-full">
+                                <label>Root Cause Summary <span class="text-danger">*</span></label>
+                                <textarea class="form-control" id="modalRootSummary" rows="3"></textarea>
+                            </div>
+                            <div class="form-group-full">
+                                <label>Lessons Learned <span class="text-danger">*</span></label>
+                                <textarea class="form-control" id="modalLessonsLearned" rows="3"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer-fixed" style="padding: 20px 30px; display: flex; justify-content: flex-end; align-items: center; gap: 10px; background: white; border-top: 1px solid #eee;">
+                <button type="button" class="btn btn-secondary" onclick="investigationManager.closeEditModal()">Cancel</button>
+                <button type="button" class="btn btn-primary" onclick="investigationManager.saveInvestigation(true)">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/vendor/jspdf.umd.min.js"></script>
+    <script src="js/vendor/qrcode.min.js"></script>
+    <script src="js/searchable_dropdown.js"></script>
+    <script src="js/investigation_manager.js"></script>
+    <script>
+        let allInvestigations = [];
+        let filteredInvestigations = [];
+
+        async function loadInvestigations() {
+            const loadingState = document.getElementById('loadingState');
+            const emptyState = document.getElementById('emptyState');
+            const table = document.getElementById('investigationsTable');
+            const tbody = document.getElementById('investigationsBody');
+
+            try {
+                loadingState.style.display = 'block';
+                emptyState.style.display = 'none';
+                table.style.display = 'none';
+
+                const response = await fetch('api/investigations/index.php');
+                const data = await response.json();
+
+                if (data.success && data.data) {
+                    allInvestigations = data.data;
+                    filteredInvestigations = allInvestigations;
+                    renderInvestigations();
+                } else {
+                    throw new Error(data.error || 'Failed to load investigations');
+                }
+            } catch (error) {
+                console.error('Error loading investigations:', error);
+                loadingState.innerHTML = `
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <p>Error loading investigations: ${error.message}</p>
+                `;
+            }
+        }
+
+        function renderInvestigations() {
+            const loadingState = document.getElementById('loadingState');
+            const emptyState = document.getElementById('emptyState');
+            const table = document.getElementById('investigationsTable');
+            const tbody = document.getElementById('investigationsBody');
+
+            loadingState.style.display = 'none';
+
+            if (filteredInvestigations.length === 0) {
+                emptyState.style.display = 'block';
+                table.style.display = 'none';
+                return;
+            }
+
+            emptyState.style.display = 'none';
+            table.style.display = 'table';
+
+            tbody.innerHTML = filteredInvestigations.map(inv => {
+                const openedDate = inv.opened_at ? new Date(inv.opened_at).toLocaleDateString() : '-';
+                const closedDate = inv.closed_at ? new Date(inv.closed_at).toLocaleDateString() : '-';
+                const statusClass = inv.status.toLowerCase().replace(/\s+/g, '-');
+                const eventDesc = inv.event_description || 'No description';
+                const leadName = inv.lead_name || 'Unassigned';
+
+                return `
+                    <tr onclick="investigationManager.openViewModal(${inv.investigation_id})">
+                        <td><span class="investigation-id">#${inv.investigation_id}</span></td>
+                        <td><span class="type-badge">${inv.investigation_type || 'N/A'}</span></td>
+                        <td><span class="status-badge ${statusClass}">${inv.status || 'Open'}</span></td>
+                        <td>${eventDesc.substring(0, 60)}${eventDesc.length > 60 ? '...' : ''}</td>
+                        <td>${leadName}</td>
+                        <td>${openedDate}</td>
+                        <td>${closedDate}</td>
+                        <td class="actions" onclick="event.stopPropagation()">
+                            <div class="action-buttons-wrapper">
+                                <button class="btn-table-action btn-view" onclick="investigationManager.openViewModal(${inv.investigation_id})" title="View"><i class="fas fa-eye"></i></button>
+                                <button class="btn-table-action btn-edit" onclick="investigationManager.openEditModal(${inv.investigation_id})" title="Edit"><i class="fas fa-edit"></i></button>
+                                <button class="btn-table-action btn-delete" onclick="deleteInvestigation(${inv.investigation_id})" title="Delete"><i class="fas fa-trash"></i></button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function filterInvestigations() {
+            const statusFilter = document.getElementById('filterStatus').value;
+            const typeFilter = document.getElementById('filterType').value;
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+
+            filteredInvestigations = allInvestigations.filter(inv => {
+                const matchesStatus = !statusFilter || inv.status === statusFilter;
+                const matchesType = !typeFilter || inv.investigation_type === typeFilter;
+                const matchesSearch = !searchTerm ||
+                    (inv.investigation_id && inv.investigation_id.toString().includes(searchTerm)) ||
+                    (inv.investigation_type && inv.investigation_type.toLowerCase().includes(searchTerm)) ||
+                    (inv.event_description && inv.event_description.toLowerCase().includes(searchTerm)) ||
+                    (inv.lead_name && inv.lead_name.toLowerCase().includes(searchTerm));
+
+                return matchesStatus && matchesType && matchesSearch;
+            });
+
+            renderInvestigations();
+        }
+
+        // Event listeners
+        document.getElementById('filterStatus').addEventListener('change', filterInvestigations);
+        document.getElementById('filterType').addEventListener('change', filterInvestigations);
+        document.getElementById('searchInput').addEventListener('input', filterInvestigations);
+
+        // Delete investigation
+        async function deleteInvestigation(id) {
+            if (!confirm(`Are you sure you want to delete investigation #${id}?`)) return;
+            
+            try {
+                const response = await fetch(`api/investigations/index.php?id=${id}`, {
+                    method: 'DELETE'
+                });
+                const data = await response.json();
+                
+                if (data.success) {
+                    allInvestigations = allInvestigations.filter(inv => inv.investigation_id !== id);
+                    filterInvestigations();
+                } else {
+                    alert('Error: ' + (data.error || 'Failed to delete investigation'));
+                }
+            } catch (error) {
+                console.error('Error deleting investigation:', error);
+                alert('Network error deleting investigation');
+            }
+        }
+
+        // Load investigations on page load
+        document.addEventListener('DOMContentLoaded', async () => {
+            await loadInvestigations();
+            
+            // Check for ID in URL to auto-open modal
+            const urlParams = new URLSearchParams(window.location.search);
+            const autoId = urlParams.get('id');
+            const editMode = urlParams.get('edit');
+            
+            if (autoId) {
+                if (editMode === '1') {
+                    investigationManager.openEditModal(autoId);
+                } else {
+                    investigationManager.openViewModal(autoId);
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

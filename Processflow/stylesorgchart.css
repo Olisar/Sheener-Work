@@ -1,0 +1,175 @@
+/* File: sheener/Processflow/stylesorgchart.css */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f5f5f5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+#diagramContainer {
+    width: 100%;
+    height: 800px;
+    border: 1px solid #ccc;
+}
+
+.dhx_diagram {
+    background: #fafafa;
+}
+
+/* Node styles */
+.process-node, .step-node, .substep-node {
+    padding: 10px;
+    font-size: 14px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.process-node {
+    background-color: #E3F2FD;
+    border: 2px solid #1976D2;
+}
+
+.step-node {
+    background-color: #F3E5F5;
+    border: 2px solid #7B1FA2;
+}
+
+.substep-node {
+    background-color: #E8F5E9;
+    border: 2px solid #388E3C;
+}
+
+/* Small Navbar container */
+.navbar-container {
+    background-color: #011e3b;
+    height: 100vh;
+    width: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    position: fixed;
+    top: 72px;
+    left: 0;
+    z-index: 100;
+    overflow: hidden;
+    transition: width 0.3s ease;
+}
+
+/* Hover effect to expand the navbar */
+.navbar-container:hover {
+    width: 200px;
+}
+
+/* Navbar menu icon */
+.navbar-menu {
+    width: 24px;
+    height: 24px;
+    position: fixed;
+    top: 85px;
+    left: 15px;
+    z-index: 2000;
+    cursor: pointer;
+}
+
+/* Initially, the links are hidden */
+.navbar-links {
+    opacity: 0;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    list-style: none;
+    padding: 0;
+    margin-top: 70px;
+    width: 150px;
+    text-align: left;
+}
+
+/* When hovered, links slide out */
+.navbar-container:hover .navbar-links {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Style for individual links */
+.navbar-links li {
+    margin: 5px 0;
+}
+
+.navbar-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    display: block;
+    padding: 8px;
+}
+
+.navbar-links a:hover {
+    background-color: #276ac8;
+    border-radius: 4px;
+}
+
+.dashboard-content {
+    margin-top: 80px;
+}
+/* Adjusted header styling */
+header {
+    background-color: #003366; /* Consistent theme color */
+    padding: 10px 20px;
+    text-align: center;
+    color: white;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw; /* Use viewport width to ensure it matches the viewport */
+    max-width: 100%; /* Prevent overflow beyond 100% */
+    box-sizing: border-box; /* Include padding in width calculation */
+    z-index: 1000; /* Ensure the header is above other content */
+    overflow-x: hidden; /* Prevent any accidental horizontal overflow */
+}
+
+/* Icon hover effect */
+.header-icon {
+    transition: filter 0.3s ease;
+}
+
+.header-icon:hover {
+    filter: brightness(0) saturate(100%) invert(58%) sepia(19%) saturate(600%) hue-rotate(185deg) brightness(95%) contrast(88%);
+}
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.header-title {
+    margin: 0;
+    font-size: 1.8em;
+    font-weight: bold;
+    color: #ffffff;
+
+}
+
+.logo {
+    height: 50px;
+}
+
+
+/* Main Planner Layout */
+.planner-main-horizontal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    padding: 20px;
+    margin-top: 40px; /* Moves the div down by 40px */
+}

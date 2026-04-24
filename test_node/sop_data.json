@@ -1,0 +1,235 @@
+[
+    {
+        "Document_Type": "Standard Operating Procedure",
+        "Subject": "USE OF FACE MASKS/SHIELDS IN THE INHALATION FACILITY, WAREHOUSE, QC CHEMISTRY AND QC MICROBIOLOGY LABORATORIES AT AMNEAL IRELAND",
+        "Reviewed_By": [
+            {
+                "Name": "Liam O'Gorman",
+                "Role": "MF",
+                "Date": "18-Sep-2020"
+            },
+            {
+                "Name": "Katherina Russell",
+                "Role": "QC/ARD",
+                "Date": "18-Sep-2020"
+            }
+        ],
+        "Effective_Date": "Z1",
+        "Next_Review_Date": "2",
+        "Supersedes": "ES-003",
+        "Prepared_By": {
+            "Name": "Amanda Power",
+            "Role": "EHS",
+            "Date": "1s-sep-2020"
+        },
+        "Approved_By": {
+            "Name": "Kuldeep Joshi",
+            "Role": "QA",
+            "Date": "1s-sep-2020"
+        },
+        "Purpose": "Provide instruction for the proper use and disposal of face masks/shields in Inhalation Facility, Warehouse, QC Chemistry and QC Microbiology Laboratories at Amneal Ireland in line with the Irish Governments and CDC recommendations.",
+        "Scope": [
+            "Use and disposal of face masks/shields in Inhalation Facility, Warehouse, QC Chemistry and QC Microbiology Laboratories by Amneal Personnel, Contractors and Visitors.",
+            "General office areas, Maintenance areas such as the Interstitial area and Pumphouses at Amneal Ireland are out of scope of this SOP."
+        ],
+        "Responsibility": [
+            "All Personnel wearing face masks/shields",
+            "All Personnel hosting visitors onsite",
+            "EHS department"
+        ],
+        "Definitions": {
+            "SOP": "Standard Operating Procedure",
+            "QC/ARD": "Quality Control Analytical Research and Development",
+            "EHS": "Environmental Health and Safety",
+            "CDC": "Center for Disease Control",
+            "PPE": "Personal Protective Equipment",
+            "IPA": "Isopropyl Alcohol",
+            "FDA": "Food and Drug Administration",
+            "MF": "Manufacturing",
+            "QA": "Quality Assurance"
+        },
+        "Procedure": [
+            "General Instruction for the proper use of Face Masks/Face Shields in conjunction with additional controls",
+            "Sanitization of desk and hands",
+            "Instructions on wearing and removing masks/ face shields",
+            "Gowning procedures",
+            "Disposal of face masks/ shields"
+        ],
+        "References": [
+            "ES-001 Material Destruction and Waste Management Procedure",
+            "MF-009 Gowning Procedure for Entering and Exiting the Inhalation Areas",
+            "MM-003 Garbing Procedure for Warehouse Entry",
+            "QC-029 Gowning Procedure for QC/ ARD Laboratory Entry",
+            "QC-073 Gowning Procedure for the Microbiology Laboratory",
+            "FDA Good Manufacturing Practice Considerations for Responding to COVID-19 Infection in Employees in Drug and Biological Products Manufacturing June 2020"
+        ],
+        "History": [
+            {
+                "Revision": "ES-003",
+                "Date": "19-Aug-2020",
+                "Reason": "Initial",
+                "CCFNo": ""
+            },
+            {
+                "Revision": "ES-003A",
+                "Date": "'1... 2... -'>a;,--z..o 'Z.O",
+                "Reason": "Section 5.1 updated to include existing control measures Section 5.2.3 updated to include clarity of requirements in CNC office area (XP-15). Numbering of points realigned Section 5.3.3 updated to include clarity of requirements in Warehouse and laboratories while at designated workstations. Numbering of points realigned.",
+                "CCFNo": "AI-CC-20-083"
+            }
+        ]
+    },
+    {
+        "SOP_ID": "ES-005A",
+        "title": "Usage of Personal Protective Equipment(PPE)",
+        "reviewed_by": "J...~-11.DJ \u2713JO",
+        "next_review_date": "04-9\u00a3t:-~",
+        "approved_by": "Paul Delaney, M1",
+        "qa_by": "Lorraine Henry",
+        "hr_by": "Zita O'Rourke",
+        "purpose": "To establish a procedure for managing the use of personal protective equipment (PPE) including eye, hand, foot and body protection and to fulfil the requirements of the Safety Health and Welfare at Work (General Applications) Regulations 2007, Part 2, Chapter 3: Use of Personal Protective Equipment at Work.",
+        "scope": "Applies to all PPE selected, used and maintained on site and to all areas on site where PPE is required",
+        "responsibility": [
+            {
+                "EHS Department": [
+                    "Develop and maintain a PPE matrix for all PPE used on site",
+                    "Provide technical review and guidance to all users of PPE on site",
+                    "Assist in hazard identification and risk assessment of the tasks and activities",
+                    "Provide technical advice on the selection, inspection, use, testing, maintenance and storage of PPE",
+                    "Develop and support training on PPE requirements"
+                ]
+            },
+            {
+                "All Employees": [
+                    "Ensure they understand the hazards and PPE requirements related to their work activities and location",
+                    "Make use of the appropriate PPE as per site rules and risk assessments",
+                    "Wear, maintain and report lost, damage or concerns of relating to their PPE to EHS"
+                ]
+            },
+            {
+                "Area Managers": [
+                    "Provide resources necessary to implement and maintain an effective program",
+                    "Assist in identifying feasible engineering and work practice controls before identifying specific PPE as an primary control measure",
+                    "Ensure personnel have been trained in proper use and maintenance of PPE",
+                    "Ensure PPE is utilized for the specific work activities",
+                    "Ensure that all visitors are issued with the correct PPE as appropriate and that they are made aware of the areas where mandatory PPE is required before entering these areas"
+                ]
+            }
+        ],
+        "definitions": {
+            "Amneal Ireland": "Amneal Ireland Limited Cahir Road, Cashel, Co. Tipperary, Ireland",
+            "Control or Control measures": "A process, policy, device, practice or action designed to eliminate or minimize a risk",
+            "and several more...": "(truncated for brevity)"
+        },
+        "procedure": "Complete and document hazard identification and risk assessment as per ES-009 Risk Assessment Procedure to determine where PPE controls are necessary using the hierarchy of control: Elimination, Substitution, Engineering Controls, Administrative Controls, Personal Protective Equipment.",
+        "references": [
+            "PPE Matrix",
+            "Environmental Health and Safety Risk Assessment Procedure"
+        ],
+        "history": {
+            "ES-005": "22-Dec-2016",
+            "ES-005A": "05-C\u00a3J..ee-dJD ,9"
+        },
+        "PPE_Matrix": {
+            "PPEType": " ",
+            "Locations_used_on_Site": " ",
+            "EN_conformity_Number": " ",
+            "Approved": " ",
+            "Comments": " "
+        }
+    },
+    {
+        "SOP_ID": "ES-006B",
+        "SOP_Title": "Spill Response Procedure",
+        "Effective_Date": "2023",
+        "Next_Review_Date": "2026",
+        "Previous_Version": "ES-006A",
+        "Prepared_By": "John O'Dwyer",
+        "Preparation_Date": "14-Sep-2023",
+        "Reviewed_By": [
+            {
+                "Name": "Maurice Ryan",
+                "Review_Date": "14-Sep-2023"
+            },
+            {
+                "Name": "Katherina Russell",
+                "Review_Date": "17-Sep-2023"
+            }
+        ],
+        "Approved_By": "Kuldeep Joshi",
+        "Approval_Date": "17-Sep-2023",
+        "Purpose": [
+            "Ensure protection of health, safety and security",
+            "Minimization of damage to property and environment",
+            "Quick containment of spills",
+            "Efficient management of incident reporting and investigating",
+            "Initiation of appropriate response"
+        ],
+        "Scope": "Emergency Response Team, employees and contractors.",
+        "Responsibilities": {
+            "EmergencyResponseTeam": [
+                "Carrying out emergency procedures.",
+                "Providing response in case of major spill.",
+                "Considering specific plans for dealing with spills.",
+                "Participation in incident investigations."
+            ],
+            "Employees": [
+                "Adherence to processes and procedures for preventing spills.",
+                "Control and clean small spills."
+            ],
+            "FacilitiesTeam": [
+                "Shut off valves or lock pumps in spill response situation.",
+                "Participation in spill clean-up."
+            ],
+            "MicrobiologicalDepartment": [
+                "Control and clean biological spills in microbiology lab."
+            ],
+            "ExternalEmergencyServices": [
+                "Control and clean major chemical spills."
+            ]
+        },
+        "Definitions": {
+            "AmnealIreland": "Amneal Ireland Limited, Cahir Road, Cashel, Co. Tipperary, Ireland.",
+            "EmergencyResponse": "Immediate actions taken by teams or groups which begin the process and procedure to mitigate impact on site or business unit operation.",
+            "EmergencyResponseTeam": "A site-level team of specialized individuals who are activated to provide immediate on-site response.",
+            "EnvironmentalEvent": "Any spill or release, any non-compliance with a permit condition or regulation, any environmental incident which has onsite or the potential to cause off-site impact, any violation of a consent order, any enforcement action from an environmental regulatory authority.",
+            "HFA": "Hydrofluoroalkane, Propellant used for meter dosed inhalers.",
+            "Release": "An environmental event.",
+            "Rescue": "Activities directed at locating endangered persons at an emergency incident, removing those persons from danger, treating the injured, and providing for transport to an appropriate health care facility.",
+            "Response": "Activities that occur in preparation for an emergency and continue until the arrival of emergency apparatus at the scene.",
+            "SDS": "Safety Data Sheet.",
+            "Spill": "An environmental event."
+        },
+        "Procedure": [
+            "Response to a small hazardous liquid spill.",
+            "Response to a small hazardous solids spill.",
+            "Response to a large hazardous liquid spill or a large hazardous solids spill.",
+            "Response to propellant HFA spill.",
+            "Response to a Biological spill.",
+            "Spill into surface water drain.",
+            "Spill onto soil.",
+            "Spill Response Equipment.",
+            "Investigation into the cause of Spill."
+        ],
+        "References": [
+            "ES-008",
+            "N/A"
+        ],
+        "History": {
+            "RevisionDate": [
+                "03-Feb-2017",
+                "23-Jan-2020",
+                "CJ.-Oc...--l-~ i3"
+            ],
+            "CCFNo": [
+                "First_Issued",
+                "AI-CC-18-140",
+                "CC-AMN-22-6778"
+            ],
+            "Reason": [
+                "-- First Issued",
+                "Updated SOP to Amneal new Logo",
+                "Section updates and added responsibilities"
+            ]
+        }
+    }
+]

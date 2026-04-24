@@ -1,0 +1,123 @@
+{
+    "documents": [
+        {
+            "title": "OPERATION OF MAS-100 AIR SAMPLER",
+            "file": "QC-004G",
+            "owner": "Karen Barry",
+            "prepared_by": "Karen Barry",
+            "reviewed_by": ["Anne McGrath", "Linda Bannon"],
+            "approved_by": "Kuldeep Joshi",
+            "effective_date": "09-Mar-2023",
+            "review_date": "06-Sep-2025",
+            "supersedes": "QC-004F",
+            "related_to": ["Environmental Monitoring"],
+            "key_points": [
+                "Details operating procedure for MAS-100 air sampler.",
+                "Covers calibration, setup, and maintenance.",
+                "Focuses on sampling in controlled environments."
+            ]
+        },
+        {
+            "title": "OPERATION OF NON-VIABLE SAMPLER",
+            "file": "QC-005D",
+            "owner": "Linda Bannon",
+            "prepared_by": "Linda Bannon",
+            "reviewed_by": ["Karen Barry", "Anne McGrath"],
+            "approved_by": "Mary White",
+            "effective_date": "21-Dec-2022",
+            "review_date": "21-Dec-2025",
+            "supersedes": "QC-005C",
+            "related_to": ["Non-Viable Particulate Monitoring"],
+            "key_points": [
+                "Describes operation of non-viable particle monitoring equipment.",
+                "Focus on compliance with environmental standards.",
+                "Includes troubleshooting common issues."
+            ]
+        },
+        {
+            "title": "CHROMATOGRAPHIC COLUMN MANAGEMENT",
+            "file": "QC-012B",
+            "owner": "Linda Bannon",
+            "prepared_by": "Linda Bannon",
+            "reviewed_by": ["Patrick Flynn", "David Ryan"],
+            "approved_by": "Kuldeep Joshi",
+            "effective_date": "05-Jun-2021",
+            "review_date": "05-Jun-2024",
+            "supersedes": "QC-012A",
+            "related_to": ["Chromatography"],
+            "key_points": [
+                "Guidelines for managing chromatographic columns.",
+                "Ensures consistent performance and longevity.",
+                "Covers cleaning, storage, and replacement criteria."
+            ]
+        },
+        {
+            "title": "OPERATION, CALIBRATION AND MAINTENANCE OF KARL FISCHER TITRATOR",
+            "file": "QC-008E",
+            "owner": "Patrick Flynn",
+            "prepared_by": "Patrick Flynn",
+            "reviewed_by": ["David Ryan", "Paul O'Mahony"],
+            "approved_by": "Kuldeep Joshi",
+            "effective_date": "30-Jul-2021",
+            "review_date": "30-Jul-2024",
+            "supersedes": "QC-008D",
+            "related_to": ["Instrument Calibration"],
+            "key_points": [
+                "Instructions for Karl Fischer Titrator operation.",
+                "Covers calibration and periodic maintenance.",
+                "Ensures accurate moisture content analysis."
+            ]
+        },
+        {
+            "title": "RECEIPT AND HANDLING OF INCOMING SAMPLES IN QC/ARD MICROBIOLOGY LAB",
+            "file": "QC-009I",
+            "owner": "David Ryan",
+            "prepared_by": "David Ryan",
+            "reviewed_by": ["Ashok Gulati", "Paul O'Mahony"],
+            "approved_by": "Kuldeep Joshi",
+            "effective_date": "03-Apr-2023",
+            "review_date": "03-Apr-2025",
+            "supersedes": "QC-009H",
+            "related_to": ["Sample Handling"],
+            "key_points": [
+                "Procedure for receiving and handling microbiology samples.",
+                "Outlines labeling, storage, and chain-of-custody protocols.",
+                "Ensures compliance with microbiological testing standards."
+            ]
+        },
+        {
+            "title": "ROUTINE MICROBIOLOGICAL ENVIRONMENTAL MONITORING",
+            "file": "QC-011K",
+            "owner": "Anne McGrath",
+            "prepared_by": "Anne McGrath",
+            "reviewed_by": ["Linda Bannon", "Katherina Russell"],
+            "approved_by": "Kuldeep Joshi",
+            "effective_date": "31-May-2023",
+            "review_date": "31-May-2025",
+            "supersedes": "QC-011J",
+            "related_to": ["Environmental Monitoring"],
+            "key_points": [
+                "Details procedures for routine microbiological environmental monitoring.",
+                "Ensures compliance with microbiological standards.",
+                "Includes techniques for sampling and analysis."
+            ]
+        },
+        {
+            "title": "OPERATION, CALIBRATION, AND MAINTENANCE OF THE METTLER TOLEDO SEVENCOMPACT PH METER",
+            "file": "QC-013B",
+            "owner": "Patrick Flynn",
+            "prepared_by": "Patrick Flynn",
+            "reviewed_by": ["Linda Bannon", "David Ryan"],
+            "approved_by": "Kuldeep Joshi",
+            "effective_date": "08-Mar-2022",
+            "review_date": "08-Mar-2025",
+            "supersedes": "QC-013A",
+            "related_to": ["Instrument Calibration"],
+            "key_points": [
+                "Describes operation and maintenance of the pH meter.",
+                "Covers calibration processes and sensor care.",
+                "Focus on accuracy in pH measurement for lab analysis."
+            ]
+        }
+    ]
+}

@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- sheener/CC_form.html  -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Change Control Form</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="shortcut icon" href="img/favicon/faviconAY.ico">
+  <style>
+    form {
+      max-width: 1000px;
+      margin: auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: #f9f9f9;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .form-row {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .form-group {
+      flex: 1;
+      min-width: 300px;
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      padding: 6px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+
+    button {
+      background-color: #007bff;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      align-self: flex-start;
+    }
+  </style>
+
+
+  <script src="js/taskHandler.js"></script>
+  <!-- Load JavaScript -->
+  <script src="js/changeControl.js"></script>
+  <!-- Load JavaScript -->
+  <script src="js/navbar.js" defer></script>
+  <script src="js/topbar.js" defer></script>
+</head>
+
+<body>
+  <div id="topbar"></div>
+  <div id="navbar"></div>
+  <main class="planner-main-horizontal">
+    <h1>Change Request Details</h1>
+    <div class="task-table-container">
+      <form id="changeControlForm">
+        <input type="hidden" id="cc_id" name="cc_id">
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="targetDate">Target Date of Closure:</label>
+            <input type="date" id="targetDate" name="target_date" required />
+          </div>
+
+          <div class="form-group">
+            <label for="impactedSites">Impacted Amneal Sites:</label>
+            <input type="text" id="impactedSites" name="impacted_sites" required />
+          </div>
+
+          <div class="form-group">
+            <label for="market">Market:</label>
+            <input type="text" id="market" name="market" required />
+          </div>
+        </div>
+
+        <label for="title">Title:</label>
+        <textarea id="title" name="title" rows="2" required></textarea>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="changeType">Change Type:</label>
+            <select id="changeType" name="change_type" required>
+              <option value="Major">Major</option>
+              <option value="Minor">Minor</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="regulatoryApproval">Regulatory Approval:</label>
+            <select id="regulatoryApproval" name="regulatory_approval" required>
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="status">Status:</label>
+            <select id="status" name="status" required>
+              <option value="Pending">Pending</option>
+              <option value="Approved">Approved</option>
+              <option value="Rejected">Rejected</option>
+            </select>
+          </div>
+        </div>
+
+        <label for="changeFrom">Change From:</label>
+        <textarea id="changeFrom" name="change_from" rows="3" required></textarea>
+
+        <label for="changeTo">Change To:</label>
+        <textarea id="changeTo" name="change_to" rows="3" required></textarea>
+
+        <label for="justification">Justification of Change:</label>
+        <textarea id="justification" name="justification" rows="2" required></textarea>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="productDetails">Product Details:</label>
+            <textarea id="productDetails" name="product_details" rows="2"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="combinationProduct">Combination Product:</label>
+            <select id="combinationProduct" name="combination_product" required>
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="materialComponent">Material/Component:</label>
+            <input type="text" id="materialComponent" name="material_component" />
+          </div>
+        </div>
+
+        <label for="documentTypeDetails">Document Type Details:</label>
+        <textarea id="documentTypeDetails" name="document_type_details" rows="3"></textarea>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="riskAssessment">Risk Assessment:</label>
+            <input type="text" id="riskAssessment" name="risk_assessment" />
+          </div>
+
+          <div class="form-group">
+            <label for="visualAide">Visual Aide Required as part of SOP Update:</label>
+            <select id="visualAide" name="visual_aide" required>
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="logbooksImpact">Logbooks Impact (electronic/physical):</label>
+            <input type="text" id="logbooksImpact" name="logbooks_impact" />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="rfSmartImpact">Impact on RF Smart:</label>
+            <select id="rfSmartImpact" name="rf_smart_impact" required>
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="trainingRequired">Training Required:</label>
+            <select id="trainingRequired" name="training_required" required>
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="trainingType">Training Type:</label>
+            <select id="trainingType" name="training_type">
+              <option value="Classroom">Classroom</option>
+              <option value="Self Training">Self Training</option>
+            </select>
+          </div>
+        </div>
+
+        <button type="submit" id="submitButton">Save</button>
+      </form>
+    </div>
+
+    <br>
+    <a href="CC_List.php">Back to Change Control List</a>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const ccId = urlParams.get('id');
+        const form = document.getElementById('changeControlForm');
+        const submitButton = document.getElementById('submitButton');
+
+        if (ccId) {
+          fetch(`php/get_change_controls.php`)
+            .then(response => response.json())
+            .then(data => {
+              if (data.success && Array.isArray(data.data)) {
+                const cc = data.data.find(item => item.cc_id == ccId);
+                if (cc) {
+                  document.getElementById('cc_id').value = cc.cc_id;
+                  document.getElementById('targetDate').value = cc.target_date;
+                  document.getElementById('impactedSites').value = cc.impacted_sites;
+                  document.getElementById('market').value = cc.market;
+                  document.getElementById('title').value = cc.title;
+                  document.getElementById('changeFrom').value = cc.change_from;
+                  document.getElementById('changeTo').value = cc.change_to;
+                  document.getElementById('changeType').value = cc.change_type;
+                  document.getElementById('justification').value = cc.justification;
+                  document.getElementById('productDetails').value = cc.product_details || '';
+                  document.getElementById('combinationProduct').value = cc.combination_product || 'No';
+                  document.getElementById('materialComponent').value = cc.material_component || '';
+                  document.getElementById('documentTypeDetails').value = cc.document_type_details || '';
+                  document.getElementById('riskAssessment').value = cc.risk_assessment || '';
+                  document.getElementById('visualAide').value = cc.visual_aide || 'No';
+                  document.getElementById('logbooksImpact').value = cc.logbooks_impact || '';
+                  document.getElementById('rfSmartImpact').value = cc.rf_smart_impact || 'No';
+                  document.getElementById('trainingRequired').value = cc.training_required || 'No';
+                  document.getElementById('trainingType').value = cc.training_type || 'Classroom';
+                  document.getElementById('regulatoryApproval').value = cc.regulatory_approval;
+                  document.getElementById('status').value = cc.status;
+                  submitButton.textContent = "Update Change Control";
+                }
+              }
+            })
+            .catch(error => console.error("Error loading Change Control:", error));
+        }
+
+        form.addEventListener('submit', function (e) {
+          e.preventDefault();
+
+          const formData = new FormData(this);
+          const jsonData = {};
+          formData.forEach((value, key) => { jsonData[key] = value; });
+
+          const endpoint = ccId ? 'php/update_change_control.php' : 'php/add_change_control.php';
+
+          fetch(endpoint, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(jsonData)
+          })
+            .then(response => response.json())
+            .then(data => {
+              if (data.success) {
+                alert(ccId ? "Change Control updated successfully." : "Change Control added successfully.");
+                window.location.href = 'CC_List.php';
+              } else {
+                alert("Error: " + data.error);
+              }
+            })
+            .catch(error => console.error('Error saving Change Control:', error));
+        });
+      });
+    </script>
+
+  </main>
+
+</body>
+
+</html>

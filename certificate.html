@@ -1,0 +1,497 @@
+<!-- File: sheener/certificate.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Safety Induction Certificate</title>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f5f5f5;
+            padding: 0;
+            margin: 0;
+            min-height: 100vh;
+        }
+        
+        .certificate {
+            width: 100%;
+            min-height: 100vh;
+            background: white;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Decorative Border - Responsive */
+        .certificate::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            border: 4px double #0056b3;
+            pointer-events: none;
+        }
+        
+        .certificate::after {
+            content: '';
+            position: absolute;
+            top: 18px;
+            left: 18px;
+            right: 18px;
+            bottom: 18px;
+            border: 1px solid #3380cc;
+            pointer-events: none;
+        }
+        
+        .content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 1rem;
+        }
+        
+        .logo {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .header {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: #0056b3;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+            letter-spacing: 1px;
+            line-height: 1.2;
+        }
+        
+        .subheader {
+            font-size: 0.95rem;
+            color: #666;
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+        
+        .divider {
+            width: 80px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #0056b3, transparent);
+            margin: 1rem auto;
+        }
+        
+        .body-text {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: #333;
+            margin: 1rem 0;
+        }
+        
+        .recipient-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #0056b3;
+            margin: 1rem 0;
+            padding: 0.75rem;
+            border-bottom: 2px solid #0056b3;
+            display: block;
+            word-wrap: break-word;
+        }
+        
+        .achievement {
+            font-size: 0.85rem;
+            color: #555;
+            margin: 1.5rem 0;
+            line-height: 1.6;
+        }
+        
+        .footer {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-top: 2rem;
+            padding-top: 1rem;
+        }
+        
+        .signature-block {
+            text-align: center;
+        }
+        
+        .signature-line {
+            width: 150px;
+            border-top: 2px solid #333;
+            margin: 1.5rem auto 0.5rem auto;
+        }
+        
+        .signature-label {
+            font-size: 0.85rem;
+            color: #666;
+            font-weight: 500;
+        }
+        
+        .date {
+            font-size: 0.8rem;
+            color: #666;
+            margin-top: 0.25rem;
+        }
+        
+        .seal {
+            position: static;
+            width: 100px;
+            height: 100px;
+            border: 3px solid #0056b3;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle, #fff, #f0f8ff);
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: #0056b3;
+            text-align: center;
+            line-height: 1.2;
+            padding: 0.75rem;
+            box-shadow: 0 4px 10px rgba(0, 86, 179, 0.3);
+            margin: 1.5rem auto;
+        }
+        
+        .qr-section {
+            text-align: center;
+            margin: 2rem auto 1rem;
+            padding: 1rem;
+            background: #f9fafb;
+            border-radius: 8px;
+            max-width: 300px;
+        }
+        
+        .qr-section h3 {
+            font-size: 0.9rem;
+            color: #0056b3;
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+        }
+        
+        #qrcode {
+            margin: 0 auto;
+            padding: 0.5rem;
+            background: white;
+            border-radius: 8px;
+            display: inline-block;
+        }
+        
+        .validity-info {
+            margin-top: 0.75rem;
+            font-size: 0.75rem;
+            color: #666;
+            line-height: 1.4;
+        }
+        
+        .validity-info strong {
+            color: #0056b3;
+        }
+        
+        .certificate-id {
+            text-align: center;
+            font-size: 0.7rem;
+            color: #999;
+            font-family: 'Courier New', monospace;
+            margin-top: 1rem;
+            padding-bottom: 1rem;
+        }
+        
+        /* Print Styles */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            
+            .certificate {
+                box-shadow: none;
+                margin: 0;
+                width: 100%;
+                height: 100%;
+            }
+        }
+        
+        /* Desktop View - Restore larger format */
+        @media (min-width: 769px) {
+            body {
+                padding: 2rem;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            
+            .certificate {
+                width: 210mm;
+                min-height: 297mm;
+                padding: 3rem;
+                box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            }
+            
+            .certificate::before {
+                top: 20px;
+                left: 20px;
+                right: 20px;
+                bottom: 20px;
+                border: 8px double #0056b3;
+            }
+            
+            .certificate::after {
+                top: 30px;
+                left: 30px;
+                right: 30px;
+                bottom: 30px;
+                border: 2px solid #3380cc;
+            }
+            
+            .content {
+                padding: 2rem;
+            }
+            
+            .logo {
+                margin-bottom: 1rem;
+            }
+            
+            .logo img {
+                height: 100px;
+            }
+            
+            .header {
+                font-size: 2.5rem;
+                margin-bottom: 0.5rem;
+                letter-spacing: 2px;
+            }
+            
+            .subheader {
+                font-size: 1.2rem;
+                margin-bottom: 3rem;
+            }
+            
+            .divider {
+                width: 100px;
+                height: 3px;
+                margin: 2rem auto;
+            }
+            
+            .body-text {
+                font-size: 1.1rem;
+                line-height: 2;
+                margin: 2rem 0;
+            }
+            
+            .recipient-name {
+                font-size: 2rem;
+                margin: 2rem 0;
+                padding: 1rem;
+                min-width: 400px;
+                display: inline-block;
+            }
+            
+            .achievement {
+                font-size: 1rem;
+                margin: 2rem 0 3rem 0;
+                line-height: 1.8;
+            }
+            
+            .footer {
+                flex-direction: row;
+                justify-content: space-around;
+                margin-top: 4rem;
+                padding-top: 2rem;
+            }
+            
+            .signature-line {
+                width: 200px;
+                margin: 3rem auto 0.5rem auto;
+            }
+            
+            .signature-label {
+                font-size: 0.9rem;
+            }
+            
+            .date {
+                font-size: 0.95rem;
+            }
+            
+            .seal {
+                position: absolute;
+                bottom: 100px;
+                right: 80px;
+                width: 120px;
+                height: 120px;
+                border: 4px solid #0056b3;
+                font-size: 0.75rem;
+                padding: 1rem;
+                margin: 0;
+            }
+            
+            .qr-section {
+                max-width: 350px;
+                margin: 2rem auto;
+            }
+            
+            .qr-section h3 {
+                font-size: 1rem;
+            }
+            
+            .validity-info {
+                font-size: 0.85rem;
+            }
+            
+            .certificate-id {
+                position: absolute;
+                bottom: 40px;
+                left: 0;
+                right: 0;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="certificate">
+        <div class="content">
+            <div class="logo">
+                <img src="img/Amneal_Logo_new.svg" alt="Amneal Logo" style="height: 60px; filter: brightness(0);">
+            </div>
+            
+            <h1 class="header">CERTIFICATE OF COMPLETION</h1>
+            <p class="subheader">Site Safety Induction</p>
+            
+            <div class="divider"></div>
+            
+            <p class="body-text">This is to certify that</p>
+            
+            <div class="recipient-name" id="recipientName">
+                [Visitor Name]
+            </div>
+            
+            <p class="achievement">
+                has successfully completed the mandatory<br>
+                <strong>Workplace Safety Induction</strong><br>
+                and demonstrated comprehensive understanding of:<br><br>
+                ✓ Workplace Hazards & Risk Awareness<br>
+                ✓ Fire Safety & Emergency Procedures<br>
+                ✓ Personal Protective Equipment (PPE)
+            </p>
+            
+            <!-- QR Code Section -->
+            <div class="qr-section">
+                <h3>🔍 Certificate Verification</h3>
+                <canvas id="qrcode"></canvas>
+                <div class="validity-info">
+                    <strong>Valid Until:</strong> <span id="expiryDate"></span><br>
+                    Scan to verify authenticity
+                </div>
+            </div>
+            
+            <div class="footer">
+                <div class="signature-block">
+                    <div class="signature-line"></div>
+                    <p class="signature-label">Safety Manager</p>
+                    <p class="date" id="issueDate"></p>
+                </div>
+                
+                <div class="signature-block">
+                    <div class="signature-line"></div>
+                    <p class="signature-label">Facility Director</p>
+                    <p class="date" id="issueDate2"></p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="seal">
+            CERTIFIED<br>
+            SAFETY<br>
+            INDUCTION
+        </div>
+        
+        <div class="certificate-id">
+            Certificate ID: <span id="certId"></span>
+        </div>
+    </div>
+    
+    <script>
+        // Get current date
+        const today = new Date();
+        const formattedDate = today.toLocaleDateString('en-US', { 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric' 
+        });
+        
+        // Calculate expiry date (1 year from now)
+        const expiryDate = new Date(today);
+        expiryDate.setFullYear(expiryDate.getFullYear() + 1);
+        const formattedExpiry = expiryDate.toLocaleDateString('en-US', { 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric' 
+        });
+        
+        // Set dates
+        document.getElementById('issueDate').textContent = formattedDate;
+        document.getElementById('issueDate2').textContent = formattedDate;
+        document.getElementById('expiryDate').textContent = formattedExpiry;
+        
+        // Get parameters from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const qrValue = urlParams.get('qr') || urlParams.get('qr_value');
+        const name = urlParams.get('name') || 'Visitor';
+        const certIdParam = urlParams.get('cert_id');
+        
+        // Generate or use provided certificate ID
+        let certId;
+        if (certIdParam) {
+            certId = certIdParam;
+        } else {
+            certId = 'MDI' + today.getFullYear() + '-' + 
+                     String(today.getMonth() + 1).padStart(2, '0') + 
+                     String(today.getDate()).padStart(2, '0') + '-' +
+                     Math.random().toString(36).substr(2, 6).toUpperCase();
+        }
+        
+        document.getElementById('certId').textContent = certId;
+        document.getElementById('recipientName').textContent = name;
+        
+        // Generate QR Code for verification
+        const verificationUrl = window.location.origin + '/sheener/verify_certificate.html?qr=' + (qrValue || certId);
+        
+        const canvas = document.getElementById('qrcode');
+        QRCode.toCanvas(canvas, verificationUrl, {
+            width: 200,
+            margin: 2,
+            color: {
+                dark: '#0056b3',
+                light: '#ffffff'
+            }
+        }, function (error) {
+            if (error) {
+                console.error('QR Code generation error:', error);
+            } else {
+                console.log('QR Code generated successfully for verification');
+            }
+        });
+        
+        // Auto-print option (can be triggered from parent page)
+        if (urlParams.get('autoprint') === 'true') {
+            window.onload = () => {
+                setTimeout(() => window.print(), 500);
+            };
+        }
+    </script>
+</body>
+</html>

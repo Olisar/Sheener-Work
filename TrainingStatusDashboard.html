@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+<!-- sheener/TrainingStatusDashboard.html -->
+
+<head>
+    <meta charset="UTF-8">
+    <title>Training Dashboard - Admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="shortcut icon" href="img/favicon/faviconAY.ico">
+    <script src="js/navbar.js" defer></script>
+    <script src="js/topbar.js" defer></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 2em;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            margin-top: 80px;
+            background: white;
+            padding: 2em;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+            border-bottom: 3px solid #062b5c;
+            padding-bottom: 0.5em;
+            margin-bottom: 1.5em;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1em;
+            margin-bottom: 2em;
+        }
+
+        .stat-card {
+            background: #f9f9f9;
+            padding: 1.5em;
+            border-radius: 5px;
+            text-align: center;
+            border: 1px solid #ddd;
+            transition: transform 0.2s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-card h3 {
+            color: #666;
+            margin: 0 0 0.5em 0;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .stat-card p {
+            color: #333;
+            font-size: 2.5em;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1em;
+            font-size: 0.95em;
+        }
+
+        th,
+        td {
+            padding: 0.75em;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #363636;
+            color: white;
+            font-weight: bold;
+            position: sticky;
+            top: 0;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        .status-badge {
+            padding: 0.25em 0.75em;
+            border-radius: 12px;
+            font-size: 0.85em;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        .status-passed {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .status-failed {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        .status-pending {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        .filter-section {
+            margin-bottom: 1.5em;
+            padding: 1em;
+            background: #f9f9f9;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            display: flex;
+            gap: 1em;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .filter-section label {
+            margin-right: 0.5em;
+            font-weight: bold;
+        }
+
+        select {
+            padding: 0.5em;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            min-width: 150px;
+        }
+
+        .refresh-btn {
+            padding: 0.5em 1.5em;
+            background-color: #2196F3;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .refresh-btn:hover {
+            background-color: #0b7dda;
+        }
+
+        .qr-code {
+            font-family: monospace;
+            background: #e9ecef;
+            padding: 0.25em 0.5em;
+            border-radius: 3px;
+            font-size: 0.8em;
+            border: 1px solid #ced4da;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 2em;
+            color: #666;
+        }
+
+        .back-btn {
+            padding: 0.5em 1em;
+            background-color: #6c757d;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 0.8em;
+        }
+
+        .back-btn:hover {
+            background-color: #5a6268;
+        }
+
+        .export-btn {
+            padding: 0.25em 0.5em !important;
+            background-color: #062b5c;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 1em;
+            min-width: 32px;
+            min-height: 32px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5em;
+        }
+
+        .export-btn:hover {
+            background-color: #184289;
+        }
+
+        .home-btn {
+            padding: 0.25em 0.5em !important;
+            min-width: 32px !important;
+            min-height: 32px !important;
+        }
+
+        .home-icon {
+            width: 25px !important;
+            height: 25px !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="topbar"></div>
+    <div id="navbar"></div>
+    <div class="container">
+        <h1>
+            <span>Training Status Dashboard</span>
+            <div>
+                <button class="export-btn" onclick="exportToCSV()">
+                    <i class="fas fa-download"></i> Export CSV
+                </button>
+                <a href="trainingIndex.html" class="home-btn">
+                    <img src="img/home.png" alt="Home" class="home-icon" style="filter: brightness(0) invert(1);" />
+
+                </a>
+
+
+
+            </div>
+        </h1>
+
+        <div class="filter-section">
+            <div>
+                <label for="dept-filter">Department:</label>
+                <select id="dept-filter">
+                    <option value="">All Departments</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="status-filter">Status:</label>
+                <select id="status-filter">
+                    <option value="">All Status</option>
+                    <option value="passed">Passed</option>
+                    <option value="failed">Failed</option>
+                    <option value="pending">Not Started</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="quiz-filter">Training Type:</label>
+                <select id="quiz-filter">
+                    <option value="">All Training</option>
+                </select>
+            </div>
+
+            <button class="refresh-btn" onclick="loadDashboard()">🔄 Refresh</button>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>Total Employees</h3>
+                <p id="total-employees">-</p>
+            </div>
+            <div class="stat-card">
+                <h3>Completed Training</h3>
+                <p id="completed-training">-</p>
+            </div>
+            <div class="stat-card">
+                <h3>Overall Pass Rate</h3>
+                <p id="pass-rate">-</p>
+            </div>
+            <div class="stat-card">
+                <h3>Pending Training</h3>
+                <p id="pending-training">-</p>
+            </div>
+        </div>
+
+        <div style="overflow-x: auto;">
+            <table id="training-table">
+                <thead>
+                    <tr>
+                        <th>Employee Name</th>
+                        <th>Department</th>
+                        <th>Training Type</th>
+                        <th>Status</th>
+                        <th>Score</th>
+                        <th>Pass Date/Time</th>
+                        <th>QR Code</th>
+                        <th>Version</th>
+                    </tr>
+                </thead>
+                <tbody id="training-tbody">
+                    <tr>
+                        <td colspan="8" class="loading">Loading training data...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        // Format date to dd-mmm-yyyy
+        function formatDateDDMMMYYYY(dateString) {
+            if (!dateString) return 'N/A';
+            const date = new Date(dateString);
+            if (isNaN(date.getTime())) return 'N/A';
+            const day = String(date.getDate()).padStart(2, '0');
+            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            const month = months[date.getMonth()];
+            const year = date.getFullYear();
+            return `${day}-${month}-${year}`;
+        }
+
+        // Load dashboard data
+        async function loadDashboard() {
+            const tbody = document.getElementById('training-tbody');
+            tbody.innerHTML = '<tr><td colspan="8" class="loading">Loading training data...</td></tr>';
+
+            try {
+                // Load all required data in parallel
+                const [employeesRes, quizzesRes, attemptsRes] = await Promise.all([
+                    fetch('php/get_people.php'),
+                    fetch('php/get_quizzes.php'),
+                    fetch('php/get_quiz_attempts.php')
+                ]);
+
+                const employees = await employeesRes.json();
+                const quizzes = await quizzesRes.json();
+                const attempts = await attemptsRes.json();
+
+                if (!employees.success || !quizzes.success || !attempts.success) {
+                    throw new Error('Failed to load required data');
+                }
+
+                // Populate filter dropdowns
+                populateFilters(employees.data, quizzes.data);
+
+                // Process and display data
+                displayTrainingData(employees.data, quizzes.data, attempts.data);
+
+            } catch (error) {
+                console.error('Error loading dashboard:', error);
+                tbody.innerHTML = `<tr><td colspan="8" style="color: red; text-align: center; padding: 2em;">Error loading data: ${error.message}</td></tr>`;
+            }
+        }
+
+        // Populate filter dropdowns
+        function populateFilters(employees, quizzes) {
+            const deptFilter = document.getElementById('dept-filter');
+            const quizFilter = document.getElementById('quiz-filter');
+
+            // Get unique departments
+            const departments = [...new Set(employees.map(emp => emp.department_name))].sort();
+            deptFilter.innerHTML = '<option value="">All Departments</option>' +
+                departments.map(dept => `<option value="${dept}">${dept}</option>`).join('');
+
+            // Populate quiz filter
+            quizFilter.innerHTML = '<option value="">All Training</option>' +
+                quizzes.map(quiz => `<option value="${quiz.id}">${quiz.name} (v${quiz.version})</option>`).join('');
+        }
+
+        // Display training data
+        function displayTrainingData(employees, quizzes, attempts) {
+            const tbody = document.getElementById('training-tbody');
+            const deptFilter = document.getElementById('dept-filter').value;
+            const statusFilter = document.getElementById('status-filter').value;
+            const quizFilter = document.getElementById('quiz-filter').value;
+
+            // Safety checks
+            if (!Array.isArray(employees)) employees = [];
+            if (!Array.isArray(quizzes)) quizzes = [];
+            if (!Array.isArray(attempts)) attempts = [];
+
+            // Build lookup maps for efficient access
+            const quizMap = {};
+            quizzes.forEach(quiz => {
+                quizMap[quiz.id] = quiz;
+            });
+
+            const attemptMap = {};
+            attempts.forEach(attempt => {
+                const key = `${attempt.person_id}-${attempt.quiz_id}`;
+                // Keep only the most recent attempt per person/quiz
+                if (!attemptMap[key] || (attempt.pass_datetime && new Date(attempt.pass_datetime) > new Date(attemptMap[key].pass_datetime || 0))) {
+                    attemptMap[key] = attempt;
+                }
+            });
+
+            // Create rows
+            const rows = [];
+            employees.forEach(employee => {
+                quizzes.forEach(quiz => {
+                    const key = `${employee.people_id}-${quiz.id}`;
+                    const attempt = attemptMap[key];
+
+                    let status, score, passDate, qrCode, version, statusClass;
+
+                    if (attempt) {
+                        status = attempt.passed ? 'Passed' : 'Failed';
+                        score = `${attempt.score}/${attempt.total}`;
+                        // Use attempt_datetime for all attempts, pass_datetime for passed attempts
+                        const attemptDate = attempt.attempt_datetime || attempt.pass_datetime || attempt.created_at;
+                        passDate = attemptDate ? formatDateDDMMMYYYY(attemptDate) : 'N/A';
+                        qrCode = attempt.qr_value || '';
+                        // Use doc_version_number from attempt (historical record) if available, otherwise from quiz
+                        version = attempt.doc_version_number || quiz.version || '1.0';
+                        statusClass = attempt.passed ? 'status-passed' : 'status-failed';
+                    } else {
+                        status = 'Not Started';
+                        score = '-';
+                        passDate = '-';
+                        qrCode = '-';
+                        version = quiz.version || '1.0';
+                        statusClass = 'status-pending';
+                    }
+
+                    // Apply filters
+                    if (deptFilter && employee.department_name !== deptFilter) return;
+                    if (statusFilter && status.toLowerCase() !== statusFilter) return;
+                    if (quizFilter && quiz.id != quizFilter) return;
+
+                    rows.push(`
+                        <tr>
+                            <td><strong>${employee.first_name} ${employee.last_name}</strong></td>
+                            <td>${employee.department_name}</td>
+                            <td>${quiz.name}</td>
+                            <td><span class="status-badge ${statusClass}">${status}</span></td>
+                            <td>${score}</td>
+                            <td>${passDate}</td>
+                            <td>${qrCode && qrCode !== '-' ? `<span class="qr-code">${qrCode}</span>` : '-'}</td>
+                            <td>${version}</td>
+                        </tr>
+                    `);
+                });
+            });
+
+            if (rows.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="8" style="text-align: center; padding: 2em;">No training records found matching your filters.</td></tr>';
+            } else {
+                tbody.innerHTML = rows.join('');
+            }
+
+            // Update statistics
+            updateStatistics(employees, quizzes, attempts);
+        }
+
+        // Update statistics
+        function updateStatistics(employees, quizzes, attempts) {
+            // Safety checks
+            if (!Array.isArray(employees)) employees = [];
+            if (!Array.isArray(quizzes)) quizzes = [];
+            if (!Array.isArray(attempts)) attempts = [];
+
+            const totalEmployees = employees.length;
+            const totalQuizzes = quizzes.length;
+            const totalPossible = totalEmployees * totalQuizzes;
+
+            let completedCount = 0;
+            let passedCount = 0;
+
+            const deptFilter = document.getElementById('dept-filter').value;
+
+            attempts.forEach(attempt => {
+                const employee = employees.find(emp => emp.people_id === attempt.person_id);
+                if (employee && (!deptFilter || employee.department_name === deptFilter)) {
+                    completedCount++;
+                    if (attempt.passed) {
+                        passedCount++;
+                    }
+                }
+            });
+
+            const passRate = completedCount > 0 ? Math.round((passedCount / completedCount) * 100) : 0;
+            const pendingCount = totalPossible - completedCount;
+
+            document.getElementById('total-employees').textContent = totalEmployees;
+            document.getElementById('completed-training').textContent = completedCount;
+            document.getElementById('pass-rate').textContent = `${passRate}%`;
+            document.getElementById('pending-training').textContent = pendingCount;
+        }
+
+        // Export to CSV
+        function exportToCSV() {
+            const table = document.getElementById('training-table');
+            const rows = Array.from(table.querySelectorAll('tbody tr')).filter(row =>
+                !row.querySelector('.loading') && !row.querySelector('td[colspan="8"]')
+            );
+
+            if (rows.length === 0) {
+                alert('No data to export');
+                return;
+            }
+
+            let csv = 'Employee Name,Department,Training Type,Status,Score,Pass Date/Time,QR Code,Version\n';
+
+            rows.forEach(row => {
+                const cells = row.querySelectorAll('td');
+                const values = Array.from(cells).map((cell, index) => {
+                    let text = cell.textContent.replace(/\s+/g, ' ').trim();
+                    // Remove status badge styling
+                    if (index === 3) {
+                        text = text.replace(/Passed|Failed|Not Started/g, '').trim();
+                    }
+                    // Handle QR code
+                    if (index === 6 && cell.querySelector('.qr-code')) {
+                        text = cell.querySelector('.qr-code').textContent.trim();
+                    }
+                    // Quote if contains comma
+                    return text.includes(',') ? `"${text}"` : text;
+                });
+                csv += values.join(',') + '\n';
+            });
+
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `training-dashboard-${new Date().toISOString().split('T')[0]}.csv`;
+            a.click();
+            window.URL.revokeObjectURL(url);
+        }
+
+        // Event listeners for filters
+        document.getElementById('dept-filter').addEventListener('change', () => {
+            loadDashboard();
+        });
+        document.getElementById('status-filter').addEventListener('change', () => {
+            loadDashboard();
+        });
+        document.getElementById('quiz-filter').addEventListener('change', () => {
+            loadDashboard();
+        });
+
+        // Initial load
+        loadDashboard();
+    </script>
+</body>
+
+</html>

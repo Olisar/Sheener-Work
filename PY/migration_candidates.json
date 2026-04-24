@@ -1,0 +1,500 @@
+{
+  "candidates": [
+    {
+      "name": "area_list.php",
+      "path": "area_list.php",
+      "has_navbar": true,
+      "has_topbar": true,
+      "has_ai_navigator": true,
+      "script_count": 3,
+      "stylesheet_count": 3
+    },
+    {
+      "name": "assessment_edit.php",
+      "path": "assessment_edit.php",
+      "has_navbar": true,
+      "has_topbar": true,
+      "has_ai_navigator": false,
+      "script_count": 2,
+      "stylesheet_count": 2
+    },
+    {
+      "name": "assessment_form.php",
+      "path": "assessment_form.php",
+      "has_navbar": true,
+      "has_topbar": true,
+      "has_ai_navigator": false,
+      "script_count": 4,
+      "stylesheet_count": 2
+    },
+    {
+      "name": "batch.php",
+      "path": "batch.php",
+      "has_navbar": true,
+      "has_topbar": true,
+      "has_ai_navigator": true,
+      "script_count": 4,
+      "stylesheet_count": 3
+    },
+    {
+      "name": "change_requests_form.php",
+      "path": "change_requests_form.php",
+      "has_navbar": true,
+      "has_topbar": true,
+      "has_ai_navigator": false,
+      "script_count": 2,
+      "stylesheet_count": 1
+    },
+    {
+      "name": "dashboard.php",
+      "path": "php\\dashboard.php",
+      "has_navbar": true,
+      "has_topbar": true,
+      "has_ai_navigator": false,
+      "script_count": 3,
+      "stylesheet_count": 1
+    },
+    {
+      "name": "dashboard_admin.php",
+      "path": "dashboard_admin.php",
+      "has_navbar": true,
+      "has_topbar": true,
+      "has_ai_navigator": false,
+      "script_count": 3,
+      "stylesheet_count": 1
+    },
+    {
+      "name": "dashboard_manager.php",
+      "path": "dashboard_manager.php",
+      "has_navbar": true,
+      "has_topbar": true,
+      "has_ai_navigator": false,
+      "script_count": 5,
+      "stylesheet_count": 1
+    },
+    {
+      "name": "dashboard_permit.php",
+      "path": "dashboard_permit.php",
+      "has_navbar": true,
+      "has_topbar": true,
+      "has_ai_navigator": false,
+      "script_count": 3,
+      "stylesheet_count": 1
+    },
+    {
+      "name": "edit_permit.php",
+      "path": "edit_permit.php",
+      "has_navbar": true,
+      "has_topbar": true,
+      "has_ai_navigator": false,
+      "script_count": 2,
+      "stylesheet_count": 1
+    },
+    {
+      "name": "encrypt.php",
+      "path": "encrypt.php",
+      "has_navbar": true,
+      "has_topbar": true,
+      "has_ai_navigator": false,
+      "script_count": 3,
+      "stylesheet_count": 1
+    },
+    {
+      "name": "energy_list.php",
+      "path": "energy_list.php",
+      "has_navbar": true,
+      "has_topbar": true,
+      "has_ai_navigator": true,
+      "script_count": 3,
+      "stylesheet_count": 3
+    },
+    {
+      "name": "equipment_list.php",
+      "path": "equipment_list.php",
+      "has_navbar": true,
+      "has_topbar": true,
+      "has_ai_navigator": true,
+      "script_count": 3,
+      "stylesheet_count": 3
+    },
+    {
+      "name": "event_center.php",
+      "path": "event_center.php",
+      "has_navbar": true,
+      "has_topbar": true,
+      "has_ai_navigator": true,
+      "script_count": 7,
+      "stylesheet_count": 5
+    },
+    {
+      "name": "glossary.php",
+      "path": "glossary.php",
+      "has_navbar": true,
+      "has_topbar": true,
+      "has_ai_navigator": true,
+      "script_count": 4,
+      "stylesheet_count": 3
+    },
+    {
+      "name": "graph_batch.php",
+      "path": "graph_batch.php",
+      "has_navbar": true,
+      "has_topbar": true,
+      "has_ai_navigator": true,
+      "script_count": 8,
+      "stylesheet_count": 3
+    },
+    {
+      "name": "graph_batch2.php",
+      "path": "graph_batch2.php",
+      "has_navbar": true,
+      "has_topbar": true,
+      "has_ai_navigator": false,
+      "script_count": 0,
+      "stylesheet_count": 1
+    },
+    {
+      "name": "index0.php",
+      "path": "index0.php",
+      "has_navbar": false,
+      "has_topbar": false,
+      "has_ai_navigator": false,
+      "script_count": 0,
+      "stylesheet_count": 0
+    },
+    {
+      "name": "index1.php",
+      "path": "index1.php",
+      "has_navbar": false,
+      "has_topbar": false,
+      "has_ai_navigator": false,
+      "script_count": 0,
+      "stylesheet_count": 0
+    },
+    {
+      "name": "KPIEHS.php",
+      "path": "KPIEHS.php",
+      "has_navbar": true,
+      "has_topbar": true,
+      "has_ai_navigator": false,
+      "script_count": 3,
+      "stylesheet_count": 1
+    },
+    {
+      "name": "material_list.php",
+      "path": "material_list.php",
+      "has_navbar": true,
+      "has_topbar": true,
+      "has_ai_navigator": true,
+      "script_count": 3,
+      "stylesheet_count": 3
+    },
+    {
+      "name": "people_list.php",
+      "path": "people_list.php",
+      "has_navbar": true,
+      "has_topbar": true,
+      "has_ai_navigator": true,
+      "script_count": 3,
+      "stylesheet_count": 3
+    },
+    {
+      "name": "permit1.php",
+      "path": "permit1.php",
+      "has_navbar": true,
+      "has_topbar": true,
+      "has_ai_navigator": false,
+      "script_count": 6,
+      "stylesheet_count": 3
+    },
+    {
+      "name": "permitlist1.php",
+      "path": "permitlist1.php",
+      "has_navbar": true,
+      "has_topbar": true,
+      "has_ai_navigator": false,
+      "script_count": 7,
+      "stylesheet_count": 3
+    },
+    {
+      "name": "permitlist11.php",
+      "path": "permitlist11.php",
+      "has_navbar": true,
+      "has_topbar": true,
+      "has_ai_navigator": false,
+      "script_count": 5,
+      "stylesheet_count": 3
+    },
+    {
+      "name": "permitlist1Origin.php",
+      "path": "permitlist1Origin.php",
+      "has_navbar": true,
+      "has_topbar": true,
+      "has_ai_navigator": false,
+      "script_count": 6,
+      "stylesheet_count": 3
+    },
+    {
+      "name": "permit_form.php",
+      "path": "permit_form.php",
+      "has_navbar": true,
+      "has_topbar": true,
+      "has_ai_navigator": false,
+      "script_count": 2,
+      "stylesheet_count": 1
+    },
+    {
+      "name": "permit_list.php",
+      "path": "permit_list.php",
+      "has_navbar": true,
+      "has_topbar": true,
+      "has_ai_navigator": true,
+      "script_count": 9,
+      "stylesheet_count": 6
+    },
+    {
+      "name": "permit_list0.php",
+      "path": "permit_list0.php",
+      "has_navbar": true,
+      "has_topbar": true,
+      "has_ai_navigator": false,
+      "script_count": 3,
+      "stylesheet_count": 4
+    },
+    {
+      "name": "permit_list1.php",
+      "path": "permit_list1.php",
+      "has_navbar": true,
+      "has_topbar": true,
+      "has_ai_navigator": false,
+      "script_count": 5,
+      "stylesheet_count": 3
+    },
+    {
+      "name": "planner.php",
+      "path": "planner.php",
+      "has_navbar": true,
+      "has_topbar": true,
+      "has_ai_navigator": false,
+      "script_count": 7,
+      "stylesheet_count": 2
+    },
+    {
+      "name": "planner1.php",
+      "path": "planner1.php",
+      "has_navbar": true,
+      "has_topbar": true,
+      "has_ai_navigator": false,
+      "script_count": 7,
+      "stylesheet_count": 1
+    },
+    {
+      "name": "primereryelem.php",
+      "path": "primereryelem.php",
+      "has_navbar": true,
+      "has_topbar": true,
+      "has_ai_navigator": false,
+      "script_count": 2,
+      "stylesheet_count": 1
+    },
+    {
+      "name": "process.php",
+      "path": "process.php",
+      "has_navbar": true,
+      "has_topbar": true,
+      "has_ai_navigator": false,
+      "script_count": 2,
+      "stylesheet_count": 1
+    },
+    {
+      "name": "Sheener.php",
+      "path": "Sheener.php",
+      "has_navbar": false,
+      "has_topbar": false,
+      "has_ai_navigator": false,
+      "script_count": 0,
+      "stylesheet_count": 0
+    },
+    {
+      "name": "sop_list.php",
+      "path": "sop_list.php",
+      "has_navbar": true,
+      "has_topbar": true,
+      "has_ai_navigator": true,
+      "script_count": 3,
+      "stylesheet_count": 3
+    },
+    {
+      "name": "task_calendar.php",
+      "path": "task_calendar.php",
+      "has_navbar": true,
+      "has_topbar": true,
+      "has_ai_navigator": false,
+      "script_count": 4,
+      "stylesheet_count": 4
+    },
+    {
+      "name": "task_list1.php",
+      "path": "task_list1.php",
+      "has_navbar": true,
+      "has_topbar": true,
+      "has_ai_navigator": false,
+      "script_count": 3,
+      "stylesheet_count": 3
+    },
+    {
+      "name": "Template.php",
+      "path": "Template.php",
+      "has_navbar": true,
+      "has_topbar": true,
+      "has_ai_navigator": false,
+      "script_count": 2,
+      "stylesheet_count": 1
+    },
+    {
+      "name": "textmotion copy 2.php",
+      "path": "textmotion copy 2.php",
+      "has_navbar": false,
+      "has_topbar": false,
+      "has_ai_navigator": false,
+      "script_count": 0,
+      "stylesheet_count": 0
+    },
+    {
+      "name": "textmotion copy.php",
+      "path": "textmotion copy.php",
+      "has_navbar": false,
+      "has_topbar": false,
+      "has_ai_navigator": false,
+      "script_count": 0,
+      "stylesheet_count": 0
+    },
+    {
+      "name": "textmotion.php",
+      "path": "textmotion.php",
+      "has_navbar": false,
+      "has_topbar": false,
+      "has_ai_navigator": false,
+      "script_count": 0,
+      "stylesheet_count": 0
+    },
+    {
+      "name": "textmotionLogo.php",
+      "path": "textmotionLogo.php",
+      "has_navbar": false,
+      "has_topbar": false,
+      "has_ai_navigator": false,
+      "script_count": 0,
+      "stylesheet_count": 0
+    },
+    {
+      "name": "textmotionLogoMorse.php",
+      "path": "textmotionLogoMorse.php",
+      "has_navbar": false,
+      "has_topbar": false,
+      "has_ai_navigator": false,
+      "script_count": 0,
+      "stylesheet_count": 0
+    },
+    {
+      "name": "textmotionLogoMorse2.php",
+      "path": "textmotionLogoMorse2.php",
+      "has_navbar": false,
+      "has_topbar": false,
+      "has_ai_navigator": false,
+      "script_count": 0,
+      "stylesheet_count": 0
+    },
+    {
+      "name": "view_change_control.php",
+      "path": "view_change_control.php",
+      "has_navbar": true,
+      "has_topbar": true,
+      "has_ai_navigator": false,
+      "script_count": 2,
+      "stylesheet_count": 1
+    },
+    {
+      "name": "login.php",
+      "path": "php\\login.php",
+      "has_navbar": false,
+      "has_topbar": false,
+      "has_ai_navigator": false,
+      "script_count": 0,
+      "stylesheet_count": 1
+    },
+    {
+      "name": "submit_anonymous_event.php",
+      "path": "php\\submit_anonymous_event.php",
+      "has_navbar": false,
+      "has_topbar": false,
+      "has_ai_navigator": false,
+      "script_count": 0,
+      "stylesheet_count": 0
+    }
+  ],
+  "already_using": [
+    "assessment_list.php",
+    "CC_List.php",
+    "event_list.php",
+    "footer.php",
+    "header.php"
+  ],
+  "not_php": [
+    "7ps_registry.html",
+    "agent.html",
+    "CC_form.html",
+    "ChangeControl.html",
+    "create_permit.html",
+    "create_waste_collection.html",
+    "dashboard_employee.html",
+    "dashboard_employee1.html",
+    "dashboard_employeeArc.html",
+    "dashboard_employeeArcDark.html",
+    "DCMSDiagram.html",
+    "DCMSDiagram1.html",
+    "doccontrol.html",
+    "DocVersionTraining.html",
+    "edit_waste_collection.html",
+    "EventForm.html",
+    "Fishbone.html",
+    "hira.html",
+    "import_hazards_runner.html",
+    "index1.html",
+    "index2.html",
+    "index3.html",
+    "index4.html",
+    "induction.html",
+    "InfographicTest.html",
+    "list_waste_collections.html",
+    "manageQuizQuestions.html",
+    "Permittest.html",
+    "ProcessMap.html",
+    "process_analytics.html",
+    "process_detail.html",
+    "process_map_diagram.html",
+    "PTW.html",
+    "record_event.html",
+    "repo_analysis.html",
+    "riskassessment.html",
+    "risk_detail.html",
+    "risk_edit.html",
+    "RMC.html",
+    "Scroll.html",
+    "Scroll1.html",
+    "Scroll1Temp.html",
+    "Scroll2.html",
+    "SideNavBarTest.html",
+    "system_relationship_map.html",
+    "task_center.html",
+    "task_details.html",
+    "task_list.html",
+    "Test.html",
+    "Test1.html"
+  ],
+  "summary": {
+    "total_candidates": 48,
+    "easy_candidates": 11,
+    "already_using": 5
+  }
+}

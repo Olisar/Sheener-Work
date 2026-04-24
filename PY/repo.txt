@@ -1,0 +1,375 @@
+sheener
+├─ HSTopics/
+│  ├─ img/
+│  │  └─ amnealX.svg
+│  ├─ SafetyFireSafetyCharging.html
+│  ├─ SafetyTopicAA.php
+│  ├─ SafetyTopicAA1.php
+│  ├─ SafetyTopicAmnealAccess.html
+│  ├─ SafetyTopicAmnealDoorFingers.html
+│  ├─ SafetyTopicEHSDuties.html
+│  ├─ SafetyTopicElectrical.html
+│  ├─ SafetyTopicEnergy1.html
+│  ├─ SafetyTopicEnergy2.html
+│  ├─ SafetyTopicEnvir1.html
+│  ├─ SafetyTopicEnvirWasteWater.html
+│  ├─ SafetyTopicEvac.html
+│  ├─ SafetyTopicPTW.html
+│  ├─ SafetyTopicRolesResp.html
+│  ├─ SafetyTopicSkinCancer.html
+│  ├─ SafetyTopicStomacBug.html
+│  ├─ SafetyTopicWinterDriving.html
+│  └─ WinterDrivingSafety.html
+├─ PNG/
+│  └─ 1jde.png
+├─ PY/
+│  ├─ 7ps list.xlsx
+│  ├─ DBStructureExport.json
+│  ├─ DBStructureExport.txt
+│  ├─ DBStructureJSON.py
+│  ├─ SQL_actions.py
+│  ├─ SchemScript.js
+│  ├─ SchemStyle.css
+│  ├─ apply_refactoring.py
+│  ├─ auto_migrate.py
+│  ├─ bms_output.txt
+│  ├─ cleanup_duplicates.py
+│  ├─ frontendschema.json
+│  ├─ frontendschema.py
+│  ├─ generate_people_insert.py
+│  ├─ generate_repo_tree.py
+│  ├─ list_structure.py
+│  ├─ migrate_to_includes.py
+│  ├─ migration_candidates.json
+│  ├─ pharmaceutical_manufacturing_flows.py
+│  ├─ refactoring_plan.json
+│  ├─ refactoring_plan.py
+│  ├─ repo.txt
+│  ├─ requirements.txt
+│  ├─ run_tree10.php
+│  ├─ schema7Ps.json
+│  ├─ schema7Ps.py
+│  ├─ setup_waste_management.py
+│  ├─ tableinfo.json
+│  ├─ tableinfo.py
+│  ├─ validate_refactoring.py
+│  ├─ waste_excel_importer.py
+│  ├─ waste_management_schema.py
+│  └─ waste_report_generator.py
+├─ Presentation/
+│  ├─ 45001-14001-2025.html
+│  └─ presentation.html
+├─ Processflow/
+│  ├─ Pharmaceutical_Process_Map.vsdx
+│  ├─ ProcessMap.html
+│  ├─ data.json
+│  ├─ index.html
+│  ├─ navbar.js
+│  ├─ orgchart.html
+│  ├─ script.js
+│  ├─ scriptorgchart.js
+│  ├─ styles.css
+│  ├─ stylesorgchart.css
+│  └─ topbar.js
+├─ RiskAssessmentTest/
+│  ├─ resources/
+│  │  ├─ background-pattern.png
+│  │  ├─ hero-risk-assessment.png
+│  │  ├─ process-flow.png
+│  │  └─ safety-equipment.png
+│  ├─ controls.html
+│  ├─ design.md
+│  ├─ index.html
+│  ├─ interaction.md
+│  ├─ main.js
+│  ├─ outline.md
+│  ├─ reports.html
+│  └─ tasks.html
+├─ api/
+│  ├─ risk/
+│  │  ├─ .htaccess
+│  │  └─ index.php
+│  ├─ .gitignore
+│  ├─ chat_ai.php
+│  ├─ config.example.php
+│  ├─ config.php
+│  ├─ data_service.php
+│  └─ debug.php
+├─ blank/
+│  ├─ docProps/
+│  │  ├─ app.xml
+│  │  ├─ core.xml
+│  │  ├─ custom.xml
+│  │  └─ thumbnail.emf
+│  └─ visio/
+│     ├─ _rels/
+│     ├─ masters/
+│     │  ├─ _rels/
+│     │  ├─ master1.xml
+│     │  └─ masters.xml
+│     ├─ pages/
+│     │  ├─ _rels/
+│     │  ├─ page1.xml
+│     │  └─ pages.xml
+│     ├─ theme/
+│     │  └─ theme1.xml
+│     ├─ document.xml
+│     └─ windows.xml
+├─ css/
+│  ├─ 7ps_registry.css
+│  ├─ ai-navigator.css
+│  ├─ panel.css
+│  ├─ process_analytics.css
+│  ├─ process_detail.css
+│  ├─ process_map.css
+│  ├─ riskassessment.css
+│  ├─ searchable_dropdown.css
+│  ├─ styles.css
+│  └─ task_center.css
+├─ data/
+│  └─ data.json
+├─ database_migrations/
+│  └─ rbac_cleanup_migration.sql
+├─ docs/
+│  ├─ IMPLEMENTATION_SUMMARY.md
+│  ├─ MAIN_POINTS_VALIDATION.md
+│  ├─ MIGRATION_VERIFICATION_RESULTS.md
+│  ├─ NAVBAR_TOPBAR_REFACTORING.md
+│  ├─ NAVIGATION_FILES_SUMMARY.md
+│  ├─ NAVIGATION_RBAC_GUIDE.md
+│  ├─ NEXT_STEPS.md
+│  ├─ PROJECT_VALIDATION_SUMMARY.md
+│  ├─ RBAC_REFACTORING_SUMMARY.md
+│  ├─ RBAC_STRUCTURE.md
+│  ├─ STEP_BY_STEP_TESTING_GUIDE.md
+│  ├─ implementation_complete_summary.md
+│  ├─ migration_testing_guide.md
+│  ├─ outcome_evaluation_checklist.md
+│  ├─ process_branches_implementation.md
+│  ├─ process_map_integration_summary.md
+│  ├─ process_map_linkages_quick_reference.md
+│  ├─ process_map_schema_analysis.md
+│  └─ user_training_guide.md
+├─ img/
+│  ├─ Downloads/
+│  │  └─ PNG/
+│  │     └─ Downloads/
+│  ├─ Symb/
+│  │  ├─ 07.png
+│  │  ├─ 09.png
+│  │  ├─ 1.png
+│  │  ├─ 2.png
+│  │  ├─ 3.png
+│  │  ├─ 4.png
+│  │  ├─ 41.png
+│  │  ├─ 6.png
+│  │  ├─ 7.png
+│  │  ├─ 8.png
+│  │  ├─ HS1.png
+│  │  ├─ HS2.png
+│  │  ├─ alarm.jpg
+│  │  ├─ assembly.jpg
+│  │  ├─ card.jpg
+│  │  ├─ door.jpg
+│  │  ├─ evac1.png
+│  │  ├─ evac2.png
+│  │  ├─ evac3.png
+│  │  ├─ exit.jpg
+│  │  ├─ leave.jpg
+│  │  └─ sign.jpg
+│  ├─ favicon/
+│  │  ├─ apple-touch-icon.png
+│  │  ├─ favicon-48x48.png
+│  │  ├─ favicon.svg
+│  │  ├─ faviconAY.ico
+│  │  ├─ site.webmanifest
+│  │  ├─ web-app-manifest-192x192.png
+│  │  └─ web-app-manifest-512x512.png
+│  ├─ 1HFA.png
+│  ├─ 1Training.png
+│  ├─ 1caliber.png
+│  ├─ 1clock.png
+│  ├─ 1epiq.png
+│  ├─ 1jde.png
+│  ├─ 1sign.png
+│  ├─ AA.png
+│  ├─ Amneal.png
+│  ├─ Amneal.svg
+│  ├─ AmnealBuilding.jpg
+│  ├─ Amneallogo.svg
+│  ├─ AuditProcess.png
+│  ├─ CAir1.jpeg
+│  ├─ CAir2.png
+│  ├─ CAir3.jpg
+│  ├─ CCPC.svg
+│  ├─ ChristmasCard.jpg
+│  ├─ Compressedair.jpg
+│  ├─ Door1.png
+│  ├─ Door2.png
+│  ├─ EHSKPITemplate.png
+│  ├─ EPA.svg
+│  ├─ EnergyOptimisationHero.png
+│  ├─ EnergyResults.png
+│  ├─ Excel Word Logo.svg
+│  ├─ FPLogo.png
+│  ├─ FPLogo.svg
+│  ├─ FPLogo1.svg
+│  ├─ HS0.png
+│  ├─ HSA Logo 2.svg
+│  ├─ HSA bgnd.svg
+│  ├─ HSA.jpg
+│  ├─ Img.jpg
+│  ├─ Img0.jpg
+│  ├─ Img0.png
+│  ├─ Img2.png
+│  ├─ Img3.jpg
+│  ├─ IrishCancerBgnd.jpg
+│  ├─ IrishCancerBgnd1.jpg
+│  ├─ IrishCancerSociety.svg
+│  ├─ JDE.jpg
+│  ├─ Lessons_Learned_EHS Amneal Door Frame and figers.pdf
+│  ├─ LoadingSymbols0.svg
+│  ├─ LoadingSymbols00.svg
+│  ├─ LoadingSymbols1.svg
+│  ├─ LogOutbtn.svg
+│  ├─ OptimisationUpgrade.png
+│  ├─ Page 2.png
+│  ├─ RA.png
+│  ├─ WKFlowHome.svg
+│  ├─ addb.svg
+│  ├─ addw.svg
+│  ├─ amnealX.png
+│  ├─ amnealX.svg
+│  ├─ amnealXX.svg
+│  ├─ arrow.svg
+│  ├─ background.svg
+│  ├─ backup.png
+│  ├─ biohaz.svg
+│  ├─ bkgd.png
+│  ├─ broken-mackbook-charger-413673369.jpg
+│  ├─ bug.jpg
+│  ├─ calendar.svg
+│  ├─ calendar2.svg
+│  ├─ caliber.jpg
+│  ├─ clear.svg
+│  ├─ close.png
+│  ├─ close.svg
+│  ├─ closeAI.svg
+│  ├─ closebtn.svg
+│  ├─ dbs.jpg
+│  ├─ delete.svg
+│  ├─ doorjam.png
+│  ├─ downl.png
+│  ├─ edit.svg
+│  ├─ editsmll.svg
+│  ├─ energia.jpg
+│  ├─ energyenergia.png
+│  ├─ epiq.jpg
+│  ├─ evac3.png
+│  ├─ excel.svg
+│  ├─ favicon1.ico
+│  ├─ fire.svg
+│  ├─ fray.jpg
+│  ├─ frayed.jpg
+│  ├─ govIE.png
+│  ├─ hand.svg
+│  ├─ home.png
+│  ├─ home.svg
+│  ├─ hse.svg
+│  ├─ image.png
+│  ├─ image1.png
+│  ├─ image2.png
+│  ├─ img1.png
+│  ├─ img3.png
+│  └─ img4.png
+├─ includes/
+│  ├─ 6ps_switcher.php
+│  ├─ footer.php
+│  ├─ header.php
+│  └─ table_card.php
+├─ 7ps_registry.html
+├─ BackupDBToWebCode.py
+├─ CC_List.php
+├─ CC_form.html
+├─ ChangeControl.html
+├─ Composer-Setup.exe
+├─ DBStructureExport.json
+├─ DBStructureExport.txt
+├─ DCMSDiagram.html
+├─ DCMSDiagram1.html
+├─ DocVersionTraining.html
+├─ ENTITY_TASK_LINKING_IMPLEMENTATION.md
+├─ EventForm.html
+├─ Fishbone.html
+├─ InfographicTest.html
+├─ KPIEHS.php
+├─ Logo.html
+├─ PTW.html
+├─ Permittest.html
+├─ ProcessMap.html
+├─ ProcessSchema.html
+├─ RISK_ASSESSMENT_FILES.md
+├─ RISK_ASSESSMENT_INTEGRATION_SUMMARY.md
+├─ RMC.html
+├─ Scroll.html
+├─ Scroll1.html
+├─ Scroll1Temp.html
+├─ Scroll2.html
+├─ Sheener.php
+├─ SideNavBarTest.html
+├─ Template.php
+├─ Test.html
+├─ Test1.html
+├─ Topics.txt
+├─ TrainingStatusDashboard.html
+├─ WinterDrivingSafety.html
+├─ _area_list.php
+├─ _energy_list.php
+├─ _equipment_list.php
+├─ _material_list.php
+├─ _people_list.php
+├─ _sop_list.php
+├─ add_change_control.php
+├─ agent.html
+├─ ai-agent-config.json
+├─ analysis-report.json
+├─ area_list.php
+├─ assessment_edit.php
+├─ assessment_form.php
+├─ assessment_list.php
+├─ batch.php
+├─ change_requests_form.php
+├─ check_uploads.php
+├─ composer.json
+├─ composer.lock
+├─ create_permit.html
+├─ create_waste_collection.html
+├─ dashboard.php
+├─ dashboard_admin.php
+├─ dashboard_employee.html
+├─ dashboard_employee1.html
+├─ dashboard_employeeArc.html
+├─ dashboard_employeeArcDark.html
+├─ dashboard_manager.php
+├─ dashboard_permit.php
+├─ database_schema.json
+├─ db_schema.json
+├─ db_selection_export.json
+├─ doccontrol.html
+├─ edit_permit.php
+├─ edit_waste_collection.html
+├─ encrypt.php
+├─ energy_list.php
+├─ equipment_list.php
+├─ event_center.php
+├─ event_list.php
+├─ get_change_controls.php
+├─ glossary.php
+├─ graph_batch.php
+├─ graph_batch2.php
+├─ hira.html
+├─ import_hazards_runner.html
+├─ index.php
+├─ index0.php
+├─ index1.html
+└─ index1.php

@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- sheener/ProcessSchema.html  -->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="img/favicon/faviconAY.ico" />
+    <title>Database Schema Visualization</title>
+    <!-- Load Tailwind CSS for modern styling and layout -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load D3.js v7 for data visualization -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <!-- Load Three.js for 3D visualization -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <link rel="stylesheet" href="PY/SchemStyle.css">
+    <style>
+        /* Custom CSS for the minimalist dark theme and canvas/SVG area */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #111827;
+            /* Navy/Dark Background */
+        }
+
+        #visualization-area {
+            background-color: #0d121c;
+            /* Slightly darker main area */
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.5);
+            margin-top: 1rem;
+        }
+
+        #visualization-area #container {
+            width: 100%;
+            height: 100%;
+        }
+
+        #schema {
+            width: 100%;
+            height: 100%;
+            cursor: grab;
+            background-color: #0d121c !important;
+            /* Dark background to match visualization area */
+        }
+
+        #schema:active {
+            cursor: grabbing;
+        }
+
+        .process-node,
+        .table-node {
+            cursor: move;
+        }
+
+        .process-node:hover .card-background,
+        .table-node:hover .card-background {
+            stroke: #036cff;
+            /* Indigo highlight on hover */
+            stroke-width: 3px;
+        }
+
+        .process-node:hover .card-header,
+        .table-node:hover .card-header {
+            opacity: 1;
+        }
+
+        .card-background {
+            fill: #1e293b;
+            filter: url(#dropShadow);
+        }
+
+        .table-label {
+            fill: #e5e7eb;
+            font-size: 13px;
+            font-weight: 600;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        }
+
+        .table-sublabel {
+            fill: #9ca3af;
+            font-size: 11px;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        }
+
+        .link {
+            stroke: #ffffff;
+            /* White links */
+            stroke-opacity: 0.6;
+            stroke-width: 1.2px;
+            pointer-events: none;
+            /* Links should not intercept drag events - box has priority */
+        }
+
+        .link-arrow {
+            fill: #ffffff;
+        }
+
+        .link-label {
+            fill: #9ca3af;
+            font-size: 10px;
+            pointer-events: none;
+        }
+
+        .node-faded {
+            opacity: 0.25;
+        }
+
+        .link-highlight {
+            stroke: #f97316;
+            stroke-width: 2;
+            opacity: 1;
+        }
+
+        /* Branch selector autocomplete styles */
+        #branch-suggestions {
+            scrollbar-width: thin;
+            scrollbar-color: #036cff #374151;
+        }
+
+        #branch-suggestions::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        #branch-suggestions::-webkit-scrollbar-track {
+            background: #374151;
+            border-radius: 4px;
+        }
+
+        #branch-suggestions::-webkit-scrollbar-thumb {
+            background: #036cff;
+            border-radius: 4px;
+        }
+
+        .branch-suggestion {
+            padding: 10px 12px;
+            cursor: pointer;
+            border-bottom: 1px solid #4b5563;
+            transition: background-color 0.2s;
+        }
+
+        .branch-suggestion:hover,
+        .branch-suggestion.selected {
+            background-color: #036cff;
+            color: #ffffff;
+        }
+
+        .branch-suggestion.selected .branch-suggestion-name,
+        .branch-suggestion.selected .branch-suggestion-desc,
+        .branch-suggestion.selected .branch-suggestion-id {
+            color: #ffffff;
+        }
+
+        .branch-suggestion:last-child {
+            border-bottom: none;
+        }
+
+        /* Branch Navigation Buttons */
+        .nav-branch-btn {
+            background-color: #036cff !important;
+        }
+
+        .nav-branch-btn:hover:not(:disabled) {
+            background-color: #0255cc !important;
+        }
+
+        .nav-branch-btn:disabled {
+            background-color: #4b5563 !important;
+            opacity: 0.5;
+        }
+
+        .branch-suggestion-name {
+            font-weight: 600;
+            color: #e5e7eb;
+            font-size: 14px;
+        }
+
+        .branch-suggestion-desc {
+            color: #9ca3af;
+            font-size: 12px;
+            margin-top: 4px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .branch-suggestion-id {
+            color: #6b7280;
+            font-size: 11px;
+            margin-top: 2px;
+        }
+
+        /* Loading spinner */
+        .loading-spinner {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+            background: rgba(17, 24, 39, 0.95);
+            padding: 2rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        }
+
+        .loading-spinner.active {
+            display: block;
+        }
+
+        .spinner {
+            border: 4px solid #374151;
+            border-top: 4px solid #036cff;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .loading-text {
+            color: #e5e7eb;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        /* Refresh button styles */
+        #refresh-branches-btn {
+            transition: all 0.2s;
+        }
+
+        #refresh-branches-btn:disabled {
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+
+        #refresh-branches-btn:hover:not(:disabled) {
+            transform: scale(1.05);
+        }
+
+        .animate-spin {
+            animation: spin 1s linear infinite;
+        }
+
+        /* Ensure detail panel stays on right side from start - prevent layout shift */
+        #main-grid-container {
+            display: grid !important;
+            grid-template-columns: 1fr !important;
+        }
+
+        @media (min-width: 1024px) {
+            #main-grid-container {
+                grid-template-columns: 3fr 1fr !important;
+            }
+
+            #visualization-area {
+                grid-column: 1 / 2 !important;
+            }
+
+            #detail-panel {
+                grid-column: 2 / 3 !important;
+            }
+        }
+
+        /* Prevent detail panel from moving during loading or content changes */
+        #detail-panel {
+            position: relative;
+        }
+
+        /* Prevent detail panel from moving during loading or content changes */
+        #detail-panel {
+            position: relative;
+        }
+    </style>
+</head>
+
+<body class="p-4 text-white">
+
+
+    <div class="container mx-auto max-w-7xl">
+        <h1 class="text-3xl font-bold text-center text-indigo-400 mb-4">
+            Database Schema Visualization
+        </h1>
+
+        <!-- Search Bar and Controls -->
+        <div class="flex flex-col gap-4 p-3 bg-gray-800 rounded-lg shadow-md mb-4">
+            <!-- Branch Selector -->
+            <div class="w-full">
+                <div class="flex items-center justify-between mb-2">
+                    <label class="block text-sm font-semibold text-indigo-300">Select Branch/Process</label>
+                    <button id="refresh-branches-btn"
+                        class="px-3 py-1 text-xs bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition duration-150 flex items-center gap-1"
+                        title="Refresh branches data">
+                        <svg id="refresh-icon" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15">
+                            </path>
+                        </svg>
+                        <span id="refresh-text">Refresh</span>
+                    </button>
+                </div>
+                <div class="relative">
+                    <input type="text" id="branch-selector" placeholder="Type to search for a branch or process name..."
+                        class="w-full p-2 text-sm rounded-lg bg-gray-700 border border-gray-600 text-white placeholder-gray-400 focus:ring-indigo-500 focus:border-indigo-500"
+                        autocomplete="off">
+                    <div id="branch-suggestions"
+                        class="hidden absolute z-50 w-full mt-1 bg-gray-700 border border-gray-600 rounded-lg shadow-lg max-h-60 overflow-y-auto">
+                        <!-- Suggestions will be populated here -->
+                    </div>
+                </div>
+                <!-- Branch Navigation Arrows -->
+                <div id="branch-navigation"
+                    class="hidden flex items-center justify-center gap-3 mt-3 p-3 bg-gray-700 rounded-lg border border-gray-600">
+                    <button id="nav-up-btn"
+                        class="nav-branch-btn flex items-center justify-center px-4 py-2 text-white text-sm font-medium rounded-md transition duration-150 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                        title="Navigate to parent branch (Arrow Up)">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7">
+                            </path>
+                        </svg>
+                        <span class="ml-1">Parent</span>
+                    </button>
+                    <span id="current-branch-name"
+                        class="px-4 py-2 text-sm text-gray-200 font-semibold bg-gray-600 rounded-md min-w-[200px] text-center"></span>
+                    <button id="nav-down-btn"
+                        class="nav-branch-btn flex items-center justify-center px-4 py-2 text-white text-sm font-medium rounded-md transition duration-150 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                        title="Navigate to first child branch (Arrow Down)">
+                        <span class="mr-1">Child</span>
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
+                            </path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-2">
+                <div class="w-full sm:w-1/3">
+                    <input type="text" id="search-bar"
+                        placeholder="Filter by Process Name, People (David), or Equipment..."
+                        class="w-full p-2 text-sm rounded-lg bg-gray-700 border border-gray-600 text-white placeholder-gray-400 focus:ring-indigo-500 focus:border-indigo-500">
+                </div>
+                <div class="flex items-center space-x-4">
+                    <!-- Data Source Toggle Switch -->
+                    <div class="flex items-center space-x-2">
+                        <span class="text-sm text-gray-300">Database Schema</span>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" id="data-source-toggle" class="sr-only peer" checked>
+                            <div
+                                class="w-11 h-6 bg-gray-600 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-800 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600">
+                            </div>
+                        </label>
+                        <span class="text-sm text-gray-300">Process Data</span>
+                    </div>
+                    <!-- 3D Mode Toggle -->
+                    <div class="flex items-center space-x-2">
+                        <span class="text-sm text-gray-300">2D</span>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" id="view-mode-toggle" class="sr-only peer">
+                            <div
+                                class="w-11 h-6 bg-gray-600 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-800 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600">
+                            </div>
+                        </label>
+                        <span class="text-sm text-gray-300">3D</span>
+                    </div>
+                    <button id="reset-view"
+                        class="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition duration-150">
+                        Fit to View
+                    </button>
+                    <!-- 3D Zoom Controls -->
+                    <div id="zoom-controls-3d" class="hidden flex items-center space-x-2">
+                        <button id="zoom-in-3d"
+                            class="px-3 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition duration-150">
+                            Zoom In
+                        </button>
+                        <button id="zoom-out-3d"
+                            class="px-3 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition duration-150">
+                            Zoom Out
+                        </button>
+                        <button id="reset-camera-3d"
+                            class="px-3 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition duration-150">
+                            Reset Camera
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Element Filter Panel -->
+            <div class="border-t border-gray-700 pt-3">
+                <div class="flex items-center justify-between mb-2">
+                    <h3 class="text-sm font-semibold text-indigo-300">Filter by Primary Elements</h3>
+                    <button id="toggle-filter" class="text-xs text-gray-400 hover:text-indigo-400 transition">
+                        <span id="filter-toggle-text">Show Filters</span>
+                    </button>
+                </div>
+                <div id="element-filter-panel" class="hidden grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2 mt-2">
+                    <label class="flex items-center space-x-2 text-xs cursor-pointer hover:text-indigo-300 transition">
+                        <input type="checkbox" id="filter-people" name="filter-people" class="element-filter"
+                            value="People" data-element="People">
+                        <span>People</span>
+                    </label>
+                    <label class="flex items-center space-x-2 text-xs cursor-pointer hover:text-indigo-300 transition">
+                        <input type="checkbox" id="filter-equipment" name="filter-equipment" class="element-filter"
+                            value="Equipment" data-element="Equipment">
+                        <span>Equipment</span>
+                    </label>
+                    <label class="flex items-center space-x-2 text-xs cursor-pointer hover:text-indigo-300 transition">
+                        <input type="checkbox" id="filter-material" name="filter-material" class="element-filter"
+                            value="Material" data-element="Material">
+                        <span>Material</span>
+                    </label>
+                    <label class="flex items-center space-x-2 text-xs cursor-pointer hover:text-indigo-300 transition">
+                        <input type="checkbox" id="filter-area" name="filter-area" class="element-filter" value="Area"
+                            data-element="Area">
+                        <span>Area</span>
+                    </label>
+                    <label class="flex items-center space-x-2 text-xs cursor-pointer hover:text-indigo-300 transition">
+                        <input type="checkbox" id="filter-energy" name="filter-energy" class="element-filter"
+                            value="Energy" data-element="Energy">
+                        <span>Energy</span>
+                    </label>
+                    <label class="flex items-center space-x-2 text-xs cursor-pointer hover:text-indigo-300 transition">
+                        <input type="checkbox" id="filter-method" name="filter-method" class="element-filter"
+                            value="Method" data-element="Method">
+                        <span>Method</span>
+                    </label>
+                    <label class="flex items-center space-x-2 text-xs cursor-pointer hover:text-indigo-300 transition">
+                        <input type="checkbox" id="filter-lifespan" name="filter-lifespan" class="element-filter"
+                            value="Life Span" data-element="Life Span">
+                        <span>Life Span</span>
+                    </label>
+                    <label class="flex items-center space-x-2 text-xs cursor-pointer hover:text-indigo-300 transition">
+                        <input type="checkbox" id="filter-cost" name="filter-cost" class="element-filter" value="Cost"
+                            data-element="Cost">
+                        <span>Cost</span>
+                    </label>
+                    <label class="flex items-center space-x-2 text-xs cursor-pointer hover:text-indigo-300 transition">
+                        <input type="checkbox" id="filter-addvalue" name="filter-addvalue" class="element-filter"
+                            value="Add Value" data-element="Add Value">
+                        <span>Add Value</span>
+                    </label>
+                    <label class="flex items-center space-x-2 text-xs cursor-pointer hover:text-indigo-300 transition">
+                        <input type="checkbox" id="filter-information" name="filter-information" class="element-filter"
+                            value="Information" data-element="Information">
+                        <span>Information</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading Spinner - Fixed position overlay, outside grid -->
+        <div id="loading-spinner" class="loading-spinner">
+            <div class="spinner"></div>
+            <div class="loading-text" id="loading-text">Loading...</div>
+        </div>
+
+        <!-- Main Visualization and Detail Panel Container -->
+        <div id="main-grid-container" class="grid grid-cols-1 lg:grid-cols-4 gap-4">
+            <!-- Visualization Area (3/4 width on desktop) - Left side -->
+            <div id="visualization-area" class="lg:col-span-3 p-2 h-[80vh] min-h-[500px] overflow-hidden">
+                <div id="container">
+                    <svg id="schema"></svg>
+                    <canvas id="canvas-3d" style="display: none; width: 100%; height: 100%;"></canvas>
+                </div>
+            </div>
+
+            <!-- Detail Panel (1/4 width on desktop) - Right side -->
+            <div id="detail-panel" class="lg:col-span-1 p-4 bg-gray-800 rounded-lg shadow-md h-full min-h-[500px]">
+                <h2 class="text-xl font-semibold mb-3 text-indigo-300 border-b border-indigo-700 pb-1">
+                    Process Details
+                </h2>
+                <div id="selected-process-info" class="text-sm space-y-3">
+                    <p class="text-gray-400">Right-click a process node to view its elements, costs, and transformation
+                        details.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="PY/SchemScript.js"></script>
+
+
+</body>
+
+</html>

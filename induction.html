@@ -1,0 +1,654 @@
+<!-- File: sheener/induction.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visitor Induction - MDI/DPI Facility</title>
+    <meta name="description" content="Complete your safety induction for MDI/DPI Manufacturing facility">
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#0056b3">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    
+    <style>
+        /* ============================================
+           MODERN PHARMA-STYLE DESIGN SYSTEM
+           ============================================ */
+        
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        
+        :root {
+            /* Primary Colors - Professional Pharma Blue */
+            --primary-blue: #0056b3;
+            --primary-blue-dark: #003d82;
+            --primary-blue-light: #3380cc;
+            
+            /* Success & Danger */
+            --success-green: #28a745;
+            --success-green-dark: #218838;
+            --success-bg: #d4edda;
+            --success-text: #155724;
+            
+            --danger-red: #dc3545;
+            --danger-red-dark: #c82333;
+            --danger-bg: #f8d7da;
+            --danger-text: #721c24;
+            
+            /* Neutrals */
+            --white: #ffffff;
+            --gray-50: #f9fafb;
+            --gray-100: #f4f4f9;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-600: #6b7280;
+            --gray-800: #333333;
+            
+            /* Spacing */
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 0.75rem;
+            --spacing-md: 1rem;
+            --spacing-lg: 1.5rem;
+            --spacing-xl: 2rem;
+            
+            /* Shadows */
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15);
+            
+            /* Border Radius */
+            --radius-sm: 5px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: var(--spacing-xl);
+            color: var(--gray-800);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        /* ============================================
+           CONTAINER & LAYOUT
+           ============================================ */
+        
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-xl);
+            box-shadow: var(--shadow-lg);
+            animation: slideUp 0.5s ease-out;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* ============================================
+           HEADER
+           ============================================ */
+        
+        header {
+            text-align: center;
+            border-bottom: 3px solid var(--primary-blue);
+            padding-bottom: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        h1 {
+            color: var(--primary-blue);
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--spacing-sm);
+        }
+        
+        .subtitle {
+            color: var(--gray-600);
+            font-size: 0.95rem;
+            font-weight: 400;
+        }
+        
+        /* ============================================
+           INTRO SECTION
+           ============================================ */
+        
+        .intro-section {
+            background: linear-gradient(135deg, #667eea15, #764ba215);
+            border-left: 4px solid var(--primary-blue);
+            padding: var(--spacing-lg);
+            border-radius: var(--radius-md);
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .intro-section p {
+            margin-bottom: var(--spacing-sm);
+            color: var(--gray-800);
+        }
+        
+        .intro-section strong {
+            color: var(--primary-blue);
+        }
+        
+        /* ============================================
+           QUESTION CARDS
+           ============================================ */
+        
+        .question-box {
+            background: var(--gray-50);
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius-md);
+            padding: var(--spacing-lg);
+            margin-bottom: var(--spacing-lg);
+            transition: all 0.3s ease;
+        }
+        
+        .question-box:hover {
+            border-color: var(--primary-blue-light);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+        
+        .question-label {
+            font-weight: 600;
+            font-size: 1.05rem;
+            display: block;
+            margin-bottom: var(--spacing-md);
+            color: var(--gray-800);
+            line-height: 1.5;
+        }
+        
+        /* Radio Button Styling */
+        .question-box label {
+            display: flex;
+            align-items: center;
+            padding: var(--spacing-sm) var(--spacing-md);
+            margin: var(--spacing-xs) 0;
+            cursor: pointer;
+            border-radius: var(--radius-sm);
+            transition: background 0.2s ease;
+        }
+        
+        .question-box label:hover {
+            background: var(--white);
+        }
+        
+        .question-box input[type="radio"] {
+            margin-right: var(--spacing-sm);
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: var(--primary-blue);
+        }
+        
+        /* ============================================
+           BUTTONS
+           ============================================ */
+        
+        button {
+            width: 100%;
+            padding: 1rem;
+            background: var(--success-green);
+            color: var(--white);
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-sm);
+            font-family: 'Inter', sans-serif;
+        }
+        
+        button:hover {
+            background: var(--success-green-dark);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        button:disabled {
+            background: var(--gray-300);
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        /* ============================================
+           RESULT AREA
+           ============================================ */
+        
+        #resultArea {
+            margin-top: var(--spacing-xl);
+            padding: var(--spacing-xl);
+            text-align: center;
+            display: none;
+            border-radius: var(--radius-md);
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        #resultArea.fail {
+            background: var(--danger-bg);
+            color: var(--danger-text);
+            border: 2px solid var(--danger-red);
+        }
+        
+        #resultArea.pass {
+            background: var(--success-bg);
+            color: var(--success-text);
+            border: 2px solid var(--success-green);
+        }
+        
+        #resultArea h2 {
+            font-size: 1.75rem;
+            margin-bottom: var(--spacing-md);
+        }
+        
+        #resultArea p {
+            font-size: 1.1rem;
+            margin: var(--spacing-sm) 0;
+        }
+        
+        /* ============================================
+           LOADING SPINNER
+           ============================================ */
+        
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top-color: var(--white);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin-left: var(--spacing-sm);
+            vertical-align: middle;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* ============================================
+           MOBILE RESPONSIVENESS
+           ============================================ */
+        
+        @media (max-width: 768px) {
+            body {
+                padding: var(--spacing-md);
+            }
+            
+            .container {
+                padding: var(--spacing-lg);
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+            
+            .question-label {
+                font-size: 1rem;
+            }
+            
+            button {
+                font-size: 1rem;
+                padding: 0.875rem;
+            }
+        }
+        
+        /* ============================================
+           PRINT STYLES
+           ============================================ */
+        
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            
+            .container {
+                box-shadow: none;
+                max-width: 100%;
+            }
+            
+            button {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <div style="text-align: center; margin-bottom: 1rem;">
+                <img src="img/Amneal_Logo_new.svg" alt="Amneal Logo" style="height: 50px; filter: brightness(0);">
+            </div>
+            <h1>Site Safety Induction</h1>
+            <p class="subtitle">MDI/DPI Manufacturing Facility</p>
+        </header>
+
+        <div class="intro-section">
+            <p><strong>Welcome to our facility!</strong></p>
+            <p>Please complete the following EHS safety assessment. You must answer all questions correctly to receive your induction certificate.</p>
+            <p><strong>Pass Rate:</strong> 100% (All questions must be correct)</p>
+            <p id="loading-message">⏳ Loading quiz questions...</p>
+        </div>
+
+        <form id="inductionForm">
+            <!-- Questions will be loaded dynamically from database -->
+            <div id="quiz-questions"></div>
+
+            <button type="button" id="submitBtn" onclick="submitInduction()" style="display: none;">
+                Submit Answers
+            </button>
+        </form>
+
+        <div id="resultArea"></div>
+    </div>
+
+    <script>
+        // ============================================
+        // CONFIGURATION
+        // ============================================
+        const QUIZ_ID = 55; // EHS Induction Quiz
+        const DOC_VERSION_ID = 10; // Document version
+        const CERTIFICATE_URL = 'certificate.html'; // Path to certificate
+        
+        let quizQuestions = [];
+        let totalQuestions = 0;
+
+        // ============================================
+        // LOAD QUESTIONS FROM DATABASE
+        // ============================================
+        async function loadQuestions() {
+            try {
+                const response = await fetch(`php/get_quiz_questions.php?quiz_id=${QUIZ_ID}`);
+                const data = await response.json();
+                
+                if (data.error) {
+                    document.getElementById('loading-message').innerHTML = 
+                        `❌ Error loading quiz: ${data.error}`;
+                    return;
+                }
+                
+                if (!data.questions || data.questions.length === 0) {
+                    document.getElementById('loading-message').innerHTML = 
+                        `❌ No questions found for this quiz.`;
+                    return;
+                }
+                
+                quizQuestions = data.questions;
+                totalQuestions = quizQuestions.length;
+                
+                // Render questions
+                renderQuestions();
+                
+                // Hide loading message
+                document.getElementById('loading-message').style.display = 'none';
+                
+                // Show submit button
+                document.getElementById('submitBtn').style.display = 'block';
+                
+            } catch (error) {
+                console.error('Error loading questions:', error);
+                document.getElementById('loading-message').innerHTML = 
+                    `❌ Failed to load quiz questions. Please refresh the page.`;
+            }
+        }
+
+        // ============================================
+        // RENDER QUESTIONS
+        // ============================================
+        function renderQuestions() {
+            const container = document.getElementById('quiz-questions');
+            
+            container.innerHTML = quizQuestions.map((q, index) => `
+                <div class="question-box">
+                    <span class="question-label">${index + 1}. ${escapeHtml(q.question_text)}</span>
+                    ${q.options.map(opt => `
+                        <label>
+                            <input type="radio" name="q${q.id}" value="${opt.id}" required>
+                            ${escapeHtml(opt.option_text)}
+                        </label>
+                    `).join('')}
+                </div>
+            `).join('');
+        }
+
+        // ============================================
+        // ESCAPE HTML TO PREVENT XSS
+        // ============================================
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // ============================================
+        // MAIN SUBMISSION FUNCTION
+        // ============================================
+        async function submitInduction() {
+            const form = document.forms['inductionForm'];
+            const resultArea = document.getElementById('resultArea');
+            const submitBtn = document.getElementById('submitBtn');
+            
+            // Validate all questions are answered
+            let allAnswered = true;
+            const answers = [];
+            
+            quizQuestions.forEach(q => {
+                const selectedOption = form[`q${q.id}`];
+                if (!selectedOption || !selectedOption.value) {
+                    allAnswered = false;
+                } else {
+                    answers.push({
+                        question_id: q.id,
+                        option_id: selectedOption.value
+                    });
+                }
+            });
+            
+            if (!allAnswered) {
+                alert('⚠️ Please answer all questions before submitting.');
+                return;
+            }
+            
+            // Disable submit button during processing
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = 'Processing... <span class="loading-spinner"></span>';
+            
+            try {
+                // Submit to backend for validation
+                const response = await fetch('php/submit_quiz_attempt.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        quiz_id: QUIZ_ID,
+                        answers: answers,
+                        person_id: -1 // For visitor mode, use -1 instead of null
+                    })
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`Server error: ${response.status}`);
+                }
+                
+                const result = await response.json();
+                
+                if (result.error) {
+                    throw new Error(result.error);
+                }
+                
+                // Display results based on pass/fail
+                displayResults(result);
+                
+            } catch (error) {
+                console.error('Submission error:', error);
+                alert('❌ Error submitting quiz: ' + error.message);
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = 'Submit Answers';
+            }
+        }
+
+        // ============================================
+        // DISPLAY RESULTS
+        // ============================================
+        function displayResults(result) {
+            const resultArea = document.getElementById('resultArea');
+            const submitBtn = document.getElementById('submitBtn');
+            
+            // CRITICAL FIX: Only check result.passed, NOT result.success
+            // result.success just means the API call worked, not that the quiz was passed
+            const passed = result.passed === true;
+            
+            if (passed) {
+                // ============================================
+                // PASS WORKFLOW
+                // ============================================
+                
+                resultArea.style.display = 'block';
+                resultArea.className = 'pass';
+                resultArea.innerHTML = `
+                    <h2>✅ Congratulations! You Passed!</h2>
+                    <p><strong>Score: ${result.score}/${result.total} (${result.percentage}%)</strong></p>
+                    <p style="margin-top: 1rem;">Please enter your name for the certificate:</p>
+                    <input type="text" id="visitorName" placeholder="Your Name" 
+                           style="width: 100%; padding: 0.75rem; margin: 1rem 0; border: 2px solid #28a745; border-radius: 8px; font-size: 1rem;">
+                    <button onclick="generateCertificate()" 
+                            style="background: #28a745; margin-top: 0.5rem;">
+                        📄 Generate Certificate
+                    </button>
+                `;
+
+                console.log("✅ BACKEND: User passed the induction quiz");
+                console.log("📊 Result:", result);
+                
+                // Store result globally for certificate generation
+                window.quizResult = result;
+
+            } else {
+                // ============================================
+                // FAIL WORKFLOW
+                // ============================================
+                
+                resultArea.style.display = 'block';
+                resultArea.className = 'fail';
+                resultArea.innerHTML = `
+                    <h2>❌ Not Quite There Yet</h2>
+                    <p><strong>Score: ${result.score}/${result.total} (${result.percentage}%)</strong></p>
+                    <p>You need ${result.threshold || 100}% to pass this safety induction.</p>
+                    <p style="margin-top: 1rem;">Please review the safety materials and try again.</p>
+                    <button onclick="location.reload()" style="margin-top: 1rem; background: #dc3545;">
+                        🔄 Retake Assessment
+                    </button>
+                `;
+                
+                console.log("❌ BACKEND: User failed the induction quiz");
+                console.log("📊 Result:", result);
+                
+                // Re-enable submit button for potential retry
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = 'Submit Answers';
+            }
+            
+            // Scroll to result
+            resultArea.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+        
+        // ============================================
+        // GENERATE CERTIFICATE (Called after name entry)
+        // ============================================
+        function generateCertificate() {
+            const nameInput = document.getElementById('visitorName');
+            const visitorName = nameInput ? nameInput.value.trim() : '';
+            
+            if (!visitorName) {
+                alert('⚠️ Please enter your name for the certificate');
+                return;
+            }
+            
+            const result = window.quizResult;
+            const qrValue = result.qr_value || 'CERT-' + Date.now();
+            const certUrl = `${CERTIFICATE_URL}?qr=${encodeURIComponent(qrValue)}&name=${encodeURIComponent(visitorName)}`;
+            
+            // Update result area
+            const resultArea = document.getElementById('resultArea');
+            resultArea.innerHTML += `
+                <p style="margin-top: 1rem; color: #155724;">
+                    📱 Opening your certificate...
+                </p>
+            `;
+            
+            // Open certificate
+            setTimeout(() => {
+                const pdfWindow = window.open(certUrl, '_blank');
+                
+                if (!pdfWindow || pdfWindow.closed || typeof pdfWindow.closed === 'undefined') {
+                    resultArea.innerHTML += `
+                        <p style="margin-top: 1rem; padding: 1rem; background: rgba(255,255,255,0.5); border-radius: 8px;">
+                            <strong>� Certificate Ready!</strong><br>
+                            <a href="${certUrl}" target="_blank" 
+                               style="color: #155724; text-decoration: underline; font-weight: 600;">
+                                Click here to view your certificate
+                            </a>
+                        </p>
+                    `;
+                } else {
+                    resultArea.innerHTML += `
+                        <p style="margin-top: 1rem; font-size: 0.95rem;">
+                            📱 Certificate opened in new tab. Save it to your device for your records.
+                        </p>
+                    `;
+                }
+            }, 500);
+        }
+
+        // ============================================
+        // INITIALIZE ON PAGE LOAD
+        // ============================================
+        window.addEventListener('DOMContentLoaded', () => {
+            loadQuestions();
+        });
+
+        // ============================================
+        // PREVENT ACCIDENTAL FORM SUBMISSION
+        // ============================================
+        document.getElementById('inductionForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,275 @@
+<!-- File: sheener/test_node/map1.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database Tables Visualization</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        canvas {
+            display: block;
+            background-color: #f4f4f4;
+            cursor: grab;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="tablesCanvas"></canvas>
+
+    <script>
+        const canvas = document.getElementById('tablesCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // Resize canvas to fill the screen
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+
+        const nodes = [];
+        const links = [];
+        let draggedNode = null;
+        let isDragging = false;
+
+        // Calculate node degree
+        function calculateDegree(node) {
+            return links.filter(link => link.source === node || link.target === node).length;
+        }
+
+        // Position nodes based on degree
+        function positionNodesBasedOnDegree(tables) {
+            tables.forEach(table => {
+                const node = {
+                    name: table.id,
+                    radius: 50,
+                    highlighted: false
+                };
+
+                nodes.push(node);
+            });
+
+            // Sort nodes by degree
+            nodes.sort((a, b) => calculateDegree(b) - calculateDegree(a));
+
+            // Position nodes based on degree
+            nodes.forEach((node, index) => {
+                const angle = (index / nodes.length) * 2 * Math.PI;
+                const radius = Math.min(canvas.width, canvas.height) / 3;
+                node.x = (canvas.width / 2) + radius * Math.cos(angle);
+                node.y = (canvas.height / 2) + radius * Math.sin(angle);
+            });
+        }
+
+        // Simulate repelling and attractive forces to distribute nodes
+        function applyForces(minGap = 200, maxDistance = 500) {
+            const repelStrength = 5000;
+            const attractStrength = 0.1;
+            const margin = 50;
+            let stable = true;
+
+            nodes.forEach(nodeA => {
+                nodes.forEach(nodeB => {
+                    if (nodeA !== nodeB) {
+                        const dx = nodeA.x - nodeB.x;
+                        const dy = nodeA.y - nodeB.y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+
+                        // Repel force
+                        if (distance < minGap) {
+                            stable = false;
+                            const force = repelStrength / (distance * distance);
+                            const angle = Math.atan2(dy, dx);
+                            const fx = Math.cos(angle) * force;
+                            const fy = Math.sin(angle) * force;
+
+                            nodeA.x = Math.min(canvas.width - margin, Math.max(margin, nodeA.x + fx));
+                            nodeA.y = Math.min(canvas.height - margin, Math.max(margin, nodeA.y + fy));
+                            nodeB.x = Math.min(canvas.width - margin, Math.max(margin, nodeB.x - fx));
+                            nodeB.y = Math.min(canvas.height - margin, Math.max(margin, nodeB.y - fy));
+                        }
+
+                        // Attract force for connected nodes
+                        const link = links.find(link =>
+                            (link.source === nodeA && link.target === nodeB) ||
+                            (link.source === nodeB && link.target === nodeA));
+
+                        if (link && distance > maxDistance) {
+                            stable = false;
+                            const force = (distance - maxDistance) * attractStrength;
+                            const angle = Math.atan2(dy, dx);
+                            const fx = Math.cos(angle) * force;
+                            const fy = Math.sin(angle) * force;
+
+                            nodeA.x -= fx;
+                            nodeA.y -= fy;
+                            nodeB.x += fx;
+                            nodeB.y += fy;
+                        }
+                    }
+                });
+            });
+
+            return stable;
+        }
+
+        function animateForces(duration = 3000) {
+            const startTime = Date.now();
+
+            function step() {
+                const elapsedTime = Date.now() - startTime;
+                if (elapsedTime < duration) {
+                    applyForces();
+                    drawCanvas();
+                    requestAnimationFrame(step);
+                }
+            }
+
+            step();
+        }
+
+        function positionLinks(data) {
+            data.links.forEach(link => {
+                const sourceNode = nodes.find(node => node.name === link.source.table);
+                const targetNode = nodes.find(node => node.name === link.target.table);
+                if (sourceNode && targetNode) {
+                    links.push({ source: sourceNode, target: targetNode });
+                }
+            });
+        }
+
+        // Load JSON data
+        fetch('db_schema.json')
+            .then(response => response.json())
+            .then(data => {
+                const tables = data.nodes;
+
+                // Position nodes and links
+                positionNodesBasedOnDegree(tables);
+                positionLinks(data);
+                animateForces();
+
+                drawCanvas();
+            })
+            .catch(error => console.error('Error loading JSON:', error));
+
+        function drawCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Draw links
+            links.forEach(link => {
+                ctx.beginPath();
+                ctx.moveTo(link.source.x, link.source.y);
+                ctx.lineTo(link.target.x, link.target.y);
+                ctx.strokeStyle = link.highlighted ? 'orange' : '#d9dbdb';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+
+                // Draw connector label only if highlighted
+                if (link.highlighted) {
+                    const midX = (link.source.x + link.target.x) / 2;
+                    const midY = (link.source.y + link.target.y) / 2;
+                    ctx.fillStyle = 'blue';
+                    ctx.font = 'bold 12px Arial';
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText(`${link.source.name} -> ${link.target.name}`, midX, midY);
+                }
+            });
+
+            // Draw nodes
+            nodes.forEach(node => {
+                ctx.beginPath();
+                ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
+                ctx.fillStyle = node.highlighted ? '#b77cf2' : '#3498db';
+                ctx.fill();
+
+                ctx.fillStyle = '#595858';
+                ctx.font = 'bold 14px Arial';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(node.name, node.x, node.y);
+            });
+        }
+
+        // Drag and drop functionality
+        canvas.addEventListener('mousedown', event => {
+            const mouseX = event.offsetX;
+            const mouseY = event.offsetY;
+
+            draggedNode = nodes.find(node => {
+                const dx = mouseX - node.x;
+                const dy = mouseY - node.y;
+                return Math.sqrt(dx * dx + dy * dy) < node.radius;
+            });
+
+            if (draggedNode) {
+                isDragging = true;
+                canvas.style.cursor = 'grabbing';
+
+                // Highlight relevant links and nodes
+                links.forEach(link => {
+                    if (link.source === draggedNode || link.target === draggedNode) {
+                        link.highlighted = true;
+                        link.source.highlighted = true;
+                        link.target.highlighted = true;
+                    } else {
+                        link.highlighted = false;
+                    }
+                });
+
+                drawCanvas();
+            }
+        });
+
+        canvas.addEventListener('mousemove', event => {
+            if (isDragging && draggedNode) {
+                draggedNode.x = Math.min(canvas.width - draggedNode.radius, Math.max(draggedNode.radius, event.offsetX));
+                draggedNode.y = Math.min(canvas.height - draggedNode.radius, Math.max(draggedNode.radius, event.offsetY));
+
+                // Apply forces dynamically during drag with minimum gap
+                applyForces(200, 500);
+                drawCanvas();
+            }
+        });
+
+        canvas.addEventListener('mouseup', () => {
+            if (isDragging) {
+                isDragging = false;
+                canvas.style.cursor = 'grab';
+                draggedNode = null;
+
+                // Remove link and node highlights
+                links.forEach(link => delete link.highlighted);
+                nodes.forEach(node => node.highlighted = false);
+                drawCanvas();
+            }
+        });
+
+        canvas.addEventListener('mouseleave', () => {
+            if (isDragging) {
+                isDragging = false;
+                canvas.style.cursor = 'grab';
+                draggedNode = null;
+
+                // Remove link and node highlights
+                links.forEach(link => delete link.highlighted);
+                nodes.forEach(node => node.highlighted = false);
+                drawCanvas();
+            }
+        });
+
+        // Adjust canvas size dynamically
+        window.addEventListener('resize', () => {
+            resizeCanvas();
+            drawCanvas();
+        });
+    </script>
+</body>
+</html>

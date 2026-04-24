@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- sheener/Fishbone.html -->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Premium Interactive Fishbone Diagram - Root Cause Analysis Tool">
+    <title>Fishbone Analysis | Digital Command Center</title>
+
+    <!-- External Resources -->
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="shortcut icon" href="img/favicon/faviconAY.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="js/navbar.js" defer></script>
+    <script src="js/topbar.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+    <!-- PDF Generation Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <style>
+        :root {
+            --bg-dark: #050510;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.6);
+            --accent-blue: #00c6ff;
+            --accent-red: #ff5555;
+            --font-main: 'Outfit', sans-serif;
+        }
+
+        body {
+            font-family: var(--font-main);
+            margin: 0;
+            background: radial-gradient(circle at top right, #0a2f64, #050510);
+            background-attachment: fixed;
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        main {
+            padding: 40px 2%;
+            max-width: 1400px;
+            margin: 0 auto;
+            margin-top: 50px;
+            /* Moved up by 50px as requested */
+        }
+
+        /* Glass Container */
+        .diagram-container {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.5);
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .diagram-header {
+            text-align: center;
+            margin-bottom: 25px;
+            position: relative;
+            /* Anchor for the export button */
+        }
+
+        .diagram-header h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin: 0;
+            background: linear-gradient(to right, #ffffff, var(--accent-blue));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -1px;
+        }
+
+        .diagram-header p {
+            color: var(--text-secondary);
+            margin-top: 8px;
+            font-size: 0.9rem;
+        }
+
+        /* SVG Styling */
+        svg {
+            display: block;
+            margin: 0 auto;
+            border-radius: 12px;
+            max-width: 100%;
+        }
+
+        /* D3 Elements Styling */
+        .spine-line {
+            stroke: var(--accent-blue);
+            stroke-width: 3px;
+            stroke-linecap: round;
+            filter: drop-shadow(0 0 8px rgba(0, 198, 255, 0.4));
+        }
+
+        .branch-line {
+            stroke: var(--text-secondary);
+            stroke-width: 2px;
+            opacity: 0.4;
+            transition: all 0.3s ease;
+        }
+
+        .branch-group:hover .branch-line {
+            opacity: 1;
+            stroke: var(--accent-blue);
+            filter: drop-shadow(0 0 5px var(--accent-blue));
+            stroke-width: 2.5px;
+        }
+
+        /* Category Nodes */
+        .category-text {
+            font-size: 18px;
+            font-weight: 700;
+            fill: #ffffff;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .branch-group:hover .category-text {
+            fill: var(--accent-blue);
+        }
+
+        /* Cause Text */
+        .cause-text {
+            font-size: 11px;
+            fill: var(--text-secondary);
+            cursor: default;
+            transition: fill 0.2s ease;
+        }
+
+        .cause-text:hover {
+            fill: #ffffff;
+            font-weight: 600;
+        }
+
+        /* Problem Box */
+        .problem-bg {
+            fill: rgba(255, 85, 85, 0.15);
+            stroke: var(--accent-red);
+            stroke-width: 2;
+            rx: 15;
+            filter: drop-shadow(0 0 10px rgba(255, 85, 85, 0.3));
+            transition: all 0.3s ease;
+        }
+
+        .problem-text {
+            font-size: 14px;
+            font-weight: 600;
+            fill: #ffffff;
+            text-anchor: middle;
+        }
+
+        /* Modern Tooltip */
+        .modern-tooltip {
+            position: absolute;
+            background: rgba(10, 20, 40, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            padding: 12px 18px;
+            border-radius: 12px;
+            font-size: 13px;
+            pointer-events: none;
+            opacity: 0;
+            z-index: 1000;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+            max-width: 280px;
+            line-height: 1.5;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .diagram-container {
+                padding: 20px;
+            }
+
+            .diagram-header h1 {
+                font-size: 1.6rem;
+            }
+        }
+
+        /* PDF/Print Styling - Optimized for Black on White */
+        @media print {
+            @page {
+                size: A4 landscape;
+                margin: 0.5in;
+            }
+
+            body {
+                background: white !important;
+                color: black !important;
+            }
+
+            #navbar,
+            #topbar,
+            .export-btn {
+                display: none !important;
+            }
+
+            main {
+                margin-top: 0 !important;
+                padding: 0 !important;
+                width: 100% !important;
+            }
+
+            .diagram-container {
+                border: none !important;
+                box-shadow: none !important;
+                background: white !important;
+                color: black !important;
+                width: 100% !important;
+                padding: 0 !important;
+            }
+
+            .diagram-header h1 {
+                -webkit-text-fill-color: black !important;
+                background: none !important;
+                color: black !important;
+            }
+
+            .diagram-header p {
+                color: #333 !important;
+            }
+
+            /* Enforce black lines and text in SVG for PDF - High Contrast */
+            .spine-line {
+                stroke: #000000 !important;
+                filter: none !important;
+                stroke-width: 3px !important;
+            }
+
+            .branch-line {
+                stroke: #000000 !important;
+                opacity: 1 !important;
+                filter: none !important;
+                stroke-width: 2px !important;
+            }
+
+            .category-text {
+                fill: #000000 !important;
+                color: #000000 !important;
+                font-weight: bold !important;
+                font-size: 18px !important;
+            }
+
+            .cause-text {
+                fill: #000000 !important;
+                color: #000000 !important;
+                font-size: 11px !important;
+            }
+
+            .problem-text {
+                fill: #ffffff !important;
+                font-size: 14px !important;
+            }
+
+            /* White text on red box */
+            .problem-bg {
+                fill: #d32f2f !important;
+                stroke: #000000 !important;
+                filter: none !important;
+            }
+
+            /* Arrow Marker Force */
+            marker path,
+            #arrow path {
+                fill: #000000 !important;
+            }
+
+            line {
+                marker-end: url(#arrow) !important;
+            }
+        }
+
+        .export-btn {
+            position: absolute;
+            right: 0;
+            top: 0;
+            background: var(--accent-blue);
+            color: #050510;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 0.82rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 15px rgba(0, 198, 255, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .export-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(0, 198, 255, 0.4);
+            filter: brightness(1.2);
+        }
+
+        .export-btn svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="topbar"></div>
+    <div id="navbar"></div>
+
+    <main>
+        <div class="diagram-container" id="rca-report">
+            <header class="diagram-header">
+                <h1>Root Cause Analysis</h1>
+                <p>Post-incident structural evaluation through Fishbone analysis.</p>
+                <button class="export-btn" onclick="exportToPDF()">
+                    <svg viewBox="0 0 24 24" style="width:16px; height:16px; fill:currentColor;">
+                        <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"></path>
+                    </svg>
+                    Extract Report
+                </button>
+            </header>
+
+            <svg id="fishbone" width="1200" height="600" viewBox="0 0 1200 600"></svg>
+        </div>
+    </main>
+
+    <script>
+        (function () {
+            'use strict';
+
+            const fishboneData = {
+                "problem": "Powder exposure to operators during transfer from 25kg drum.",
+                "categories": [
+                    { "name": "Equipment", "x": 300, "y": -180, "causes": ["No airflow check on hoods", "T600 belts not tested", "Improper powered hood use"] },
+                    { "name": "Method", "x": 550, "y": -180, "causes": ["No Assessment or SOP", "Deviation from normal ops", "Lack of procedural checks"] },
+                    { "name": "People", "x": 800, "y": -180, "causes": ["Inexperienced operators", "No SDS awareness", "No prior training"] },
+                    { "name": "Data", "x": 300, "y": 180, "causes": ["Historical data gap"] },
+                    { "name": "Environment", "x": 550, "y": 180, "causes": ["Outside normal enclosure", "Powder dispersed into air"] },
+                    { "name": "Material", "x": 800, "y": 180, "causes": ["25kg drum of FP/SX 100", "Large quantity not typical"] }
+                ]
+            };
+
+            const svg = d3.select("#fishbone");
+            const width = 1200;
+            const height = 600;
+            const centerY = height / 2;
+            const startX = 60;
+            const endX = 950; // Increased to prevent head overlap with branches
+
+            // Create Tooltip
+            const tooltip = d3.select("body").append("div").attr("class", "modern-tooltip");
+
+            // Arrow Marker
+            svg.append("defs").append("marker")
+                .attr("id", "arrow")
+                .attr("viewBox", "0 0 10 10")
+                .attr("refX", 10)
+                .attr("refY", 5)
+                .attr("markerWidth", 5)
+                .attr("markerHeight", 5)
+                .attr("orient", "auto")
+                .append("path")
+                .attr("d", "M 0 0 L 10 5 L 0 10 z")
+                .attr("fill", "#00c6ff");
+
+            // Main Spine
+            svg.append("line")
+                .attr("x1", startX)
+                .attr("y1", centerY)
+                .attr("x2", endX)
+                .attr("y2", centerY)
+                .attr("class", "spine-line")
+                .attr("marker-end", "url(#arrow)");
+
+            // Problem Box (the Head) - Anchored to the arrow tip
+            const headGroup = svg.append("g").attr("transform", `translate(${endX + 10}, ${centerY})`);
+
+            const headText = headGroup.append("text")
+                .attr("class", "problem-text")
+                .attr("dy", "0.3em");
+
+            // Wrap Problem Text
+            function wrap(text, width) {
+                text.each(function () {
+                    const text = d3.select(this);
+                    const words = text.text().split(/\s+/).reverse();
+                    let word, line = [], lineNumber = 0, lineHeight = 1.2, y = text.attr("y"), dy = parseFloat(text.attr("dy"));
+                    let tspan = text.text(null).append("tspan").attr("x", 0).attr("y", y).attr("dy", dy + "em");
+                    while (word = words.pop()) {
+                        line.push(word);
+                        tspan.text(line.join(" "));
+                        if (tspan.node().getComputedTextLength() > width) {
+                            line.pop();
+                            tspan.text(line.join(" "));
+                            line = [word];
+                            tspan = text.append("tspan").attr("x", 0).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
+                        }
+                    }
+                });
+            }
+            headText.text(fishboneData.problem).call(wrap, 200);
+
+            // Dynamic background sizing - Anchored Left to grow Right
+            const bbox = headText.node().getBBox();
+            const paddingX = 40;
+            const paddingY = 25;
+            const totalWidth = bbox.width + paddingX;
+            const totalHeight = bbox.height + paddingY;
+
+            // Positioning text in the center of the constructed box
+            // totalWidth/2 centers it horizontally; -bbox.height/2 + 10 centers it vertically
+            headText.attr("transform", `translate(${totalWidth / 2}, ${-bbox.height / 2 + 10})`);
+
+            headGroup.insert("rect", "text")
+                .attr("class", "problem-bg")
+                .attr("x", 0) // Start exactly at the arrow tip gap
+                .attr("y", -totalHeight / 2)
+                .attr("width", totalWidth)
+                .attr("height", totalHeight);
+
+            // Draw Branches
+            fishboneData.categories.forEach(cat => {
+                const group = svg.append("g").attr("class", "branch-group");
+                const tipX = cat.x - 60;
+                const tipY = centerY + cat.y;
+
+                // Branch Line
+                group.append("line")
+                    .attr("x1", tipX)
+                    .attr("y1", tipY)
+                    .attr("x2", cat.x)
+                    .attr("y2", centerY)
+                    .attr("class", "branch-line")
+                    .attr("marker-end", "url(#arrow)");
+
+                // Category Labels - Attached more precisely to branch tips
+                group.append("text")
+                    .attr("class", "category-text")
+                    .attr("x", tipX)
+                    .attr("y", tipY + (cat.y < 0 ? -20 : 35))
+                    .attr("text-anchor", "middle")
+                    .text(cat.name)
+                    .on("mouseover", (e) => {
+                        tooltip.style("opacity", 1).html(`<strong>Category: ${cat.name}</strong><br>Found ${cat.causes.length} primary issues.`);
+                    })
+                    .on("mousemove", (e) => {
+                        tooltip.style("left", (e.pageX + 15) + "px").style("top", (e.pageY - 15) + "px");
+                    })
+                    .on("mouseleave", () => tooltip.style("opacity", 0));
+
+                // Cause Points
+                cat.causes.forEach((cause, i) => {
+                    const yOffset = cat.y < 0 ? (i * 20 + 20) : -(i * 20 + 20);
+                    const causeX = tipX - 10;
+                    const causeY = tipY + yOffset;
+
+                    const causeNode = group.append("text")
+                        .attr("class", "cause-text")
+                        .attr("x", causeX)
+                        .attr("y", causeY)
+                        .attr("text-anchor", "end")
+                        .text("• " + cause)
+                        .on("mouseover", (e) => {
+                            tooltip.style("opacity", 1).html(`<strong>Root Cause</strong><br>${cause}`);
+                        })
+                        .on("mousemove", (e) => {
+                            tooltip.style("left", (e.pageX + 15) + "px").style("top", (e.pageY - 15) + "px");
+                        })
+                        .on("mouseleave", () => tooltip.style("opacity", 0));
+                });
+            });
+
+        })();
+
+        // PDF Export Logic - Absolute Black & White Force
+        function exportToPDF() {
+            const element = document.getElementById('rca-report');
+
+            const opt = {
+                margin: [0.2, 0.2], // Minimal margins to maximize fit
+                filename: 'RCA_Report_Fishbone.pdf',
+                image: { type: 'jpeg', quality: 1.0 },
+                html2canvas: {
+                    scale: 3,
+                    useCORS: true,
+                    backgroundColor: '#ffffff',
+                    onclone: (clonedDoc) => {
+                        const report = clonedDoc.getElementById('rca-report');
+                        const h1 = clonedDoc.querySelector('h1');
+                        const p = clonedDoc.querySelector('p');
+                        const svg = clonedDoc.getElementById('fishbone');
+
+                        // Force Container Colors
+                        report.style.background = 'white';
+                        report.style.color = 'black';
+                        report.style.padding = '0';
+                        report.style.boxShadow = 'none';
+                        report.style.border = 'none';
+
+                        // Force Text Colors
+                        h1.style.color = 'black';
+                        h1.style.webkitTextFillColor = 'black';
+                        h1.style.background = 'none';
+                        p.style.color = 'black';
+
+                        // Force SVG Elements to Pure Black
+                        const texts = clonedDoc.querySelectorAll('text');
+                        texts.forEach(txt => {
+                            if (!txt.classList.contains('problem-text')) {
+                                txt.style.fill = '#000000';
+                            } else {
+                                txt.style.fill = '#ffffff';
+                            }
+                        });
+
+                        const lines = clonedDoc.querySelectorAll('line');
+                        lines.forEach(line => {
+                            line.style.stroke = '#000000';
+                            line.style.opacity = '1';
+                            line.style.markerEnd = 'url(#arrow)';
+                        });
+
+                        // Force Arrow Markers
+                        const arrow = clonedDoc.querySelector('#arrow path');
+                        if (arrow) arrow.setAttribute('fill', '#000000');
+
+                        // Scale SVG to fit landscape page width perfectly
+                        svg.setAttribute('width', '1100');
+                        svg.setAttribute('height', '500');
+                        svg.style.width = '1000px';
+                        svg.style.height = 'auto';
+                    }
+                },
+                jsPDF: { unit: 'in', format: 'a4', orientation: 'landscape', compress: true }
+            };
+
+            const btn = document.querySelector('.export-btn');
+            btn.style.opacity = '0';
+
+            html2pdf().set(opt).from(element).save().then(() => {
+                btn.style.opacity = '1';
+            });
+        }
+    </script>
+</body>
+
+</html>

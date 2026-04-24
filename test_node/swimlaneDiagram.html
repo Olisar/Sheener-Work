@@ -1,0 +1,148 @@
+<!-- File: sheener/test_node/swimlaneDiagram.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swimlane Diagram</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .swimlane-container {
+            width: 100%;
+            height: 600px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .lane {
+            flex: 1;
+            position: relative;
+            border-top: 1px solid #ccc;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+        }
+
+        .lane.operator { background-color: #f8f8d8; }
+        .lane.lead { background-color: #fff4d8; }
+        .lane.maintenance { background-color: #e4f8d8; }
+        .lane.lab { background-color: #d8f4f8; }
+        .lane.cleaners { background-color: #f8e4e4; }
+
+        .task {
+            background: #69b3a2;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            position: absolute;
+            text-align: center;
+        }
+
+        .arrow {
+            fill: none;
+            stroke: #333;
+            stroke-width: 2px;
+            marker-end: url(#arrowhead);
+        }
+
+        .role-label {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="swimlane-container"></div>
+
+    <svg width="100%" height="600" style="position: absolute; top: 0; left: 0;">
+        <defs>
+            <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+                <polygon points="0 0, 10 3.5, 0 7" fill="#333" />
+            </marker>
+        </defs>
+    </svg>
+
+    <script>
+        // Dynamic Swimlane Diagram Data
+        const data = {
+            roles: [
+                { name: "Operator", tasks: ["Start", "Clean as Per Checklist", "Complete Log Books"] },
+                { name: "Lead", tasks: ["Verify Clean & Logbook", "Label Parts"] },
+                { name: "Maintenance", tasks: ["Disconnect Filling Head"] },
+                { name: "Lab", tasks: ["Lab Test"] },
+                { name: "Contract Cleaners", tasks: ["Power Wash Machines"] }
+            ],
+            arrows: [
+                { from: { role: "Operator", task: "Start" }, to: { role: "Operator", task: "Clean as Per Checklist" } },
+                { from: { role: "Operator", task: "Clean as Per Checklist" }, to: { role: "Lead", task: "Verify Clean & Logbook" } },
+                { from: { role: "Lead", task: "Verify Clean & Logbook" }, to: { role: "Maintenance", task: "Disconnect Filling Head" } },
+                { from: { role: "Maintenance", task: "Disconnect Filling Head" }, to: { role: "Lab", task: "Lab Test" } },
+                { from: { role: "Lab", task: "Lab Test" }, to: { role: "Contract Cleaners", task: "Power Wash Machines" } }
+            ]
+        };
+
+        const laneHeight = 100;
+        const taskWidth = 120;
+        const taskHeight = 40;
+        const container = document.querySelector(".swimlane-container");
+
+        // Create Swimlanes and Tasks
+        data.roles.forEach((role, roleIndex) => {
+            // Create a swimlane
+            const lane = document.createElement("div");
+            lane.classList.add("lane", role.name.toLowerCase().replace(/ /g, ""));
+            lane.style.height = `${laneHeight}px`;
+
+            // Add role label
+            const roleLabel = document.createElement("span");
+            roleLabel.classList.add("role-label");
+            roleLabel.textContent = role.name;
+            lane.appendChild(roleLabel);
+
+            // Add tasks dynamically
+            role.tasks.forEach((task, taskIndex) => {
+                const taskDiv = document.createElement("div");
+                taskDiv.classList.add("task");
+                taskDiv.textContent = task;
+                taskDiv.style.left = `${150 + taskIndex * 200}px`;
+                taskDiv.style.top = `${laneHeight / 2 - taskHeight / 2}px`;
+                lane.appendChild(taskDiv);
+            });
+
+            container.appendChild(lane);
+        });
+
+        // Add Arrows
+        const svg = document.querySelector("svg");
+
+        data.arrows.forEach(arrow => {
+            const fromIndex = data.roles.findIndex(role => role.name === arrow.from.role);
+            const toIndex = data.roles.findIndex(role => role.name === arrow.to.role);
+
+            const fromTaskIndex = data.roles[fromIndex].tasks.indexOf(arrow.from.task);
+            const toTaskIndex = data.roles[toIndex].tasks.indexOf(arrow.to.task);
+
+            const fromX = 150 + fromTaskIndex * 200 + taskWidth / 2;
+            const fromY = fromIndex * laneHeight + laneHeight / 2;
+
+            const toX = 150 + toTaskIndex * 200 + taskWidth / 2;
+            const toY = toIndex * laneHeight + laneHeight / 2;
+
+            const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+            path.setAttribute("class", "arrow");
+            path.setAttribute("d", `M${fromX},${fromY} C${(fromX + toX) / 2},${fromY} ${(fromX + toX) / 2},${toY} ${toX},${toY}`);
+            svg.appendChild(path);
+        });
+    </script>
+</body>
+</html>

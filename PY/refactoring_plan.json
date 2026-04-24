@@ -1,0 +1,3193 @@
+{
+  "metadata": {
+    "generated_date": "2025-12-07T12:57:09.849846",
+    "total_pages": 281,
+    "schema_file": "C:\\xampp\\htdocs\\sheener\\py\\frontendschema.json"
+  },
+  "target_architecture": {
+    "dashboards": {
+      "employee": "dashboard_employee.html (most complete variant)",
+      "manager": "dashboard_manager.php",
+      "system": "dashboard.php",
+      "permit": "dashboard_permit.php"
+    },
+    "conventions": {
+      "naming": {
+        "list": "{entity}_list.php",
+        "form": "{entity}_form.php",
+        "view": "{entity}_view.php"
+      },
+      "components": {
+        "navbar": "Always use navbar.js",
+        "topbar": "Always use topbar.js",
+        "ai_navigator": "All major lists use AI Navigator"
+      }
+    }
+  },
+  "current_state": {
+    "dashboards": {
+      "employee": [
+        {
+          "name": "dashboard_employee.html",
+          "path": "dashboard_employee.html",
+          "has_ai_navigator": false,
+          "has_navbar": false,
+          "has_topbar": false
+        },
+        {
+          "name": "dashboard_employee1.html",
+          "path": "dashboard_employee1.html",
+          "has_ai_navigator": false,
+          "has_navbar": true,
+          "has_topbar": true
+        },
+        {
+          "name": "dashboard_employeeArc.html",
+          "path": "dashboard_employeeArc.html",
+          "has_ai_navigator": false,
+          "has_navbar": true,
+          "has_topbar": true
+        },
+        {
+          "name": "dashboard_employeeArcDark.html",
+          "path": "dashboard_employeeArcDark.html",
+          "has_ai_navigator": false,
+          "has_navbar": true,
+          "has_topbar": true
+        }
+      ],
+      "manager": [
+        {
+          "name": "dashboard_manager.php",
+          "path": "dashboard_manager.php",
+          "has_ai_navigator": false,
+          "has_navbar": true,
+          "has_topbar": true
+        }
+      ],
+      "admin": [
+        {
+          "name": "dashboard_admin.php",
+          "path": "dashboard_admin.php",
+          "has_ai_navigator": false,
+          "has_navbar": true,
+          "has_topbar": true
+        }
+      ],
+      "permit": [
+        {
+          "name": "dashboard_permit.php",
+          "path": "dashboard_permit.php",
+          "has_ai_navigator": false,
+          "has_navbar": true,
+          "has_topbar": true
+        }
+      ],
+      "system": [
+        {
+          "name": "dashboard.php",
+          "path": "php/dashboard.php",
+          "has_ai_navigator": false,
+          "has_navbar": true,
+          "has_topbar": true
+        },
+        {
+          "name": "api_risk_dashboard.php",
+          "path": "php/api_risk_dashboard.php",
+          "has_ai_navigator": false,
+          "has_navbar": false,
+          "has_topbar": false
+        }
+      ],
+      "other": [
+        {
+          "name": "TrainingStatusDashboard.html",
+          "path": "TrainingStatusDashboard.html",
+          "has_ai_navigator": false,
+          "has_navbar": true,
+          "has_topbar": true
+        },
+        {
+          "name": "waste_management_dashboard.html",
+          "path": "waste_management_dashboard.html",
+          "has_ai_navigator": false,
+          "has_navbar": true,
+          "has_topbar": true
+        }
+      ]
+    },
+    "canonical_dashboards": {
+      "employee": "dashboard_employee1.html",
+      "manager": "dashboard_manager.php",
+      "admin": "dashboard_admin.php",
+      "permit": "dashboard_permit.php",
+      "system": "dashboard.php"
+    },
+    "categories": {
+      "dashboards": [
+        "dashboard.php",
+        "dashboard_admin.php",
+        "dashboard_employee.html",
+        "dashboard_employee1.html",
+        "dashboard_employeeArc.html",
+        "dashboard_employeeArcDark.html",
+        "dashboard_manager.php",
+        "dashboard_permit.php",
+        "TrainingStatusDashboard.html",
+        "waste_management_dashboard.html",
+        "api_risk_dashboard.php"
+      ],
+      "lists": [
+        "area_list.php",
+        "assessment_list.php",
+        "CC_List.php",
+        "energy_list.php",
+        "equipment_list.php",
+        "event_list.php",
+        "list_waste_collections.html",
+        "material_list.php",
+        "people_list.php",
+        "permitlist1.php",
+        "permitlist11.php",
+        "permitlist1Origin.php",
+        "permit_list.php",
+        "permit_list0.php",
+        "permit_list1.php",
+        "sop_list.php",
+        "task_list.html",
+        "task_list1.php",
+        "list_waste_collections.php"
+      ],
+      "forms": [
+        "assessment_form.php",
+        "CC_form.html",
+        "change_requests_form.php",
+        "create_permit.html",
+        "create_waste_collection.html",
+        "EventForm.html",
+        "permit_form.php",
+        "check_and_create_tasks.php",
+        "create_document.php",
+        "create_energy.php",
+        "create_entity_task_link.php",
+        "create_equipment.php",
+        "create_hira.php",
+        "create_hira_records.php",
+        "create_missing_hazard_types.php",
+        "create_permit.php",
+        "create_waste_collection.php",
+        "process_form.php"
+      ],
+      "details": [
+        "process_detail.html",
+        "risk_detail.html",
+        "task_details.html",
+        "view_change_control.php",
+        "api_process_detail.php",
+        "api_risk_reviews.php",
+        "fetch_task_details.php",
+        "get_task_details.php"
+      ],
+      "edits": [
+        "assessment_edit.php",
+        "edit_permit.php",
+        "edit_waste_collection.html",
+        "risk_edit.html",
+        "edit_waste_collection.php"
+      ],
+      "views": [],
+      "unknown": [
+        "7ps_registry.html",
+        "add_change_control.php",
+        "agent.html",
+        "batch.php",
+        "ChangeControl.html",
+        "check_uploads.php",
+        "DCMSDiagram.html",
+        "DCMSDiagram1.html",
+        "doccontrol.html",
+        "encrypt.php",
+        "event_center.php",
+        "Fishbone.html",
+        "get_change_controls.php",
+        "glossary.php",
+        "graph_batch.php",
+        "graph_batch2.php",
+        "hira.html",
+        "import_hazards_runner.html",
+        "index.php",
+        "index0.php",
+        "index1.html",
+        "index1.php",
+        "index2.html",
+        "index3.html",
+        "index4.html",
+        "manageQuizQuestions.html",
+        "permit1.php",
+        "planner.php",
+        "planner1.php",
+        "primereryelem.php",
+        "process.php",
+        "ProcessMap.html",
+        "process_map_diagram.html",
+        "PTW.html",
+        "record_event.html",
+        "repo_analysis.html",
+        "riskassessment.html",
+        "RMC.html",
+        "Scroll.html",
+        "Scroll1.html",
+        "Scroll1Temp.html",
+        "Scroll2.html",
+        "Sheener.php",
+        "system_relationship_map.html",
+        "task_calendar.php",
+        "task_center.html",
+        "Template.php",
+        "text1.html",
+        "textmotion copy 2.php",
+        "textmotion copy.php",
+        "textmotion.php",
+        "textmotionLogo.php",
+        "textmotionLogoMorse.php",
+        "textmotionLogoMorse2.php",
+        "textNeon.html",
+        "tree10.html",
+        "tree11BMS.html",
+        "treestructure.html",
+        "update_change_control.php",
+        "WinterDrivingSafety.html",
+        "chat_ai.php",
+        "config.example.php",
+        "config.php",
+        "data_service.php",
+        "debug.php",
+        "6ps_switcher.php",
+        "footer.php",
+        "header.php",
+        "table_card.php",
+        "addquizzquestions.php",
+        "add_assessment.php",
+        "add_change_request.php",
+        "add_employee.php",
+        "add_event.php",
+        "add_permit.php",
+        "add_quiz_options.php",
+        "add_riskassess.php",
+        "add_task.php",
+        "api_7ps.php",
+        "api_process_map.php",
+        "api_risk_lookup.php",
+        "api_risk_register.php",
+        "api_risk_standards.php",
+        "api_tasks.php",
+        "approve_hira.php",
+        "backup.php",
+        "change_password.php",
+        "check_conflicts.php",
+        "check_permit_access.php",
+        "database.php",
+        "db_schema.php",
+        "delete_assessment.php",
+        "delete_attachment.php",
+        "delete_change_control.php",
+        "delete_change_request.php",
+        "delete_document.php",
+        "delete_energy.php",
+        "delete_entity_task_link.php",
+        "delete_equipment.php",
+        "delete_event.php",
+        "delete_permit.php",
+        "delete_person.php",
+        "delete_task.php",
+        "delete_version_attachment.php",
+        "download_attachment.php",
+        "fetch_subtasks.php",
+        "fetch_tasks.php",
+        "finalize_hira.php",
+        "fix_upload_permissions.php",
+        "get_all_areas.php",
+        "get_all_batches copy.php",
+        "get_all_batches.php",
+        "get_all_energy.php",
+        "get_all_equip.php",
+        "get_all_events.php",
+        "get_all_incident.php",
+        "get_all_jobs.php",
+        "get_all_materials.php",
+        "get_all_permits.php",
+        "get_all_projects.php",
+        "get_all_tasks.php",
+        "get_areas.php",
+        "get_assessment.php",
+        "get_audit_logs.php",
+        "get_change_requests.php",
+        "get_control_type.php",
+        "get_date_ranges.php",
+        "get_departments.php",
+        "get_document.php",
+        "get_documents.php",
+        "get_documentversions.php",
+        "get_document_versions.php",
+        "get_entity_task_links.php",
+        "get_event_attachments.php",
+        "get_glossary.php",
+        "get_heatmap.php",
+        "get_navigation_config.php",
+        "get_network.php",
+        "get_people.php",
+        "get_permit.php",
+        "get_permits_by_task.php",
+        "get_permit_attachments.php",
+        "get_person.php",
+        "get_quizzes.php",
+        "get_quiz_attempts.php",
+        "get_quiz_questions.php",
+        "get_sub_permits.php",
+        "get_task.php",
+        "get_tasks_for_dropdown.php",
+        "get_task_questionnaire.php",
+        "get_version_attachments.php",
+        "get_waste_collection.php",
+        "graphdataselect.php",
+        "import_hazards.php",
+        "insert_task.php",
+        "login.php",
+        "log_qr_attempt.php",
+        "migrate_add_event_id.php",
+        "peopleselect.php",
+        "permit_modal.js.php",
+        "processmap.php",
+        "rbac_helper.php",
+        "register.php",
+        "save_quiz_questions.php",
+        "setup_tables.php",
+        "sql_gateway.php",
+        "ss.php",
+        "submit_anonymous_event.php",
+        "submit_quiz_attempt.php",
+        "sync0.php",
+        "syncdown.php",
+        "taskfetch.php",
+        "update_assessment.php",
+        "update_change_request.php",
+        "update_document.php",
+        "update_energy.php",
+        "update_equipment.php",
+        "update_event.php",
+        "update_permit.php",
+        "update_person.php",
+        "update_task.php",
+        "upload_version.php",
+        "upload_version_attachment.php",
+        "waste_management_api.php",
+        "waste_management_reports.php",
+        "waste_management_upload.php",
+        "run_tree10.php",
+        "Schema.html"
+      ],
+      "tests": [
+        "InfographicTest.html",
+        "Permittest.html",
+        "SideNavBarTest.html",
+        "Test.html",
+        "Test1.html",
+        "test_api_endpoints.html",
+        "test_api_path.php",
+        "test_bms_connection.php",
+        "test_risk_register_api.html",
+        "add_permitTest.php",
+        "test_attachments.php",
+        "test_upload_endpoint.php"
+      ],
+      "analytics": [
+        "KPIEHS.php",
+        "process_analytics.html",
+        "api_analytics.php",
+        "get_KPI_EHS.php",
+        "kpi.php",
+        "KPI_EHS.php"
+      ],
+      "training": [
+        "DocVersionTraining.html",
+        "induction.html",
+        "training.html",
+        "trainingAdminPanel.html",
+        "trainingIndex.html",
+        "assign_training.php",
+        "get_training_assignments.php",
+        "update_training_assignment.php"
+      ]
+    },
+    "modules": {
+      "Permits": [
+        "create_permit.html",
+        "dashboard_permit.php",
+        "edit_permit.php",
+        "permit1.php",
+        "permitlist1.php",
+        "permitlist11.php",
+        "permitlist1Origin.php",
+        "Permittest.html",
+        "permit_form.php",
+        "permit_list.php",
+        "permit_list0.php",
+        "permit_list1.php",
+        "PTW.html",
+        "add_permit.php",
+        "add_permitTest.php",
+        "check_permit_access.php",
+        "create_permit.php",
+        "delete_permit.php",
+        "get_all_permits.php",
+        "get_permit.php",
+        "get_permits_by_task.php",
+        "get_permit_attachments.php",
+        "get_sub_permits.php",
+        "permit_modal.js.php",
+        "update_permit.php"
+      ],
+      "Waste": [
+        "create_waste_collection.html",
+        "edit_waste_collection.html",
+        "list_waste_collections.html",
+        "waste_management_dashboard.html",
+        "create_waste_collection.php",
+        "edit_waste_collection.php",
+        "get_waste_collection.php",
+        "list_waste_collections.php",
+        "waste_management_api.php",
+        "waste_management_reports.php",
+        "waste_management_upload.php"
+      ],
+      "Change Control": [
+        "add_change_control.php",
+        "CC_form.html",
+        "CC_List.php",
+        "ChangeControl.html",
+        "change_requests_form.php",
+        "get_change_controls.php",
+        "update_change_control.php",
+        "view_change_control.php",
+        "add_change_request.php",
+        "change_password.php",
+        "delete_change_control.php",
+        "delete_change_request.php",
+        "get_change_requests.php",
+        "update_change_request.php"
+      ],
+      "Risk Assessment": [
+        "assessment_edit.php",
+        "assessment_form.php",
+        "assessment_list.php",
+        "hira.html",
+        "riskassessment.html",
+        "risk_detail.html",
+        "risk_edit.html",
+        "test_risk_register_api.html",
+        "add_assessment.php",
+        "add_riskassess.php",
+        "api_risk_dashboard.php",
+        "api_risk_lookup.php",
+        "api_risk_register.php",
+        "api_risk_reviews.php",
+        "api_risk_standards.php",
+        "approve_hira.php",
+        "create_hira.php",
+        "create_hira_records.php",
+        "delete_assessment.php",
+        "finalize_hira.php",
+        "get_assessment.php",
+        "update_assessment.php"
+      ],
+      "Training": [
+        "DocVersionTraining.html",
+        "induction.html",
+        "training.html",
+        "trainingAdminPanel.html",
+        "trainingIndex.html",
+        "TrainingStatusDashboard.html",
+        "assign_training.php",
+        "get_training_assignments.php",
+        "update_training_assignment.php"
+      ],
+      "Document Control": [
+        "doccontrol.html",
+        "sop_list.php",
+        "create_document.php",
+        "delete_document.php",
+        "get_document.php",
+        "get_documents.php",
+        "get_documentversions.php",
+        "get_document_versions.php",
+        "update_document.php"
+      ],
+      "6Ps": [
+        "area_list.php",
+        "energy_list.php",
+        "equipment_list.php",
+        "material_list.php",
+        "people_list.php",
+        "process.php",
+        "ProcessMap.html",
+        "process_analytics.html",
+        "process_detail.html",
+        "process_map_diagram.html",
+        "api_process_detail.php",
+        "api_process_map.php",
+        "create_energy.php",
+        "create_equipment.php",
+        "delete_energy.php",
+        "delete_equipment.php",
+        "get_all_areas.php",
+        "get_all_energy.php",
+        "get_all_materials.php",
+        "get_areas.php",
+        "get_people.php",
+        "peopleselect.php",
+        "processmap.php",
+        "process_form.php",
+        "update_energy.php",
+        "update_equipment.php"
+      ],
+      "Other": [
+        "7ps_registry.html",
+        "agent.html",
+        "batch.php",
+        "check_uploads.php",
+        "dashboard.php",
+        "dashboard_admin.php",
+        "dashboard_employee.html",
+        "dashboard_employee1.html",
+        "dashboard_employeeArc.html",
+        "dashboard_employeeArcDark.html",
+        "dashboard_manager.php",
+        "DCMSDiagram.html",
+        "DCMSDiagram1.html",
+        "encrypt.php",
+        "EventForm.html",
+        "event_center.php",
+        "event_list.php",
+        "Fishbone.html",
+        "glossary.php",
+        "graph_batch.php",
+        "graph_batch2.php",
+        "import_hazards_runner.html",
+        "index.php",
+        "index0.php",
+        "index1.html",
+        "index1.php",
+        "index2.html",
+        "index3.html",
+        "index4.html",
+        "InfographicTest.html",
+        "KPIEHS.php",
+        "manageQuizQuestions.html",
+        "planner.php",
+        "planner1.php",
+        "primereryelem.php",
+        "record_event.html",
+        "repo_analysis.html",
+        "RMC.html",
+        "Scroll.html",
+        "Scroll1.html",
+        "Scroll1Temp.html",
+        "Scroll2.html",
+        "Sheener.php",
+        "SideNavBarTest.html",
+        "system_relationship_map.html",
+        "task_calendar.php",
+        "task_center.html",
+        "task_details.html",
+        "task_list.html",
+        "task_list1.php",
+        "Template.php",
+        "Test.html",
+        "Test1.html",
+        "test_api_endpoints.html",
+        "test_api_path.php",
+        "test_bms_connection.php",
+        "text1.html",
+        "textmotion copy 2.php",
+        "textmotion copy.php",
+        "textmotion.php",
+        "textmotionLogo.php",
+        "textmotionLogoMorse.php",
+        "textmotionLogoMorse2.php",
+        "textNeon.html",
+        "tree10.html",
+        "tree11BMS.html",
+        "treestructure.html",
+        "WinterDrivingSafety.html",
+        "chat_ai.php",
+        "config.example.php",
+        "config.php",
+        "data_service.php",
+        "debug.php",
+        "6ps_switcher.php",
+        "footer.php",
+        "header.php",
+        "table_card.php",
+        "addquizzquestions.php",
+        "add_employee.php",
+        "add_event.php",
+        "add_quiz_options.php",
+        "add_task.php",
+        "api_7ps.php",
+        "api_analytics.php",
+        "api_tasks.php",
+        "backup.php",
+        "check_and_create_tasks.php",
+        "check_conflicts.php",
+        "create_entity_task_link.php",
+        "create_missing_hazard_types.php",
+        "database.php",
+        "db_schema.php",
+        "delete_attachment.php",
+        "delete_entity_task_link.php",
+        "delete_event.php",
+        "delete_person.php",
+        "delete_task.php",
+        "delete_version_attachment.php",
+        "download_attachment.php",
+        "fetch_subtasks.php",
+        "fetch_tasks.php",
+        "fetch_task_details.php",
+        "fix_upload_permissions.php",
+        "get_all_batches copy.php",
+        "get_all_batches.php",
+        "get_all_equip.php",
+        "get_all_events.php",
+        "get_all_incident.php",
+        "get_all_jobs.php",
+        "get_all_projects.php",
+        "get_all_tasks.php",
+        "get_audit_logs.php",
+        "get_control_type.php",
+        "get_date_ranges.php",
+        "get_departments.php",
+        "get_entity_task_links.php",
+        "get_event_attachments.php",
+        "get_glossary.php",
+        "get_heatmap.php",
+        "get_KPI_EHS.php",
+        "get_navigation_config.php",
+        "get_network.php",
+        "get_person.php",
+        "get_quizzes.php",
+        "get_quiz_attempts.php",
+        "get_quiz_questions.php",
+        "get_task.php",
+        "get_tasks_for_dropdown.php",
+        "get_task_details.php",
+        "get_task_questionnaire.php",
+        "get_version_attachments.php",
+        "graphdataselect.php",
+        "import_hazards.php",
+        "insert_task.php",
+        "login.php",
+        "log_qr_attempt.php",
+        "migrate_add_event_id.php",
+        "rbac_helper.php",
+        "register.php",
+        "save_quiz_questions.php",
+        "setup_tables.php",
+        "sql_gateway.php",
+        "ss.php",
+        "submit_anonymous_event.php",
+        "submit_quiz_attempt.php",
+        "sync0.php",
+        "syncdown.php",
+        "taskfetch.php",
+        "test_attachments.php",
+        "test_upload_endpoint.php",
+        "update_event.php",
+        "update_person.php",
+        "update_task.php",
+        "upload_version.php",
+        "upload_version_attachment.php",
+        "kpi.php",
+        "KPI_EHS.php",
+        "run_tree10.php",
+        "Schema.html"
+      ]
+    },
+    "entity_patterns": {
+      "area": {
+        "list": [
+          "area_list.php"
+        ],
+        "form": [],
+        "create": [],
+        "edit": [],
+        "view": []
+      },
+      "assessment": {
+        "list": [
+          "assessment_list.php"
+        ],
+        "form": [
+          "assessment_form.php"
+        ],
+        "create": [],
+        "edit": [
+          "assessment_edit.php"
+        ],
+        "view": []
+      },
+      "CC": {
+        "list": [],
+        "form": [
+          "CC_form.html"
+        ],
+        "create": [],
+        "edit": [],
+        "view": []
+      },
+      "change_requests": {
+        "list": [],
+        "form": [
+          "change_requests_form.php"
+        ],
+        "create": [],
+        "edit": [],
+        "view": []
+      },
+      "permit": {
+        "list": [
+          "permit_list.php"
+        ],
+        "form": [
+          "permit_form.php"
+        ],
+        "create": [
+          "create_permit.html",
+          "create_permit.php"
+        ],
+        "edit": [],
+        "view": []
+      },
+      "waste_collection": {
+        "list": [],
+        "form": [],
+        "create": [
+          "create_waste_collection.html",
+          "create_waste_collection.php"
+        ],
+        "edit": [],
+        "view": []
+      },
+      "energy": {
+        "list": [
+          "energy_list.php"
+        ],
+        "form": [],
+        "create": [
+          "create_energy.php"
+        ],
+        "edit": [],
+        "view": []
+      },
+      "equipment": {
+        "list": [
+          "equipment_list.php"
+        ],
+        "form": [],
+        "create": [
+          "create_equipment.php"
+        ],
+        "edit": [],
+        "view": []
+      },
+      "event": {
+        "list": [
+          "event_list.php"
+        ],
+        "form": [],
+        "create": [],
+        "edit": [],
+        "view": []
+      },
+      "material": {
+        "list": [
+          "material_list.php"
+        ],
+        "form": [],
+        "create": [],
+        "edit": [],
+        "view": []
+      },
+      "people": {
+        "list": [
+          "people_list.php"
+        ],
+        "form": [],
+        "create": [],
+        "edit": [],
+        "view": []
+      },
+      "risk": {
+        "list": [],
+        "form": [],
+        "create": [],
+        "edit": [
+          "risk_edit.html"
+        ],
+        "view": []
+      },
+      "sop": {
+        "list": [
+          "sop_list.php"
+        ],
+        "form": [],
+        "create": [],
+        "edit": [],
+        "view": []
+      },
+      "task": {
+        "list": [
+          "task_list.html"
+        ],
+        "form": [],
+        "create": [],
+        "edit": [],
+        "view": []
+      },
+      "check_and_tasks": {
+        "list": [],
+        "form": [],
+        "create": [
+          "check_and_create_tasks.php"
+        ],
+        "edit": [],
+        "view": []
+      },
+      "document": {
+        "list": [],
+        "form": [],
+        "create": [
+          "create_document.php"
+        ],
+        "edit": [],
+        "view": []
+      },
+      "entity_task_link": {
+        "list": [],
+        "form": [],
+        "create": [
+          "create_entity_task_link.php"
+        ],
+        "edit": [],
+        "view": []
+      },
+      "hira": {
+        "list": [],
+        "form": [],
+        "create": [
+          "create_hira.php"
+        ],
+        "edit": [],
+        "view": []
+      },
+      "hira_records": {
+        "list": [],
+        "form": [],
+        "create": [
+          "create_hira_records.php"
+        ],
+        "edit": [],
+        "view": []
+      },
+      "missing_hazard_types": {
+        "list": [],
+        "form": [],
+        "create": [
+          "create_missing_hazard_types.php"
+        ],
+        "edit": [],
+        "view": []
+      },
+      "process": {
+        "list": [],
+        "form": [
+          "process_form.php"
+        ],
+        "create": [],
+        "edit": [],
+        "view": []
+      }
+    },
+    "sixps_structure": {
+      "People": [
+        "people_list.php"
+      ],
+      "Products": [
+        "material_list.php"
+      ],
+      "Places": [
+        "area_list.php"
+      ],
+      "Plants": [
+        "equipment_list.php"
+      ],
+      "Processes": [
+        "process_map_diagram.html",
+        "sop_list.php"
+      ],
+      "Power": [
+        "energy_list.php"
+      ]
+    },
+    "navigation_roots": [
+      "7ps_registry.html",
+      "add_change_control.php",
+      "agent.html",
+      "assessment_edit.php",
+      "assessment_form.php",
+      "assessment_list.php",
+      "batch.php",
+      "CC_form.html",
+      "ChangeControl.html",
+      "check_uploads.php"
+    ]
+  },
+  "refactoring_actions": {
+    "step_3_consolidate_dashboards": {
+      "canonical": {
+        "employee": "dashboard_employee1.html",
+        "manager": "dashboard_manager.php",
+        "admin": "dashboard_admin.php",
+        "permit": "dashboard_permit.php",
+        "system": "dashboard.php"
+      },
+      "deprecated": {
+        "employee": [
+          "dashboard_employee.html",
+          "dashboard_employeeArc.html",
+          "dashboard_employeeArcDark.html"
+        ],
+        "manager": [],
+        "admin": [],
+        "permit": [],
+        "system": [
+          "api_risk_dashboard.php"
+        ],
+        "other": [
+          "TrainingStatusDashboard.html",
+          "waste_management_dashboard.html"
+        ]
+      },
+      "actions": [
+        "Update navigation to route to canonical dashboards only",
+        "Mark deprecated dashboards as deprecated",
+        "Remove menu links to deprecated dashboards",
+        "Keep deprecated dashboards accessible via direct URL for rollback"
+      ]
+    },
+    "step_4_standardize_entities": {
+      "entities_needing_consolidation": {
+        "permit": {
+          "list": [
+            "permit_list.php"
+          ],
+          "form": [
+            "permit_form.php"
+          ],
+          "create": [
+            "create_permit.html",
+            "create_permit.php"
+          ],
+          "edit": [],
+          "view": []
+        },
+        "waste_collection": {
+          "list": [],
+          "form": [],
+          "create": [
+            "create_waste_collection.html",
+            "create_waste_collection.php"
+          ],
+          "edit": [],
+          "view": []
+        },
+        "energy": {
+          "list": [
+            "energy_list.php"
+          ],
+          "form": [],
+          "create": [
+            "create_energy.php"
+          ],
+          "edit": [],
+          "view": []
+        },
+        "equipment": {
+          "list": [
+            "equipment_list.php"
+          ],
+          "form": [],
+          "create": [
+            "create_equipment.php"
+          ],
+          "edit": [],
+          "view": []
+        },
+        "check_and_tasks": {
+          "list": [],
+          "form": [],
+          "create": [
+            "check_and_create_tasks.php"
+          ],
+          "edit": [],
+          "view": []
+        },
+        "document": {
+          "list": [],
+          "form": [],
+          "create": [
+            "create_document.php"
+          ],
+          "edit": [],
+          "view": []
+        },
+        "entity_task_link": {
+          "list": [],
+          "form": [],
+          "create": [
+            "create_entity_task_link.php"
+          ],
+          "edit": [],
+          "view": []
+        },
+        "hira": {
+          "list": [],
+          "form": [],
+          "create": [
+            "create_hira.php"
+          ],
+          "edit": [],
+          "view": []
+        },
+        "hira_records": {
+          "list": [],
+          "form": [],
+          "create": [
+            "create_hira_records.php"
+          ],
+          "edit": [],
+          "view": []
+        },
+        "missing_hazard_types": {
+          "list": [],
+          "form": [],
+          "create": [
+            "create_missing_hazard_types.php"
+          ],
+          "edit": [],
+          "view": []
+        }
+      },
+      "recommended_patterns": {
+        "area": {
+          "list": "area_list.php",
+          "form": null,
+          "edit": null,
+          "view": null
+        },
+        "assessment": {
+          "list": "assessment_list.php",
+          "form": "assessment_form.php",
+          "edit": "assessment_edit.php",
+          "view": null
+        },
+        "CC": {
+          "list": null,
+          "form": "CC_form.html",
+          "edit": null,
+          "view": null
+        },
+        "change_requests": {
+          "list": null,
+          "form": "change_requests_form.php",
+          "edit": null,
+          "view": null
+        },
+        "permit": {
+          "list": "permit_list.php",
+          "form": "permit_form.php",
+          "edit": null,
+          "view": null
+        },
+        "waste_collection": {
+          "list": null,
+          "form": "create_waste_collection.html",
+          "edit": null,
+          "view": null
+        },
+        "energy": {
+          "list": "energy_list.php",
+          "form": "create_energy.php",
+          "edit": null,
+          "view": null
+        },
+        "equipment": {
+          "list": "equipment_list.php",
+          "form": "create_equipment.php",
+          "edit": null,
+          "view": null
+        },
+        "event": {
+          "list": "event_list.php",
+          "form": null,
+          "edit": null,
+          "view": null
+        },
+        "material": {
+          "list": "material_list.php",
+          "form": null,
+          "edit": null,
+          "view": null
+        },
+        "people": {
+          "list": "people_list.php",
+          "form": null,
+          "edit": null,
+          "view": null
+        },
+        "risk": {
+          "list": null,
+          "form": null,
+          "edit": "risk_edit.html",
+          "view": null
+        },
+        "sop": {
+          "list": "sop_list.php",
+          "form": null,
+          "edit": null,
+          "view": null
+        },
+        "task": {
+          "list": "task_list.html",
+          "form": null,
+          "edit": null,
+          "view": null
+        },
+        "check_and_tasks": {
+          "list": null,
+          "form": "check_and_create_tasks.php",
+          "edit": null,
+          "view": null
+        },
+        "document": {
+          "list": null,
+          "form": "create_document.php",
+          "edit": null,
+          "view": null
+        },
+        "entity_task_link": {
+          "list": null,
+          "form": "create_entity_task_link.php",
+          "edit": null,
+          "view": null
+        },
+        "hira": {
+          "list": null,
+          "form": "create_hira.php",
+          "edit": null,
+          "view": null
+        },
+        "hira_records": {
+          "list": null,
+          "form": "create_hira_records.php",
+          "edit": null,
+          "view": null
+        },
+        "missing_hazard_types": {
+          "list": null,
+          "form": "create_missing_hazard_types.php",
+          "edit": null,
+          "view": null
+        },
+        "process": {
+          "list": null,
+          "form": "process_form.php",
+          "edit": null,
+          "view": null
+        }
+      }
+    },
+    "step_5_6ps_streamline": {
+      "current_6ps_pages": {
+        "People": [
+          {
+            "file_name": "people_list.php",
+            "file_path": "people_list.php",
+            "title": "People List",
+            "has_ai_navigator": true,
+            "links_to": []
+          },
+          {
+            "file_name": "get_people.php",
+            "file_path": "php/get_people.php",
+            "title": "get_people.php",
+            "has_ai_navigator": false,
+            "links_to": []
+          },
+          {
+            "file_name": "peopleselect.php",
+            "file_path": "php/peopleselect.php",
+            "title": "peopleselect.php",
+            "has_ai_navigator": false,
+            "links_to": []
+          }
+        ],
+        "Products": [
+          {
+            "file_name": "material_list.php",
+            "file_path": "material_list.php",
+            "title": "Material List",
+            "has_ai_navigator": true,
+            "links_to": []
+          },
+          {
+            "file_name": "get_all_materials.php",
+            "file_path": "php/get_all_materials.php",
+            "title": "get_all_materials.php",
+            "has_ai_navigator": false,
+            "links_to": []
+          }
+        ],
+        "Places": [
+          {
+            "file_name": "area_list.php",
+            "file_path": "area_list.php",
+            "title": "Environment/Area List",
+            "has_ai_navigator": true,
+            "links_to": []
+          },
+          {
+            "file_name": "get_all_areas.php",
+            "file_path": "php/get_all_areas.php",
+            "title": "get_all_areas.php",
+            "has_ai_navigator": false,
+            "links_to": []
+          },
+          {
+            "file_name": "get_areas.php",
+            "file_path": "php/get_areas.php",
+            "title": "get_areas.php",
+            "has_ai_navigator": false,
+            "links_to": []
+          }
+        ],
+        "Plants": [
+          {
+            "file_name": "equipment_list.php",
+            "file_path": "equipment_list.php",
+            "title": "Equipment List",
+            "has_ai_navigator": true,
+            "links_to": []
+          },
+          {
+            "file_name": "create_equipment.php",
+            "file_path": "php/create_equipment.php",
+            "title": "create_equipment.php",
+            "has_ai_navigator": false,
+            "links_to": []
+          },
+          {
+            "file_name": "delete_equipment.php",
+            "file_path": "php/delete_equipment.php",
+            "title": "delete_equipment.php",
+            "has_ai_navigator": false,
+            "links_to": []
+          },
+          {
+            "file_name": "update_equipment.php",
+            "file_path": "php/update_equipment.php",
+            "title": "update_equipment.php",
+            "has_ai_navigator": false,
+            "links_to": []
+          }
+        ],
+        "Processes": [
+          {
+            "file_name": "process.php",
+            "file_path": "process.php",
+            "title": "Process List",
+            "has_ai_navigator": false,
+            "links_to": []
+          },
+          {
+            "file_name": "ProcessMap.html",
+            "file_path": "ProcessMap.html",
+            "title": "Process Map",
+            "has_ai_navigator": false,
+            "links_to": []
+          },
+          {
+            "file_name": "process_analytics.html",
+            "file_path": "process_analytics.html",
+            "title": "Process Analytics - Process Management System",
+            "has_ai_navigator": false,
+            "links_to": []
+          },
+          {
+            "file_name": "process_detail.html",
+            "file_path": "process_detail.html",
+            "title": "Process Detail - Process Management System",
+            "has_ai_navigator": false,
+            "links_to": []
+          },
+          {
+            "file_name": "process_map_diagram.html",
+            "file_path": "process_map_diagram.html",
+            "title": "Process Map - Process Management System",
+            "has_ai_navigator": true,
+            "links_to": []
+          },
+          {
+            "file_name": "sop_list.php",
+            "file_path": "sop_list.php",
+            "title": "SOP List",
+            "has_ai_navigator": true,
+            "links_to": []
+          },
+          {
+            "file_name": "api_process_detail.php",
+            "file_path": "php/api_process_detail.php",
+            "title": "api_process_detail.php",
+            "has_ai_navigator": false,
+            "links_to": []
+          },
+          {
+            "file_name": "api_process_map.php",
+            "file_path": "php/api_process_map.php",
+            "title": "api_process_map.php",
+            "has_ai_navigator": false,
+            "links_to": []
+          },
+          {
+            "file_name": "processmap.php",
+            "file_path": "php/processmap.php",
+            "title": "processmap.php",
+            "has_ai_navigator": false,
+            "links_to": []
+          },
+          {
+            "file_name": "process_form.php",
+            "file_path": "php/process_form.php",
+            "title": "process_form.php",
+            "has_ai_navigator": false,
+            "links_to": []
+          }
+        ],
+        "Power": [
+          {
+            "file_name": "energy_list.php",
+            "file_path": "energy_list.php",
+            "title": "Energy List",
+            "has_ai_navigator": true,
+            "links_to": []
+          },
+          {
+            "file_name": "create_energy.php",
+            "file_path": "php/create_energy.php",
+            "title": "create_energy.php",
+            "has_ai_navigator": false,
+            "links_to": []
+          },
+          {
+            "file_name": "delete_energy.php",
+            "file_path": "php/delete_energy.php",
+            "title": "delete_energy.php",
+            "has_ai_navigator": false,
+            "links_to": []
+          },
+          {
+            "file_name": "get_all_energy.php",
+            "file_path": "php/get_all_energy.php",
+            "title": "get_all_energy.php",
+            "has_ai_navigator": false,
+            "links_to": []
+          },
+          {
+            "file_name": "update_energy.php",
+            "file_path": "php/update_energy.php",
+            "title": "update_energy.php",
+            "has_ai_navigator": false,
+            "links_to": []
+          }
+        ]
+      },
+      "recommendations": [
+        "Make 7ps_registry.html the central landing page",
+        "Standardize navigation buttons across all 6Ps list pages",
+        "Replace cross-links with 6Ps switcher control",
+        "Ensure all 6Ps lists have AI Navigator"
+      ]
+    },
+    "step_6_clean_legacy": {
+      "unreferenced_pages": [
+        {
+          "name": "7ps_registry.html",
+          "path": "7ps_registry.html",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "add_change_control.php",
+          "path": "php/add_change_control.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "agent.html",
+          "path": "agent.html",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "batch.php",
+          "path": "batch.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "ChangeControl.html",
+          "path": "ChangeControl.html",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "check_uploads.php",
+          "path": "check_uploads.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "DCMSDiagram.html",
+          "path": "DCMSDiagram.html",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "DCMSDiagram1.html",
+          "path": "DCMSDiagram1.html",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "doccontrol.html",
+          "path": "doccontrol.html",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "DocVersionTraining.html",
+          "path": "DocVersionTraining.html",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "encrypt.php",
+          "path": "encrypt.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "event_center.php",
+          "path": "event_center.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "Fishbone.html",
+          "path": "Fishbone.html",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "get_change_controls.php",
+          "path": "php/get_change_controls.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "glossary.php",
+          "path": "glossary.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "graph_batch2.php",
+          "path": "graph_batch2.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "hira.html",
+          "path": "hira.html",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "import_hazards_runner.html",
+          "path": "import_hazards_runner.html",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "index0.php",
+          "path": "index0.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "index1.php",
+          "path": "index1.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "InfographicTest.html",
+          "path": "InfographicTest.html",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "permit1.php",
+          "path": "permit1.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "Permittest.html",
+          "path": "Permittest.html",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "planner.php",
+          "path": "planner.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "planner1.php",
+          "path": "planner1.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "primereryelem.php",
+          "path": "primereryelem.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "process.php",
+          "path": "process.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "ProcessMap.html",
+          "path": "ProcessMap.html",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "process_analytics.html",
+          "path": "process_analytics.html",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "PTW.html",
+          "path": "PTW.html",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "repo_analysis.html",
+          "path": "repo_analysis.html",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "riskassessment.html",
+          "path": "riskassessment.html",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "Scroll.html",
+          "path": "Scroll.html",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "Scroll1.html",
+          "path": "Scroll1.html",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "Scroll1Temp.html",
+          "path": "Scroll1Temp.html",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "Scroll2.html",
+          "path": "Scroll2.html",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "Sheener.php",
+          "path": "Sheener.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "SideNavBarTest.html",
+          "path": "SideNavBarTest.html",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "task_calendar.php",
+          "path": "task_calendar.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "task_center.html",
+          "path": "task_center.html",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "Template.php",
+          "path": "Template.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "Test.html",
+          "path": "Test.html",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "Test1.html",
+          "path": "Test1.html",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "test_api_endpoints.html",
+          "path": "test_api_endpoints.html",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "test_api_path.php",
+          "path": "test_api_path.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "test_bms_connection.php",
+          "path": "test_bms_connection.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "test_risk_register_api.html",
+          "path": "test_risk_register_api.html",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "text1.html",
+          "path": "text1.html",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "textmotion copy 2.php",
+          "path": "textmotion copy 2.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "textmotion copy.php",
+          "path": "textmotion copy.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "textmotion.php",
+          "path": "textmotion.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "textmotionLogo.php",
+          "path": "textmotionLogo.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "textmotionLogoMorse.php",
+          "path": "textmotionLogoMorse.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "textmotionLogoMorse2.php",
+          "path": "textmotionLogoMorse2.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "textNeon.html",
+          "path": "textNeon.html",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "training.html",
+          "path": "training.html",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "tree11BMS.html",
+          "path": "tree11BMS.html",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "treestructure.html",
+          "path": "treestructure.html",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "update_change_control.php",
+          "path": "php/update_change_control.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "WinterDrivingSafety.html",
+          "path": "WinterDrivingSafety.html",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "chat_ai.php",
+          "path": "api/chat_ai.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "config.example.php",
+          "path": "api/config.example.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "config.php",
+          "path": "api/config.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "data_service.php",
+          "path": "api/data_service.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "debug.php",
+          "path": "api/debug.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "6ps_switcher.php",
+          "path": "includes/6ps_switcher.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "footer.php",
+          "path": "includes/footer.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "header.php",
+          "path": "includes/header.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "table_card.php",
+          "path": "includes/table_card.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "addquizzquestions.php",
+          "path": "php/addquizzquestions.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "add_assessment.php",
+          "path": "php/add_assessment.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "add_change_request.php",
+          "path": "php/add_change_request.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "add_employee.php",
+          "path": "php/add_employee.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "add_event.php",
+          "path": "php/add_event.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "add_permit.php",
+          "path": "php/add_permit.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "add_permitTest.php",
+          "path": "php/add_permitTest.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "add_quiz_options.php",
+          "path": "php/add_quiz_options.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "add_riskassess.php",
+          "path": "php/add_riskassess.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "add_task.php",
+          "path": "php/add_task.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "api_7ps.php",
+          "path": "php/api_7ps.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "api_analytics.php",
+          "path": "php/api_analytics.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "api_process_map.php",
+          "path": "php/api_process_map.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "api_risk_lookup.php",
+          "path": "php/api_risk_lookup.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "api_risk_register.php",
+          "path": "php/api_risk_register.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "api_risk_standards.php",
+          "path": "php/api_risk_standards.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "api_tasks.php",
+          "path": "php/api_tasks.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "approve_hira.php",
+          "path": "php/approve_hira.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "assign_training.php",
+          "path": "php/assign_training.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "backup.php",
+          "path": "php/backup.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "change_password.php",
+          "path": "php/change_password.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "check_conflicts.php",
+          "path": "php/check_conflicts.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "check_permit_access.php",
+          "path": "php/check_permit_access.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "database.php",
+          "path": "php/database.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "db_schema.php",
+          "path": "php/db_schema.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "delete_assessment.php",
+          "path": "php/delete_assessment.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "delete_attachment.php",
+          "path": "php/delete_attachment.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "delete_change_control.php",
+          "path": "php/delete_change_control.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "delete_change_request.php",
+          "path": "php/delete_change_request.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "delete_document.php",
+          "path": "php/delete_document.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "delete_energy.php",
+          "path": "php/delete_energy.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "delete_entity_task_link.php",
+          "path": "php/delete_entity_task_link.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "delete_equipment.php",
+          "path": "php/delete_equipment.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "delete_event.php",
+          "path": "php/delete_event.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "delete_permit.php",
+          "path": "php/delete_permit.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "delete_person.php",
+          "path": "php/delete_person.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "delete_task.php",
+          "path": "php/delete_task.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "delete_version_attachment.php",
+          "path": "php/delete_version_attachment.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "download_attachment.php",
+          "path": "php/download_attachment.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "fetch_subtasks.php",
+          "path": "php/fetch_subtasks.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "fetch_tasks.php",
+          "path": "php/fetch_tasks.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "finalize_hira.php",
+          "path": "php/finalize_hira.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "fix_upload_permissions.php",
+          "path": "php/fix_upload_permissions.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "get_all_areas.php",
+          "path": "php/get_all_areas.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "get_all_batches copy.php",
+          "path": "php/get_all_batches copy.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "get_all_batches.php",
+          "path": "php/get_all_batches.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "get_all_energy.php",
+          "path": "php/get_all_energy.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "get_all_equip.php",
+          "path": "php/get_all_equip.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "get_all_events.php",
+          "path": "php/get_all_events.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "get_all_incident.php",
+          "path": "php/get_all_incident.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "get_all_jobs.php",
+          "path": "php/get_all_jobs.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "get_all_materials.php",
+          "path": "php/get_all_materials.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "get_all_permits.php",
+          "path": "php/get_all_permits.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "get_all_projects.php",
+          "path": "php/get_all_projects.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "get_all_tasks.php",
+          "path": "php/get_all_tasks.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "get_areas.php",
+          "path": "php/get_areas.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "get_assessment.php",
+          "path": "php/get_assessment.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "get_audit_logs.php",
+          "path": "php/get_audit_logs.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "get_change_requests.php",
+          "path": "php/get_change_requests.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "get_control_type.php",
+          "path": "php/get_control_type.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "get_date_ranges.php",
+          "path": "php/get_date_ranges.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "get_departments.php",
+          "path": "php/get_departments.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "get_document.php",
+          "path": "php/get_document.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "get_documents.php",
+          "path": "php/get_documents.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "get_documentversions.php",
+          "path": "php/get_documentversions.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "get_document_versions.php",
+          "path": "php/get_document_versions.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "get_entity_task_links.php",
+          "path": "php/get_entity_task_links.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "get_event_attachments.php",
+          "path": "php/get_event_attachments.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "get_glossary.php",
+          "path": "php/get_glossary.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "get_heatmap.php",
+          "path": "php/get_heatmap.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "get_KPI_EHS.php",
+          "path": "php/get_KPI_EHS.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "get_navigation_config.php",
+          "path": "php/get_navigation_config.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "get_network.php",
+          "path": "php/get_network.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "get_people.php",
+          "path": "php/get_people.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "get_permit.php",
+          "path": "php/get_permit.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "get_permits_by_task.php",
+          "path": "php/get_permits_by_task.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "get_permit_attachments.php",
+          "path": "php/get_permit_attachments.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "get_person.php",
+          "path": "php/get_person.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "get_quizzes.php",
+          "path": "php/get_quizzes.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "get_quiz_attempts.php",
+          "path": "php/get_quiz_attempts.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "get_quiz_questions.php",
+          "path": "php/get_quiz_questions.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "get_sub_permits.php",
+          "path": "php/get_sub_permits.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "get_task.php",
+          "path": "php/get_task.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "get_tasks_for_dropdown.php",
+          "path": "php/get_tasks_for_dropdown.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "get_task_questionnaire.php",
+          "path": "php/get_task_questionnaire.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "get_training_assignments.php",
+          "path": "php/get_training_assignments.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "get_version_attachments.php",
+          "path": "php/get_version_attachments.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "get_waste_collection.php",
+          "path": "php/get_waste_collection.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "graphdataselect.php",
+          "path": "php/graphdataselect.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "import_hazards.php",
+          "path": "php/import_hazards.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "insert_task.php",
+          "path": "php/insert_task.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "login.php",
+          "path": "php/login.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "log_qr_attempt.php",
+          "path": "php/log_qr_attempt.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "migrate_add_event_id.php",
+          "path": "php/migrate_add_event_id.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "peopleselect.php",
+          "path": "php/peopleselect.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "permit_modal.js.php",
+          "path": "php/permit_modal.js.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "processmap.php",
+          "path": "php/processmap.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "rbac_helper.php",
+          "path": "php/rbac_helper.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "register.php",
+          "path": "php/register.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "save_quiz_questions.php",
+          "path": "php/save_quiz_questions.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "setup_tables.php",
+          "path": "php/setup_tables.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "sql_gateway.php",
+          "path": "php/sql_gateway.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "ss.php",
+          "path": "php/ss.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "submit_anonymous_event.php",
+          "path": "php/submit_anonymous_event.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "submit_quiz_attempt.php",
+          "path": "php/submit_quiz_attempt.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "sync0.php",
+          "path": "php/sync0.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "syncdown.php",
+          "path": "php/php/syncdown.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "taskfetch.php",
+          "path": "php/taskfetch.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "test_attachments.php",
+          "path": "php/test_attachments.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "test_upload_endpoint.php",
+          "path": "php/test_upload_endpoint.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "update_assessment.php",
+          "path": "php/update_assessment.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "update_change_request.php",
+          "path": "php/update_change_request.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "update_document.php",
+          "path": "php/update_document.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "update_energy.php",
+          "path": "php/update_energy.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "update_equipment.php",
+          "path": "php/update_equipment.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "update_event.php",
+          "path": "php/update_event.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "update_permit.php",
+          "path": "php/update_permit.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "update_person.php",
+          "path": "php/update_person.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "update_task.php",
+          "path": "php/update_task.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "update_training_assignment.php",
+          "path": "php/update_training_assignment.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "upload_version.php",
+          "path": "php/upload_version.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "upload_version_attachment.php",
+          "path": "php/upload_version_attachment.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "waste_management_api.php",
+          "path": "php/waste_management_api.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "waste_management_reports.php",
+          "path": "php/waste_management_reports.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "waste_management_upload.php",
+          "path": "php/waste_management_upload.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "kpi.php",
+          "path": "php/obsolete/kpi.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "KPI_EHS.php",
+          "path": "php/obsolete/KPI_EHS.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "run_tree10.php",
+          "path": "PY/run_tree10.php",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        },
+        {
+          "name": "Schema.html",
+          "path": "PY/Schema.html",
+          "type": "unknown",
+          "reason": "No incoming links and test/unknown type"
+        }
+      ],
+      "test_pages": [
+        "InfographicTest.html",
+        "Permittest.html",
+        "SideNavBarTest.html",
+        "Test.html",
+        "Test1.html",
+        "test_api_endpoints.html",
+        "test_api_path.php",
+        "test_bms_connection.php",
+        "test_risk_register_api.html",
+        "add_permitTest.php",
+        "test_attachments.php",
+        "test_upload_endpoint.php"
+      ],
+      "unknown_pages": [
+        "7ps_registry.html",
+        "add_change_control.php",
+        "agent.html",
+        "batch.php",
+        "ChangeControl.html",
+        "check_uploads.php",
+        "DCMSDiagram.html",
+        "DCMSDiagram1.html",
+        "doccontrol.html",
+        "encrypt.php",
+        "event_center.php",
+        "Fishbone.html",
+        "get_change_controls.php",
+        "glossary.php",
+        "graph_batch.php",
+        "graph_batch2.php",
+        "hira.html",
+        "import_hazards_runner.html",
+        "index.php",
+        "index0.php",
+        "index1.html",
+        "index1.php",
+        "index2.html",
+        "index3.html",
+        "index4.html",
+        "manageQuizQuestions.html",
+        "permit1.php",
+        "planner.php",
+        "planner1.php",
+        "primereryelem.php",
+        "process.php",
+        "ProcessMap.html",
+        "process_map_diagram.html",
+        "PTW.html",
+        "record_event.html",
+        "repo_analysis.html",
+        "riskassessment.html",
+        "RMC.html",
+        "Scroll.html",
+        "Scroll1.html",
+        "Scroll1Temp.html",
+        "Scroll2.html",
+        "Sheener.php",
+        "system_relationship_map.html",
+        "task_calendar.php",
+        "task_center.html",
+        "Template.php",
+        "text1.html",
+        "textmotion copy 2.php",
+        "textmotion copy.php",
+        "textmotion.php",
+        "textmotionLogo.php",
+        "textmotionLogoMorse.php",
+        "textmotionLogoMorse2.php",
+        "textNeon.html",
+        "tree10.html",
+        "tree11BMS.html",
+        "treestructure.html",
+        "update_change_control.php",
+        "WinterDrivingSafety.html",
+        "chat_ai.php",
+        "config.example.php",
+        "config.php",
+        "data_service.php",
+        "debug.php",
+        "6ps_switcher.php",
+        "footer.php",
+        "header.php",
+        "table_card.php",
+        "addquizzquestions.php",
+        "add_assessment.php",
+        "add_change_request.php",
+        "add_employee.php",
+        "add_event.php",
+        "add_permit.php",
+        "add_quiz_options.php",
+        "add_riskassess.php",
+        "add_task.php",
+        "api_7ps.php",
+        "api_process_map.php",
+        "api_risk_lookup.php",
+        "api_risk_register.php",
+        "api_risk_standards.php",
+        "api_tasks.php",
+        "approve_hira.php",
+        "backup.php",
+        "change_password.php",
+        "check_conflicts.php",
+        "check_permit_access.php",
+        "database.php",
+        "db_schema.php",
+        "delete_assessment.php",
+        "delete_attachment.php",
+        "delete_change_control.php",
+        "delete_change_request.php",
+        "delete_document.php",
+        "delete_energy.php",
+        "delete_entity_task_link.php",
+        "delete_equipment.php",
+        "delete_event.php",
+        "delete_permit.php",
+        "delete_person.php",
+        "delete_task.php",
+        "delete_version_attachment.php",
+        "download_attachment.php",
+        "fetch_subtasks.php",
+        "fetch_tasks.php",
+        "finalize_hira.php",
+        "fix_upload_permissions.php",
+        "get_all_areas.php",
+        "get_all_batches copy.php",
+        "get_all_batches.php",
+        "get_all_energy.php",
+        "get_all_equip.php",
+        "get_all_events.php",
+        "get_all_incident.php",
+        "get_all_jobs.php",
+        "get_all_materials.php",
+        "get_all_permits.php",
+        "get_all_projects.php",
+        "get_all_tasks.php",
+        "get_areas.php",
+        "get_assessment.php",
+        "get_audit_logs.php",
+        "get_change_requests.php",
+        "get_control_type.php",
+        "get_date_ranges.php",
+        "get_departments.php",
+        "get_document.php",
+        "get_documents.php",
+        "get_documentversions.php",
+        "get_document_versions.php",
+        "get_entity_task_links.php",
+        "get_event_attachments.php",
+        "get_glossary.php",
+        "get_heatmap.php",
+        "get_navigation_config.php",
+        "get_network.php",
+        "get_people.php",
+        "get_permit.php",
+        "get_permits_by_task.php",
+        "get_permit_attachments.php",
+        "get_person.php",
+        "get_quizzes.php",
+        "get_quiz_attempts.php",
+        "get_quiz_questions.php",
+        "get_sub_permits.php",
+        "get_task.php",
+        "get_tasks_for_dropdown.php",
+        "get_task_questionnaire.php",
+        "get_version_attachments.php",
+        "get_waste_collection.php",
+        "graphdataselect.php",
+        "import_hazards.php",
+        "insert_task.php",
+        "login.php",
+        "log_qr_attempt.php",
+        "migrate_add_event_id.php",
+        "peopleselect.php",
+        "permit_modal.js.php",
+        "processmap.php",
+        "rbac_helper.php",
+        "register.php",
+        "save_quiz_questions.php",
+        "setup_tables.php",
+        "sql_gateway.php",
+        "ss.php",
+        "submit_anonymous_event.php",
+        "submit_quiz_attempt.php",
+        "sync0.php",
+        "syncdown.php",
+        "taskfetch.php",
+        "update_assessment.php",
+        "update_change_request.php",
+        "update_document.php",
+        "update_energy.php",
+        "update_equipment.php",
+        "update_event.php",
+        "update_permit.php",
+        "update_person.php",
+        "update_task.php",
+        "upload_version.php",
+        "upload_version_attachment.php",
+        "waste_management_api.php",
+        "waste_management_reports.php",
+        "waste_management_upload.php",
+        "run_tree10.php",
+        "Schema.html"
+      ],
+      "actions": [
+        "Archive unreferenced test/legacy pages",
+        "Remove from production if not needed",
+        "Hide from navigation if needed for internal demo"
+      ]
+    },
+    "step_7_component_reuse": {
+      "common_classes": {
+        "table": [
+          "table-card",
+          "task-table-container",
+          "task-table"
+        ],
+        "modal": [
+          "modal-header",
+          "modal-overlay",
+          "modal-form-grid",
+          "modal-content",
+          "modal-view-content",
+          "modal-footer",
+          "modal-body",
+          "modal",
+          "modal-dialog",
+          "modal-title",
+          "modal-lg"
+        ],
+        "header": [
+          "header-actions",
+          "page-header",
+          "modal-header",
+          "header-icons",
+          "actions-header",
+          "standard-header",
+          "header-left",
+          "header",
+          "card-header"
+        ],
+        "card": [
+          "table-card",
+          "card",
+          "card-header"
+        ],
+        "button": [
+          "btn-primary",
+          "btn-success",
+          "btn",
+          "btn-secondary"
+        ]
+      },
+      "common_ids": {
+        "navbar": [
+          "navbar",
+          "ai-navigator-container"
+        ],
+        "topbar": [
+          "topbar"
+        ],
+        "ai_navigator": [
+          "ai-navigator-container"
+        ]
+      },
+      "recommendations": [
+        "Extract header, navbar, topbar into PHP includes",
+        "Create reusable modal snippets",
+        "Centralize script/stylesheet loading through layout",
+        "Create shared table card component"
+      ]
+    },
+    "step_8_ai_navigator": {
+      "current_usage": {
+        "with_ai": 23,
+        "without_ai_but_should_have": 18
+      },
+      "pages_needing_ai": [
+        {
+          "name": "dashboard.php",
+          "type": "dashboard",
+          "path": "php/dashboard.php"
+        },
+        {
+          "name": "dashboard_admin.php",
+          "type": "dashboard",
+          "path": "dashboard_admin.php"
+        },
+        {
+          "name": "dashboard_employee.html",
+          "type": "dashboard",
+          "path": "dashboard_employee.html"
+        },
+        {
+          "name": "dashboard_employee1.html",
+          "type": "dashboard",
+          "path": "dashboard_employee1.html"
+        },
+        {
+          "name": "dashboard_employeeArc.html",
+          "type": "dashboard",
+          "path": "dashboard_employeeArc.html"
+        },
+        {
+          "name": "dashboard_employeeArcDark.html",
+          "type": "dashboard",
+          "path": "dashboard_employeeArcDark.html"
+        },
+        {
+          "name": "dashboard_manager.php",
+          "type": "dashboard",
+          "path": "dashboard_manager.php"
+        },
+        {
+          "name": "dashboard_permit.php",
+          "type": "dashboard",
+          "path": "dashboard_permit.php"
+        },
+        {
+          "name": "permitlist1.php",
+          "type": "list",
+          "path": "permitlist1.php"
+        },
+        {
+          "name": "permitlist11.php",
+          "type": "list",
+          "path": "permitlist11.php"
+        },
+        {
+          "name": "permitlist1Origin.php",
+          "type": "list",
+          "path": "permitlist1Origin.php"
+        },
+        {
+          "name": "permit_list0.php",
+          "type": "list",
+          "path": "permit_list0.php"
+        },
+        {
+          "name": "permit_list1.php",
+          "type": "list",
+          "path": "permit_list1.php"
+        },
+        {
+          "name": "task_list1.php",
+          "type": "list",
+          "path": "task_list1.php"
+        },
+        {
+          "name": "TrainingStatusDashboard.html",
+          "type": "dashboard",
+          "path": "TrainingStatusDashboard.html"
+        },
+        {
+          "name": "waste_management_dashboard.html",
+          "type": "dashboard",
+          "path": "waste_management_dashboard.html"
+        },
+        {
+          "name": "api_risk_dashboard.php",
+          "type": "dashboard",
+          "path": "php/api_risk_dashboard.php"
+        },
+        {
+          "name": "list_waste_collections.php",
+          "type": "list",
+          "path": "php/list_waste_collections.php"
+        }
+      ],
+      "recommendations": [
+        "Add AI Navigator to all primary list pages",
+        "Remove from complex forms with validation",
+        "Standardize AI Navigator selectors for shared layouts"
+      ]
+    },
+    "step_9_navigation_rationalization": {
+      "current_roots": [
+        "7ps_registry.html",
+        "add_change_control.php",
+        "agent.html",
+        "assessment_edit.php",
+        "assessment_form.php",
+        "assessment_list.php",
+        "batch.php",
+        "CC_form.html",
+        "ChangeControl.html",
+        "check_uploads.php"
+      ],
+      "recommended_roots": [
+        "index.php",
+        "dashboard.php",
+        "7ps_registry.html",
+        "dashboard_permit.php"
+      ],
+      "actions": [
+        "Remove/redirect secondary roots",
+        "Ensure all flows reachable from main dashboards",
+        "Re-run schema script to validate hierarchy"
+      ]
+    }
+  },
+  "execution_phases": {
+    "phase_1_permits_waste": {
+      "modules": [
+        "Permits",
+        "Waste"
+      ],
+      "pages": [
+        "create_permit.html",
+        "dashboard_permit.php",
+        "edit_permit.php",
+        "permit1.php",
+        "permitlist1.php",
+        "permitlist11.php",
+        "permitlist1Origin.php",
+        "Permittest.html",
+        "permit_form.php",
+        "permit_list.php",
+        "permit_list0.php",
+        "permit_list1.php",
+        "PTW.html",
+        "add_permit.php",
+        "add_permitTest.php",
+        "check_permit_access.php",
+        "create_permit.php",
+        "delete_permit.php",
+        "get_all_permits.php",
+        "get_permit.php",
+        "get_permits_by_task.php",
+        "get_permit_attachments.php",
+        "get_sub_permits.php",
+        "permit_modal.js.php",
+        "update_permit.php",
+        "create_waste_collection.html",
+        "edit_waste_collection.html",
+        "list_waste_collections.html",
+        "waste_management_dashboard.html",
+        "create_waste_collection.php",
+        "edit_waste_collection.php",
+        "get_waste_collection.php",
+        "list_waste_collections.php",
+        "waste_management_api.php",
+        "waste_management_reports.php",
+        "waste_management_upload.php"
+      ],
+      "tasks": [
+        "Consolidate permit dashboards",
+        "Standardize permit list/form/edit",
+        "Standardize waste collection list/form/edit",
+        "Update navigation links"
+      ]
+    },
+    "phase_2_6ps_registry": {
+      "modules": [
+        "6Ps"
+      ],
+      "pages": [
+        "area_list.php",
+        "energy_list.php",
+        "equipment_list.php",
+        "material_list.php",
+        "people_list.php",
+        "process.php",
+        "ProcessMap.html",
+        "process_analytics.html",
+        "process_detail.html",
+        "process_map_diagram.html",
+        "api_process_detail.php",
+        "api_process_map.php",
+        "create_energy.php",
+        "create_equipment.php",
+        "delete_energy.php",
+        "delete_equipment.php",
+        "get_all_areas.php",
+        "get_all_energy.php",
+        "get_all_materials.php",
+        "get_areas.php",
+        "get_people.php",
+        "peopleselect.php",
+        "processmap.php",
+        "process_form.php",
+        "update_energy.php",
+        "update_equipment.php"
+      ],
+      "tasks": [
+        "Make 7ps_registry.html central hub",
+        "Standardize all 6Ps list pages",
+        "Add AI Navigator to all 6Ps lists",
+        "Replace cross-links with switcher"
+      ]
+    },
+    "phase_3_risk_change_control": {
+      "modules": [
+        "Risk Assessment",
+        "Change Control"
+      ],
+      "pages": [
+        "assessment_edit.php",
+        "assessment_form.php",
+        "assessment_list.php",
+        "hira.html",
+        "riskassessment.html",
+        "risk_detail.html",
+        "risk_edit.html",
+        "test_risk_register_api.html",
+        "add_assessment.php",
+        "add_riskassess.php",
+        "api_risk_dashboard.php",
+        "api_risk_lookup.php",
+        "api_risk_register.php",
+        "api_risk_reviews.php",
+        "api_risk_standards.php",
+        "approve_hira.php",
+        "create_hira.php",
+        "create_hira_records.php",
+        "delete_assessment.php",
+        "finalize_hira.php",
+        "get_assessment.php",
+        "update_assessment.php",
+        "add_change_control.php",
+        "CC_form.html",
+        "CC_List.php",
+        "ChangeControl.html",
+        "change_requests_form.php",
+        "get_change_controls.php",
+        "update_change_control.php",
+        "view_change_control.php",
+        "add_change_request.php",
+        "change_password.php",
+        "delete_change_control.php",
+        "delete_change_request.php",
+        "get_change_requests.php",
+        "update_change_request.php"
+      ],
+      "tasks": [
+        "Standardize risk assessment pages",
+        "Standardize change control pages",
+        "Update relationships"
+      ]
+    },
+    "phase_4_training_document": {
+      "modules": [
+        "Training",
+        "Document Control"
+      ],
+      "pages": [
+        "DocVersionTraining.html",
+        "induction.html",
+        "training.html",
+        "trainingAdminPanel.html",
+        "trainingIndex.html",
+        "TrainingStatusDashboard.html",
+        "assign_training.php",
+        "get_training_assignments.php",
+        "update_training_assignment.php",
+        "doccontrol.html",
+        "sop_list.php",
+        "create_document.php",
+        "delete_document.php",
+        "get_document.php",
+        "get_documents.php",
+        "get_documentversions.php",
+        "get_document_versions.php",
+        "update_document.php"
+      ],
+      "tasks": [
+        "Standardize training pages",
+        "Standardize document control pages",
+        "Final cleanup"
+      ]
+    }
+  }
+}

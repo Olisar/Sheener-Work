@@ -1,0 +1,645 @@
+<!-- File: sheener/map.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Database Tables Visualization</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    :root {
+      --bg-primary: #0f172a;
+      --bg-secondary: #1e293b;
+      --bg-glass: rgba(30, 41, 59, 0.7);
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg-primary);
+      color: #e2e8f0;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      overflow: hidden;
+    }
+
+    canvas {
+      display: block;
+      background: radial-gradient(circle at 20% 50%, rgba(99, 102, 241, 0.05) 0%, transparent 50%),
+                  radial-gradient(circle at 80% 80%, rgba(16, 185, 129, 0.05) 0%, transparent 50%);
+      cursor: grab;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    canvas:active {
+      cursor: grabbing;
+    }
+
+    .slice {
+      position: absolute;
+      top: 100px;
+      left: 20px;
+      background: var(--bg-glass);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 15px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+      z-index: 100;
+    }
+
+    .slider-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .slider-container label {
+      width: 140px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .slider-container input[type="range"] {
+      flex: 1;
+      height: 6px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 3px;
+      outline: none;
+      -webkit-appearance: none;
+    }
+
+    .slider-container input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 16px;
+      height: 16px;
+      background: #60a5fa;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .slider-container span {
+      width: 45px;
+      text-align: right;
+      font-size: 12px;
+      font-weight: 600;
+      color: #94a3b8;
+    }
+
+    h2 {
+      margin: 0 0 15px 0;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    #textualTableContainer {
+      display: none;
+    }
+
+    /* Error display */
+    #errorDisplay {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #ef4444;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      z-index: 1000;
+      display: none;
+      max-width: 80%;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div id="topbar"></div>
+  <div id="navbar"></div>
+  <div id="errorDisplay"></div>
+
+  <div class="slice">
+    <h2>Layout Controls</h2>
+    <div class="slider-container">
+      <label for="maxDistance">Max Distance:</label>
+      <input type="range" id="maxDistance" min="100" max="600" value="450">
+      <span id="maxDistanceValue">450</span>
+    </div>
+    <div class="slider-container">
+      <label for="attractStrength">Attract Strength:</label>
+      <input type="range" id="attractStrength" min="0.01" max="0.1" step="0.01" value="0.05">
+      <span id="attractStrengthValue">0.05</span>
+    </div>
+    <div class="slider-container">
+      <label for="minGap">Minimum Gap:</label>
+      <input type="range" id="minGap" min="50" max="300" value="180">
+      <span id="minGapValue">180</span>
+    </div>
+    <div class="slider-container">
+      <label for="repelStrength">Repel Strength:</label>
+      <input type="range" id="repelStrength" min="1000" max="10000" value="7000">
+      <span id="repelStrengthValue">7000</span>
+    </div>
+  </div>
+
+  <div id="textualTableContainer" aria-hidden="false">
+    <h2>DB Schema</h2>
+    <table>
+      <thead>
+        <tr><th>Table</th><th>Connected To</th></tr>
+      </thead>
+      <tbody id="textualTableBody"></tbody>
+    </table>
+  </div>
+
+  <canvas id="tablesCanvas" aria-label="Database tables relationship visualization"></canvas>
+
+<script>
+  // Canvas setup
+  const canvas = document.getElementById('tablesCanvas');
+  const ctx = canvas.getContext('2d');
+  const errorDiv = document.getElementById('errorDisplay');
+
+  function showError(message) {
+    errorDiv.textContent = message;
+    errorDiv.style.display = 'block';
+    console.error('Visualization Error:', message);
+    setTimeout(() => { errorDiv.style.display = 'none'; }, 8000);
+  }
+
+  // Viewport (pan + zoom)
+  const viewport = {
+    scale: 1,
+    offsetX: 0,
+    offsetY: 0,
+    minScale: 0.3,
+    maxScale: 2.5
+  };
+
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    // Optional: recentre view on resize
+    viewport.scale = 1;
+    viewport.offsetX = 0;
+    viewport.offsetY = 0;
+
+    if (state.centerNode) {
+      layoutGraph();
+      state.needsRedraw = true;
+    }
+  }
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+
+  // State management
+  const state = {
+    nodes: [],
+    links: [],
+    adjacency: new Map(),
+    nodeMap: new Map(),
+    degrees: new Map(),
+    centerNode: null,
+    draggedNode: null,
+    isDragging: false,
+    isPanning: false,
+    panStartX: 0,
+    panStartY: 0,
+    panOriginX: 0,
+    panOriginY: 0,
+    needsRedraw: true
+  };
+
+  // Force parameters
+  const params = {
+    maxDistance: 450,
+    attractStrength: 0.05,
+    minGap: 180,
+    repelStrength: 7000
+  };
+
+  // Utility: screen → world coordinates
+  function screenToWorld(clientX, clientY) {
+    const rect = canvas.getBoundingClientRect();
+    const x = clientX - rect.left;
+    const y = clientY - rect.top;
+    return {
+      x: (x - viewport.offsetX) / viewport.scale,
+      y: (y - viewport.offsetY) / viewport.scale
+    };
+  }
+
+  // Layout algorithm (BFS layering + initial forces)
+  function layoutGraph() {
+    if (!state.centerNode) return;
+
+    const visited = new Set([state.centerNode.name]);
+    const queue = [state.centerNode.name];
+    const layers = new Map([[0, [state.centerNode.name]]]);
+    let layerIndex = 0;
+
+    // BFS to build layers
+    while (queue.length) {
+      const size = queue.length;
+      const nextLayer = [];
+
+      for (let i = 0; i < size; i++) {
+        const current = queue.shift();
+        const neighbors = state.adjacency.get(current) || [];
+
+        neighbors.forEach(neighbor => {
+          if (!visited.has(neighbor)) {
+            visited.add(neighbor);
+            queue.push(neighbor);
+            nextLayer.push(neighbor);
+          }
+        });
+      }
+
+      if (nextLayer.length) {
+        layers.set(++layerIndex, nextLayer);
+      }
+    }
+
+    // Position center node
+    state.centerNode.x = canvas.width / 2;
+    state.centerNode.y = canvas.height / 2;
+
+    // Position layers in rings
+    const maxRadius = Math.min(canvas.width, canvas.height) / 2 - 100;
+    const layerCount = layers.size - 1 || 1;
+
+    for (const [index, nodeNames] of layers) {
+      if (index === 0) continue;
+
+      const ringRadius = (index / layerCount) * maxRadius * 1.3;
+      const angleStep = (2 * Math.PI) / nodeNames.length;
+
+      nodeNames.forEach((name, i) => {
+        const node = state.nodeMap.get(name);
+        if (node) {
+          const angle = angleStep * i;
+          node.x = canvas.width / 2 + ringRadius * Math.cos(angle);
+          node.y = canvas.height / 2 + ringRadius * Math.sin(angle);
+        }
+      });
+    }
+
+    // Run initial relaxation
+    for (let i = 0; i < 150; i++) {
+      applyForces();
+    }
+  }
+
+  // Force application (repulsion + attraction + bounds)
+  function applyForces() {
+    if (!state.nodes.length) return;
+
+    const margin = 60;
+    const sqMinGap = params.minGap * params.minGap;
+
+    // Node-node repulsion
+    for (let i = 0; i < state.nodes.length; i++) {
+      const a = state.nodes[i];
+      for (let j = i + 1; j < state.nodes.length; j++) {
+        const b = state.nodes[j];
+
+        const dx = b.x - a.x;
+        const dy = b.y - a.y;
+        const distSq = dx * dx + dy * dy;
+
+        if (distSq < sqMinGap && distSq > 0.01) {
+          const dist = Math.sqrt(distSq);
+          const force = (params.minGap - dist) / dist * params.repelStrength * 0.0001;
+          const fx = dx * force;
+          const fy = dy * force;
+
+          a.x -= fx;
+          a.y -= fy;
+          b.x += fx;
+          b.y += fy;
+        }
+      }
+    }
+
+    // Link attraction (like springs)
+    state.links.forEach(link => {
+      const a = link.source;
+      const b = link.target;
+      const dx = b.x - a.x;
+      const dy = b.y - a.y;
+      const dist = Math.sqrt(dx * dx + dy * dy) || 1;
+
+      const preferred = params.maxDistance * 0.7;
+      const delta = dist - preferred;
+      const force = delta * params.attractStrength * 0.1;
+      const fx = (dx / dist) * force;
+      const fy = (dy / dist) * force;
+
+      a.x += fx;
+      a.y += fy;
+      b.x -= fx;
+      b.y -= fy;
+    });
+
+    // Keep nodes in a loose bounding box (world space)
+    state.nodes.forEach(node => {
+      node.x = Math.max(margin, Math.min(canvas.width - margin, node.x));
+      node.y = Math.max(margin, Math.min(canvas.height - margin, node.y));
+    });
+  }
+
+  // Drawing
+  function draw() {
+    if (!state.needsRedraw) return;
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Apply viewport transform
+    ctx.save();
+    ctx.setTransform(
+      viewport.scale, 0,
+      0, viewport.scale,
+      viewport.offsetX, viewport.offsetY
+    );
+
+    // Draw links
+    ctx.strokeStyle = 'rgba(148, 163, 184, 0.6)';
+    ctx.lineWidth = 1.5 / viewport.scale;
+    state.links.forEach(link => {
+      ctx.beginPath();
+      ctx.moveTo(link.source.x, link.source.y);
+      ctx.lineTo(link.target.x, link.target.y);
+      ctx.stroke();
+    });
+
+    // Draw nodes
+    state.nodes.forEach(node => {
+      const isCenter = node === state.centerNode;
+      const radius = isCenter ? 42 : 35;
+
+      // Node halo for center
+      if (isCenter) {
+        ctx.beginPath();
+        ctx.arc(node.x, node.y, radius + 6, 0, 2 * Math.PI);
+        ctx.fillStyle = 'rgba(56, 189, 248, 0.18)';
+        ctx.fill();
+      }
+
+      // Node circle
+      ctx.beginPath();
+      ctx.arc(node.x, node.y, radius, 0, 2 * Math.PI);
+      ctx.fillStyle = state.draggedNode === node
+        ? '#a855f7'
+        : isCenter
+          ? '#22c55e'
+          : '#3b82f6';
+      ctx.fill();
+      ctx.strokeStyle = '#0f172a';
+      ctx.lineWidth = 2 / viewport.scale;
+      ctx.stroke();
+
+      // Node name
+      ctx.fillStyle = '#fff';
+      ctx.font = `${12 / viewport.scale}px "Segoe UI"`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(node.name, node.x, node.y);
+    });
+
+    ctx.restore();
+    state.needsRedraw = false;
+  }
+
+  // Drag & pan handlers
+  canvas.addEventListener('mousedown', e => {
+    // Left button = drag node
+    if (e.button === 0) {
+      const world = screenToWorld(e.clientX, e.clientY);
+
+      state.draggedNode = state.nodes.find(n => {
+        const dx = world.x - n.x;
+        const dy = world.y - n.y;
+        return dx * dx + dy * dy <= 42 * 42;
+      });
+
+      if (state.draggedNode) {
+        state.isDragging = true;
+        canvas.style.cursor = 'grabbing';
+      }
+    }
+
+    // Middle button = pan
+    if (e.button === 1) {
+      e.preventDefault();
+      state.isPanning = true;
+      state.panStartX = e.clientX;
+      state.panStartY = e.clientY;
+      state.panOriginX = viewport.offsetX;
+      state.panOriginY = viewport.offsetY;
+      canvas.style.cursor = 'move';
+    }
+  });
+
+  canvas.addEventListener('mousemove', e => {
+    // Dragging node
+    if (state.isDragging && state.draggedNode) {
+      const world = screenToWorld(e.clientX, e.clientY);
+      state.draggedNode.x = world.x;
+      state.draggedNode.y = world.y;
+
+      // Stronger local relaxation while dragging
+      for (let i = 0; i < 5; i++) applyForces();
+
+      state.needsRedraw = true;
+    }
+
+    // Panning
+    if (state.isPanning) {
+      const dx = e.clientX - state.panStartX;
+      const dy = e.clientY - state.panStartY;
+      viewport.offsetX = state.panOriginX + dx;
+      viewport.offsetY = state.panOriginY + dy;
+      state.needsRedraw = true;
+    }
+  });
+
+  ['mouseup', 'mouseleave'].forEach(evt => {
+    canvas.addEventListener(evt, () => {
+      if (state.isDragging || state.isPanning) {
+        state.isDragging = false;
+        state.draggedNode = null;
+        state.isPanning = false;
+        canvas.style.cursor = 'grab';
+        state.needsRedraw = true;
+      }
+    });
+  });
+
+  // Zoom with mouse wheel
+  canvas.addEventListener('wheel', e => {
+    e.preventDefault();
+
+    const zoomFactor = e.deltaY < 0 ? 1.1 : 0.9;
+    const rect = canvas.getBoundingClientRect();
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+
+    // Current world coords under cursor
+    const worldX = (mouseX - viewport.offsetX) / viewport.scale;
+    const worldY = (mouseY - viewport.offsetY) / viewport.scale;
+
+    // Update scale
+    let newScale = viewport.scale * zoomFactor;
+    newScale = Math.max(viewport.minScale, Math.min(viewport.maxScale, newScale));
+    const scaleRatio = newScale / viewport.scale;
+    viewport.scale = newScale;
+
+    // Keep cursor position anchored
+    viewport.offsetX = mouseX - worldX * viewport.scale;
+    viewport.offsetY = mouseY - worldY * viewport.scale;
+
+    state.needsRedraw = true;
+  }, { passive: false });
+
+  // Slider setup
+  function setupSliders() {
+    const sliders = {
+      maxDistance: { param: 'maxDistance', type: 'int' },
+      attractStrength: { param: 'attractStrength', type: 'float' },
+      minGap: { param: 'minGap', type: 'int' },
+      repelStrength: { param: 'repelStrength', type: 'int' }
+    };
+
+    Object.entries(sliders).forEach(([id, config]) => {
+      const slider = document.getElementById(id);
+      const display = document.getElementById(`${id}Value`);
+
+      if (!slider || !display) return;
+
+      const update = () => {
+        const value = config.type === 'float'
+          ? parseFloat(slider.value)
+          : parseInt(slider.value, 10);
+        params[config.param] = value;
+        display.textContent = config.type === 'float'
+          ? value.toFixed(2)
+          : value;
+
+        if (state.nodes.length) {
+          layoutGraph();
+          state.needsRedraw = true;
+        }
+      };
+
+      slider.addEventListener('input', update);
+      update(); // Initial sync
+    });
+  }
+
+  // Data loading  (keep your path if different)
+  fetch("test_node/db_schema.json", {
+    headers: {
+      'Cache-Control': 'no-cache',
+      'Pragma': 'no-cache'
+    }
+  })
+    .then(res => {
+      if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+      return res.text();
+    })
+    .then(text => {
+      if (text.length >= 16380 && text.length <= 16384) {
+        throw new Error(`File appears truncated at ${text.length} bytes (16KB limit). Check your server configuration.`);
+      }
+      try {
+        const data = JSON.parse(text);
+        if (!data?.nodes?.length) throw new Error("No nodes in schema");
+        return data;
+      } catch (e) {
+        throw new Error(`JSON Parse Error: ${e.message}. File may be malformed or truncated.`);
+      }
+    })
+    .then(data => {
+      // Build nodes
+      state.nodes = data.nodes.map(tbl => ({
+        name: tbl.id,
+        x: canvas.width / 2,
+        y: canvas.height / 2,
+        radius: 35
+      }));
+
+      state.nodeMap = new Map(state.nodes.map(n => [n.name, n]));
+      state.degrees = new Map(state.nodes.map(n => [n.name, 0]));
+      state.adjacency = new Map(state.nodes.map(n => [n.name, []]));
+      state.links = [];
+
+      // Build adjacency & links
+      data.links.forEach(l => {
+        const source = state.nodeMap.get(l.source.table);
+        const target = state.nodeMap.get(l.target.table);
+        if (source && target) {
+          state.links.push({ source, target });
+          state.adjacency.get(source.name).push(target.name);
+          state.adjacency.get(target.name).push(source.name);
+          state.degrees.set(source.name, state.degrees.get(source.name) + 1);
+          state.degrees.set(target.name, state.degrees.get(target.name) + 1);
+        }
+      });
+
+      if (!state.nodes.length) throw new Error("No valid nodes found");
+
+      // Center node = highest degree (or first)
+      const sorted = [...state.degrees.entries()].sort((a, b) => b[1] - a[1]);
+      state.centerNode = sorted[0]?.[1] > 0
+        ? state.nodeMap.get(sorted[0][0])
+        : state.nodes[0];
+
+      setupSliders();
+      layoutGraph();
+      state.needsRedraw = true;
+      buildTextualTable();
+    })
+    .catch(err => {
+      showError(err.message);
+      console.error('Full error details:', err);
+    });
+
+  // Accessibility table
+  function buildTextualTable() {
+    const tbody = document.getElementById('textualTableBody');
+    tbody.innerHTML = '';
+
+    state.nodes.forEach(node => {
+      const connections = state.adjacency.get(node.name) || [];
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td style="padding: 6px 10px; border: 1px solid #ccc;">${node.name}</td>
+        <td style="padding: 6px 10px; border: 1px solid #ccc;">${connections.join(', ') || 'None'}</td>
+      `;
+      tbody.appendChild(row);
+    });
+  }
+
+  // Animation loop – continuous physics
+  function animate() {
+    // Gentle continuous relaxation
+    if (state.nodes.length && !state.isDragging) {
+      for (let i = 0; i < 2; i++) applyForces();
+      state.needsRedraw = true;
+    }
+    draw();
+    requestAnimationFrame(animate);
+  }
+  animate();
+
+  // Navbar/topbar scripts ...
+</script>
+
+</body>
+</html>

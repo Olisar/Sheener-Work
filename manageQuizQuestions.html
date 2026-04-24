@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<!-- sheener/manageQuizQuestions.html -->
+
+<html>
+
+<head>
+  <title>Manage Questions & Answers</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="shortcut icon" href="img/favicon/faviconAY.ico">
+  <script src="js/navbar.js" defer></script>
+  <script src="js/topbar.js" defer></script>
+  <style>
+    body {
+      font-family: Arial;
+      background: #f8fafc;
+      margin: 0;
+      padding: 30px;
+    }
+
+    .main-content {
+      margin-top: 80px;
+    }
+
+    label {
+      font-weight: bold;
+    }
+
+    .section {
+      margin-bottom: 25px;
+      padding: 18px;
+      background: #eef2f7;
+      border-radius: 8px;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 90%;
+      margin-bottom: 14px;
+    }
+
+    th,
+    td {
+      border: 1px solid #ccc;
+      padding: 7px;
+    }
+
+    th {
+      background: #e6eaf0;
+    }
+
+    .answer-row input[type="text"] {
+      width: 70%;
+    }
+
+    .answer-row input[type="radio"] {
+      margin-left: 10px;
+    }
+
+    button {
+      padding: 7px 14px;
+      border-radius: 5px;
+      border: none;
+      background: #287ae6;
+      color: #fff;
+      margin: 4px;
+    }
+
+    .remove-btn {
+      background: #d32b28;
+    }
+
+    /* Autocomplete styles */
+    .autocomplete-container {
+      position: relative;
+      display: inline-block;
+      width: 320px;
+      margin-left: 10px;
+      vertical-align: middle;
+    }
+
+    #docSearchInput {
+      width: 100%;
+      padding: 6px;
+      font-size: 14px;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .autocomplete-items {
+      position: absolute;
+      border: 1px solid #d4d4d4;
+      border-bottom: none;
+      border-top: none;
+      z-index: 99;
+      top: 100%;
+      left: 0;
+      right: 0;
+      max-height: 250px;
+      overflow-y: auto;
+      background-color: #fff;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .autocomplete-item {
+      padding: 8px 10px;
+      cursor: pointer;
+      background-color: #fff;
+      border-bottom: 1px solid #d4d4d4;
+      font-size: 14px;
+    }
+
+    .autocomplete-item:hover {
+      background-color: #e9e9e9;
+    }
+
+    .autocomplete-item strong {
+      font-weight: bold;
+      color: #287ae6;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="topbar"></div>
+  <div id="navbar"></div>
+  <div class="main-content">
+    <h2>Manage Quiz Questions & Answers for Document Version</h2>
+    <div style="margin-bottom: 15px;">
+      <a href="training_tree.html" target="_blank" style="text-decoration: none;">
+        <button type="button"
+          style="background: #17a2b8; color: white; padding: 10px 15px; border: none; border-radius: 5px; cursor: pointer; font-size: 14px;">
+          View Training Tree Diagram
+        </button>
+      </a>
+    </div>
+
+    <div class="section">
+      <div style="margin-bottom: 15px;">
+        <label for="docSearchInput">Choose Document Title:</label>
+        <div class="autocomplete-container">
+          <input type="text" id="docSearchInput" placeholder="Type to filter..." autocomplete="off">
+          <input type="hidden" id="documentTitle"> <!-- Hidden field to store the selected ID -->
+          <div id="docSearchResults" class="autocomplete-items"></div>
+        </div>
+      </div>
+      <div style="margin-bottom: 15px;">
+        <label for="docVersionSearchInput">Choose Document Version:</label>
+        <div class="autocomplete-container">
+          <input type="text" id="docVersionSearchInput" placeholder="Select Document Title first" autocomplete="off"
+            disabled>
+          <input type="hidden" id="docVersion">
+          <div id="docVersionSearchResults" class="autocomplete-items"></div>
+        </div>
+      </div>
+      <div>
+        <label for="quiz">Choose Quiz:</label>
+        <select id="quiz" onchange="fetchQuestions()"
+          style="margin-left: 10px; padding: 5px; min-width: 300px; font-size: 14px;" disabled>
+          <option value="">Select Document Version first</option>
+        </select>
+        <button type="button" id="createQuizBtn" onclick="createNewQuiz()"
+          style="margin-left: 10px; background: #28a745; display: none;">+ Create New Quiz</button>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3>Questions & Answers</h3>
+
+      <form id="questionsForm" onsubmit="saveAll(event)">
+        <div id="questionList"></div>
+        <div style="margin-bottom: 10px;">
+          <button type="button" onclick="addQuestion()" style="background: #28a745;">+ Add Question</button>
+          <button type="button" onclick="clearAll()" style="background: #dc3545;">Clear All</button>
+        </div>
+        <div style="margin-top: 15px;">
+          <button type="submit" style="background: #007bff; padding: 10px 20px; font-size: 16px;">Save All
+            Questions</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Store current document ID and version ID for quiz creation
+    let currentDocumentId = null;
+    let currentDocVersionId = null;
+    let allDocuments = []; // Store fetched documents for filtering
+    let allDocVersions = []; // Store fetched versions for filtering
+
+    // Close autocomplete when clicking elsewhere
+    document.addEventListener('click', function (e) {
+      if (!e.target.matches('#docSearchInput')) {
+        const list = document.getElementById('docSearchResults');
+        if (list) list.innerHTML = '';
+      }
+      if (!e.target.matches('#docVersionSearchInput')) {
+        const list = document.getElementById('docVersionSearchResults');
+        if (list) list.innerHTML = '';
+      }
+    });
+
+    async function fetchDocuments() {
+      const searchInput = document.getElementById('docSearchInput');
+      const resultsDiv = document.getElementById('docSearchResults');
+
+      if (!searchInput) return;
+
+      try {
+        console.log('Fetching documents...');
+        searchInput.placeholder = "Loading documents...";
+        searchInput.disabled = true;
+
+        const res = await fetch('php/get_documents.php');
+
+        if (!res.ok) {
+          throw new Error(`Failed to load documents: ${res.status} ${res.statusText}`);
+        }
+
+        const data = await res.json();
+
+        if (!data.success) {
+          console.error('API Error:', data.error);
+          searchInput.placeholder = "Error loading documents";
+          return;
+        }
+
+        allDocuments = data.data || [];
+        console.log('Loaded documents:', allDocuments.length);
+
+        searchInput.disabled = false;
+        searchInput.placeholder = "Type to filter...";
+
+        // Setup input event listener
+        searchInput.addEventListener('input', filterDocuments);
+        searchInput.addEventListener('focus', filterDocuments); // Show list on click/focus too
+
+      } catch (error) {
+        console.error('Error fetching documents:', error);
+        searchInput.placeholder = "Error loading documents";
+        alert('Error loading documents: ' + error.message);
+      }
+    }
+
+    function filterDocuments() {
+      const input = document.getElementById('docSearchInput');
+      const filter = input.value.toUpperCase();
+      const resultsDiv = document.getElementById('docSearchResults');
+
+      resultsDiv.innerHTML = '';
+
+      // If no documents, do nothing
+      if (!allDocuments.length) return;
+
+      const matches = allDocuments.filter(doc => {
+        if (!doc.Title) return false;
+        // Match against Title or DocCode
+        const titleMatch = doc.Title.toUpperCase().indexOf(filter) > -1;
+        const codeMatch = doc.DocCode ? doc.DocCode.toUpperCase().indexOf(filter) > -1 : false;
+        return titleMatch || codeMatch;
+      });
+
+      // Limit results to avoid rendering too many
+      const maxResults = 50;
+      const displayMatches = matches.slice(0, maxResults);
+
+      displayMatches.forEach(doc => {
+        const item = document.createElement('div');
+        item.className = 'autocomplete-item';
+
+        // Highlight matching text is complex, keeping it simple for now
+        const docCode = doc.DocCode ? `<strong>[${doc.DocCode}]</strong> ` : '';
+        item.innerHTML = `${docCode}${doc.Title}`;
+
+        item.addEventListener('click', function () {
+          selectDocument(doc.DocumentID, doc.Title);
+        });
+
+        resultsDiv.appendChild(item);
+      });
+
+      if (matches.length === 0 && filter.length > 0) {
+        const item = document.createElement('div');
+        item.className = 'autocomplete-item';
+        item.style.cursor = 'default';
+        item.style.color = '#777';
+        item.innerText = 'No matches found';
+        resultsDiv.appendChild(item);
+      }
+    }
+
+    function selectDocument(id, title) {
+      const hiddenInput = document.getElementById('documentTitle');
+      const searchInput = document.getElementById('docSearchInput');
+      const resultsDiv = document.getElementById('docSearchResults');
+
+      hiddenInput.value = id;
+      searchInput.value = title;
+      resultsDiv.innerHTML = ''; // Clear results
+
+      // Trigger downstream logic
+      fetchDocumentVersions();
+    }
+
+    async function fetchDocumentVersions() {
+      const documentInput = document.getElementById('documentTitle'); // Now a hidden input
+      const docVersionInput = document.getElementById('docVersionSearchInput');
+      const docVersionHidden = document.getElementById('docVersion');
+      const quizSelect = document.getElementById('quiz');
+      const questionList = document.getElementById('questionList');
+      const createQuizBtn = document.getElementById('createQuizBtn');
+
+      if (!documentInput || !docVersionInput) {
+        console.error('Required select elements not found');
+        return;
+      }
+
+      const documentId = documentInput.value;
+      currentDocumentId = documentId;
+
+      // Clear version, quiz selection and questions when document changes
+      docVersionInput.value = '';
+      docVersionInput.placeholder = "Loading versions...";
+      docVersionInput.disabled = true;
+      docVersionHidden.value = '';
+
+      quizSelect.innerHTML = '<option value="">Select Document Version first</option>';
+      quizSelect.disabled = true;
+      if (questionList) {
+        questionList.innerHTML = '';
+      }
+      if (createQuizBtn) {
+        createQuizBtn.style.display = 'none';
+      }
+
+      if (!documentId) {
+        console.log('No document selected');
+        docVersionInput.placeholder = "Select Document Title first";
+        return;
+      }
+
+      try {
+        console.log('Fetching document versions for document:', documentId);
+        const res = await fetch(`php/get_document_versions_for_quiz.php?document_id=${documentId}`);
+
+        if (!res.ok) {
+          throw new Error(`Failed to load document versions: ${res.status} ${res.statusText}`);
+        }
+
+        const data = await res.json();
+
+        if (!data.success) {
+          console.error('API Error:', data.error);
+          docVersionInput.placeholder = "Error loading versions";
+          alert('Error loading document versions: ' + (data.error || 'Unknown error'));
+          return;
+        }
+
+        allDocVersions = data.data || [];
+        console.log('Loaded versions:', allDocVersions.length);
+
+        if (allDocVersions.length === 0) {
+          docVersionInput.placeholder = "No versions available";
+          return;
+        }
+
+        docVersionInput.disabled = false;
+        docVersionInput.placeholder = "Type to filter versions...";
+
+        docVersionInput.addEventListener('input', filterDocVersions);
+        docVersionInput.addEventListener('focus', filterDocVersions);
+
+      } catch (error) {
+        console.error('Error fetching document versions:', error);
+        docVersionInput.placeholder = "Error loading versions";
+        alert('Error loading document versions: ' + error.message);
+      }
+    }
+
+    function filterDocVersions() {
+      const input = document.getElementById('docVersionSearchInput');
+      const filter = input.value.toUpperCase();
+      const resultsDiv = document.getElementById('docVersionSearchResults');
+
+      resultsDiv.innerHTML = '';
+
+      if (!allDocVersions.length) return;
+
+      const matches = allDocVersions.filter(v => {
+        // Determine display string for matching
+        const display = `Version ${v.VersionNumber}${v.RevisionLabel ? ' - ' + v.RevisionLabel : ''}`;
+        return display.toUpperCase().indexOf(filter) > -1;
+      });
+
+      // Limit results
+      const maxResults = 50;
+      const displayMatches = matches.slice(0, maxResults);
+
+      displayMatches.forEach(v => {
+        const item = document.createElement('div');
+        item.className = 'autocomplete-item';
+
+        const display = `Version ${v.VersionNumber}${v.RevisionLabel ? ' - ' + v.RevisionLabel : ''}`;
+        item.innerHTML = display; // Ensure title/display is shown
+
+        item.addEventListener('click', function () {
+          selectDocVersion(v.VersionID, display);
+        });
+
+        resultsDiv.appendChild(item);
+      });
+
+      if (matches.length === 0 && filter.length > 0) {
+        const item = document.createElement('div');
+        item.className = 'autocomplete-item';
+        item.style.cursor = 'default';
+        item.style.color = '#777';
+        item.innerText = 'No matches found';
+        resultsDiv.appendChild(item);
+      }
+    }
+
+    function selectDocVersion(id, displayString) {
+      const hiddenInput = document.getElementById('docVersion');
+      const searchInput = document.getElementById('docVersionSearchInput');
+      const resultsDiv = document.getElementById('docVersionSearchResults');
+
+      hiddenInput.value = id;
+      searchInput.value = displayString;
+      resultsDiv.innerHTML = ''; // Clear results
+
+      // Trigger downstream logic
+      fetchQuizzes();
+    }
+
+    async function fetchQuizzes() {
+      const docVersionInput = document.getElementById('docVersion'); // Hidden input
+      const quizSelect = document.getElementById('quiz');
+      const questionList = document.getElementById('questionList');
+      const createQuizBtn = document.getElementById('createQuizBtn');
+
+      if (!docVersionInput || !quizSelect) {
+        console.error('Required select elements not found');
+        return;
+      }
+
+      const docVersionId = docVersionInput.value;
+      currentDocVersionId = docVersionId;
+
+      // Clear quiz selection and questions when document version changes
+      quizSelect.innerHTML = '<option value="">Loading quizzes...</option>';
+      quizSelect.disabled = true;
+      if (questionList) {
+        questionList.innerHTML = '';
+      }
+      if (createQuizBtn) {
+        createQuizBtn.style.display = 'none';
+      }
+
+      if (!docVersionId) {
+        console.log('No document version selected');
+        quizSelect.innerHTML = '<option value="">Select Document Version first</option>';
+        quizSelect.disabled = true;
+        return;
+      }
+
+      console.log('Fetching quizzes for document version:', docVersionId);
+
+      try {
+        const res = await fetch(`php/get_quizzes.php?doc_version_id=${docVersionId}`);
+        console.log('Response status:', res.status, res.statusText);
+
+        if (!res.ok) {
+          const errorText = await res.text();
+          console.error('Response error:', errorText);
+          throw new Error(`Failed to load quizzes: ${res.status} ${res.statusText}`);
+        }
+
+        const data = await res.json();
+        console.log('Received data:', data);
+
+        if (!data.success) {
+          console.error('API Error:', data.error);
+          quizSelect.innerHTML = '<option value="">Error loading quizzes</option>';
+          quizSelect.disabled = false;
+          alert('Error loading quizzes: ' + (data.error || 'Unknown error'));
+          return;
+        }
+
+        if (!data.data || data.data.length === 0) {
+          console.warn('No quizzes data received');
+          quizSelect.innerHTML = '<option value="">No quizzes available - Create a new quiz</option>';
+          quizSelect.disabled = false;
+          if (createQuizBtn) {
+            createQuizBtn.style.display = 'inline-block';
+          }
+          return;
+        }
+
+        // Filter quizzes by selected document version
+        const filteredQuizzes = data.data.filter(q => q.doc_version_id == docVersionId);
+        console.log('Filtered quizzes:', filteredQuizzes.length, 'for version', docVersionId);
+
+        if (filteredQuizzes.length === 0) {
+          quizSelect.innerHTML = '<option value="">No quizzes available - Create a new quiz</option>';
+          quizSelect.disabled = false;
+          if (createQuizBtn) {
+            createQuizBtn.style.display = 'inline-block';
+          }
+          return;
+        }
+
+        let options = '<option value="">Select Quiz</option>';
+        filteredQuizzes.forEach(q => {
+          if (q.id && q.name) {
+            options += `<option value="${q.id}">${q.name}${q.description ? ' - ' + q.description : ''}</option>`;
+          }
+        });
+        quizSelect.innerHTML = options;
+        quizSelect.disabled = false;
+        console.log('Populated quizzes:', filteredQuizzes.length);
+      } catch (error) {
+        console.error('Error fetching quizzes:', error);
+        quizSelect.innerHTML = '<option value="">Error loading quizzes</option>';
+        quizSelect.disabled = false;
+        alert('Error loading quizzes: ' + error.message);
+      }
+    }
+
+    async function createNewQuiz() {
+      if (!currentDocVersionId) {
+        alert('Please select a document version first');
+        return;
+      }
+
+      const quizTitle = prompt('Enter quiz title:', '');
+      if (!quizTitle || !quizTitle.trim()) {
+        return;
+      }
+
+      const quizDescription = prompt('Enter quiz description (optional):', '') || '';
+      const passingScore = prompt('Enter passing score (default: 70):', '70') || '70';
+
+      try {
+        const response = await fetch('php/create_quiz.php', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            doc_version_id: parseInt(currentDocVersionId),
+            title: quizTitle.trim(),
+            description: quizDescription.trim(),
+            passing_score: parseFloat(passingScore) || 70,
+            active: 1
+          })
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+
+        const result = await response.json();
+
+        if (result.success) {
+          alert('Quiz created successfully!');
+          // Reload quizzes to show the new one
+          await fetchQuizzes();
+          // Select the newly created quiz
+          const quizSelect = document.getElementById('quiz');
+          if (quizSelect && result.quiz_id) {
+            quizSelect.value = result.quiz_id;
+            fetchQuestions();
+          }
+        } else {
+          alert('Error creating quiz: ' + (result.error || 'Unknown error'));
+        }
+      } catch (error) {
+        console.error('Error creating quiz:', error);
+        alert('Error creating quiz: ' + error.message);
+      }
+    }
+
+    async function fetchQuestions() {
+      const quizId = document.getElementById('quiz').value;
+      if (!quizId) {
+        document.getElementById('questionList').innerHTML = '';
+        return;
+      }
+
+      try {
+        const res = await fetch('php/get_quiz_questions.php?quiz_id=' + quizId + '&manage_mode=1');
+        if (!res.ok) throw new Error('Failed to load questions');
+        const data = await res.json();
+
+        if (data.error) {
+          console.error('Error:', data.error);
+          alert('Error loading questions: ' + data.error);
+          return;
+        }
+
+        renderQuestions(data);
+      } catch (error) {
+        console.error('Error fetching questions:', error);
+        alert('Error loading questions: ' + error.message);
+      }
+    }
+
+    function renderQuestions(data) {
+      let html = '';
+      (data.questions || []).forEach(q => {
+        html += renderQuestionBlock(q);
+      });
+      document.getElementById('questionList').innerHTML = html;
+    }
+
+    function renderQuestionBlock(q) {
+      // Handle both API response formats (question_text vs questiontext)
+      const questionText = q.question_text || q.questiontext || '';
+      // Use question ID if exists, otherwise generate a temporary unique ID for new questions
+      const questionId = q.id || ('new_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9));
+
+      let html = `<div class="section question-block" data-questionid="${q.id || ''}">
+    <label>Question:</label> <input type="text" name="question_text[]" value="${escapeHtml(questionText)}" required>
+    <button type="button" class="remove-btn" onclick="this.parentElement.remove()">Remove</button>
+    <table>
+      <tr><th>Option</th><th>Is Correct?</th><th></th></tr>`;
+      (q.options || []).forEach((opt, i) => {
+        // Handle both API response formats (option_text vs optiontext, is_correct vs iscorrect)
+        const optionText = opt.option_text || opt.optiontext || '';
+        const isCorrect = opt.is_correct == 1 || opt.iscorrect == 1;
+        const optionId = opt.id || '';
+
+        html += `<tr class="answer-row" data-optionid="${optionId}">
+      <td><input type="text" name="option_text_${questionId}[]" value="${escapeHtml(optionText)}" required></td>
+      <td><input type="radio" name="correct_${questionId}" ${isCorrect ? 'checked' : ''} value="${i}"></td>
+      <td><button type="button" class="remove-btn" onclick="this.closest('tr').remove()">Remove</button></td>
+    </tr>`;
+      });
+      for (let i = (q.options || []).length; i < 4; i++) {
+        html += `<tr class="answer-row">
+      <td><input type="text" name="option_text_${questionId}[]" value="" required></td>
+      <td><input type="radio" name="correct_${questionId}" value="${i}"></td>
+      <td><button type="button" class="remove-btn" onclick="this.closest('tr').remove()">Remove</button></td>
+    </tr>`;
+      }
+      html += `</table></div>`;
+      return html;
+    }
+
+    function addQuestion() {
+      // Use insertAdjacentHTML to append without affecting existing content
+      const questionList = document.getElementById('questionList');
+      const tempDiv = document.createElement('div');
+      tempDiv.innerHTML = renderQuestionBlock({ options: [] });
+      questionList.appendChild(tempDiv.firstElementChild);
+    }
+
+    async function saveAll(e) {
+      e.preventDefault();
+      const quizId = document.getElementById('quiz').value;
+      if (!quizId) {
+        alert('Select a Quiz first');
+        return;
+      }
+
+      // Gather all questions and options from the form
+      const questionBlocks = document.querySelectorAll('.question-block');
+      const questions = [];
+      let validationError = null;
+
+      questionBlocks.forEach((block, qIndex) => {
+        if (validationError) return; // Stop processing if validation failed
+
+        const questionIdAttr = block.getAttribute('data-questionid');
+        const questionId = questionIdAttr && questionIdAttr !== '' ? parseInt(questionIdAttr) : null;
+        const questionInput = block.querySelector('input[name="question_text[]"]');
+        const questionText = questionInput ? questionInput.value.trim() : '';
+
+        if (!questionText) {
+          return; // Skip empty questions
+        }
+
+        // Get all options for this question - find the first option input to get the question grouping ID
+        const firstOptionInput = block.querySelector('input[type="text"]');
+        let questionGroupId = null;
+        if (firstOptionInput) {
+          const nameAttr = firstOptionInput.getAttribute('name');
+          if (nameAttr && nameAttr.startsWith('option_text_')) {
+            questionGroupId = nameAttr.replace('option_text_', '').replace('[]', '');
+          }
+        }
+
+        const optionRows = block.querySelectorAll('.answer-row');
+        const options = [];
+        let correctIndex = -1;
+
+        optionRows.forEach((row, optIndex) => {
+          const optionIdAttr = row.getAttribute('data-optionid');
+          const optionId = optionIdAttr && optionIdAttr !== '' ? parseInt(optionIdAttr) : null;
+          const optionInput = row.querySelector('input[type="text"]');
+          const optionText = optionInput ? optionInput.value.trim() : '';
+          const radioInput = row.querySelector('input[type="radio"]');
+          const isChecked = radioInput ? radioInput.checked : false;
+
+          if (!optionText) {
+            return; // Skip empty options
+          }
+
+          if (isChecked) {
+            correctIndex = options.length; // Use current options array length
+          }
+
+          options.push({
+            option_id: optionId,
+            option_text: optionText
+          });
+        });
+
+        // Validate: must have at least one option and one correct answer
+        if (options.length === 0) {
+          validationError = `Question ${qIndex + 1} must have at least one option`;
+          return;
+        }
+
+        if (correctIndex === -1) {
+          validationError = `Question ${qIndex + 1} must have one correct answer selected`;
+          return;
+        }
+
+        questions.push({
+          question_id: questionId ? parseInt(questionId) : null,
+          question_text: questionText,
+          options: options,
+          correct_index: correctIndex
+        });
+      });
+
+      if (validationError) {
+        alert(validationError);
+        return;
+      }
+
+      if (questions.length === 0) {
+        alert('No valid questions to save');
+        return;
+      }
+
+      // Show loading state
+      const submitBtn = e.target.querySelector('button[type="submit"]');
+      const originalText = submitBtn.textContent;
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Saving...';
+
+      try {
+        const response = await fetch('php/save_quiz_questions.php', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            quiz_id: parseInt(quizId),
+            questions: questions
+          })
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+
+        const result = await response.json();
+
+        if (result.success) {
+          alert(`Success! ${result.message}`);
+          // Reload questions to show updated data
+          fetchQuestions();
+        } else {
+          alert('Error: ' + (result.error || 'Unknown error'));
+        }
+
+      } catch (error) {
+        console.error('Save error:', error);
+        alert('Error saving questions: ' + error.message);
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
+      }
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    function clearAll() {
+      if (confirm('Are you sure you want to clear all questions? This cannot be undone.')) {
+        document.getElementById('questionList').innerHTML = '';
+      }
+    }
+
+    // Wait for DOM to be ready
+    document.addEventListener('DOMContentLoaded', async function () {
+      console.log('DOM loaded, initializing...');
+
+      // Prevent form submission from clearing data
+      const form = document.getElementById('questionsForm');
+      if (form) {
+        form.addEventListener('submit', function (e) {
+          // The saveAll function handles the submission
+        });
+      }
+
+      // Parse URL parameters
+      const urlParams = new URLSearchParams(window.location.search);
+      const targetDocId = urlParams.get('doc_id');
+      const targetVersionId = urlParams.get('version_id');
+      const targetQuizId = urlParams.get('quiz_id');
+
+      // Load documents
+      await fetchDocuments();
+
+      // If parameters exist, try to auto-select
+      if (targetDocId) {
+        // Find document object
+        const doc = allDocuments.find(d => d.DocumentID == targetDocId);
+        if (doc) {
+          console.log('Auto-selecting document:', doc.Title);
+          selectDocument(doc.DocumentID, doc.Title);
+
+          // Wait for versions to load (triggered by selectDocument -> fetchDocumentVersions)
+          // Since selectDocument calls fetchDocumentVersions which is async but not awaited there, we call it manually or wait?
+          // selectDocument is sync, but it calls fetchDocumentVersions(). 
+          // We can just call fetchDocumentVersions directly here to await it, since selectDocument sets the hidden input.
+
+          await fetchDocumentVersions();
+
+          if (targetVersionId) {
+            const ver = allDocVersions.find(v => v.VersionID == targetVersionId);
+            if (ver) {
+              const verTitle = `Version ${ver.VersionNumber}${ver.RevisionLabel ? ' - ' + ver.RevisionLabel : ''}`;
+              console.log('Auto-selecting version:', verTitle);
+              selectDocVersion(ver.VersionID, verTitle);
+
+              await fetchQuizzes();
+
+              if (targetQuizId) {
+                const quizSelect = document.getElementById('quiz');
+                if (quizSelect && quizSelect.querySelector(`option[value="${targetQuizId}"]`)) {
+                  console.log('Auto-selecting quiz:', targetQuizId);
+                  quizSelect.value = targetQuizId;
+                  fetchQuestions();
+                }
+              }
+            }
+          }
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>

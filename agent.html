@@ -1,0 +1,1306 @@
+<!DOCTYPE html>
+<!-- sheener/agent.html -->
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EHS AI Agent - SHEEner</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="shortcut icon" href="img/favicon/faviconAY.ico">
+  <script src="js/navbar.js" defer></script>
+  <script src="js/topbar.js" defer></script>
+  <style>
+    /* Chat Agent Styles - Integrated with project design system */
+    :root {
+      --chat-primary: #2563eb;
+      --chat-primary-dark: #1e40af;
+      --chat-bg: #ffffff;
+      --chat-bg-secondary: #f8fafc;
+      --chat-border: #e2e8f0;
+      --chat-text: #1e293b;
+      --chat-text-secondary: #64748b;
+      --chat-user-bg: #2563eb;
+      --chat-user-text: #ffffff;
+      --chat-agent-bg: #f1f5f9;
+      --chat-agent-text: #1e293b;
+      --chat-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      --chat-radius: 0.75rem;
+    }
+
+    body {
+      background-color: var(--bg-secondary, #f5f5f5);
+      padding-top: 72px;
+      /* Topbar height */
+      padding-left: var(--navbar-width, 50px);
+      min-height: 100vh;
+    }
+
+    .chat-container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+      display: flex;
+      flex-direction: column;
+      height: calc(100vh - 120px);
+    }
+
+    .chat-header {
+      background: var(--chat-bg);
+      border-radius: var(--chat-radius);
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      box-shadow: var(--chat-shadow);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .chat-header-icon {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, var(--chat-primary), var(--chat-primary-dark));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.5rem;
+    }
+
+    .chat-header-content h1 {
+      margin: 0;
+      font-size: 1.75rem;
+      color: var(--chat-text);
+      font-weight: 700;
+    }
+
+    .chat-header-content p {
+      margin: 0.25rem 0 0 0;
+      color: var(--chat-text-secondary);
+      font-size: 0.9rem;
+    }
+
+    .chat-status {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: var(--chat-bg-secondary);
+      border-radius: 2rem;
+      font-size: 0.875rem;
+      color: var(--chat-text-secondary);
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #10b981;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.5;
+      }
+    }
+
+    .chat-messages {
+      flex: 1;
+      background: var(--chat-bg);
+      border-radius: var(--chat-radius);
+      padding: 1.5rem;
+      overflow-y: auto;
+      box-shadow: var(--chat-shadow);
+      margin-bottom: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .chat-messages::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .chat-messages::-webkit-scrollbar-track {
+      background: var(--chat-bg-secondary);
+      border-radius: 4px;
+    }
+
+    .chat-messages::-webkit-scrollbar-thumb {
+      background: var(--chat-border);
+      border-radius: 4px;
+    }
+
+    .chat-messages::-webkit-scrollbar-thumb:hover {
+      background: var(--chat-text-secondary);
+    }
+
+    .message {
+      display: flex;
+      gap: 0.75rem;
+      animation: slideIn 0.3s ease-out;
+      max-width: 85%;
+    }
+
+    .message.user {
+      align-self: flex-end;
+      flex-direction: row-reverse;
+    }
+
+    .message.agent {
+      align-self: flex-start;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .message-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    .message.user .message-avatar {
+      background: var(--chat-user-bg);
+      color: var(--chat-user-text);
+    }
+
+    .message.agent .message-avatar {
+      background: var(--chat-agent-bg);
+      color: var(--chat-agent-text);
+    }
+
+    .message-content {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .message-bubble {
+      padding: 0.875rem 1.125rem;
+      border-radius: var(--chat-radius);
+      word-wrap: break-word;
+      line-height: 1.5;
+    }
+
+    .message.user .message-bubble {
+      background: var(--chat-user-bg);
+      color: var(--chat-user-text);
+      border-bottom-right-radius: 0.25rem;
+    }
+
+    .message.agent .message-bubble {
+      background: var(--chat-agent-bg);
+      color: var(--chat-agent-text);
+      border-bottom-left-radius: 0.25rem;
+    }
+
+    /* Structured content styling */
+    .message-bubble h1,
+    .message-bubble h2,
+    .message-bubble h3 {
+      margin: 0.75rem 0 0.5rem 0;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+
+    .message-bubble h1 {
+      font-size: 1.25rem;
+    }
+
+    .message-bubble h2 {
+      font-size: 1.1rem;
+    }
+
+    .message-bubble h3 {
+      font-size: 1rem;
+    }
+
+    .message-bubble ul,
+    .message-bubble ol {
+      margin: 0.75rem 0;
+      padding-left: 1.5rem;
+      line-height: 1.6;
+    }
+
+    .message-bubble li {
+      margin: 0.5rem 0;
+      padding-left: 0.25rem;
+    }
+
+    .message-bubble ul li {
+      list-style-type: disc;
+    }
+
+    .message-bubble ol li {
+      list-style-type: decimal;
+    }
+
+    .message-bubble ul ul,
+    .message-bubble ol ol,
+    .message-bubble ul ol,
+    .message-bubble ol ul {
+      margin: 0.25rem 0;
+      padding-left: 1.25rem;
+    }
+
+    .message-bubble strong,
+    .message-bubble b {
+      font-weight: 700;
+      color: inherit;
+    }
+
+    .message-bubble em,
+    .message-bubble i {
+      font-style: italic;
+    }
+
+    .message-bubble p {
+      margin: 0.5rem 0;
+      line-height: 1.6;
+    }
+
+    .message-bubble p:first-child {
+      margin-top: 0;
+    }
+
+    .message-bubble p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Task/Data item styling */
+    .message-bubble .data-item {
+      background: rgba(0, 0, 0, 0.03);
+      border-left: 3px solid var(--chat-primary);
+      padding: 0.75rem 1rem;
+      margin: 0.75rem 0;
+      border-radius: 0.25rem;
+    }
+
+    .message-bubble .data-item-header {
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: var(--chat-primary);
+    }
+
+    .message-bubble .data-item-detail {
+      margin: 0.25rem 0;
+      padding-left: 0.5rem;
+    }
+
+    .message-bubble .data-item-detail strong {
+      display: inline-block;
+      min-width: 120px;
+      font-weight: 600;
+    }
+
+    /* Table-like structure for data */
+    .message-bubble .data-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin: 1rem 0;
+      padding: 0.5rem 0;
+    }
+
+    .message-bubble .data-list-item {
+      background: rgba(0, 0, 0, 0.02);
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-radius: 0.5rem;
+      padding: 1rem;
+      transition: all 0.2s;
+    }
+
+    .message-bubble .data-list-item:hover {
+      background: rgba(0, 0, 0, 0.04);
+      border-color: var(--chat-primary);
+    }
+
+    .message-bubble .data-list-item-header {
+      font-weight: 700;
+      font-size: 1.05rem;
+      margin-bottom: 0.75rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+      color: var(--chat-primary);
+    }
+
+    .message-bubble .data-list-item-details {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .message-bubble .data-list-item-detail {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .message-bubble .data-list-item-detail-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: var(--chat-text-secondary);
+      letter-spacing: 0.5px;
+    }
+
+    .message-bubble .data-list-item-detail-value {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--chat-text);
+    }
+
+    .message-bubble .data-list-item-detail-value.status-pending {
+      color: #f59e0b;
+    }
+
+    .message-bubble .data-list-item-detail-value.status-in-progress {
+      color: #3b82f6;
+    }
+
+    .message-bubble .data-list-item-detail-value.status-completed {
+      color: #10b981;
+    }
+
+    .message-bubble .data-list-item-detail-value.status-on-hold {
+      color: #ef4444;
+    }
+
+    .message-bubble .data-list-item-detail-value.priority-high {
+      color: #ef4444;
+      font-weight: 700;
+    }
+
+    .message-bubble .data-list-item-detail-value.priority-medium {
+      color: #f59e0b;
+    }
+
+    .message-bubble .data-list-item-detail-value.priority-low {
+      color: #10b981;
+    }
+
+    /* Code blocks */
+    .message-bubble code {
+      background: rgba(0, 0, 0, 0.1);
+      padding: 0.2rem 0.4rem;
+      border-radius: 0.25rem;
+      font-family: 'Courier New', monospace;
+      font-size: 0.9em;
+    }
+
+    .message-bubble pre {
+      background: rgba(0, 0, 0, 0.05);
+      padding: 1rem;
+      border-radius: 0.5rem;
+      overflow-x: auto;
+      margin: 0.75rem 0;
+    }
+
+    .message-bubble pre code {
+      background: none;
+      padding: 0;
+    }
+
+    /* Horizontal rule */
+    .message-bubble hr {
+      border: none;
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
+      margin: 1rem 0;
+    }
+
+    .message-time {
+      font-size: 0.75rem;
+      color: var(--chat-text-secondary);
+      padding: 0 0.5rem;
+    }
+
+    .message.user .message-time {
+      text-align: right;
+    }
+
+    .typing-indicator {
+      display: none;
+      align-self: flex-start;
+      padding: 1rem 1.5rem;
+      background: var(--chat-agent-bg);
+      border-radius: var(--chat-radius);
+      border-bottom-left-radius: 0.25rem;
+    }
+
+    .typing-indicator.active {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .typing-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--chat-text-secondary);
+      animation: typing 1.4s infinite;
+    }
+
+    .typing-dot:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    .typing-dot:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+
+    @keyframes typing {
+
+      0%,
+      60%,
+      100% {
+        transform: translateY(0);
+        opacity: 0.7;
+      }
+
+      30% {
+        transform: translateY(-10px);
+        opacity: 1;
+      }
+    }
+
+    .chat-input-container {
+      background: var(--chat-bg);
+      border-radius: var(--chat-radius);
+      padding: 1rem;
+      box-shadow: var(--chat-shadow);
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-end;
+    }
+
+    .chat-input-wrapper {
+      flex: 1;
+      position: relative;
+    }
+
+    #userInput {
+      width: 100%;
+      padding: 0.875rem 1rem;
+      border: 2px solid var(--chat-border);
+      border-radius: var(--chat-radius);
+      font-size: 1rem;
+      font-family: inherit;
+      resize: none;
+      min-height: 52px;
+      max-height: 120px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    #userInput:focus {
+      outline: none;
+      border-color: var(--chat-primary);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    #userInput::placeholder {
+      color: var(--chat-text-secondary);
+    }
+
+    .chat-suggestions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.75rem;
+    }
+
+    .suggestion-chip {
+      padding: 0.5rem 1rem;
+      background: var(--chat-bg-secondary);
+      border: 1px solid var(--chat-border);
+      border-radius: 2rem;
+      font-size: 0.875rem;
+      color: var(--chat-text);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .suggestion-chip:hover {
+      background: var(--chat-primary);
+      color: white;
+      border-color: var(--chat-primary);
+      transform: translateY(-2px);
+    }
+
+    #sendBtn {
+      padding: 0.55rem 1.5rem;
+      background: var(--chat-primary);
+      color: white;
+      border: none;
+      border-radius: var(--chat-radius);
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      min-width: 100px;
+      justify-content: center;
+    }
+
+    #sendBtn:hover:not(:disabled) {
+      background: var(--chat-primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    }
+
+    #sendBtn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    #sendBtn .spinner {
+      display: none;
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    #sendBtn.loading .spinner {
+      display: block;
+    }
+
+    #sendBtn.loading .send-text {
+      display: none;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .error-message {
+      background: #fee2e2;
+      color: #991b1b;
+      padding: 0.75rem 1rem;
+      border-radius: var(--chat-radius);
+      border-left: 4px solid #ef4444;
+      margin: 0.5rem 0;
+      font-size: 0.875rem;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      body {
+        padding-left: 0;
+      }
+
+      .chat-container {
+        margin: 1rem 0.5rem;
+        height: calc(100vh - 100px);
+      }
+
+      .message {
+        max-width: 95%;
+      }
+
+      .chat-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .chat-status {
+        margin-left: 0;
+        margin-top: 0.5rem;
+      }
+    }
+
+    /* Empty state */
+    .empty-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      color: var(--chat-text-secondary);
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .empty-state.hidden {
+      display: none;
+    }
+
+    .empty-state-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      opacity: 0.5;
+    }
+
+    .empty-state-text {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+
+    .empty-state-subtext {
+      font-size: 0.9rem;
+      opacity: 0.7;
+    }
+
+    /* Quick Actions Styling */
+    .quick-actions-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--chat-border);
+    }
+
+    .quick-action-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.625rem 1rem;
+      border: 2px solid;
+      border-radius: 0.5rem;
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 600;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+
+    .quick-action-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+      opacity: 0.9;
+    }
+
+    .quick-action-btn i {
+      font-size: 0.875rem;
+    }
+
+    /* Context Panel */
+    .context-panel {
+      background: var(--chat-bg-secondary);
+      border-left: 4px solid var(--chat-primary);
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-radius: 0.5rem;
+      display: none;
+    }
+
+    .context-panel.active {
+      display: block;
+    }
+
+    .context-panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+    }
+
+    .context-panel-title {
+      font-weight: 600;
+      color: var(--chat-text);
+      font-size: 0.9rem;
+    }
+
+    .context-panel-close {
+      background: none;
+      border: none;
+      color: var(--chat-text-secondary);
+      cursor: pointer;
+      font-size: 1.25rem;
+      padding: 0;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .context-panel-close:hover {
+      color: var(--chat-text);
+    }
+
+    .context-panel-content {
+      font-size: 0.875rem;
+      color: var(--chat-text-secondary);
+    }
+  </style>
+</head>
+
+<body>
+  <div id="navbar"></div>
+  <div id="topbar"></div>
+
+  <div class="chat-container">
+    <div class="chat-header">
+      <div class="chat-header-icon">
+        <i class="fas fa-robot"></i>
+      </div>
+      <div class="chat-header-content">
+        <h1>EHS AI Agent</h1>
+        <p>Your intelligent assistant for permits, incidents, risk assessments, and safety procedures. I can analyze
+          your system data and provide insights!</p>
+      </div>
+      <div class="chat-status">
+        <span class="status-dot"></span>
+        <span>Online</span>
+      </div>
+    </div>
+
+    <div class="chat-messages" id="chat">
+      <div class="context-panel" id="contextPanel">
+        <div class="context-panel-header">
+          <div class="context-panel-title">
+            <i class="fas fa-info-circle"></i> Context
+          </div>
+          <button class="context-panel-close" id="contextPanelClose">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="context-panel-content" id="contextPanelContent">
+          <!-- Context information will be displayed here -->
+        </div>
+      </div>
+      <div class="empty-state" id="emptyState">
+        <div class="empty-state-icon">
+          <i class="fas fa-comments"></i>
+        </div>
+        <div class="empty-state-text">Start a conversation</div>
+        <div class="empty-state-subtext">Ask me anything about EHS, permits, incidents, or safety procedures</div>
+      </div>
+      <div class="typing-indicator" id="typingIndicator">
+        <div class="typing-dot"></div>
+        <div class="typing-dot"></div>
+        <div class="typing-dot"></div>
+      </div>
+    </div>
+
+    <div class="chat-input-container">
+      <div class="chat-input-wrapper">
+        <textarea id="userInput" placeholder="Ask me about permits, incidents, risk assessments..." rows="1"></textarea>
+        <div class="chat-suggestions" id="suggestions">
+          <div class="suggestion-chip" data-query="What are the requirements for a work permit?">Work Permits</div>
+          <div class="suggestion-chip" data-query="Show me dashboard statistics">Dashboard Stats</div>
+          <div class="suggestion-chip" data-query="Analyze current risk status">Risk Analysis</div>
+          <div class="suggestion-chip" data-query="What permits are overdue?">Overdue Items</div>
+          <div class="suggestion-chip" data-query="How many incidents in the last 30 days?">Incident Report</div>
+          <div class="suggestion-chip" data-query="Show me KPI data">KPI Metrics</div>
+          <div class="suggestion-chip" data-query="View error logs">Error Logs</div>
+          <div class="suggestion-chip" data-query="Show activity logs">Activity Logs</div>
+        </div>
+      </div>
+      <button id="sendBtn">
+        <span class="spinner"></span>
+        <span class="send-text">Send</span>
+      </button>
+    </div>
+  </div>
+
+  <script>
+    // Get context from URL parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const contextQuery = urlParams.get('query');
+    const contextType = urlParams.get('context');
+    const contextId = urlParams.get('id');
+    const contextAction = urlParams.get('action'); // 'view', 'edit', 'create'
+
+    const chatDiv = document.getElementById('chat');
+    const input = document.getElementById('userInput');
+    const sendBtn = document.getElementById('sendBtn');
+    const typingIndicator = document.getElementById('typingIndicator');
+    const emptyState = document.getElementById('emptyState');
+    const suggestions = document.querySelectorAll('.suggestion-chip');
+    const contextPanel = document.getElementById('contextPanel');
+    const contextPanelContent = document.getElementById('contextPanelContent');
+    const contextPanelClose = document.getElementById('contextPanelClose');
+
+    // Setup context panel
+    if (contextType && contextId) {
+      contextPanel.classList.add('active');
+      contextPanelContent.innerHTML = `
+        <strong>${contextAction || 'View'}</strong> ${contextType} #${contextId}
+        ${contextQuery ? `<br><em>Query: ${escapeHtml(contextQuery)}</em>` : ''}
+      `;
+    }
+
+    contextPanelClose.addEventListener('click', () => {
+      contextPanel.classList.remove('active');
+    });
+
+    // Auto-resize textarea
+    input.addEventListener('input', function () {
+      this.style.height = 'auto';
+      this.style.height = Math.min(this.scrollHeight, 120) + 'px';
+    });
+
+    // Suggestion chips
+    suggestions.forEach(chip => {
+      chip.addEventListener('click', () => {
+        input.value = chip.dataset.query;
+        input.focus();
+        sendQuery();
+      });
+    });
+
+    /**
+     * Parse quick action buttons from agent response
+     * Format: [ACTION:label:type:id] or [ACTION:label:url]
+     */
+    function parseQuickActions(text) {
+      const actionRegex = /\[ACTION:([^:]+):([^:]+):([^\]]+)\]/g;
+      const actions = [];
+      let match;
+
+      while ((match = actionRegex.exec(text)) !== null) {
+        const [, label, type, identifier] = match;
+        actions.push({ label, type, identifier, original: match[0] });
+      }
+
+      return actions;
+    }
+
+    /**
+     * Render quick action buttons
+     */
+    function renderQuickActions(actions) {
+      if (actions.length === 0) return '';
+
+      const actionMap = {
+        'view': { icon: 'fa-eye', color: 'var(--chat-primary)' },
+        'edit': { icon: 'fa-edit', color: '#10b981' },
+        'delete': { icon: 'fa-trash', color: '#ef4444' },
+        'open': { icon: 'fa-external-link-alt', color: 'var(--chat-primary)' },
+        'report': { icon: 'fa-file-alt', color: '#f59e0b' }
+      };
+
+      return '<div class="quick-actions-container">' +
+        actions.map(action => {
+          const actionInfo = actionMap[action.type] || { icon: 'fa-hand-pointer', color: 'var(--chat-primary)' };
+          let url = '';
+
+          // Determine URL based on type
+          if (action.type === 'view' || action.type === 'edit') {
+            if (action.identifier.includes('permit')) {
+              url = `permit_list.php?permit_id=${action.identifier.replace('permit_', '')}`;
+            } else if (action.identifier.includes('risk')) {
+              url = `risk_assessment.html?risk_id=${action.identifier.replace('risk_', '')}`;
+            } else if (action.identifier.includes('task')) {
+              url = `task_center.html?task_id=${action.identifier.replace('task_', '')}`;
+            } else if (action.identifier.includes('event')) {
+              url = `event_center.php?event_id=${action.identifier.replace('event_', '')}`;
+            } else {
+              url = action.identifier; // Assume it's already a URL
+            }
+          } else if (action.type === 'open') {
+            url = action.identifier;
+          } else {
+            url = '#'; // Default
+          }
+
+          return `<a href="${url}" class="quick-action-btn" style="background: ${actionInfo.color}20; border-color: ${actionInfo.color}; color: ${actionInfo.color};">
+            <i class="fas ${actionInfo.icon}"></i>
+            <span>${escapeHtml(action.label)}</span>
+          </a>`;
+        }).join('') +
+        '</div>';
+    }
+
+    /**
+     * Convert markdown-like text to HTML with structured formatting
+     */
+    function formatMessage(text) {
+      if (!text) return '';
+
+      // Split text into sections
+      const sections = [];
+      const lines = text.split('\n');
+      let currentSection = { type: 'text', content: [] };
+      let currentTask = null;
+
+      for (let i = 0; i < lines.length; i++) {
+        const line = lines[i];
+        const trimmed = line.trim();
+
+        // Check for Task ID header
+        const taskIdMatch = trimmed.match(/\*\*Task ID:\*\*\s*(\d+)/i);
+        if (taskIdMatch) {
+          // Save previous task if exists
+          if (currentTask) {
+            sections.push({ type: 'task', data: currentTask });
+          }
+
+          // Start new task
+          currentTask = {
+            id: taskIdMatch[1],
+            fields: []
+          };
+
+          // Save any pending text section
+          if (currentSection.content.length > 0) {
+            sections.push({ ...currentSection });
+            currentSection = { type: 'text', content: [] };
+          }
+          continue;
+        }
+
+        // If we're in a task, parse fields
+        if (currentTask) {
+          const fieldMatch = trimmed.match(/\*\*\s*([^:]+?)\s*:\*\*\s*(.+)/);
+          if (fieldMatch) {
+            const fieldName = fieldMatch[1].trim();
+            let fieldValue = fieldMatch[2].trim();
+
+            // Remove any trailing asterisks or special markers
+            fieldValue = fieldValue.replace(/\*+$/, '').trim();
+            fieldValue = fieldValue.replace(/^\*+/, '').trim();
+
+            currentTask.fields.push({
+              name: fieldName,
+              value: fieldValue
+            });
+          }
+          continue;
+        }
+
+        // Regular text content
+        if (trimmed) {
+          currentSection.content.push(line);
+        } else if (currentSection.content.length > 0) {
+          sections.push({ ...currentSection });
+          currentSection = { type: 'text', content: [] };
+        }
+      }
+
+      // Save last task and section
+      if (currentTask) {
+        sections.push({ type: 'task', data: currentTask });
+      }
+      if (currentSection.content.length > 0) {
+        sections.push({ ...currentSection });
+      }
+
+      // Parse quick actions from text
+      const quickActions = parseQuickActions(text);
+      const textWithoutActions = text.replace(/\[ACTION:[^\]]+\]/g, '');
+
+      // Build HTML from sections
+      let html = '';
+      let taskGroup = [];
+
+      for (const section of sections) {
+        if (section.type === 'task') {
+          taskGroup.push(section.data);
+        } else {
+          // If we have accumulated tasks, render them as a group
+          if (taskGroup.length > 0) {
+            html += '<div class="data-list">';
+            taskGroup.forEach(task => {
+              html += renderTaskItem(task);
+            });
+            html += '</div>';
+            taskGroup = [];
+          }
+          // Use text without actions for formatting
+          const sectionText = section.content.join('\n').replace(/\[ACTION:[^\]]+\]/g, '');
+          html += formatTextSection(sectionText);
+        }
+      }
+
+      // Render any remaining tasks
+      if (taskGroup.length > 0) {
+        html += '<div class="data-list">';
+        taskGroup.forEach(task => {
+          html += renderTaskItem(task);
+        });
+        html += '</div>';
+      }
+
+      // Add quick actions at the end
+      if (quickActions.length > 0) {
+        html += renderQuickActions(quickActions);
+      }
+
+      return html;
+    }
+
+    /**
+     * Render a structured task item
+     */
+    function renderTaskItem(task) {
+      const details = task.fields.map(field => {
+        const nameLower = field.name.toLowerCase();
+        let valueClass = '';
+
+        if (nameLower === 'status') {
+          const statusLower = field.value.toLowerCase()
+            .replace(/\s+/g, '-')
+            .replace(/[^a-z0-9-]/g, '')
+            .replace(/not-specified|unspecified/i, 'pending');
+          valueClass = `status-${statusLower}`;
+        } else if (nameLower === 'priority') {
+          valueClass = `priority-${field.value.toLowerCase()}`;
+        }
+
+        return `
+          <div class="data-list-item-detail">
+            <div class="data-list-item-detail-label">${escapeHtml(field.name)}</div>
+            <div class="data-list-item-detail-value ${valueClass}">${escapeHtml(field.value)}</div>
+          </div>
+        `;
+      }).join('');
+
+      return `
+        <div class="data-list-item">
+          <div class="data-list-item-header">Task ID: ${escapeHtml(task.id)}</div>
+          <div class="data-list-item-details">${details}</div>
+        </div>
+      `;
+    }
+
+    /**
+     * Format regular text sections with markdown
+     */
+    function formatTextSection(text) {
+      if (!text.trim()) return '';
+
+      let html = escapeHtml(text);
+
+      // Headers
+      html = html.replace(/^### (.*$)/gim, '<h3>$1</h3>');
+      html = html.replace(/^## (.*$)/gim, '<h2>$1</h2>');
+      html = html.replace(/^# (.*$)/gim, '<h1>$1</h1>');
+
+      // Bold (avoid matching in already processed areas)
+      html = html.replace(/\*\*([^*]+?)\*\*/g, '<strong>$1</strong>');
+
+      // Italic (single asterisk, but not double)
+      html = html.replace(/(?<!\*)\*([^*]+?)\*(?!\*)/g, '<em>$1</em>');
+
+      // Bullet lists
+      const listLines = html.split('\n');
+      let inList = false;
+      let listItems = [];
+      let result = [];
+
+      for (const line of listLines) {
+        const listMatch = line.match(/^[\s]*[\*\-]\s+(.+)$/);
+        if (listMatch) {
+          if (!inList) {
+            inList = true;
+            listItems = [];
+          }
+          listItems.push('<li>' + listMatch[1] + '</li>');
+        } else {
+          if (inList) {
+            result.push('<ul>' + listItems.join('') + '</ul>');
+            inList = false;
+            listItems = [];
+          }
+          if (line.trim()) {
+            result.push(line);
+          }
+        }
+      }
+
+      if (inList) {
+        result.push('<ul>' + listItems.join('') + '</ul>');
+      }
+
+      html = result.join('\n');
+
+      // Convert to paragraphs
+      const paragraphs = html.split(/\n\n+/);
+      html = paragraphs.map(p => {
+        p = p.trim();
+        if (!p) return '';
+        if (p.match(/^<[hul]/)) return p;
+        return '<p>' + p + '</p>';
+      }).join('');
+
+      return html;
+    }
+
+    /**
+     * Escape HTML to prevent XSS
+     */
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    function appendMessage(sender, text, isError = false) {
+      emptyState.classList.add('hidden');
+
+      const messageDiv = document.createElement('div');
+      messageDiv.classList.add('message', sender);
+
+      if (isError) {
+        messageDiv.innerHTML = `
+          <div class="message-content" style="width: 100%;">
+            <div class="error-message">${escapeHtml(text)}</div>
+          </div>
+        `;
+      } else {
+        const avatar = sender === 'user' ? '<i class="fas fa-user"></i>' : '<i class="fas fa-robot"></i>';
+        const time = new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+        const formattedText = sender === 'agent' ? formatMessage(text) : escapeHtml(text);
+
+        messageDiv.innerHTML = `
+          <div class="message-avatar">${avatar}</div>
+          <div class="message-content">
+            <div class="message-bubble">${formattedText}</div>
+            <div class="message-time">${time}</div>
+          </div>
+        `;
+      }
+
+      chatDiv.insertBefore(messageDiv, typingIndicator);
+      chatDiv.scrollTop = chatDiv.scrollHeight;
+    }
+
+    function showTyping() {
+      typingIndicator.classList.add('active');
+      chatDiv.scrollTop = chatDiv.scrollHeight;
+    }
+
+    function hideTyping() {
+      typingIndicator.classList.remove('active');
+    }
+
+    async function sendQuery() {
+      const question = input.value.trim();
+      if (!question) return;
+
+      appendMessage('user', question);
+      input.value = '';
+      input.style.height = 'auto';
+      sendBtn.disabled = true;
+      sendBtn.classList.add('loading');
+      showTyping();
+
+      try {
+        const response = await fetch('api/chat_ai.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ query: question })
+        });
+
+        hideTyping();
+
+        if (!response.ok) {
+          const text = await response.text();
+          let errorMsg = 'Server error';
+          let errorDetails = '';
+          try {
+            const errorData = JSON.parse(text);
+            errorMsg = errorData.error || errorMsg;
+            if (errorData.file) {
+              errorDetails = ` (${errorData.file}:${errorData.line || ''})`;
+            }
+          } catch (e) {
+            errorMsg = `Error ${response.status}: ${text.substring(0, 200)}`;
+          }
+          appendMessage('agent', `Error: ${errorMsg}${errorDetails}`, true);
+          return;
+        }
+
+        const contentType = response.headers.get('content-type');
+        if (!contentType || !contentType.includes('application/json')) {
+          const text = await response.text();
+          appendMessage('agent', 'Invalid response format from server.', true);
+          console.error('Expected JSON but got:', contentType, text.substring(0, 200));
+          return;
+        }
+
+        const data = await response.json();
+
+        if (data.success && data.answer) {
+          appendMessage('agent', data.answer);
+        } else if (data.error) {
+          appendMessage('agent', `Error: ${data.error}`, true);
+        } else {
+          appendMessage('agent', 'Unexpected response format.', true);
+        }
+      } catch (e) {
+        hideTyping();
+        appendMessage('agent', 'Sorry, something went wrong. Please check your connection and try again.', true);
+        console.error('Error:', e);
+      } finally {
+        sendBtn.disabled = false;
+        sendBtn.classList.remove('loading');
+        input.focus();
+      }
+    }
+
+    sendBtn.addEventListener('click', sendQuery);
+    input.addEventListener('keypress', e => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        sendQuery();
+      }
+    });
+
+    // Focus input on load
+    window.addEventListener('load', () => {
+      // Handle context-aware launching
+      if (contextQuery) {
+        input.value = contextQuery;
+        setTimeout(() => {
+          sendQuery();
+        }, 500);
+      } else if (contextType && contextId) {
+        // Handle specific context (e.g., edit risk assessment #45)
+        let query = '';
+        if (contextAction === 'edit') {
+          query = `Help me edit ${contextType} #${contextId}`;
+        } else if (contextAction === 'view') {
+          query = `Show me details for ${contextType} #${contextId}`;
+        } else {
+          query = `Show me ${contextType} #${contextId}`;
+        }
+        input.value = query;
+        setTimeout(() => {
+          sendQuery();
+        }, 500);
+      } else {
+        input.focus();
+      }
+    });
+  </script>
+</body>
+
+</html>

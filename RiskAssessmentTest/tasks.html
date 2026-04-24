@@ -1,0 +1,970 @@
+<!-- File: sheener/RiskAssessmentTest/tasks.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Analysis - Risk Assessment Pro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Sans+Pro:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.3/echarts.min.js"></script>
+    <style>
+        :root {
+            --primary-navy: #1a2332;
+            --secondary-gray: #6b7280;
+            --accent-orange: #ff8c00;
+            --risk-high: #dc2626;
+            --risk-medium: #f59e0b;
+            --risk-low: #059669;
+            --bg-light: #fafafa;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--primary-navy);
+            line-height: 1.6;
+        }
+
+        .navigation {
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .nav-logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-navy);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: var(--secondary-gray);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--accent-orange);
+        }
+
+        .page-header {
+            background: linear-gradient(135deg, var(--primary-navy) 0%, #2d3748 100%);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .page-subtitle {
+            font-size: 1.125rem;
+            color: #e2e8f0;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .task-filters {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .filter-row {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+
+        .filter-select, .search-input {
+            padding: 0.5rem 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            background: white;
+            font-size: 0.875rem;
+            transition: border-color 0.3s ease;
+            min-width: 150px;
+        }
+
+        .filter-select:focus, .search-input:focus {
+            outline: none;
+            border-color: var(--accent-orange);
+        }
+
+        .search-input {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .tasks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .task-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e5e7eb;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .task-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            border-color: var(--accent-orange);
+        }
+
+        .task-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .task-id {
+            background: var(--accent-orange);
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+
+        .task-risk {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            color: white;
+        }
+
+        .risk-high {
+            background: var(--risk-high);
+        }
+
+        .risk-medium {
+            background: var(--risk-medium);
+        }
+
+        .risk-low {
+            background: var(--risk-low);
+        }
+
+        .task-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--primary-navy);
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+        }
+
+        .task-category {
+            font-size: 0.875rem;
+            color: var(--secondary-gray);
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .task-info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .info-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .info-label {
+            font-size: 0.75rem;
+            color: var(--secondary-gray);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .info-value {
+            font-size: 0.875rem;
+            color: var(--primary-navy);
+            font-weight: 500;
+        }
+
+        .risk-indicators {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .risk-indicator {
+            flex: 1;
+            text-align: center;
+            padding: 0.5rem;
+            border-radius: 6px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+        }
+
+        .risk-indicator.severity {
+            border-left: 4px solid #ef4444;
+        }
+
+        .risk-indicator.likelihood {
+            border-left: 4px solid #3b82f6;
+        }
+
+        .risk-indicator.rating {
+            border-left: 4px solid var(--accent-orange);
+        }
+
+        .indicator-label {
+            font-size: 0.75rem;
+            color: var(--secondary-gray);
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .indicator-value {
+            font-size: 1rem;
+            font-weight: bold;
+            color: var(--primary-navy);
+        }
+
+        .hazard-section, .controls-section {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .section-title {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--primary-navy);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .hazard-text {
+            font-size: 0.875rem;
+            color: var(--secondary-gray);
+            margin-bottom: 0.5rem;
+        }
+
+        .controls-text {
+            font-size: 0.875rem;
+            color: var(--secondary-gray);
+            font-style: italic;
+        }
+
+        .personnel-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.25rem;
+            margin-top: 0.5rem;
+        }
+
+        .personnel-tag {
+            background: #e0f2fe;
+            color: #0369a1;
+            padding: 0.25rem 0.5rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            max-width: 900px;
+            max-height: 90vh;
+            overflow-y: auto;
+            margin: 2rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .modal-header {
+            padding: 2rem 2rem 1rem;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--secondary-gray);
+            padding: 0.5rem;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        .modal-close:hover {
+            background: #f3f4f6;
+        }
+
+        .detail-content {
+            padding: 0 2rem 2rem;
+        }
+
+        .detail-section {
+            margin-bottom: 2rem;
+        }
+
+        .detail-section h4 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--primary-navy);
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 0.5rem;
+        }
+
+        .controls-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+
+        .controls-panel {
+            background: #f8fafc;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .controls-panel.current {
+            border-left: 4px solid var(--risk-medium);
+        }
+
+        .controls-panel.recommended {
+            border-left: 4px solid var(--accent-orange);
+        }
+
+        .panel-title {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--primary-navy);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .panel-content {
+            font-size: 0.875rem;
+            color: var(--secondary-gray);
+            line-height: 1.5;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            font-size: 0.875rem;
+        }
+
+        .btn-primary {
+            background: var(--accent-orange);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #e67e00;
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: #f8fafc;
+            color: var(--primary-navy);
+            border: 2px solid #e5e7eb;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent-orange);
+            background: #fef7ed;
+        }
+
+        .stats-summary {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+        }
+
+        .summary-item {
+            text-align: center;
+            padding: 1rem;
+            background: #f8fafc;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .summary-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary-navy);
+            margin-bottom: 0.5rem;
+        }
+
+        .summary-label {
+            font-size: 0.875rem;
+            color: var(--secondary-gray);
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2rem;
+            }
+            
+            .tasks-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .task-info-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .controls-comparison {
+                grid-template-columns: 1fr;
+            }
+            
+            .filter-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .filter-select, .search-input {
+                min-width: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navigation">
+        <div class="nav-container">
+            <div class="nav-logo">Risk Assessment Pro</div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Dashboard</a>
+                <a href="tasks.html" class="nav-link active">Task Analysis</a>
+                <a href="controls.html" class="nav-link">Controls Management</a>
+                <a href="reports.html" class="nav-link">Reports</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1 class="page-title">Detailed Task Analysis</h1>
+            <p class="page-subtitle">Comprehensive breakdown of all risk assessment tasks with detailed analysis</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Summary Statistics -->
+        <div class="stats-summary">
+            <div class="summary-item">
+                <div class="summary-value">18</div>
+                <div class="summary-label">Total Tasks</div>
+            </div>
+            <div class="summary-item">
+                <div class="summary-value" style="color: var(--risk-high);">4</div>
+                <div class="summary-label">High Risk</div>
+            </div>
+            <div class="summary-item">
+                <div class="summary-value" style="color: var(--risk-medium);">12</div>
+                <div class="summary-label">Medium Risk</div>
+            </div>
+            <div class="summary-item">
+                <div class="summary-value" style="color: var(--risk-low);">2</div>
+                <div class="summary-label">Low Risk</div>
+            </div>
+            <div class="summary-item">
+                <div class="summary-value">8.9</div>
+                <div class="summary-label">Avg Risk Rating</div>
+            </div>
+        </div>
+
+        <!-- Filters -->
+        <div class="task-filters">
+            <div class="filter-row">
+                <select id="risk-level-filter" class="filter-select">
+                    <option value="all">All Risk Levels</option>
+                    <option value="H">High Risk</option>
+                    <option value="M">Medium Risk</option>
+                    <option value="L">Low Risk</option>
+                </select>
+                
+                <select id="process-phase-filter" class="filter-select">
+                    <option value="all">All Process Phases</option>
+                    <option value="Setup">Setup</option>
+                    <option value="Setup/Op./Handl.">Setup/Operation/Handling</option>
+                    <option value="Op./Handl.">Operation/Handling</option>
+                    <option value="Maint">Maintenance</option>
+                </select>
+                
+                <select id="category-filter" class="filter-select">
+                    <option value="all">All Categories</option>
+                    <option value="RECEIPTING AND STORAGE OF MATERIAL">Receipting & Storage</option>
+                    <option value="TRANSPORT TO POINT OF CONNECTION / HANDLING IN ENVIRONMENT">Transport & Handling</option>
+                    <option value="PRECHECK ACTIVITIES">Precheck Activities</option>
+                    <option value="OPERATION OF VESSEL / ENERGY OPERATIONS">Vessel & Energy Operations</option>
+                    <option value="CLEANING OPERATION">Cleaning Operations</option>
+                    <option value="WASTE DISPOSAL AND MANAGEMENT">Waste Management</option>
+                </select>
+            </div>
+            <div class="filter-row">
+                <input type="text" id="search-input" class="search-input" placeholder="Search tasks, hazards, risks, or personnel...">
+            </div>
+        </div>
+
+        <!-- Tasks Grid -->
+        <div id="tasks-container" class="tasks-grid">
+            <!-- Tasks will be dynamically loaded here -->
+        </div>
+    </main>
+
+    <!-- Task Detail Modal -->
+    <div id="task-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="modal-close">&times;</button>
+            </div>
+            <div id="modal-content" class="detail-content"></div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer style="background: var(--primary-navy); color: white; padding: 2rem 0; margin-top: 4rem; text-align: center;">
+        <div class="container">
+            <p>&copy; 2024 Risk Assessment Pro. Professional risk management and safety analysis.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="main.js"></script>
+    <script>
+        class TaskAnalysisApp {
+            constructor() {
+                this.riskData = [];
+                this.filteredData = [];
+                this.currentFilters = {
+                    riskLevel: 'all',
+                    processPhase: 'all',
+                    category: 'all',
+                    searchTerm: ''
+                };
+                this.init();
+            }
+
+            async init() {
+                await this.loadData();
+                this.setupEventListeners();
+                this.renderTasks();
+                this.animatePageLoad();
+            }
+
+            async loadData() {
+                try {
+                    const response = await fetch('./risk_data.json');
+                    this.riskData = await response.json();
+                    this.filteredData = [...this.riskData];
+                } catch (error) {
+                    console.error('Error loading risk data:', error);
+                    this.riskData = [];
+                    this.filteredData = [];
+                }
+            }
+
+            setupEventListeners() {
+                // Filter event listeners
+                const riskLevelFilter = document.getElementById('risk-level-filter');
+                const processPhaseFilter = document.getElementById('process-phase-filter');
+                const categoryFilter = document.getElementById('category-filter');
+                const searchInput = document.getElementById('search-input');
+
+                if (riskLevelFilter) {
+                    riskLevelFilter.addEventListener('change', (e) => {
+                        this.currentFilters.riskLevel = e.target.value;
+                        this.applyFilters();
+                    });
+                }
+
+                if (processPhaseFilter) {
+                    processPhaseFilter.addEventListener('change', (e) => {
+                        this.currentFilters.processPhase = e.target.value;
+                        this.applyFilters();
+                    });
+                }
+
+                if (categoryFilter) {
+                    categoryFilter.addEventListener('change', (e) => {
+                        this.currentFilters.category = e.target.value;
+                        this.applyFilters();
+                    });
+                }
+
+                if (searchInput) {
+                    searchInput.addEventListener('input', (e) => {
+                        this.currentFilters.searchTerm = e.target.value.toLowerCase();
+                        this.applyFilters();
+                    });
+                }
+
+                // Modal event listeners
+                document.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('modal-close') || e.target.classList.contains('modal')) {
+                        this.closeModal();
+                    }
+                });
+            }
+
+            applyFilters() {
+                this.filteredData = this.riskData.filter(task => {
+                    const matchesRiskLevel = this.currentFilters.riskLevel === 'all' || task.risk_level === this.currentFilters.riskLevel;
+                    const matchesProcessPhase = this.currentFilters.processPhase === 'all' || task.process_phase === this.currentFilters.processPhase;
+                    const matchesCategory = this.currentFilters.category === 'all' || task.category === this.currentFilters.category;
+                    const matchesSearch = this.currentFilters.searchTerm === '' || 
+                        task.task.toLowerCase().includes(this.currentFilters.searchTerm) ||
+                        task.hazard.toLowerCase().includes(this.currentFilters.searchTerm) ||
+                        task.risk.toLowerCase().includes(this.currentFilters.searchTerm) ||
+                        task.persons_at_risk.toLowerCase().includes(this.currentFilters.searchTerm);
+
+                    return matchesRiskLevel && matchesProcessPhase && matchesCategory && matchesSearch;
+                });
+
+                this.renderTasks();
+            }
+
+            renderTasks() {
+                const container = document.getElementById('tasks-container');
+                if (!container) return;
+
+                container.innerHTML = '';
+
+                this.filteredData.forEach((task, index) => {
+                    const taskCard = this.createTaskCard(task);
+                    container.appendChild(taskCard);
+
+                    // Animate card appearance
+                    anime({
+                        targets: taskCard,
+                        opacity: [0, 1],
+                        translateY: [30, 0],
+                        duration: 500,
+                        delay: index * 100,
+                        easing: 'easeOutQuart'
+                    });
+                });
+
+                if (this.filteredData.length === 0) {
+                    container.innerHTML = `
+                        <div style="grid-column: 1 / -1; text-align: center; padding: 3rem; color: var(--secondary-gray);">
+                            <h3>No tasks match your current filters</h3>
+                            <p>Try adjusting your search criteria to see more results.</p>
+                        </div>
+                    `;
+                }
+            }
+
+            createTaskCard(task) {
+                const card = document.createElement('div');
+                card.className = 'task-card';
+                card.onclick = () => this.showTaskDetails(task);
+
+                const riskLevelClass = `risk-${task.risk_level.toLowerCase()}`;
+                const personnelList = task.persons_at_risk.split(',').map(p => p.trim());
+
+                card.innerHTML = `
+                    <div class="task-header">
+                        <div class="task-id">Task ${task.id}</div>
+                        <div class="task-risk ${riskLevelClass}">
+                            ${task.risk_level} Risk
+                        </div>
+                    </div>
+                    
+                    <h3 class="task-title">${task.task}</h3>
+                    <div class="task-category">${task.category}</div>
+                    
+                    <div class="risk-indicators">
+                        <div class="risk-indicator severity">
+                            <div class="indicator-label">Severity</div>
+                            <div class="indicator-value">${task.severity}/5</div>
+                        </div>
+                        <div class="risk-indicator likelihood">
+                            <div class="indicator-label">Likelihood</div>
+                            <div class="indicator-value">${task.likelihood}/5</div>
+                        </div>
+                        <div class="risk-indicator rating">
+                            <div class="indicator-label">Risk Rating</div>
+                            <div class="indicator-value">${task.risk_rating}</div>
+                        </div>
+                    </div>
+                    
+                    <div class="task-info-grid">
+                        <div class="info-item">
+                            <div class="info-label">Process Phase</div>
+                            <div class="info-value">${task.process_phase}</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Risk Level</div>
+                            <div class="info-value">${task.risk_level}</div>
+                        </div>
+                    </div>
+                    
+                    <div class="hazard-section">
+                        <div class="section-title">Primary Hazard</div>
+                        <div class="hazard-text">${task.hazard}</div>
+                    </div>
+                    
+                    <div class="controls-section">
+                        <div class="section-title">Personnel at Risk</div>
+                        <div class="personnel-tags">
+                            ${personnelList.map(person => `<span class="personnel-tag">${person}</span>`).join('')}
+                        </div>
+                    </div>
+                `;
+
+                return card;
+            }
+
+            showTaskDetails(task) {
+                const modal = document.getElementById('task-modal');
+                const modalContent = document.getElementById('modal-content');
+                
+                if (!modal || !modalContent) return;
+
+                const personnelList = task.persons_at_risk.split(',').map(p => p.trim());
+                const riskLevelClass = `risk-${task.risk_level.toLowerCase()}`;
+
+                modalContent.innerHTML = `
+                    <div class="task-detail-header">
+                        <div>
+                            <h2 style="margin-bottom: 0.5rem;">Task ${task.id}: ${task.task}</h2>
+                            <div class="task-category">${task.category}</div>
+                        </div>
+                        <div class="task-risk ${riskLevelClass}">
+                            ${task.risk_level} Risk (${task.risk_rating})
+                        </div>
+                    </div>
+                    
+                    <div class="detail-section">
+                        <h4>Task Information</h4>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                            <div>
+                                <strong>Process Phase:</strong><br>
+                                <span style="color: var(--secondary-gray);">${task.process_phase}</span>
+                            </div>
+                            <div>
+                                <strong>Severity:</strong><br>
+                                <span style="color: var(--secondary-gray);">${task.severity}/5</span>
+                            </div>
+                            <div>
+                                <strong>Likelihood:</strong><br>
+                                <span style="color: var(--secondary-gray);">${task.likelihood}/5</span>
+                            </div>
+                            <div>
+                                <strong>Risk Rating:</strong><br>
+                                <span style="color: var(--secondary-gray);">${task.risk_rating}</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="detail-section">
+                        <h4>Hazard & Risk Analysis</h4>
+                        <p><strong>Hazard (Source of Harm):</strong><br>
+                        <span style="color: var(--secondary-gray);">${task.hazard}</span></p>
+                        
+                        <p><strong>Risk/Consequence (Outcome):</strong><br>
+                        <span style="color: var(--secondary-gray);">${task.risk}</span></p>
+                    </div>
+                    
+                    <div class="detail-section">
+                        <h4>Personnel at Risk</h4>
+                        <div class="personnel-tags">
+                            ${personnelList.map(person => `<span class="personnel-tag">${person}</span>`).join('')}
+                        </div>
+                    </div>
+                    
+                    <div class="detail-section">
+                        <h4>Controls Analysis</h4>
+                        <div class="controls-comparison">
+                            <div class="controls-panel current">
+                                <div class="panel-title">Current Controls</div>
+                                <div class="panel-content">${task.current_controls}</div>
+                            </div>
+                            <div class="controls-panel recommended">
+                                <div class="panel-title">Recommended Actions</div>
+                                <div class="panel-content">${task.recommended_controls}</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button class="btn btn-primary" onclick="taskApp.markAsImplemented('${task.id}')">
+                            Mark as Implemented
+                        </button>
+                        <button class="btn btn-secondary" onclick="taskApp.assignAction('${task.id}')">
+                            Assign Action
+                        </button>
+                        <button class="btn btn-secondary" onclick="taskApp.printTask('${task.id}')">
+                            Print Task
+                        </button>
+                    </div>
+                `;
+
+                modal.style.display = 'flex';
+                anime({
+                    targets: '.modal-content',
+                    opacity: [0, 1],
+                    scale: [0.9, 1],
+                    duration: 300,
+                    easing: 'easeOutQuart'
+                });
+            }
+
+            closeModal() {
+                const modal = document.getElementById('task-modal');
+                if (modal) {
+                    anime({
+                        targets: '.modal-content',
+                        opacity: [1, 0],
+                        scale: [1, 0.9],
+                        duration: 200,
+                        easing: 'easeInQuart',
+                        complete: () => {
+                            modal.style.display = 'none';
+                        }
+                    });
+                }
+            }
+
+            markAsImplemented(taskId) {
+                alert(`Task ${taskId} marked as implemented. Implementation tracking system would be integrated here.`);
+                this.closeModal();
+            }
+
+            assignAction(taskId) {
+                alert(`Action assignment for Task ${taskId} would open the assignment interface here.`);
+            }
+
+            printTask(taskId) {
+                alert(`Print functionality for Task ${taskId} would generate a printable report here.`);
+            }
+
+            animatePageLoad() {
+                anime({
+                    targets: '.page-header',
+                    opacity: [0, 1],
+                    translateY: [-30, 0],
+                    duration: 800,
+                    easing: 'easeOutQuart'
+                });
+
+                anime({
+                    targets: '.stats-summary',
+                    opacity: [0, 1],
+                    translateY: [20, 0],
+                    duration: 600,
+                    delay: 200,
+                    easing: 'easeOutQuart'
+                });
+
+                anime({
+                    targets: '.task-filters',
+                    opacity: [0, 1],
+                    translateY: [20, 0],
+                    duration: 600,
+                    delay: 400,
+                    easing: 'easeOutQuart'
+                });
+            }
+        }
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', () => {
+            window.taskApp = new TaskAnalysisApp();
+        });
+    </script>
+</body>
+</html>

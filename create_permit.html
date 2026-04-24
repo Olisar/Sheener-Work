@@ -1,0 +1,83 @@
+<!-- File: sheener/create_permit.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create New Permit</title>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="shortcut icon" href="img/favicon/faviconAY.ico">
+
+    <!-- Scripts -->
+    <!-- Added ?v=2 to force browser to reload the script and not use the old cached version -->
+    <script src="js/navbar.js" defer></script>
+    <script src="js/topbar.js" defer></script>
+    <script src="js/create_permit.js?v=2" defer></script>
+</head>
+
+<body>
+
+    <main class="assessment-entry-container modal-view-content">
+        <h1>Create New Permit</h1>
+
+        <form id="permitForm" method="POST" action="php/create_permit.php">
+
+            <!-- Task Selection -->
+            <label for="task_id">Task:</label>
+            <select id="task_id" name="task_id" required>
+                <option value="" disabled selected>Loading tasks...</option>
+            </select><br>
+
+            <!-- Permit Type -->
+            <label for="permit_type">Permit Type:</label>
+            <select id="permit_type" name="permit_type" required>
+                <option value="" disabled selected>Select Type</option>
+                <option value="Hot Work">Hot Work</option>
+                <option value="Cold Work">Cold Work</option>
+                <option value="Work at Height">Work at Height</option>
+                <option value="Confined Space">Confined Space</option>
+                <option value="Electrical Work">Electrical Work</option>
+                <option value="General Work">General Work</option>
+            </select><br>
+
+            <!-- Personnel Selection -->
+            <label for="issued_by">Issued By:</label>
+            <select id="issued_by" name="issued_by" required>
+                <option value="" disabled selected>Loading users...</option>
+            </select><br>
+
+            <label for="approved_by">Approved By:</label>
+            <select id="approved_by" name="approved_by">
+                <option value="" disabled selected>Loading users...</option>
+            </select><br>
+
+            <!-- Dates -->
+            <label for="issue_date">Issue Date:</label>
+            <input type="date" id="issue_date" name="issue_date" required><br>
+
+            <label for="expiry_date">Expiry Date:</label>
+            <input type="date" id="expiry_date" name="expiry_date" required><br>
+
+            <!-- Status -->
+            <label for="status">Status:</label>
+            <select id="status" name="status" required>
+                <option value="Issued">Issued</option>
+                <option value="Active">Active</option>
+                <option value="Expired">Expired</option>
+                <option value="Revoked">Revoked</option>
+            </select><br>
+
+            <!-- Conditions -->
+            <label for="conditions">Conditions:</label>
+            <textarea id="conditions" name="conditions" rows="4" cols="50"></textarea><br>
+
+            <button type="submit" class="btn-primary">Create Permit</button>
+        </form>
+    </main>
+
+</body>
+
+</html>

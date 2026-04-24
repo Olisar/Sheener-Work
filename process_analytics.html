@@ -1,0 +1,117 @@
+<!-- File: sheener/process_analytics.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Process Analytics - Process Management System</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/process_analytics.css">
+    <link rel="stylesheet" href="css/ai-navigator.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="shortcut icon" href="img/favicon/faviconAY.ico">
+    <script src="js/navbar.js" defer></script>
+    <script src="js/topbar.js" defer></script>
+    <script src="js/ai-navigator.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+
+<body>
+    <div id="navbar"></div>
+    <div id="topbar"></div>
+
+    <!-- AI Navigator Sidebar -->
+    <div id="ai-navigator-container" data-role="User" data-user-id="" data-user-name="">
+    </div>
+
+    <main class="analytics-container">
+        <header class="page-header">
+            <h1><i class="fas fa-chart-line"></i> Process Analytics</h1>
+            <div class="header-actions">
+                <select id="timeRange" class="filter-select">
+                    <option value="7">Last 7 days</option>
+                    <option value="30" selected>Last 30 days</option>
+                    <option value="90">Last 90 days</option>
+                    <option value="365">Last year</option>
+                </select>
+                <button class="btn-export" id="btnExport"><i class="fas fa-download"></i> Export</button>
+            </div>
+        </header>
+
+        <div class="kpi-grid">
+            <div class="kpi-card">
+                <div class="kpi-icon"><i class="fas fa-check-circle"></i></div>
+                <div class="kpi-value" id="kpiCompletion">0%</div>
+                <div class="kpi-label">Process Completion Rate</div>
+                <div class="kpi-change positive"><i class="fas fa-arrow-up"></i> +5%</div>
+            </div>
+
+            <div class="kpi-card">
+                <div class="kpi-icon"><i class="fas fa-shield-alt"></i></div>
+                <div class="kpi-value" id="kpiCompliance">0%</div>
+                <div class="kpi-label">Compliance Score</div>
+                <div class="kpi-change positive"><i class="fas fa-arrow-up"></i> +2%</div>
+            </div>
+
+            <div class="kpi-card">
+                <div class="kpi-icon"><i class="fas fa-tasks"></i></div>
+                <div class="kpi-value" id="kpiTasks">0</div>
+                <div class="kpi-label">Active Tasks</div>
+                <div class="kpi-change negative"><i class="fas fa-arrow-down"></i> -3</div>
+            </div>
+
+            <div class="kpi-card">
+                <div class="kpi-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                <div class="kpi-value" id="kpiIssues">0</div>
+                <div class="kpi-label">Open Issues</div>
+                <div class="kpi-change negative"><i class="fas fa-arrow-up"></i> +2</div>
+            </div>
+        </div>
+
+        <div class="charts-grid">
+            <div class="chart-card">
+                <h3>Task Completion Trend</h3>
+                <canvas id="taskTrendChart"></canvas>
+            </div>
+
+            <div class="chart-card">
+                <h3>Task Status Distribution</h3>
+                <canvas id="taskStatusChart"></canvas>
+            </div>
+
+            <div class="chart-card">
+                <h3>Process Performance</h3>
+                <canvas id="processPerformanceChart"></canvas>
+            </div>
+
+            <div class="chart-card">
+                <h3>6Ps Utilization</h3>
+                <canvas id="7psUtilizationChart"></canvas>
+            </div>
+        </div>
+
+        <div class="tables-section">
+            <div class="table-card">
+                <h3>Overdue Tasks</h3>
+                <div id="overdueTasks" class="data-table">
+                    <div class="loading-spinner"><i class="fas fa-spinner fa-spin"></i> Loading...</div>
+                </div>
+            </div>
+
+            <div class="table-card">
+                <h3>Top Processes by Activity</h3>
+                <div id="topProcesses" class="data-table">
+                    <div class="loading-spinner"><i class="fas fa-spinner fa-spin"></i> Loading...</div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/analytics.js"></script>
+</body>
+
+</html>

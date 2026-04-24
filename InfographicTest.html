@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<!-- sheener/InfographicTest.html  -->
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waste Data Infographic</title>
+    <link rel="shortcut icon" href="img/favicon/faviconAY.ico">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="js/navbar.js" defer></script>
+    <script src="js/topbar.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        :root {
+            --dark-blue: #1a365d;
+            --dark-blue-alt: #2c5282;
+            --light-grey: #f7fafc;
+            --white: #ffffff;
+            --text-dark: #2d3748;
+            --text-light: #718096;
+            --accent-blue: #3182ce;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--light-grey);
+            min-height: 100vh;
+            color: var(--text-dark);
+        }
+
+        .header-section {
+            background: var(--dark-blue);
+            padding: 2.5rem 2rem;
+            margin-top: 80px;
+            margin-bottom: 2rem;
+        }
+
+        main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem 3rem;
+            animation: fadeIn 0.6s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
+            text-align: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            background: transparent;
+            color: var(--white);
+        }
+
+        .header h1 {
+            font-size: 2.25rem;
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+            letter-spacing: -0.5px;
+            line-height: 1.3;
+            color: var(--white);
+        }
+
+        .header p {
+            font-size: 1rem;
+            opacity: 0.9;
+            font-weight: 400;
+            color: var(--white);
+        }
+
+        /* Stats Summary - 2x2 grid on desktop, 4 columns on larger screens */
+        .stats-summary {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        @media (min-width: 768px) {
+            .stats-summary {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stats-summary {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .stat-card {
+            background: var(--white);
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+        }
+
+        .stat-value {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--dark-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 500;
+        }
+
+        /* Chart Grid - 2x2 grid layout */
+        .chart-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Small charts in 3 columns */
+        .chart-grid-small {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        @media (max-width: 1200px) {
+            .chart-grid-small {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .chart-grid {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto;
+            }
+
+            .chart-grid-small {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .chart-card {
+            background: var(--white);
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            position: relative;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .chart-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--dark-blue);
+        }
+
+        .chart-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+        }
+
+        .chart-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--dark-blue);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .chart-title::before {
+            content: '';
+            width: 3px;
+            height: 20px;
+            background: var(--dark-blue);
+            border-radius: 2px;
+        }
+
+        .chart-wrapper {
+            position: relative;
+            height: 350px;
+            margin-top: 1rem;
+        }
+
+        .chart-wrapper canvas {
+            max-height: 100%;
+        }
+
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 350px;
+            color: var(--dark-blue);
+        }
+
+        .loading::after {
+            content: '';
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f4f6;
+            border-top-color: var(--dark-blue);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-section {
+                padding: 2rem 1.5rem;
+                margin-top: 100px;
+            }
+
+            main {
+                padding: 0 1.5rem 2rem;
+            }
+
+            .header h1 {
+                font-size: 1.75rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .header p {
+                font-size: 0.9rem;
+            }
+
+            .chart-card {
+                padding: 1.5rem;
+            }
+
+            .chart-wrapper {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="navbar"></div>
+    <div id="topbar"></div>
+    <div class="header-section">
+        <div class="header">
+            <h1>Waste Category Comparison</h1>
+            <p>2023 vs 2024 Data Analysis</p>
+        </div>
+    </div>
+
+    <main>
+        <div class="stats-summary" id="statsSummary">
+            <!-- Stats will be populated by JavaScript -->
+        </div>
+
+        <div class="chart-grid">
+            <div class="chart-card">
+                <div class="chart-title">Bar Chart Comparison</div>
+                <div class="chart-wrapper">
+                    <canvas id="barChart"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-card">
+                <div class="chart-title">2024 Distribution (Pie)</div>
+                <div class="chart-wrapper">
+                    <canvas id="pieChart"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-card">
+                <div class="chart-title">2024 Distribution (Doughnut)</div>
+                <div class="chart-wrapper">
+                    <canvas id="doughnutChart"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-card">
+                <div class="chart-title">Radar Comparison</div>
+                <div class="chart-wrapper">
+                    <canvas id="radarChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script>
+        const labels = [
+            "Non Regulated",
+            "WASTE AEROSOLS",
+            "Waste Clinical Unspecified N.O.S.",
+            "WASTE FLAMMABLE LIQUID, N.O.S.",
+            "WASTE NON-REGULATED",
+            "Waste Refrigerant Gas N.O.S."
+        ];
+
+        const data2023 = [115, 3063, 84, 10824, 396, 6453];
+        const data2024 = [651, 1505, 656, 7971, 0, 4154];
+
+        // Calculate statistics
+        const total2023 = data2023.reduce((a, b) => a + b, 0);
+        const total2024 = data2024.reduce((a, b) => a + b, 0);
+        const change = ((total2024 - total2023) / total2023 * 100).toFixed(1);
+        const avg2023 = (total2023 / data2023.length).toFixed(0);
+        const avg2024 = (total2024 / data2024.length).toFixed(0);
+
+        // Populate stats summary
+        const statsSummary = document.getElementById('statsSummary');
+        statsSummary.innerHTML = `
+            <div class="stat-card">
+                <div class="stat-value">${total2023.toLocaleString()}</div>
+                <div class="stat-label">Total 2023</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">${total2024.toLocaleString()}</div>
+                <div class="stat-label">Total 2024</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" style="color: ${change >= 0 ? '#2c5282' : '#c53030'}">${change >= 0 ? '+' : ''}${change}%</div>
+                <div class="stat-label">Year-over-Year Change</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">${avg2024}</div>
+                <div class="stat-label">Average per Category</div>
+            </div>
+        `;
+
+        // Dark blue color palette matching corporate theme
+        const colors = {
+            primary: ['rgba(26, 54, 93, 0.8)', 'rgba(44, 82, 130, 0.8)'], // Dark blue variants
+            secondary: [
+                'rgba(26, 54, 93, 0.7)',   // Dark blue
+                'rgba(44, 82, 130, 0.7)',  // Medium dark blue
+                'rgba(49, 130, 206, 0.7)', // Accent blue
+                'rgba(26, 54, 93, 0.6)',   // Lighter dark blue
+                'rgba(44, 82, 130, 0.6)',  // Lighter medium blue
+                'rgba(49, 130, 206, 0.6)'   // Lighter accent blue
+            ]
+        };
+
+        // Common chart options
+        const commonOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            animation: {
+                duration: 1500,
+                easing: 'easeInOutQuart'
+            },
+            plugins: {
+                legend: {
+                    position: 'top',
+                    labels: {
+                        usePointStyle: true,
+                        padding: 15,
+                        font: {
+                            size: 12,
+                            weight: '500'
+                        }
+                    }
+                },
+                tooltip: {
+                    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                    padding: 12,
+                    titleFont: {
+                        size: 14,
+                        weight: '600'
+                    },
+                    bodyFont: {
+                        size: 13
+                    },
+                    borderColor: 'rgba(255, 255, 255, 0.1)',
+                    borderWidth: 1,
+                    cornerRadius: 8,
+                    displayColors: true
+                }
+            }
+        };
+
+        // Bar Chart (Enhanced)
+        new Chart(document.getElementById("barChart"), {
+            type: "bar",
+            data: {
+                labels: labels.map(label => label.length > 20 ? label.substring(0, 20) + '...' : label),
+                datasets: [
+                    {
+                        label: "2023",
+                        data: data2023,
+                        backgroundColor: colors.primary[0],
+                        borderColor: 'rgba(26, 54, 93, 1)',
+                        borderWidth: 2,
+                        borderRadius: 8,
+                        borderSkipped: false
+                    },
+                    {
+                        label: "2024",
+                        data: data2024,
+                        backgroundColor: colors.primary[1],
+                        borderColor: 'rgba(44, 82, 130, 1)',
+                        borderWidth: 2,
+                        borderRadius: 8,
+                        borderSkipped: false
+                    }
+                ]
+            },
+            options: {
+                ...commonOptions,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.05)',
+                            drawBorder: false
+                        },
+                        ticks: {
+                            font: {
+                                size: 11
+                            },
+                            callback: function (value) {
+                                return value.toLocaleString();
+                            }
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        },
+                        ticks: {
+                            font: {
+                                size: 10
+                            },
+                            maxRotation: 45,
+                            minRotation: 45
+                        }
+                    }
+                },
+                interaction: {
+                    intersect: false,
+                    mode: 'index'
+                }
+            }
+        });
+
+        // Pie Chart (Enhanced)
+        new Chart(document.getElementById("pieChart"), {
+            type: "pie",
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: "2024",
+                    data: data2024,
+                    backgroundColor: colors.secondary,
+                    borderColor: '#ffffff',
+                    borderWidth: 3,
+                    hoverOffset: 10
+                }]
+            },
+            options: {
+                ...commonOptions,
+                plugins: {
+                    ...commonOptions.plugins,
+                    legend: {
+                        ...commonOptions.plugins.legend,
+                        position: 'right'
+                    }
+                }
+            }
+        });
+
+        // Doughnut Chart (Enhanced)
+        new Chart(document.getElementById("doughnutChart"), {
+            type: "doughnut",
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: "2024",
+                    data: data2024,
+                    backgroundColor: colors.secondary,
+                    borderColor: '#ffffff',
+                    borderWidth: 3,
+                    hoverOffset: 10,
+                    cutout: '60%'
+                }]
+            },
+            options: {
+                ...commonOptions,
+                plugins: {
+                    ...commonOptions.plugins,
+                    legend: {
+                        ...commonOptions.plugins.legend,
+                        position: 'right'
+                    }
+                }
+            }
+        });
+
+        // Radar Chart (Enhanced)
+        new Chart(document.getElementById("radarChart"), {
+            type: "radar",
+            data: {
+                labels: labels.map(label => label.length > 15 ? label.substring(0, 15) + '...' : label),
+                datasets: [
+                    {
+                        label: "2023",
+                        data: data2023,
+                        backgroundColor: 'rgba(26, 54, 93, 0.2)',
+                        borderColor: 'rgba(26, 54, 93, 1)',
+                        borderWidth: 3,
+                        pointBackgroundColor: 'rgba(26, 54, 93, 1)',
+                        pointBorderColor: '#ffffff',
+                        pointHoverBackgroundColor: '#ffffff',
+                        pointHoverBorderColor: 'rgba(26, 54, 93, 1)',
+                        pointRadius: 5,
+                        pointHoverRadius: 7
+                    },
+                    {
+                        label: "2024",
+                        data: data2024,
+                        backgroundColor: 'rgba(44, 82, 130, 0.2)',
+                        borderColor: 'rgba(44, 82, 130, 1)',
+                        borderWidth: 3,
+                        pointBackgroundColor: 'rgba(44, 82, 130, 1)',
+                        pointBorderColor: '#ffffff',
+                        pointHoverBackgroundColor: '#ffffff',
+                        pointHoverBorderColor: 'rgba(44, 82, 130, 1)',
+                        pointRadius: 5,
+                        pointHoverRadius: 7
+                    }
+                ]
+            },
+            options: {
+                ...commonOptions,
+                scales: {
+                    r: {
+                        beginAtZero: true,
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.1)'
+                        },
+                        pointLabels: {
+                            font: {
+                                size: 11
+                            }
+                        },
+                        ticks: {
+                            display: false
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,752 @@
+<!-- File: sheener/Presentation/presentation.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ethanol & Nitrogen Safety – MDI Process</title>
+    <style>
+        /* Theme Variables */
+        :root {
+            --font-family-display: Arial, sans-serif;
+            --font-weight-display: 600;
+            --font-family-content: Arial, sans-serif;
+            --font-weight-content: 400;
+            --font-size-content: 16px;
+            --line-height-content: 1.4;
+        }
+
+        /* DARK THEME */
+        body.theme-dark {
+            --color-bg-base: #0f172a;
+            --color-bg-elevated: #020617;
+            --color-bg-surface: #010202;
+            --color-bg-muted: #334155;
+            --color-text-primary: #f1f5f9;
+            --color-text-secondary: #cbd5e1;
+            --color-text-muted: #94a3b8;
+            --color-text-accent: #38bdf8;
+            --color-primary: #38bdf8;
+        }
+
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        body {
+            font-family: var(--font-family-content);
+            font-weight: var(--font-weight-content);
+            font-size: var(--font-size-content);
+            line-height: var(--line-height-content);
+            position: relative;
+        }
+
+        /* Slide Container - only shows background */
+        .slide {
+            width: 100vw;
+            height: 100vh;
+            display: none;
+            flex-shrink: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        .slide * {
+            display: none !important;
+            visibility: hidden !important;
+            opacity: 0 !important;
+            position: absolute !important;
+            left: -9999px !important;
+            top: -9999px !important;
+            width: 0 !important;
+            height: 0 !important;
+            overflow: hidden !important;
+        }
+
+        /* Layout Utilities */
+        .row {
+            flex-direction: row;
+        }
+
+        .col {
+            flex-direction: column;
+        }
+
+        .center {
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .items-center {
+            align-items: center;
+        }
+
+        .items-start {
+            align-items: flex-start;
+        }
+
+        .fill-width {
+            flex: 1;
+        }
+
+        .fill-height {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Spacing */
+        .gap-lg {
+            gap: 1.5rem;
+        }
+
+        .gap-xl {
+            gap: 2rem;
+        }
+
+        .p-16 {
+            padding: 4rem;
+        }
+
+        .mb-2 {
+            margin-bottom: 0.5rem;
+        }
+
+        .mb-4 {
+            margin-bottom: 1rem;
+        }
+
+        .mb-6 {
+            margin-bottom: 1.5rem;
+        }
+
+        .mb-8 {
+            margin-bottom: 2rem;
+        }
+
+        .mt-4 {
+            margin-top: 1rem;
+        }
+
+        .mt-8 {
+            margin-top: 2rem;
+        }
+
+        /* Typography */
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: var(--font-family-display);
+            font-weight: var(--font-weight-display);
+            line-height: 1.2;
+            margin: 0;
+        }
+
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.25rem;
+        }
+
+        h3 {
+            font-size: 1.75rem;
+        }
+
+        .text-xl {
+            font-size: 1.25rem;
+        }
+
+        .text-lg {
+            font-size: 1.125rem;
+        }
+
+        .text-sm {
+            font-size: 0.875rem;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        /* Lists */
+        ul,
+        ol {
+            margin-left: 2rem;
+            line-height: 1.8;
+        }
+
+        ul li {
+            list-style: disc;
+        }
+
+        li {
+            margin-bottom: 0.75rem;
+        }
+
+        /* Card Styles */
+        .card-rect {
+            padding: 2rem;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Page Number Indicator */
+        .page-number {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--color-text-muted);
+            font-size: 0.875rem;
+            z-index: 1000;
+            padding: 8px 16px;
+            background-color: rgba(30, 41, 59, 0.7);
+            border-radius: 20px;
+            backdrop-filter: blur(4px);
+        }
+
+        /* Amneal Logo */
+        .amneal-logo {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            width: 80px;
+            height: auto;
+            opacity: 0.9;
+        }
+
+        .amneal-logo img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Navigation Panel */
+        .nav-panel {
+            position: fixed;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+            width: 280px;
+            max-height: 80vh;
+            background: rgba(30, 41, 59, 0.4);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 1.5rem 1rem;
+            z-index: 999;
+            overflow-y: auto;
+            overflow-x: hidden;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .nav-panel::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .nav-panel::-webkit-scrollbar-track {
+            background: rgba(30, 41, 59, 0.3);
+            border-radius: 10px;
+        }
+
+        .nav-panel::-webkit-scrollbar-thumb {
+            background: rgba(56, 189, 248, 0.5);
+            border-radius: 10px;
+        }
+
+        .nav-panel::-webkit-scrollbar-thumb:hover {
+            background: rgba(56, 189, 248, 0.7);
+        }
+
+        .nav-panel-header {
+            color: var(--color-text-accent);
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-item {
+            padding: 0.75rem 1rem;
+            margin-bottom: 0.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: var(--color-text-secondary);
+            font-size: 0.875rem;
+            line-height: 1.4;
+            position: relative;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+
+        .nav-item:hover {
+            background: rgba(56, 189, 248, 0.15);
+            color: var(--color-text-primary);
+            transform: translateX(-4px);
+        }
+
+        .nav-item.active {
+            background: rgba(56, 189, 248, 0.25);
+            color: var(--color-text-accent);
+            border-left: 3px solid var(--color-text-accent);
+            padding-left: calc(1rem - 3px);
+        }
+
+        .nav-item-number {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            min-width: 24px;
+            line-height: 24px;
+            text-align: center;
+            background: rgba(56, 189, 248, 0.2);
+            border-radius: 50%;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--color-text-accent);
+            flex-shrink: 0;
+        }
+
+        .nav-item.active .nav-item-number {
+            background: var(--color-text-accent);
+            color: #0f172a;
+        }
+
+        .nav-item-title {
+            flex: 1;
+            min-width: 0;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        /* Glass Morphism Container */
+        .glass-container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: calc(80% - 320px);
+            max-width: 900px;
+            height: auto;
+            min-height: auto;
+            max-height: 85vh;
+            padding: 3rem;
+            background: rgba(30, 41, 59, 0.3);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            color: #f1f5f9;
+            box-sizing: border-box;
+        }
+
+        @media (max-width: 1400px) {
+            .glass-container {
+                width: 75%;
+                max-width: 800px;
+            }
+        }
+
+        .glass-container.center {
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .glass-container.col {
+            flex-direction: column;
+        }
+
+        /* Slide Background Styles */
+        .slide-bg-title {
+            background-color: #020617;
+            color: var(--color-text-primary);
+        }
+
+        .slide-bg-gradient {
+            background: linear-gradient(135deg, #020617 0%, #0f172a 50%, #1e293b 100%);
+            color: var(--color-text-primary);
+        }
+
+        /* Text Color Classes */
+        .text-accent {
+            color: var(--color-text-accent);
+        }
+
+        .text-secondary {
+            color: var(--color-text-secondary);
+        }
+
+        .text-muted {
+            color: var(--color-text-muted);
+        }
+
+        .text-primary {
+            color: var(--color-text-primary);
+        }
+
+        /* Heading Styles */
+        h2.text-accent,
+        .glass-container h2 {
+            color: var(--color-text-accent);
+        }
+
+        /* List Styles */
+        .glass-container ul.text-lg,
+        .glass-container .text-lg {
+            color: var(--color-text-secondary);
+        }
+
+        /* Comparison Card Styles */
+        .comparison-card {
+            background-color: #1e293b;
+            color: var(--color-text-primary);
+            padding: 2rem;
+            border-radius: 12px;
+        }
+
+        .comparison-card h3 {
+            color: var(--color-text-accent);
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .comparison-card p {
+            color: var(--color-text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .comparison-card strong {
+            color: var(--color-text-accent);
+        }
+    </style>
+</head>
+
+<body class="theme-dark">
+
+    <!-- SLIDE 1: Title Slide -->
+    <section class="slide p-16 col center slide-bg-title">
+        <h1 class="mb-4 text-accent">Ethanol & Nitrogen Safety</h1>
+        <h2 class="text-xl mb-8 text-secondary">MDI Process Production</h2>
+        <p class="text-lg text-secondary">Hazards, Precautions & Competency Requirements</p>
+        <p class="text-sm mt-8 text-muted">EHS & Energy Management | Amneal Ireland</p>
+    </section>
+
+    <!-- SLIDE 2: Ethanol Hazards & Precautions -->
+    <section class="slide p-16 col slide-bg-gradient">
+        <div style="display: flex; align-items: center; gap: 1.5rem; margin-bottom: 1.5rem;">
+            <h2 class="text-accent" style="font-size: 2rem; margin: 0;">Ethanol – Hazards & Precautions</h2>
+            <img src="ghsflame.png" alt="GHS Flame Pictogram" style="width: 60px; height: 60px; flex-shrink: 0;">
+        </div>
+        <p style="font-size: 0.9rem; color: var(--color-text-secondary); margin-bottom: 1rem;">
+            <strong>Classification:</strong> H225 - Highly Flammable Liquid and Vapour
+        </p>
+        <div class="fill-height col">
+            <div class="mb-6">
+                <h3 class="text-accent mb-3" style="font-size: 1.5rem;">Hazards</h3>
+                <ul style="font-size: 1rem; line-height: 1.6;">
+                    <li class="mb-2">Highly flammable liquid (flash point ~12°C)</li>
+                    <li class="mb-2">Vapour explosion risk (flammable range: 3.3%–19% in air)</li>
+                    <li class="mb-2">Static ignition and pool fire potential</li>
+                    <li class="mb-2">Skin and eye irritation, inhalation hazard</li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-accent mb-3" style="font-size: 1.5rem;">Precautions</h3>
+                <ul style="font-size: 1rem; line-height: 1.6;">
+                    <li class="mb-2">ATEX-rated equipment with proper earthing and bonding</li>
+                    <li class="mb-2">Bunded storage with full-volume containment</li>
+                    <li class="mb-2">Local extraction ventilation at transfer points</li>
+                    <li class="mb-2">PPE: chemical goggles/face shield, ethanol-compatible gloves, flame-retardant
+                        clothing</li>
+                    <li class="mb-2">Eliminate ignition sources, implement hot work permit system</li>
+                    <li class="mb-2">Spill response plan with appropriate absorbent materials</li>
+                    <li class="mb-2">Fire extinguishers (foam-based) readily accessible</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 3: Nitrogen Hazards & Precautions -->
+    <section class="slide p-16 col slide-bg-gradient">
+        <div style="display: flex; align-items: center; gap: 1.5rem; margin-bottom: 1.5rem;">
+            <h2 class="text-accent" style="font-size: 2rem; margin: 0;">Nitrogen (N₂) – Hazards & Precautions</h2>
+            <img src="ghsgas.png" alt="GHS Gas Cylinder Pictogram"
+                style="width:    60px; height: 60px; flex-shrink: 0;">
+        </div>
+        <p style="font-size: 0.9rem; color: var(--color-text-secondary); margin-bottom: 1rem;">
+            <strong>Classification:</strong> H280 - Contains Gas Under Pressure | Simple Asphyxiant
+        </p>
+        <div class="fill-height col">
+            <div class="mb-6">
+                <h3 class="text-accent mb-3" style="font-size: 1.5rem;">Hazards</h3>
+                <ul style="font-size: 1rem; line-height: 1.6;">
+                    <li class="mb-2">Odourless, colourless asphyxiant gas</li>
+                    <li class="mb-2">Rapid expansion: 1L liquid nitrogen → ~700L gas. Displaces oxygen in enclosed or
+                        poorly ventilated areas</li>
+                    <li class="mb-2">Below 18% O₂: impaired judgment, rapid breathing, dizziness</li>
+                    <li class="mb-2">Below 11% O₂: unconsciousness and fatality within minutes</li>
+                    <li class="mb-2">Highest risk in confined spaces </li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-accent mb-3" style="font-size: 1.5rem;">Precautions</h3>
+                <ul style="font-size: 1rem; line-height: 1.6;">
+                    <li class="mb-2">Vent nitrogen safely outdoors only during purging operations (never into enclosed
+                        areas)</li>
+                    <li class="mb-2">Install O₂ monitoring with alarms (set at 19.5% O₂ minimum)</li>
+                    <li class="mb-2">Implement confined-space entry procedures and permits</li>
+                    <li class="mb-2">Clear signage: "Nitrogen – Asphyxiant Hazard"</li>
+                    <li class="mb-2">Emergency rescue plan with trained personnel</li>
+                    <li class="mb-2">Ensure adequate ventilation in all nitrogen-use areas</li>
+                    <li class="mb-2">Never enter nitrogen-purged vessels without proper atmospheric testing</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 4: Competency Requirements - Legal Definition & Handling -->
+    <section class="slide p-16 col slide-bg-gradient">
+        <h2 class="mb-5 text-accent" style="font-size: 2rem;">Competency Requirements Under Irish Regulations</h2>
+
+        <div class="mb-5">
+            <h3 class="text-accent mb-3" style="font-size: 1.3rem;">Legal Definition (SHWW Act 2005, S.8)</h3>
+            <p
+                style="font-size: 0.95rem; font-style: italic; padding-left: 1.5rem; border-left: 3px solid var(--color-text-accent); color: var(--color-text-secondary); line-height: 1.5;">
+                "A person shall be regarded as competent where they have <strong>sufficient training, experience and
+                    knowledge</strong> appropriate to the nature of the work to be undertaken."
+            </p>
+        </div>
+
+        <div>
+            <h3 class="text-accent mb-3" style="font-size: 1.3rem;">Handling & Operation Personnel</h3>
+            <ul style="font-size: 0.95rem; line-height: 1.6; color: var(--color-text-secondary);">
+                <li class="mb-2"><strong>Training:</strong> Chemical hazards (Safety Data Sheets), flammable liquid
+                    handling procedures, asphyxiant awareness</li>
+                <li class="mb-2"><strong>Experience:</strong> Supervised operation period before independent work
+                    authorization</li>
+                <li class="mb-2"><strong>Knowledge:</strong> Emergency procedures, PPE selection and use, spill response
+                    protocols</li>
+                <li class="mb-2"><strong>Certification:</strong> ATEX awareness training (for flammable zones),
+                    confined-space entry qualification (for N₂ areas)</li>
+                <li class="mb-2"><strong>Assessment:</strong> Documented competency verification and sign-off before
+                    authorization to work independently</li>
+                <li class="mb-2"><strong>Refresher:</strong> Annual training updates and hazard communication
+                    reviews</li>
+            </ul>
+        </div>
+
+        <p style="font-size: 0.85rem; color: var(--color-text-muted); margin-top: 1.5rem;">
+            <strong>Regulatory Framework:</strong> SHWW Act 2005, Chemical Agents Regulations 2024, DSEAR (ATEX),
+            REACH/CLP
+        </p>
+    </section>
+
+    <!-- SLIDE 5: Competency Requirements - Maintenance & Inspection -->
+    <section class="slide p-16 col slide-bg-gradient">
+        <h2 class="mb-5 text-accent" style="font-size: 2rem;">Competency Requirements (Continued)</h2>
+
+        <div>
+            <h3 class="text-accent mb-3" style="font-size: 1.3rem;">Maintenance & Inspection Personnel</h3>
+            <ul style="font-size: 0.95rem; line-height: 1.6; color: var(--color-text-secondary);">
+                <li class="mb-2"><strong>Training:</strong> Equipment-specific maintenance procedures, ATEX equipment
+                    standards and requirements, pressure systems safety</li>
+                <li class="mb-2"><strong>Experience:</strong> Qualified technician status (electrical/mechanical trade
+                    certification)</li>
+                <li class="mb-2"><strong>Knowledge:</strong> Leak detection methods, integrity testing procedures,
+                    isolation and lock-out/tag-out protocols</li>
+                <li class="mb-2"><strong>Certification:</strong> Pressure Equipment Directive (PED) training, ATEX
+                    maintenance and inspection qualification</li>
+                <li class="mb-2"><strong>Refresher:</strong> Annual updates on regulatory changes, equipment
+                    modifications, and new safety procedures</li>
+                <li class="mb-2"><strong>Documentation:</strong> Maintenance records, inspection reports, and competency
+                    assessment files</li>
+            </ul>
+        </div>
+
+        <div class="mt-5">
+            <h3 class="text-accent mb-3" style="font-size: 1.3rem;">Key Compliance Points</h3>
+            <ul style="font-size: 0.95rem; line-height: 1.6; color: var(--color-text-secondary);">
+                <li class="mb-2">All personnel must demonstrate competency <strong>before</strong> being authorized to
+                    work with ethanol or nitrogen systems</li>
+                <li class="mb-2">Competency assessments must be documented and retained as evidence of compliance</li>
+                <li class="mb-2">Supervision requirements apply until competency is formally verified and documented
+                </li>
+                <li class="mb-2">Regular competency reviews ensure ongoing compliance with Irish safety regulations</li>
+            </ul>
+        </div>
+
+        <p style="font-size: 0.85rem; color: var(--color-text-muted); margin-top: 1.5rem;">
+            <strong>Additional Regulations:</strong> Pressure Equipment Directive, Confined Spaces Regulations, Manual
+            Handling Regulations
+        </p>
+    </section>
+
+    <!-- SLIDE 6: Closing -->
+    <section class="slide p-16 col center slide-bg-gradient">
+        <h2 class="mb-6 text-accent">Questions & Discussion</h2>
+        <p class="text-lg text-secondary">Ethanol & Nitrogen Safety: Hazards, Precautions & Competency</p>
+        <p class="text-sm mt-8 text-muted">Contact: EHS & Energy Management | Amneal Ireland</p>
+    </section>
+
+    <!-- Glass Morphism Container -->
+    <div class="glass-container"></div>
+
+    <!-- Amneal Logo -->
+    <div class="amneal-logo"><img src="../img/Amneal_Logo_new.svg" alt="Amneal Logo"></div>
+
+    <!-- Navigation Panel -->
+    <div class="nav-panel" id="navPanel">
+        <div class="nav-panel-header">Navigation</div>
+        <div id="navList"></div>
+    </div>
+
+    <!-- Page Number Indicator -->
+    <div class="page-number" id="pageNumber">1 / 6</div>
+
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        const pageNumberElement = document.getElementById('pageNumber');
+        const glassContainer = document.querySelector('.glass-container');
+        const navList = document.getElementById('navList');
+        let currentSlide = 0;
+
+        const slideTitles = [
+            'Ethanol & Nitrogen Safety',
+            'Ethanol Hazards & Precautions',
+            'Nitrogen Hazards & Precautions',
+            'Competency Requirements - Handling & Operation',
+            'Competency Requirements - Maintenance & Inspection',
+            'Questions & Discussion'
+        ];
+
+        function buildNavigation() {
+            if (!navList) return;
+            navList.innerHTML = '';
+            slides.forEach((slide, index) => {
+                const navItem = document.createElement('div');
+                navItem.className = 'nav-item';
+                navItem.setAttribute('data-slide', index);
+                const number = document.createElement('span');
+                number.className = 'nav-item-number';
+                number.textContent = index + 1;
+                const title = document.createElement('span');
+                title.className = 'nav-item-title';
+                title.textContent = slideTitles[index] || `Slide ${index + 1}`;
+                navItem.appendChild(number);
+                navItem.appendChild(title);
+                navItem.addEventListener('click', () => goToSlide(index));
+                navList.appendChild(navItem);
+            });
+        }
+
+        function updateNavigation() {
+            if (!navList) return;
+            const navItems = navList.querySelectorAll('.nav-item');
+            navItems.forEach((item, index) => {
+                item.classList.toggle('active', index === currentSlide);
+                if (index === currentSlide) item.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            });
+        }
+
+        function updatePageNumber() {
+            if (pageNumberElement) pageNumberElement.textContent = `${currentSlide + 1} / ${slides.length}`;
+        }
+
+        function updateGlassContainer() {
+            if (glassContainer && slides[currentSlide]) {
+                const activeSlide = slides[currentSlide];
+                glassContainer.className = 'glass-container';
+                activeSlide.classList.forEach(cls => {
+                    if (cls !== 'slide' && cls !== 'active' && cls !== 'p-16') glassContainer.classList.add(cls);
+                });
+                glassContainer.innerHTML = activeSlide.innerHTML;
+            }
+        }
+
+        function goToSlide(index) {
+            if (index < 0 || index >= slides.length) return;
+            slides[currentSlide].classList.remove('active');
+            currentSlide = index;
+            slides[currentSlide].classList.add('active');
+            updatePageNumber();
+            updateGlassContainer();
+            updateNavigation();
+        }
+
+        function nextSlide() { if (currentSlide < slides.length - 1) goToSlide(currentSlide + 1); }
+        function prevSlide() { if (currentSlide > 0) goToSlide(currentSlide - 1); }
+
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'ArrowRight' || event.key === 'ArrowDown' || event.key === 'Delete') {
+                event.preventDefault();
+                nextSlide();
+            }
+            else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp' || event.key === 'Backspace') {
+                event.preventDefault();
+                prevSlide();
+            }
+            else if (event.key === 'Home') { event.preventDefault(); goToSlide(0); }
+            else if (event.key === 'End') { event.preventDefault(); goToSlide(slides.length - 1); }
+        });
+
+        let wheelTimeout;
+        document.addEventListener('wheel', function (event) {
+            event.preventDefault();
+            clearTimeout(wheelTimeout);
+            wheelTimeout = setTimeout(() => {
+                if (event.deltaY > 0) nextSlide();
+                else if (event.deltaY < 0) prevSlide();
+            }, 100);
+        }, { passive: false });
+
+        buildNavigation();
+        slides[currentSlide].classList.add('active');
+        updatePageNumber();
+        updateGlassContainer();
+        updateNavigation();
+    </script>
+</body>
+
+</html>

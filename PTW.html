@@ -1,0 +1,104 @@
+<!-- File: sheener/PTW.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tree</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="js/script.js" defer></script>
+    <link rel="shortcut icon" href="img/favicon/faviconAY.ico">
+    <script src="js/navbar.js" defer></script>
+    <script src="js/topbar.js" defer></script>
+
+    <style>
+        /* Center the button container */
+        .button-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            /* 3 columns */
+            grid-gap: 15px;
+            /* Space between buttons */
+            justify-content: center;
+            align-items: center;
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 10px;
+        }
+
+        /* Style the buttons */
+        .button-container button {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            background-color: #94c7fd;
+            color: white;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        /* Hover effect */
+        .button-container button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            .button-container {
+                grid-template-columns: repeat(2, 1fr);
+                /* 2 columns on smaller screens */
+            }
+        }
+
+        @media (max-width: 400px) {
+            .button-container {
+                grid-template-columns: repeat(1, 1fr);
+                /* 1 column on very small screens */
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="topbar"></div>
+    <div id="navbar"></div>
+    <main>
+
+
+        <h2>Visual Trials</h2>
+        <p>Here you can access different tree structures and visuals for Permit to work.</p>
+
+
+        <div class="button-container">
+            <button onclick="window.location.href='permit_list.php'">PTW1</button>
+
+            <button onclick="window.location.href='permit_list1.php'">PTW2</button>
+            <button onclick="window.location.href='permitlist1.php '">PTW3</button>
+            <button onclick="window.location.href='ptw.html'">---</button>
+
+            <button onclick="window.location.href='tree13.html'">CC</button>
+            <button onclick="window.location.href='tree13.html'">DD</button>
+            <button onclick="window.location.href='tree13.html'">EE</button>
+            <button onclick="window.location.href='tree13.html'">FF</button>
+            <button onclick="window.location.href='tree13.html'">GG</button>
+            <button onclick="window.location.href='tree10.html'">HH</button>
+
+            <button onclick="window.location.href='tree13.html'">II</button>
+
+            <button onclick="window.location.href='tree13.html'"></button>
+            <button onclick="window.location.href='tree13.html'">Tree 13</button>
+            <button onclick="window.location.href='tree14.html'">Tree 14</button>
+            <button onclick="window.location.href='tree15.html'">Tree 15</button>
+            <button onclick="window.location.href='tree15.html'">Tree 16</button>
+        </div>
+
+
+    </main>
+
+</body>
+
+</html>

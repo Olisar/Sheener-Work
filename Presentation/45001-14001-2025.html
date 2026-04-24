@@ -1,0 +1,597 @@
+<!-- File: sheener/Presentation/45001-14001-2025.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>45 14 MS Review</title>
+    <style>
+        /* Theme Variables */
+        :root {
+            --font-family-display: Arial, sans-serif;
+            --font-weight-display: 600;
+            --font-family-content: Arial, sans-serif;
+            --font-weight-content: 400;
+            --font-size-content: 16px;
+            --line-height-content: 1.4;
+        }
+
+        /* DARK THEME */
+        body.theme-dark {
+            --color-bg-base: #0f172a;
+            --color-bg-elevated: #020617;
+            --color-bg-surface: #010202;
+            --color-bg-muted: #334155;
+            --color-text-primary: #f1f5f9;
+            --color-text-secondary: #cbd5e1;
+            --color-text-muted: #94a3b8;
+            --color-text-accent: #38bdf8;
+            --color-primary: #38bdf8;
+        }
+
+        /* Base Styles */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; }
+        body {
+            font-family: var(--font-family-content);
+            font-weight: var(--font-weight-content);
+            font-size: var(--font-size-content);
+            line-height: var(--line-height-content);
+            position: relative;
+        }
+
+        /* Slide Container - only shows background */
+        .slide {
+            width: 100vw;
+            height: 100vh;
+            display: none;
+            flex-shrink: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        .slide.active { display: block; }
+        .slide * {
+            display: none !important;
+            visibility: hidden !important;
+            opacity: 0 !important;
+            position: absolute !important;
+            left: -9999px !important;
+            top: -9999px !important;
+            width: 0 !important;
+            height: 0 !important;
+            overflow: hidden !important;
+        }
+
+        /* Layout Utilities */
+        .row { flex-direction: row; }
+        .col { flex-direction: column; }
+        .center { justify-content: center; align-items: center; text-align: center; }
+        .items-center { align-items: center; }
+        .items-start { align-items: flex-start; }
+        .fill-width { flex: 1; }
+        .fill-height { flex: 1; display: flex; flex-direction: column; }
+
+        /* Spacing */
+        .gap-lg { gap: 1.5rem; }
+        .gap-xl { gap: 2rem; }
+        .p-16 { padding: 4rem; }
+        .mb-2 { margin-bottom: 0.5rem; }
+        .mb-4 { margin-bottom: 1rem; }
+        .mb-6 { margin-bottom: 1.5rem; }
+        .mb-8 { margin-bottom: 2rem; }
+        .mt-4 { margin-top: 1rem; }
+        .mt-8 { margin-top: 2rem; }
+
+        /* Typography */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-family-display);
+            font-weight: var(--font-weight-display);
+            line-height: 1.2;
+            margin: 0;
+        }
+        h1 { font-size: 3rem; }
+        h2 { font-size: 2.25rem; }
+        h3 { font-size: 1.75rem; }
+        .text-xl { font-size: 1.25rem; }
+        .text-lg { font-size: 1.125rem; }
+        .text-sm { font-size: 0.875rem; }
+        .text-center { text-align: center; }
+
+        /* Lists */
+        ul, ol { margin-left: 2rem; line-height: 1.8; }
+        ul li { list-style: disc; }
+        li { margin-bottom: 0.75rem; }
+
+        /* Card Styles */
+        .card-rect {
+            padding: 2rem;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Page Number Indicator */
+        .page-number {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--color-text-muted);
+            font-size: 0.875rem;
+            z-index: 1000;
+            padding: 8px 16px;
+            background-color: rgba(30, 41, 59, 0.7);
+            border-radius: 20px;
+            backdrop-filter: blur(4px);
+        }
+
+        /* Amneal Logo */
+        .amneal-logo {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            width: 80px;
+            height: auto;
+            opacity: 0.9;
+        }
+        .amneal-logo img { width: 100%; height: auto; display: block; }
+
+        /* Navigation Panel */
+        .nav-panel {
+            position: fixed;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+            width: 280px;
+            max-height: 80vh;
+            background: rgba(30, 41, 59, 0.4);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 1.5rem 1rem;
+            z-index: 999;
+            overflow-y: auto;
+            overflow-x: hidden;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+        .nav-panel::-webkit-scrollbar { width: 6px; }
+        .nav-panel::-webkit-scrollbar-track {
+            background: rgba(30, 41, 59, 0.3);
+            border-radius: 10px;
+        }
+        .nav-panel::-webkit-scrollbar-thumb {
+            background: rgba(56, 189, 248, 0.5);
+            border-radius: 10px;
+        }
+        .nav-panel::-webkit-scrollbar-thumb:hover {
+            background: rgba(56, 189, 248, 0.7);
+        }
+        .nav-panel-header {
+            color: var(--color-text-accent);
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .nav-item {
+            padding: 0.75rem 1rem;
+            margin-bottom: 0.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: var(--color-text-secondary);
+            font-size: 0.875rem;
+            line-height: 1.4;
+            position: relative;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+        .nav-item:hover {
+            background: rgba(56, 189, 248, 0.15);
+            color: var(--color-text-primary);
+            transform: translateX(-4px);
+        }
+        .nav-item.active {
+            background: rgba(56, 189, 248, 0.25);
+            color: var(--color-text-accent);
+            border-left: 3px solid var(--color-text-accent);
+            padding-left: calc(1rem - 3px);
+        }
+        .nav-item-number {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            min-width: 24px;
+            line-height: 24px;
+            text-align: center;
+            background: rgba(56, 189, 248, 0.2);
+            border-radius: 50%;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--color-text-accent);
+            flex-shrink: 0;
+        }
+        .nav-item.active .nav-item-number {
+            background: var(--color-text-accent);
+            color: #0f172a;
+        }
+        .nav-item-title {
+            flex: 1;
+            min-width: 0;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        /* Glass Morphism Container */
+        .glass-container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: calc(80% - 320px);
+            max-width: 900px;
+            height: auto;
+            min-height: auto;
+            max-height: 85vh;
+            padding: 3rem;
+            background: rgba(30, 41, 59, 0.3);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            color: #f1f5f9;
+            box-sizing: border-box;
+        }
+        @media (max-width: 1400px) {
+            .glass-container { width: 75%; max-width: 800px; }
+        }
+        .glass-container.center {
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .glass-container.col { flex-direction: column; }
+
+        /* Slide Background Styles */
+        .slide-bg-title { background-color: #020617; color: var(--color-text-primary); }
+        .slide-bg-gradient {
+            background: linear-gradient(135deg, #020617 0%, #0f172a 50%, #1e293b 100%);
+            color: var(--color-text-primary);
+        }
+
+        /* Text Color Classes */
+        .text-accent { color: var(--color-text-accent); }
+        .text-secondary { color: var(--color-text-secondary); }
+        .text-muted { color: var(--color-text-muted); }
+        .text-primary { color: var(--color-text-primary); }
+
+        /* Heading Styles */
+        h2.text-accent, .glass-container h2 { color: var(--color-text-accent); }
+
+        /* List Styles */
+        .glass-container ul.text-lg, .glass-container .text-lg { color: var(--color-text-secondary); }
+
+        /* Comparison Card Styles */
+        .comparison-card {
+            background-color: #1e293b;
+            color: var(--color-text-primary);
+            padding: 2rem;
+            border-radius: 12px;
+        }
+        .comparison-card h3 { color: var(--color-text-accent); font-size: 1.25rem; margin-bottom: 1rem; }
+        .comparison-card p {
+            color: var(--color-text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+        }
+        .comparison-card strong { color: var(--color-text-accent); }
+    </style>
+</head>
+<body class="theme-dark">
+
+    <!-- SLIDE 1: Title Slide -->
+    <section class="slide p-16 col center slide-bg-title">
+        <h1 class="mb-4 text-accent">ISO 45001 / ISO 14001</h1>
+        <h2 class="text-xl mb-8 text-secondary">2025 - ISO Management Review </h2>
+        <p class="text-lg text-secondary"></p>
+        <p class="text-sm mt-8 text-muted"></p>
+    </section>
+
+    <!-- SLIDE 2: ISO Management Reviews -->
+    <section class="slide p-16 col slide-bg-gradient">
+        <h2 class="mb-6 text-accent">ISO Management Reviews Agenda</h2>
+        <ol class="text-lg text-secondary" style="list-style: decimal; padding-left: 2rem;">
+            <li class="mb-3">ISO Management Reviews- Introduction</li>
+            <li class="mb-3">Review of Previous Minutes and Actions</li>
+            <li class="mb-3">Performance Review ISO</li>
+            <li class="mb-3">Objectives and Targets</li>
+            <li class="mb-3">Audit Findings</li>
+            <li class="mb-3">Legal and Other Requirements</li>
+            <li class="mb-3">Haz and Non-Haz Waste Trends (Env.)</li>
+            <li class="mb-3">EHS Investigations and Corrective Actions</li>
+            <li class="mb-3">Closing Remarks</li>
+        </ol>
+    </section>
+
+    <!-- SLIDE 3: Hazard Profiles -->
+    <section class="slide p-16 col slide-bg-gradient">
+        <h2 class="mb-6 text-accent">Opening Remarks and Introduction</h2>
+        <div class="fill-height row gap-lg">
+            <div class="fill-width">
+                <h3 class="text-accent mb-4">Scope of the Review</h3>
+                <ul class="text-lg text-secondary">
+                    <li>The scope of the EHS and Energy Management Review Meeting, as per ISO 14001, and ISO 45001 standards, is to assess and improve the organization’s performance in environmental, health and safety management. 
+                    </li>
+                    <li>The meeting aims to identify areas of improvement, set objectives, and plan actions to enhance the organization’s EHS management systems</li>
+
+                </ul>
+            </div>
+            <div class="fill-width">
+                <h3 class="text-accent mb-4">Clause 9.3</h3>
+                <ul class="text-lg text-secondary">
+                    <li>Top Management shall review the organisation’s Health and safety & Environmental, at planned intervals, to ensure its continuing suitability, adequacy, effectiveness and alignment with the strategic direction of the organisation.
+                    </li>
+                    <li>Management Review Period:
+                        Annually (Mandatory)     </li>
+
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 3: MDI Process Context & Key Risks -->
+    <section class="slide p-16 col slide-bg-gradient">
+        <h2 class="mb-6 text-accent">MDI Process Context & Key Risks</h2>
+        <p class="text-lg mb-6 text-secondary">Ethanol (co-solvent & cleaning) and nitrogen (inerting & purging) used in metered dose inhaler production:</p>
+        <ul class="text-lg text-secondary">
+            <li>External: 1000L IBC storage with flammable mass & vapour cloud risk</li>
+            <li>Internal: Flammable atmosphere from spills, leaks, or vaporisation</li>
+            <li>Nitrogen: Asphyxiation risk in confined/poorly ventilated areas</li>
+            <li>Two supply modes under evaluation: qualified line vs 5L bottles</li>
+        </ul>
+    </section>
+
+    <!-- SLIDE 4: External Area – Ethanol IBC & Controls -->
+    <section class="slide p-16 col slide-bg-gradient">
+        <h2 class="mb-6 text-accent">External Area: Ethanol IBC & Controls</h2>
+        <p class="text-lg mb-4 text-secondary"><strong>Key Risks:</strong> Large inventory, containment loss, vapour cloud, ignition sources</p>
+        <p class="text-lg mb-4 text-secondary"><strong>Engineering Controls:</strong></p>
+        <ul class="text-lg text-secondary">
+            <li>Outdoor location with full-volume bunding & impact protection</li>
+            <li>ATEX-rated hoses, anti-static couplings, earthing/bonding</li>
+            <li>Safe nitrogen venting (not into enclosed areas)</li>
+        </ul>
+        <p class="text-lg mb-4 text-secondary"><strong>Operational:</strong> ATEX zoning, PTW for hot work, fire extinguishers (foam), spill response plan</li>
+    </section>
+
+    <!-- SLIDE 5: Internal Handling – Two Options -->
+    <section class="slide p-16 col slide-bg-gradient">
+        <h2 class="mb-6 text-accent">Internal Handling: Two Supply Options</h2>
+        <div class="fill-height row gap-lg">
+            <div class="fill-width comparison-card">
+                <h3>Option A: Supply Line (Preferred)</h3>
+                <p>Reduced manual handling, fewer coupling events, closed-loop transfer, lower vapour exposure</p>
+            </div>
+            <div class="fill-width comparison-card">
+                <h3>Option B: 5L Bottles (Interim)</h3>
+                <p>Overhead pouring to 2m height, musculoskeletal & splash risk, higher vapour exposure frequency</p>
+            </div>
+        </div>
+        <p class="text-sm mt-4 text-muted text-center">Evaluate residual risks and implement robust controls for each option</p>
+    </section>
+
+    <!-- SLIDE 6: Option A – Supply Line Details -->
+    <section class="slide p-16 col slide-bg-gradient">
+        <h2 class="mb-6 text-accent">Option A: Supply Line – Controls</h2>
+        <p class="text-lg mb-4 text-secondary"><strong>Engineering:</strong></p>
+        <ul class="text-lg text-secondary">
+            <li>Double-contained lines, non-return valves, pressure relief</li>
+            <li>High-level alarm & automatic shut-off on leak detection</li>
+            <li>ATEX-compliant equipment, intrinsically safe instruments</li>
+            <li>Adequate ventilation at potential leak points</li>
+        </ul>
+        <p class="text-lg mb-4 text-secondary"><strong>Procedural:</strong></p>
+        <ul class="text-lg text-secondary">
+            <li>Start-up/shutdown checklists, routine pressure testing</li>
+            <li>Clear emergency isolation & operator training</li>
+        </ul>
+    </section>
+
+    <!-- SLIDE 7: Option B – 5L Bottles Controls -->
+    <section class="slide p-16 col slide-bg-gradient">
+        <h2 class="mb-6 text-accent">Option B: 5L Bottles – Interim Controls</h2>
+        <p class="text-lg mb-4 text-secondary"><strong>Ergonomic & Spill:</strong></p>
+        <ul class="text-lg text-secondary">
+            <li>Use pump/drum trolley; lower vessel inlet to chest height</li>
+            <li>Drip trays, absorbent materials, immediate spill clean-up</li>
+        </ul>
+        <p class="text-lg mb-4 text-secondary"><strong>Electrical & Exposure:</strong></p>
+        <ul class="text-lg text-secondary">
+            <li>Conductive containers, earth bonding, no synthetic clothing</li>
+            <li>Local extraction/ventilation at vessel top</li>
+        </ul>
+        <p class="text-lg mb-4 text-secondary"><strong>PPE & Training:</strong></p>
+        <ul class="text-lg text-secondary">
+            <li>Chemical goggles/face shield, ethanol-compatible gloves, flame-retardant coat</li>
+            <li>Manual handling, spill & fire response training</li>
+        </ul>
+    </section>
+
+    <!-- SLIDE 8: Nitrogen Controls & Regulatory Framework -->
+    <section class="slide p-16 col slide-bg-gradient">
+        <h2 class="mb-6 text-accent">Nitrogen Controls & Regulatory Framework</h2>
+        <div class="fill-height row gap-lg">
+            <div class="fill-width">
+                <h3 class="text-accent mb-4">Nitrogen Controls</h3>
+                <ul class="text-lg text-secondary">
+                    <li>Vent nitrogen safely outdoors (not into room)</li>
+                    <li>O₂ monitoring & alarm where asphyxiation risk exists</li>
+                    <li>Confined-space procedures for purged vessels</li>
+                    <li>Signage: "Nitrogen – Asphyxiant"</li>
+                </ul>
+            </div>
+            <div class="fill-width">
+                <h3 class="text-accent mb-4">Regulatory (Ireland)</h3>
+                <ul class="text-lg text-secondary">
+                    <li>SHWW Act 2005: General duty of care</li>
+                    <li>Chemical Agents Regulations 2024: Hazard assessment</li>
+                    <li>DSEAR: ATEX zoning & risk assessment</li>
+                    <li>REACH/CLP: Classification & labelling</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 9: Recommendations & Next Steps -->
+    <section class="slide p-16 col slide-bg-gradient">
+        <h2 class="mb-6 text-accent">Key Recommendations & Action Items</h2>
+        <p class="text-lg mb-4 text-secondary"><strong>Priority 1:</strong> Transition to qualified supply line (Option A)</p>
+        <p class="text-lg mb-4 text-secondary"><strong>Priority 2 (Interim):</strong> Strengthen 5L bottle controls - ergonomic fixes, PPE audit, training</p>
+        <p class="text-lg mb-4 text-secondary"><strong>Immediate Actions:</strong></p>
+        <ul class="text-lg text-secondary">
+            <li>Update ATEX/DSEAR risk assessment & zoning</li>
+            <li>Implement O₂ monitoring plan for nitrogen areas</li>
+            <li>Commission supply line system (medium-term)</li>
+            <li>Ongoing compliance monitoring & training updates</li>
+        </ul>
+    </section>
+
+    <!-- SLIDE 10: Closing -->
+    <section class="slide p-16 col center slide-bg-gradient">
+        <h2 class="mb-6 text-accent">Questions & Discussion</h2>
+        <p class="text-lg text-secondary">Risk Review: Ethanol & Nitrogen in MDI Production</p>
+        <p class="text-sm mt-8 text-muted">Contact: EHS & Energy Management | Amneal Ireland</p>
+    </section>
+
+    <!-- Glass Morphism Container -->
+    <div class="glass-container"></div>
+
+    <!-- Amneal Logo -->
+    <div class="amneal-logo"><img src="../img/Amneal_Logo_new.svg" alt="Amneal Logo"></div>
+
+    <!-- Navigation Panel -->
+    <div class="nav-panel" id="navPanel">
+        <div class="nav-panel-header">Navigation</div>
+        <div id="navList"></div>
+    </div>
+
+    <!-- Page Number Indicator -->
+    <div class="page-number" id="pageNumber">1 / 10</div>
+
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        const pageNumberElement = document.getElementById('pageNumber');
+        const glassContainer = document.querySelector('.glass-container');
+        const navList = document.getElementById('navList');
+        let currentSlide = 0;
+
+        const slideTitles = [
+            'Management Review',
+            'Agenda',
+            'Remarks and Introduction',
+            'External Area: IBC & Controls',
+            'Internal Handling: Two Options',
+            'Option A: Supply Line Controls',
+            'Option B: 5L Bottles Controls',
+            'Nitrogen Controls & Regulatory Framework',
+            'Recommendations & Action Items',
+            'Questions & Discussion'
+        ];
+
+        function buildNavigation() {
+            if (!navList) return;
+            navList.innerHTML = '';
+            slides.forEach((slide, index) => {
+                const navItem = document.createElement('div');
+                navItem.className = 'nav-item';
+                navItem.setAttribute('data-slide', index);
+                const number = document.createElement('span');
+                number.className = 'nav-item-number';
+                number.textContent = index + 1;
+                const title = document.createElement('span');
+                title.className = 'nav-item-title';
+                title.textContent = slideTitles[index] || `Slide ${index + 1}`;
+                navItem.appendChild(number);
+                navItem.appendChild(title);
+                navItem.addEventListener('click', () => goToSlide(index));
+                navList.appendChild(navItem);
+            });
+        }
+
+        function updateNavigation() {
+            if (!navList) return;
+            const navItems = navList.querySelectorAll('.nav-item');
+            navItems.forEach((item, index) => {
+                item.classList.toggle('active', index === currentSlide);
+                if (index === currentSlide) item.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            });
+        }
+
+        function updatePageNumber() {
+            if (pageNumberElement) pageNumberElement.textContent = `${currentSlide + 1} / ${slides.length}`;
+        }
+
+        function updateGlassContainer() {
+            if (glassContainer && slides[currentSlide]) {
+                const activeSlide = slides[currentSlide];
+                glassContainer.className = 'glass-container';
+                activeSlide.classList.forEach(cls => {
+                    if (cls !== 'slide' && cls !== 'active' && cls !== 'p-16') glassContainer.classList.add(cls);
+                });
+                glassContainer.innerHTML = activeSlide.innerHTML;
+            }
+        }
+
+        function goToSlide(index) {
+            if (index < 0 || index >= slides.length) return;
+            slides[currentSlide].classList.remove('active');
+            currentSlide = index;
+            slides[currentSlide].classList.add('active');
+            updatePageNumber();
+            updateGlassContainer();
+            updateNavigation();
+        }
+
+        function nextSlide() { if (currentSlide < slides.length - 1) goToSlide(currentSlide + 1); }
+        function prevSlide() { if (currentSlide > 0) goToSlide(currentSlide - 1); }
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'ArrowRight' || event.key === 'ArrowDown') { event.preventDefault(); nextSlide(); }
+            else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') { event.preventDefault(); prevSlide(); }
+            else if (event.key === 'Home') { event.preventDefault(); goToSlide(0); }
+            else if (event.key === 'End') { event.preventDefault(); goToSlide(slides.length - 1); }
+        });
+
+        let wheelTimeout;
+        document.addEventListener('wheel', function(event) {
+            event.preventDefault();
+            clearTimeout(wheelTimeout);
+            wheelTimeout = setTimeout(() => {
+                if (event.deltaY > 0) nextSlide();
+                else if (event.deltaY < 0) prevSlide();
+            }, 100);
+        }, { passive: false });
+
+        buildNavigation();
+        slides[currentSlide].classList.add('active');
+        updatePageNumber();
+        updateGlassContainer();
+        updateNavigation();
+    </script>
+</body>
+</html>

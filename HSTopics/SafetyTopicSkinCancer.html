@@ -1,0 +1,335 @@
+<!-- File: sheener/HSTopics/SafetyTopicSkinCancer.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../img/favicon/faviconAY.ico">
+    <title>Skin Cancer Awareness Tips</title>
+
+    <style>
+        /* Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* General Settings */
+        body {
+            font-family: Arial, sans-serif;
+            color: #333;
+            background-color: #F2F2F2;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 60px;
+            background-color: #003366;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .header-container {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            max-width: 1000px;
+            justify-content: center;
+            position: relative;
+        }
+
+        .logo-container {
+            position: absolute;
+            left: 20px;
+        }
+
+        .logo {
+            height: 40px;
+        }
+
+        .header-title {
+            color: #FFFFFF;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        /* Hero Section */
+        #hero {
+            height: calc(100vh - 60px);
+            padding-top: 60px;
+            position: relative;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 100vh;
+            /* Full viewport height */
+            object-fit: cover;
+            /* Ensures image covers the area while maintaining aspect ratio */
+            filter: brightness(90%);
+        }
+
+        .hero-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: #FFFFFF;
+        }
+
+        .hero-text h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+        }
+
+        .hero-text p {
+            font-size: 1.2em;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .flashing-arrow {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .flashing-arrow img {
+            width: 40px;
+            animation: flash 1.5s infinite;
+        }
+
+        @keyframes flash {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            50% {
+                opacity: 0.6;
+                transform: translateY(10px);
+            }
+        }
+
+        /* Tips Section */
+        .tips {
+            max-width: 700px;
+            margin: 40px auto;
+            padding: 0 15px;
+            text-align: center;
+        }
+
+        .tip {
+            background-color: #FFFFFF;
+            border-left: 4px solid #b88d00;
+            padding: 15px 20px;
+            margin: 15px 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transform: scale(0.9);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        .tip.active {
+            transform: scale(1.1);
+            opacity: 1;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .tip h2 {
+            font-size: 1.8em;
+            color: #003366;
+        }
+
+        .tip p {
+            font-size: 1.2em;
+            color: #555;
+        }
+
+        /* Footer */
+        footer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px 0;
+            background-color: #d9a460;
+            color: #FFFFFF;
+            gap: 8px;
+        }
+
+        footer a {
+            color: #FFFFFF;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-logo {
+            width: 90px;
+            height: 30px;
+        }
+
+        /* Styles for the previous icon */
+        .previous-icon {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            font-size: 2rem;
+            color: white;
+            cursor: pointer;
+            text-decoration: none;
+            z-index: 1001;
+            /* Ensure it's above other elements */
+        }
+
+        .previous-icon:hover {
+            color: #03bcf4;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo-container">
+                <img src="../img/Amneal_Logo_new.svg" alt="Amneal Logo" class="logo">
+            </div>
+            <div class="header-title">Skin Cancer Awareness Tips</div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero">
+
+
+        <img src="../img/IrishCancerBgnd.jpg" alt="Skin Cancer Awareness" class="hero-image">
+
+
+        <div class="hero-text">
+
+            <br><br><br><br>
+            <div class="centered-snow-icon">
+                <a href="https://www.cancer.ie/cancer-information-and-support/cancer-types/skin-cancer/"
+                    target="_blank">
+                    <img src="../img/IrishCancerSociety.svg" alt="Sign Icon" width="200">
+                </a>
+
+            </div><br><br><br><br><br><br><br>
+            <h1>Protect Your Skin, Protect Your Life</h1>
+            <p>Learn how to spot, prevent, and reduce your risk of skin cancer</p>
+            <div class="flashing-arrow">
+                <img src="../img/arrow.svg" alt="Flashing Arrow">
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Tips Section -->
+    <main>
+        <section class="tips">
+            <!-- Understanding Skin Cancer -->
+            <div class="tip">
+                <h2>1. What is Skin Cancer?</h2>
+                <p>It’s the most common cancer in Ireland, with over 11,000 cases yearly. 9 in 10 cases are caused by UV
+                    rays from the sun or sunbeds.</p>
+            </div>
+            <div class="tip">
+                <h2>2. Why Early Detection Matters</h2>
+                <p>Spotting skin cancer early increases the chance of a cure to 90%. Know your skin and check monthly
+                    for unusual changes.</p>
+            </div>
+            <div class="tip">
+                <h2>3. Two Main Types</h2>
+                <p>Non-melanoma cancers like basal and squamous cell types are common, while melanoma is rarer but more
+                    serious—especially in younger people.</p>
+            </div>
+
+            <!-- Signs and Symptoms -->
+            <div class="tip">
+                <h2>4. Skin Changes to Watch</h2>
+                <p>Look out for red spots, lumps, scaly patches, ulcers that don’t heal, or changing moles. These can
+                    appear anywhere on your body.</p>
+            </div>
+            <div class="tip">
+                <h2>5. Symptoms of Melanoma</h2>
+                <p>Melanoma may start as a new mole or a change in an existing one. Irregular shape, color, or size are
+                    red flags. Get checked by a doctor.</p>
+            </div>
+
+            <!-- Prevention Tips -->
+            <div class="tip">
+                <h2>6. Follow the SunSmart Code</h2>
+                <p>Use sunscreen, cover up, seek shade, and avoid tanning. Reducing UV exposure greatly lowers your
+                    cancer risk.</p>
+            </div>
+            <div class="tip">
+                <h2>7. Know Your UV Risks</h2>
+                <p>Sun exposure—even on cloudy days—can damage skin cells. The effects build up over time and may lead
+                    to skin cancer years later.</p>
+            </div>
+            <div class="tip">
+                <h2>8. Monthly Skin Checks</h2>
+                <p>Check your skin head-to-toe every month. Use a mirror or ask someone to help you check hard-to-see
+                    areas like your back or scalp.</p>
+            </div>
+            <div class="tip">
+                <h2>9. Watch for Changes</h2>
+                <p>Any new spot, or one that changes in shape, size, or color, should be examined by a doctor. Don’t
+                    wait—early action saves lives.</p>
+            </div>
+            <div class="tip">
+                <h2>10. Share Awareness</h2>
+                <p>Help friends and family understand the risks. The more people know, the more lives we can protect
+                    from preventable skin cancer.</p>
+            </div>
+            <div class="tip">
+                <h2>11. SPF Isn't Just for Summer</h2>
+                <p>Protect your face with SPF every day, all year round. Even on cloudy or rainy days, UV rays can still
+                    damage your skin. Daily sunscreen use helps lower the risk of premature aging and skin cancer.</p>
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- Footer -->
+    <footer>
+        <a href="https://www.cancer.ie/cancer-information-and-support/cancer-types/skin-cancer/" target="_blank">
+            Learn more at the Irish Cancer Society: Skin Cancer Information
+        </a>
+        <img src="../img/IrishCancerSociety.svg" alt="Irish Cancer Society Logo" class="footer-logo">
+    </footer>
+    <a class="previous-icon" onclick="history.back()">&#x21A9;</a>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tips = document.querySelectorAll('.tip');
+
+            window.addEventListener('scroll', () => {
+                tips.forEach(tip => {
+                    const rect = tip.getBoundingClientRect();
+                    if (rect.top <= window.innerHeight * 0.8 && rect.bottom >= 0) {
+                        tip.classList.add('active');
+                    } else {
+                        tip.classList.remove('active');
+                    }
+                });
+            });
+        });
+    </script>
+    # <a class="previous-icon" onclick="history.back()">&#x21A9;</a>
+</body>
+
+</html>

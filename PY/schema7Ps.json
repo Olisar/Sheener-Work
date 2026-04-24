@@ -1,0 +1,6383 @@
+{
+  "aa": {
+    "meta": {
+      "engine": "InnoDB",
+      "row_count": 0,
+      "comment": ""
+    },
+    "columns": [
+      {
+        "Field": "idaa",
+        "Type": "int(11)",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": ""
+      }
+    ],
+    "primary_key": [
+      "idaa"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      {
+        "Table": "aa",
+        "Non_unique": 0,
+        "Key_name": "PRIMARY",
+        "Seq_in_index": 1,
+        "Column_name": "idaa",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      }
+    ],
+    "referenced_by": []
+  },
+  "areas": {
+    "meta": {
+      "engine": "InnoDB",
+      "row_count": 0,
+      "comment": ""
+    },
+    "columns": [
+      {
+        "Field": "area_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment"
+      },
+      {
+        "Field": "site_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "name",
+        "Type": "varchar(100)",
+        "Null": "NO",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "classification",
+        "Type": "varchar(50)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "ehs_risk_level",
+        "Type": "enum('Low','Med','High')",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "environmental_sensitivity",
+        "Type": "enum('Normal','High','Very High')",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      }
+    ],
+    "primary_key": [
+      "area_id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      {
+        "Table": "areas",
+        "Non_unique": 0,
+        "Key_name": "PRIMARY",
+        "Seq_in_index": 1,
+        "Column_name": "area_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      }
+    ],
+    "referenced_by": []
+  },
+  "audit_trail": {
+    "meta": {
+      "engine": "InnoDB",
+      "row_count": 0,
+      "comment": ""
+    },
+    "columns": [
+      {
+        "Field": "audit_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment"
+      },
+      {
+        "Field": "event_timestamp",
+        "Type": "timestamp",
+        "Null": "NO",
+        "Key": "",
+        "Default": "current_timestamp()",
+        "Extra": "on update current_timestamp()"
+      },
+      {
+        "Field": "user_employee_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "system_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "entity_type",
+        "Type": "varchar(50)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "entity_pk",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "action",
+        "Type": "varchar(20)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "field_name",
+        "Type": "varchar(100)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "old_value",
+        "Type": "text",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "new_value",
+        "Type": "text",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "reason",
+        "Type": "text",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      }
+    ],
+    "primary_key": [
+      "audit_id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      {
+        "Table": "audit_trail",
+        "Non_unique": 0,
+        "Key_name": "PRIMARY",
+        "Seq_in_index": 1,
+        "Column_name": "audit_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      }
+    ],
+    "referenced_by": []
+  },
+  "capa": {
+    "meta": {
+      "engine": "InnoDB",
+      "row_count": 0,
+      "comment": ""
+    },
+    "columns": [
+      {
+        "Field": "capa_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment"
+      },
+      {
+        "Field": "capa_number",
+        "Type": "varchar(50)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "origin",
+        "Type": "varchar(30)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "origin_entity_pk",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "description",
+        "Type": "text",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "status",
+        "Type": "varchar(20)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "due_date",
+        "Type": "date",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "closure_date",
+        "Type": "date",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      }
+    ],
+    "primary_key": [
+      "capa_id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      {
+        "Table": "capa",
+        "Non_unique": 0,
+        "Key_name": "PRIMARY",
+        "Seq_in_index": 1,
+        "Column_name": "capa_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      }
+    ],
+    "referenced_by": []
+  },
+  "capa_actions": {
+    "meta": {
+      "engine": "InnoDB",
+      "row_count": 0,
+      "comment": ""
+    },
+    "columns": [
+      {
+        "Field": "capa_action_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment"
+      },
+      {
+        "Field": "capa_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "task_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      }
+    ],
+    "primary_key": [
+      "capa_action_id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      {
+        "Table": "capa_actions",
+        "Non_unique": 0,
+        "Key_name": "PRIMARY",
+        "Seq_in_index": 1,
+        "Column_name": "capa_action_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      }
+    ],
+    "referenced_by": []
+  },
+  "change_actions": {
+    "meta": {
+      "engine": "InnoDB",
+      "row_count": 0,
+      "comment": ""
+    },
+    "columns": [
+      {
+        "Field": "change_action_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment"
+      },
+      {
+        "Field": "change_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "task_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      }
+    ],
+    "primary_key": [
+      "change_action_id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      {
+        "Table": "change_actions",
+        "Non_unique": 0,
+        "Key_name": "PRIMARY",
+        "Seq_in_index": 1,
+        "Column_name": "change_action_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      }
+    ],
+    "referenced_by": []
+  },
+  "change_affected_objects": {
+    "meta": {
+      "engine": "InnoDB",
+      "row_count": 0,
+      "comment": ""
+    },
+    "columns": [
+      {
+        "Field": "affected_object_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment"
+      },
+      {
+        "Field": "change_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "object_type",
+        "Type": "varchar(30)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "object_pk",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      }
+    ],
+    "primary_key": [
+      "affected_object_id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      {
+        "Table": "change_affected_objects",
+        "Non_unique": 0,
+        "Key_name": "PRIMARY",
+        "Seq_in_index": 1,
+        "Column_name": "affected_object_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      }
+    ],
+    "referenced_by": []
+  },
+  "change_requests": {
+    "meta": {
+      "engine": "InnoDB",
+      "row_count": 0,
+      "comment": ""
+    },
+    "columns": [
+      {
+        "Field": "change_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment"
+      },
+      {
+        "Field": "change_number",
+        "Type": "varchar(50)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "title",
+        "Type": "varchar(100)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "description",
+        "Type": "text",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "initiator_employee_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "initiated_datetime",
+        "Type": "timestamp",
+        "Null": "NO",
+        "Key": "",
+        "Default": "current_timestamp()",
+        "Extra": "on update current_timestamp()"
+      },
+      {
+        "Field": "change_type",
+        "Type": "varchar(30)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "impact_gmp",
+        "Type": "tinyint(1)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "impact_ehs",
+        "Type": "tinyint(1)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "impact_environment",
+        "Type": "tinyint(1)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "impact_energy",
+        "Type": "tinyint(1)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "impact_it",
+        "Type": "tinyint(1)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "impact_hr",
+        "Type": "tinyint(1)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "status",
+        "Type": "varchar(30)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      }
+    ],
+    "primary_key": [
+      "change_id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      {
+        "Table": "change_requests",
+        "Non_unique": 0,
+        "Key_name": "PRIMARY",
+        "Seq_in_index": 1,
+        "Column_name": "change_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      }
+    ],
+    "referenced_by": []
+  },
+  "change_risk_assessments": {
+    "meta": {
+      "engine": "InnoDB",
+      "row_count": 0,
+      "comment": ""
+    },
+    "columns": [
+      {
+        "Field": "change_risk_assessment_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment"
+      },
+      {
+        "Field": "change_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "risk_assessment_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      }
+    ],
+    "primary_key": [
+      "change_risk_assessment_id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      {
+        "Table": "change_risk_assessments",
+        "Non_unique": 0,
+        "Key_name": "PRIMARY",
+        "Seq_in_index": 1,
+        "Column_name": "change_risk_assessment_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      }
+    ],
+    "referenced_by": []
+  },
+  "competency_definitions": {
+    "meta": {
+      "engine": "InnoDB",
+      "row_count": 0,
+      "comment": ""
+    },
+    "columns": [
+      {
+        "Field": "competency_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment"
+      },
+      {
+        "Field": "name",
+        "Type": "varchar(100)",
+        "Null": "NO",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "object_type",
+        "Type": "varchar(50)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "description",
+        "Type": "text",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "gmp_relevant",
+        "Type": "tinyint(1)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "safety_critical",
+        "Type": "tinyint(1)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      }
+    ],
+    "primary_key": [
+      "competency_id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      {
+        "Table": "competency_definitions",
+        "Non_unique": 0,
+        "Key_name": "PRIMARY",
+        "Seq_in_index": 1,
+        "Column_name": "competency_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      }
+    ],
+    "referenced_by": []
+  },
+  "cost_centers": {
+    "meta": {
+      "engine": "InnoDB",
+      "row_count": 0,
+      "comment": ""
+    },
+    "columns": [
+      {
+        "Field": "cost_center_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment"
+      },
+      {
+        "Field": "code",
+        "Type": "varchar(20)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "name",
+        "Type": "varchar(100)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "org_unit_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      }
+    ],
+    "primary_key": [
+      "cost_center_id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      {
+        "Table": "cost_centers",
+        "Non_unique": 0,
+        "Key_name": "PRIMARY",
+        "Seq_in_index": 1,
+        "Column_name": "cost_center_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      }
+    ],
+    "referenced_by": []
+  },
+  "data_objects": {
+    "meta": {
+      "engine": "InnoDB",
+      "row_count": 0,
+      "comment": ""
+    },
+    "columns": [
+      {
+        "Field": "data_object_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment"
+      },
+      {
+        "Field": "system_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "name",
+        "Type": "varchar(100)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "gxp_related",
+        "Type": "tinyint(1)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "retention_policy_years",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "confidentiality_level",
+        "Type": "varchar(10)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      }
+    ],
+    "primary_key": [
+      "data_object_id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      {
+        "Table": "data_objects",
+        "Non_unique": 0,
+        "Key_name": "PRIMARY",
+        "Seq_in_index": 1,
+        "Column_name": "data_object_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      }
+    ],
+    "referenced_by": []
+  },
+  "deviations": {
+    "meta": {
+      "engine": "InnoDB",
+      "row_count": 0,
+      "comment": ""
+    },
+    "columns": [
+      {
+        "Field": "deviation_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment"
+      },
+      {
+        "Field": "deviation_number",
+        "Type": "varchar(50)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "source_batch_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "source_workflow_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "description",
+        "Type": "text",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "classification",
+        "Type": "varchar(20)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "status",
+        "Type": "varchar(20)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "root_cause",
+        "Type": "text",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "closure_datetime",
+        "Type": "timestamp",
+        "Null": "NO",
+        "Key": "",
+        "Default": "current_timestamp()",
+        "Extra": "on update current_timestamp()"
+      }
+    ],
+    "primary_key": [
+      "deviation_id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      {
+        "Table": "deviations",
+        "Non_unique": 0,
+        "Key_name": "PRIMARY",
+        "Seq_in_index": 1,
+        "Column_name": "deviation_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      }
+    ],
+    "referenced_by": []
+  },
+  "document_approvals": {
+    "meta": {
+      "engine": "InnoDB",
+      "row_count": 0,
+      "comment": ""
+    },
+    "columns": [
+      {
+        "Field": "document_approval_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment"
+      },
+      {
+        "Field": "document_version_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "approver_employee_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "role",
+        "Type": "varchar(20)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "decision",
+        "Type": "varchar(20)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "decision_datetime",
+        "Type": "timestamp",
+        "Null": "NO",
+        "Key": "",
+        "Default": "current_timestamp()",
+        "Extra": "on update current_timestamp()"
+      },
+      {
+        "Field": "comment",
+        "Type": "text",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      }
+    ],
+    "primary_key": [
+      "document_approval_id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      {
+        "Table": "document_approvals",
+        "Non_unique": 0,
+        "Key_name": "PRIMARY",
+        "Seq_in_index": 1,
+        "Column_name": "document_approval_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      }
+    ],
+    "referenced_by": []
+  },
+  "document_regulation_links": {
+    "meta": {
+      "engine": "InnoDB",
+      "row_count": 0,
+      "comment": ""
+    },
+    "columns": [
+      {
+        "Field": "document_reg_link_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment"
+      },
+      {
+        "Field": "document_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "requirement_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      }
+    ],
+    "primary_key": [
+      "document_reg_link_id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      {
+        "Table": "document_regulation_links",
+        "Non_unique": 0,
+        "Key_name": "PRIMARY",
+        "Seq_in_index": 1,
+        "Column_name": "document_reg_link_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      }
+    ],
+    "referenced_by": []
+  },
+  "document_versions": {
+    "meta": {
+      "engine": "InnoDB",
+      "row_count": 0,
+      "comment": ""
+    },
+    "columns": [
+      {
+        "Field": "document_version_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment"
+      },
+      {
+        "Field": "document_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "version",
+        "Type": "varchar(10)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "change_summary",
+        "Type": "text",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "file_path",
+        "Type": "varchar(256)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "created_by_employee_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "created_datetime",
+        "Type": "timestamp",
+        "Null": "NO",
+        "Key": "",
+        "Default": "current_timestamp()",
+        "Extra": "on update current_timestamp()"
+      }
+    ],
+    "primary_key": [
+      "document_version_id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      {
+        "Table": "document_versions",
+        "Non_unique": 0,
+        "Key_name": "PRIMARY",
+        "Seq_in_index": 1,
+        "Column_name": "document_version_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      }
+    ],
+    "referenced_by": []
+  },
+  "documents": {
+    "meta": {
+      "engine": "InnoDB",
+      "row_count": 0,
+      "comment": ""
+    },
+    "columns": [
+      {
+        "Field": "document_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment"
+      },
+      {
+        "Field": "doc_code",
+        "Type": "varchar(50)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "title",
+        "Type": "varchar(100)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "doc_type",
+        "Type": "varchar(40)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "owner_org_unit_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "status",
+        "Type": "varchar(20)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "effective_from",
+        "Type": "date",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "effective_to",
+        "Type": "date",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "gxp_relevant",
+        "Type": "tinyint(1)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "ehs_relevant",
+        "Type": "tinyint(1)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "environment_relevant",
+        "Type": "tinyint(1)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "energy_relevant",
+        "Type": "tinyint(1)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      }
+    ],
+    "primary_key": [
+      "document_id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      {
+        "Table": "documents",
+        "Non_unique": 0,
+        "Key_name": "PRIMARY",
+        "Seq_in_index": 1,
+        "Column_name": "document_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      }
+    ],
+    "referenced_by": []
+  },
+  "employee_competencies": {
+    "meta": {
+      "engine": "InnoDB",
+      "row_count": 0,
+      "comment": ""
+    },
+    "columns": [
+      {
+        "Field": "employee_competency_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment"
+      },
+      {
+        "Field": "employee_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "YES",
+        "Key": "MUL",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "competency_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "YES",
+        "Key": "MUL",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "status",
+        "Type": "varchar(20)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "effective_date",
+        "Type": "date",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "expiry_date",
+        "Type": "date",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "approval_document_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      }
+    ],
+    "primary_key": [
+      "employee_competency_id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      {
+        "Table": "employee_competencies",
+        "Non_unique": 0,
+        "Key_name": "PRIMARY",
+        "Seq_in_index": 1,
+        "Column_name": "employee_competency_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      },
+      {
+        "Table": "employee_competencies",
+        "Non_unique": 1,
+        "Key_name": "employee_id",
+        "Seq_in_index": 1,
+        "Column_name": "employee_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "YES",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      },
+      {
+        "Table": "employee_competencies",
+        "Non_unique": 1,
+        "Key_name": "competency_id",
+        "Seq_in_index": 1,
+        "Column_name": "competency_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "YES",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      }
+    ],
+    "referenced_by": []
+  },
+  "employee_contracts": {
+    "meta": {
+      "engine": "InnoDB",
+      "row_count": 0,
+      "comment": ""
+    },
+    "columns": [
+      {
+        "Field": "contract_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment"
+      },
+      {
+        "Field": "employee_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "start_date",
+        "Type": "date",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "end_date",
+        "Type": "date",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "contract_type",
+        "Type": "varchar(20)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "working_hours_pattern",
+        "Type": "varchar(100)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      }
+    ],
+    "primary_key": [
+      "contract_id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      {
+        "Table": "employee_contracts",
+        "Non_unique": 0,
+        "Key_name": "PRIMARY",
+        "Seq_in_index": 1,
+        "Column_name": "contract_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      }
+    ],
+    "referenced_by": []
+  },
+  "employees": {
+    "meta": {
+      "engine": "InnoDB",
+      "row_count": 0,
+      "comment": "Stores all employee master data"
+    },
+    "columns": [
+      {
+        "Field": "employee_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment"
+      },
+      {
+        "Field": "personnel_number",
+        "Type": "varchar(20)",
+        "Null": "NO",
+        "Key": "UNI",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "first_name",
+        "Type": "varchar(50)",
+        "Null": "NO",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "last_name",
+        "Type": "varchar(50)",
+        "Null": "NO",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "org_unit_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "YES",
+        "Key": "MUL",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "job_role_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "YES",
+        "Key": "MUL",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "employment_status",
+        "Type": "enum('Active','Leave','Terminated','Contractor')",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "employment_type",
+        "Type": "enum('Permanent','Temporary','Agency','Contractor')",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      }
+    ],
+    "primary_key": [
+      "employee_id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      {
+        "Table": "employees",
+        "Non_unique": 0,
+        "Key_name": "PRIMARY",
+        "Seq_in_index": 1,
+        "Column_name": "employee_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      },
+      {
+        "Table": "employees",
+        "Non_unique": 0,
+        "Key_name": "personnel_number",
+        "Seq_in_index": 1,
+        "Column_name": "personnel_number",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      },
+      {
+        "Table": "employees",
+        "Non_unique": 1,
+        "Key_name": "org_unit_id",
+        "Seq_in_index": 1,
+        "Column_name": "org_unit_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "YES",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      },
+      {
+        "Table": "employees",
+        "Non_unique": 1,
+        "Key_name": "job_role_id",
+        "Seq_in_index": 1,
+        "Column_name": "job_role_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "YES",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      }
+    ],
+    "referenced_by": []
+  },
+  "energy_consumption_records": {
+    "meta": {
+      "engine": "InnoDB",
+      "row_count": 0,
+      "comment": ""
+    },
+    "columns": [
+      {
+        "Field": "consumption_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment"
+      },
+      {
+        "Field": "meter_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "timestamp",
+        "Type": "timestamp",
+        "Null": "NO",
+        "Key": "",
+        "Default": "current_timestamp()",
+        "Extra": "on update current_timestamp()"
+      },
+      {
+        "Field": "value",
+        "Type": "float",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "unit",
+        "Type": "varchar(10)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      }
+    ],
+    "primary_key": [
+      "consumption_id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      {
+        "Table": "energy_consumption_records",
+        "Non_unique": 0,
+        "Key_name": "PRIMARY",
+        "Seq_in_index": 1,
+        "Column_name": "consumption_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      }
+    ],
+    "referenced_by": []
+  },
+  "environmental_aspects": {
+    "meta": {
+      "engine": "InnoDB",
+      "row_count": 0,
+      "comment": ""
+    },
+    "columns": [
+      {
+        "Field": "aspect_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment"
+      },
+      {
+        "Field": "name",
+        "Type": "varchar(100)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "significance_rating",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "control_measures",
+        "Type": "text",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      }
+    ],
+    "primary_key": [
+      "aspect_id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      {
+        "Table": "environmental_aspects",
+        "Non_unique": 0,
+        "Key_name": "PRIMARY",
+        "Seq_in_index": 1,
+        "Column_name": "aspect_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      }
+    ],
+    "referenced_by": []
+  },
+  "equipment": {
+    "meta": {
+      "engine": "InnoDB",
+      "row_count": 0,
+      "comment": ""
+    },
+    "columns": [
+      {
+        "Field": "equipment_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment"
+      },
+      {
+        "Field": "asset_tag",
+        "Type": "varchar(50)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "serial_number",
+        "Type": "varchar(50)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "description",
+        "Type": "text",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "equipment_type_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "site_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "area_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "space_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "gmp_critical",
+        "Type": "tinyint(1)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "safety_critical",
+        "Type": "tinyint(1)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "energy_significant",
+        "Type": "tinyint(1)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "status",
+        "Type": "enum('In Service','Out of Service','Decommissioned')",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      }
+    ],
+    "primary_key": [
+      "equipment_id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      {
+        "Table": "equipment",
+        "Non_unique": 0,
+        "Key_name": "PRIMARY",
+        "Seq_in_index": 1,
+        "Column_name": "equipment_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      }
+    ],
+    "referenced_by": []
+  },
+  "equipment_types": {
+    "meta": {
+      "engine": "InnoDB",
+      "row_count": 0,
+      "comment": ""
+    },
+    "columns": [
+      {
+        "Field": "equipment_type_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment"
+      },
+      {
+        "Field": "name",
+        "Type": "varchar(100)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "requires_qualification",
+        "Type": "tinyint(1)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "requires_calibration",
+        "Type": "tinyint(1)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "requires_preventive_maintenance",
+        "Type": "tinyint(1)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      }
+    ],
+    "primary_key": [
+      "equipment_type_id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      {
+        "Table": "equipment_types",
+        "Non_unique": 0,
+        "Key_name": "PRIMARY",
+        "Seq_in_index": 1,
+        "Column_name": "equipment_type_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      }
+    ],
+    "referenced_by": []
+  },
+  "hr_cases": {
+    "meta": {
+      "engine": "InnoDB",
+      "row_count": 0,
+      "comment": ""
+    },
+    "columns": [
+      {
+        "Field": "hr_case_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment"
+      },
+      {
+        "Field": "employee_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "case_type",
+        "Type": "varchar(30)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "opened_date",
+        "Type": "date",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "status",
+        "Type": "varchar(30)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      }
+    ],
+    "primary_key": [
+      "hr_case_id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      {
+        "Table": "hr_cases",
+        "Non_unique": 0,
+        "Key_name": "PRIMARY",
+        "Seq_in_index": 1,
+        "Column_name": "hr_case_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      }
+    ],
+    "referenced_by": []
+  },
+  "incidents_ehs": {
+    "meta": {
+      "engine": "InnoDB",
+      "row_count": 0,
+      "comment": ""
+    },
+    "columns": [
+      {
+        "Field": "incident_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment"
+      },
+      {
+        "Field": "incident_number",
+        "Type": "varchar(60)",
+        "Null": "YES",
+        "Key": "UNI",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "type",
+        "Type": "varchar(50)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "severity",
+        "Type": "varchar(40)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "date_time",
+        "Type": "timestamp",
+        "Null": "NO",
+        "Key": "",
+        "Default": "current_timestamp()",
+        "Extra": "on update current_timestamp()"
+      },
+      {
+        "Field": "site_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "area_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "space_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "description",
+        "Type": "text",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "injured_employee_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "status",
+        "Type": "varchar(20)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "linked_workflow_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      }
+    ],
+    "primary_key": [
+      "incident_id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      {
+        "Table": "incidents_ehs",
+        "Non_unique": 0,
+        "Key_name": "PRIMARY",
+        "Seq_in_index": 1,
+        "Column_name": "incident_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      },
+      {
+        "Table": "incidents_ehs",
+        "Non_unique": 0,
+        "Key_name": "incident_number",
+        "Seq_in_index": 1,
+        "Column_name": "incident_number",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "YES",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      }
+    ],
+    "referenced_by": []
+  },
+  "it_systems": {
+    "meta": {
+      "engine": "InnoDB",
+      "row_count": 0,
+      "comment": ""
+    },
+    "columns": [
+      {
+        "Field": "system_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment"
+      },
+      {
+        "Field": "name",
+        "Type": "varchar(100)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "type",
+        "Type": "varchar(30)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "gxp_relevant",
+        "Type": "tinyint(1)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "owner_org_unit_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "status",
+        "Type": "varchar(20)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      }
+    ],
+    "primary_key": [
+      "system_id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      {
+        "Table": "it_systems",
+        "Non_unique": 0,
+        "Key_name": "PRIMARY",
+        "Seq_in_index": 1,
+        "Column_name": "system_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      }
+    ],
+    "referenced_by": []
+  },
+  "job_roles": {
+    "meta": {
+      "engine": "InnoDB",
+      "row_count": 0,
+      "comment": ""
+    },
+    "columns": [
+      {
+        "Field": "job_role_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment"
+      },
+      {
+        "Field": "name",
+        "Type": "varchar(100)",
+        "Null": "NO",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "description",
+        "Type": "text",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "critical_to_gmp",
+        "Type": "tinyint(1)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "critical_to_ehs",
+        "Type": "tinyint(1)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "critical_to_energy",
+        "Type": "tinyint(1)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "requires_training_matrix_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      }
+    ],
+    "primary_key": [
+      "job_role_id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      {
+        "Table": "job_roles",
+        "Non_unique": 0,
+        "Key_name": "PRIMARY",
+        "Seq_in_index": 1,
+        "Column_name": "job_role_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      }
+    ],
+    "referenced_by": []
+  },
+  "lab_methods": {
+    "meta": {
+      "engine": "InnoDB",
+      "row_count": 0,
+      "comment": ""
+    },
+    "columns": [
+      {
+        "Field": "lab_method_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment"
+      },
+      {
+        "Field": "code",
+        "Type": "varchar(50)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "name",
+        "Type": "varchar(100)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "validated",
+        "Type": "tinyint(1)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "validation_document_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      }
+    ],
+    "primary_key": [
+      "lab_method_id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      {
+        "Table": "lab_methods",
+        "Non_unique": 0,
+        "Key_name": "PRIMARY",
+        "Seq_in_index": 1,
+        "Column_name": "lab_method_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      }
+    ],
+    "referenced_by": []
+  },
+  "maintenance_plans": {
+    "meta": {
+      "engine": "InnoDB",
+      "row_count": 0,
+      "comment": ""
+    },
+    "columns": [
+      {
+        "Field": "maintenance_plan_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment"
+      },
+      {
+        "Field": "equipment_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "plan_type",
+        "Type": "varchar(20)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "frequency_type",
+        "Type": "varchar(20)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "interval_value",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "interval_unit",
+        "Type": "varchar(20)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      }
+    ],
+    "primary_key": [
+      "maintenance_plan_id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      {
+        "Table": "maintenance_plans",
+        "Non_unique": 0,
+        "Key_name": "PRIMARY",
+        "Seq_in_index": 1,
+        "Column_name": "maintenance_plan_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      }
+    ],
+    "referenced_by": []
+  },
+  "material_hazard_classifications": {
+    "meta": {
+      "engine": "InnoDB",
+      "row_count": 0,
+      "comment": ""
+    },
+    "columns": [
+      {
+        "Field": "hazard_classification_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment"
+      },
+      {
+        "Field": "gmp_classification",
+        "Type": "varchar(50)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "ghs_classes",
+        "Type": "text",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "waste_class",
+        "Type": "varchar(20)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      }
+    ],
+    "primary_key": [
+      "hazard_classification_id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      {
+        "Table": "material_hazard_classifications",
+        "Non_unique": 0,
+        "Key_name": "PRIMARY",
+        "Seq_in_index": 1,
+        "Column_name": "hazard_classification_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      }
+    ],
+    "referenced_by": []
+  },
+  "materials": {
+    "meta": {
+      "engine": "InnoDB",
+      "row_count": 0,
+      "comment": ""
+    },
+    "columns": [
+      {
+        "Field": "material_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment"
+      },
+      {
+        "Field": "material_code",
+        "Type": "varchar(20)",
+        "Null": "YES",
+        "Key": "UNI",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "name",
+        "Type": "varchar(100)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "material_type",
+        "Type": "varchar(30)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "hazard_classification_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "gmp_class",
+        "Type": "varchar(20)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "storage_requirement_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      }
+    ],
+    "primary_key": [
+      "material_id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      {
+        "Table": "materials",
+        "Non_unique": 0,
+        "Key_name": "PRIMARY",
+        "Seq_in_index": 1,
+        "Column_name": "material_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      },
+      {
+        "Table": "materials",
+        "Non_unique": 0,
+        "Key_name": "material_code",
+        "Seq_in_index": 1,
+        "Column_name": "material_code",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "YES",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      }
+    ],
+    "referenced_by": []
+  },
+  "meters_energy": {
+    "meta": {
+      "engine": "InnoDB",
+      "row_count": 0,
+      "comment": ""
+    },
+    "columns": [
+      {
+        "Field": "meter_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment"
+      },
+      {
+        "Field": "equipment_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "site_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "meter_type",
+        "Type": "varchar(30)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "unit",
+        "Type": "varchar(10)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "boundary",
+        "Type": "varchar(30)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      }
+    ],
+    "primary_key": [
+      "meter_id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      {
+        "Table": "meters_energy",
+        "Non_unique": 0,
+        "Key_name": "PRIMARY",
+        "Seq_in_index": 1,
+        "Column_name": "meter_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      }
+    ],
+    "referenced_by": []
+  },
+  "org_units": {
+    "meta": {
+      "engine": "InnoDB",
+      "row_count": 0,
+      "comment": ""
+    },
+    "columns": [
+      {
+        "Field": "org_unit_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment"
+      },
+      {
+        "Field": "name",
+        "Type": "varchar(100)",
+        "Null": "NO",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "parent_org_unit_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "type",
+        "Type": "varchar(50)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      }
+    ],
+    "primary_key": [
+      "org_unit_id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      {
+        "Table": "org_units",
+        "Non_unique": 0,
+        "Key_name": "PRIMARY",
+        "Seq_in_index": 1,
+        "Column_name": "org_unit_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      }
+    ],
+    "referenced_by": []
+  },
+  "po_lines": {
+    "meta": {
+      "engine": "InnoDB",
+      "row_count": 0,
+      "comment": ""
+    },
+    "columns": [
+      {
+        "Field": "po_line_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment"
+      },
+      {
+        "Field": "po_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "material_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "qty_ordered",
+        "Type": "float",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "unit_price",
+        "Type": "float",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "delivery_date",
+        "Type": "date",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      }
+    ],
+    "primary_key": [
+      "po_line_id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      {
+        "Table": "po_lines",
+        "Non_unique": 0,
+        "Key_name": "PRIMARY",
+        "Seq_in_index": 1,
+        "Column_name": "po_line_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      }
+    ],
+    "referenced_by": []
+  },
+  "process_definitions": {
+    "meta": {
+      "engine": "InnoDB",
+      "row_count": 0,
+      "comment": ""
+    },
+    "columns": [
+      {
+        "Field": "process_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment"
+      },
+      {
+        "Field": "process_family_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "code",
+        "Type": "varchar(50)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "name",
+        "Type": "varchar(100)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "version",
+        "Type": "varchar(20)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "status",
+        "Type": "varchar(20)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "effective_from",
+        "Type": "date",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "effective_to",
+        "Type": "date",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "governing_document_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      }
+    ],
+    "primary_key": [
+      "process_id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      {
+        "Table": "process_definitions",
+        "Non_unique": 0,
+        "Key_name": "PRIMARY",
+        "Seq_in_index": 1,
+        "Column_name": "process_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      }
+    ],
+    "referenced_by": []
+  },
+  "process_families": {
+    "meta": {
+      "engine": "InnoDB",
+      "row_count": 0,
+      "comment": ""
+    },
+    "columns": [
+      {
+        "Field": "process_family_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment"
+      },
+      {
+        "Field": "name",
+        "Type": "varchar(100)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "owner_org_unit_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      }
+    ],
+    "primary_key": [
+      "process_family_id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      {
+        "Table": "process_families",
+        "Non_unique": 0,
+        "Key_name": "PRIMARY",
+        "Seq_in_index": 1,
+        "Column_name": "process_family_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      }
+    ],
+    "referenced_by": []
+  },
+  "process_step_regulatory_links": {
+    "meta": {
+      "engine": "InnoDB",
+      "row_count": 0,
+      "comment": ""
+    },
+    "columns": [
+      {
+        "Field": "step_reg_link_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment"
+      },
+      {
+        "Field": "step_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "requirement_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      }
+    ],
+    "primary_key": [
+      "step_reg_link_id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      {
+        "Table": "process_step_regulatory_links",
+        "Non_unique": 0,
+        "Key_name": "PRIMARY",
+        "Seq_in_index": 1,
+        "Column_name": "step_reg_link_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      }
+    ],
+    "referenced_by": []
+  },
+  "process_step_role_requirements": {
+    "meta": {
+      "engine": "InnoDB",
+      "row_count": 0,
+      "comment": ""
+    },
+    "columns": [
+      {
+        "Field": "step_role_requirement_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment"
+      },
+      {
+        "Field": "step_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "MUL",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "required_job_role_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "MUL",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "required_competency_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      }
+    ],
+    "primary_key": [
+      "step_role_requirement_id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      {
+        "Table": "process_step_role_requirements",
+        "Non_unique": 0,
+        "Key_name": "PRIMARY",
+        "Seq_in_index": 1,
+        "Column_name": "step_role_requirement_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      },
+      {
+        "Table": "process_step_role_requirements",
+        "Non_unique": 1,
+        "Key_name": "step_id",
+        "Seq_in_index": 1,
+        "Column_name": "step_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "YES",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      },
+      {
+        "Table": "process_step_role_requirements",
+        "Non_unique": 1,
+        "Key_name": "required_job_role_id",
+        "Seq_in_index": 1,
+        "Column_name": "required_job_role_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "YES",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      }
+    ],
+    "referenced_by": []
+  },
+  "process_steps": {
+    "meta": {
+      "engine": "InnoDB",
+      "row_count": 0,
+      "comment": ""
+    },
+    "columns": [
+      {
+        "Field": "step_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment"
+      },
+      {
+        "Field": "process_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "MUL",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "step_order",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "name",
+        "Type": "varchar(100)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "description",
+        "Type": "text",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "mandatory",
+        "Type": "tinyint(1)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "can_be_parallel",
+        "Type": "tinyint(1)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      }
+    ],
+    "primary_key": [
+      "step_id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      {
+        "Table": "process_steps",
+        "Non_unique": 0,
+        "Key_name": "PRIMARY",
+        "Seq_in_index": 1,
+        "Column_name": "step_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      },
+      {
+        "Table": "process_steps",
+        "Non_unique": 1,
+        "Key_name": "process_id",
+        "Seq_in_index": 1,
+        "Column_name": "process_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "YES",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      }
+    ],
+    "referenced_by": []
+  },
+  "products": {
+    "meta": {
+      "engine": "InnoDB",
+      "row_count": 0,
+      "comment": ""
+    },
+    "columns": [
+      {
+        "Field": "product_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment"
+      },
+      {
+        "Field": "product_code",
+        "Type": "varchar(20)",
+        "Null": "YES",
+        "Key": "UNI",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "name",
+        "Type": "varchar(100)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "dosage_form",
+        "Type": "varchar(50)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "regulatory_markets",
+        "Type": "varchar(100)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      }
+    ],
+    "primary_key": [
+      "product_id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      {
+        "Table": "products",
+        "Non_unique": 0,
+        "Key_name": "PRIMARY",
+        "Seq_in_index": 1,
+        "Column_name": "product_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      },
+      {
+        "Table": "products",
+        "Non_unique": 0,
+        "Key_name": "product_code",
+        "Seq_in_index": 1,
+        "Column_name": "product_code",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "YES",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      }
+    ],
+    "referenced_by": []
+  },
+  "purchase_orders": {
+    "meta": {
+      "engine": "InnoDB",
+      "row_count": 0,
+      "comment": ""
+    },
+    "columns": [
+      {
+        "Field": "po_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment"
+      },
+      {
+        "Field": "po_number",
+        "Type": "varchar(60)",
+        "Null": "YES",
+        "Key": "UNI",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "supplier_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "order_date",
+        "Type": "date",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "status",
+        "Type": "varchar(30)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "total_value",
+        "Type": "float",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      }
+    ],
+    "primary_key": [
+      "po_id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      {
+        "Table": "purchase_orders",
+        "Non_unique": 0,
+        "Key_name": "PRIMARY",
+        "Seq_in_index": 1,
+        "Column_name": "po_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      },
+      {
+        "Table": "purchase_orders",
+        "Non_unique": 0,
+        "Key_name": "po_number",
+        "Seq_in_index": 1,
+        "Column_name": "po_number",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "YES",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      }
+    ],
+    "referenced_by": []
+  },
+  "qualification_events": {
+    "meta": {
+      "engine": "InnoDB",
+      "row_count": 0,
+      "comment": ""
+    },
+    "columns": [
+      {
+        "Field": "qualification_event_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment"
+      },
+      {
+        "Field": "qualified_object_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "qualification_requirement_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "performed_by_employee_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "performed_datetime",
+        "Type": "timestamp",
+        "Null": "NO",
+        "Key": "",
+        "Default": "current_timestamp()",
+        "Extra": "on update current_timestamp()"
+      },
+      {
+        "Field": "result",
+        "Type": "varchar(10)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "comments",
+        "Type": "text",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      }
+    ],
+    "primary_key": [
+      "qualification_event_id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      {
+        "Table": "qualification_events",
+        "Non_unique": 0,
+        "Key_name": "PRIMARY",
+        "Seq_in_index": 1,
+        "Column_name": "qualification_event_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      }
+    ],
+    "referenced_by": []
+  },
+  "qualification_requirements": {
+    "meta": {
+      "engine": "InnoDB",
+      "row_count": 0,
+      "comment": ""
+    },
+    "columns": [
+      {
+        "Field": "qualification_requirement_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment"
+      },
+      {
+        "Field": "qualification_type_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "code",
+        "Type": "varchar(50)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "description",
+        "Type": "text",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "sequence_number",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      }
+    ],
+    "primary_key": [
+      "qualification_requirement_id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      {
+        "Table": "qualification_requirements",
+        "Non_unique": 0,
+        "Key_name": "PRIMARY",
+        "Seq_in_index": 1,
+        "Column_name": "qualification_requirement_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      }
+    ],
+    "referenced_by": []
+  },
+  "qualification_types": {
+    "meta": {
+      "engine": "InnoDB",
+      "row_count": 0,
+      "comment": ""
+    },
+    "columns": [
+      {
+        "Field": "qualification_type_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment"
+      },
+      {
+        "Field": "name",
+        "Type": "varchar(100)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "applies_to_object_type",
+        "Type": "varchar(30)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "requires_periodic_renewal",
+        "Type": "tinyint(1)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "renewal_interval_months",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      }
+    ],
+    "primary_key": [
+      "qualification_type_id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      {
+        "Table": "qualification_types",
+        "Non_unique": 0,
+        "Key_name": "PRIMARY",
+        "Seq_in_index": 1,
+        "Column_name": "qualification_type_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      }
+    ],
+    "referenced_by": []
+  },
+  "qualified_objects": {
+    "meta": {
+      "engine": "InnoDB",
+      "row_count": 0,
+      "comment": ""
+    },
+    "columns": [
+      {
+        "Field": "qualified_object_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment"
+      },
+      {
+        "Field": "object_type",
+        "Type": "varchar(30)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "object_pk",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "qualification_type_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "status",
+        "Type": "varchar(20)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "effective_from",
+        "Type": "date",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "effective_to",
+        "Type": "date",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "qualification_document_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      }
+    ],
+    "primary_key": [
+      "qualified_object_id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      {
+        "Table": "qualified_objects",
+        "Non_unique": 0,
+        "Key_name": "PRIMARY",
+        "Seq_in_index": 1,
+        "Column_name": "qualified_object_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      }
+    ],
+    "referenced_by": []
+  },
+  "regulation_requirements": {
+    "meta": {
+      "engine": "InnoDB",
+      "row_count": 0,
+      "comment": ""
+    },
+    "columns": [
+      {
+        "Field": "requirement_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment"
+      },
+      {
+        "Field": "regulation_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "clause_reference",
+        "Type": "varchar(50)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "description",
+        "Type": "text",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      }
+    ],
+    "primary_key": [
+      "requirement_id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      {
+        "Table": "regulation_requirements",
+        "Non_unique": 0,
+        "Key_name": "PRIMARY",
+        "Seq_in_index": 1,
+        "Column_name": "requirement_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      }
+    ],
+    "referenced_by": []
+  },
+  "regulations": {
+    "meta": {
+      "engine": "InnoDB",
+      "row_count": 0,
+      "comment": ""
+    },
+    "columns": [
+      {
+        "Field": "regulation_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment"
+      },
+      {
+        "Field": "code",
+        "Type": "varchar(50)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "title",
+        "Type": "varchar(150)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "scope",
+        "Type": "varchar(20)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "authority",
+        "Type": "varchar(50)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      }
+    ],
+    "primary_key": [
+      "regulation_id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      {
+        "Table": "regulations",
+        "Non_unique": 0,
+        "Key_name": "PRIMARY",
+        "Seq_in_index": 1,
+        "Column_name": "regulation_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      }
+    ],
+    "referenced_by": []
+  },
+  "risk_control_effectiveness_reviews": {
+    "meta": {
+      "engine": "InnoDB",
+      "row_count": 0,
+      "comment": ""
+    },
+    "columns": [
+      {
+        "Field": "review_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment"
+      },
+      {
+        "Field": "risk_control_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "review_date",
+        "Type": "date",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "reviewer_employee_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "effectiveness_rating",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "comments",
+        "Type": "text",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      }
+    ],
+    "primary_key": [
+      "review_id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      {
+        "Table": "risk_control_effectiveness_reviews",
+        "Non_unique": 0,
+        "Key_name": "PRIMARY",
+        "Seq_in_index": 1,
+        "Column_name": "review_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      }
+    ],
+    "referenced_by": []
+  },
+  "risk_controls": {
+    "meta": {
+      "engine": "InnoDB",
+      "row_count": 0,
+      "comment": ""
+    },
+    "columns": [
+      {
+        "Field": "risk_control_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment"
+      },
+      {
+        "Field": "risk_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "control_type",
+        "Type": "varchar(30)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "description",
+        "Type": "text",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "control_owner_employee_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      }
+    ],
+    "primary_key": [
+      "risk_control_id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      {
+        "Table": "risk_controls",
+        "Non_unique": 0,
+        "Key_name": "PRIMARY",
+        "Seq_in_index": 1,
+        "Column_name": "risk_control_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      }
+    ],
+    "referenced_by": []
+  },
+  "risk_registers": {
+    "meta": {
+      "engine": "InnoDB",
+      "row_count": 0,
+      "comment": ""
+    },
+    "columns": [
+      {
+        "Field": "risk_register_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment"
+      },
+      {
+        "Field": "name",
+        "Type": "varchar(100)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "scope",
+        "Type": "varchar(50)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "owner_org_unit_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      }
+    ],
+    "primary_key": [
+      "risk_register_id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      {
+        "Table": "risk_registers",
+        "Non_unique": 0,
+        "Key_name": "PRIMARY",
+        "Seq_in_index": 1,
+        "Column_name": "risk_register_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      }
+    ],
+    "referenced_by": []
+  },
+  "risks": {
+    "meta": {
+      "engine": "InnoDB",
+      "row_count": 0,
+      "comment": ""
+    },
+    "columns": [
+      {
+        "Field": "risk_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment"
+      },
+      {
+        "Field": "risk_register_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "title",
+        "Type": "varchar(100)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "description",
+        "Type": "text",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "category",
+        "Type": "varchar(30)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "source_type",
+        "Type": "varchar(30)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "source_object_pk",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "likelihood_rating",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "severity_rating",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "risk_score",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "status",
+        "Type": "varchar(20)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      }
+    ],
+    "primary_key": [
+      "risk_id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      {
+        "Table": "risks",
+        "Non_unique": 0,
+        "Key_name": "PRIMARY",
+        "Seq_in_index": 1,
+        "Column_name": "risk_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      }
+    ],
+    "referenced_by": []
+  },
+  "samples": {
+    "meta": {
+      "engine": "InnoDB",
+      "row_count": 0,
+      "comment": ""
+    },
+    "columns": [
+      {
+        "Field": "sample_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment"
+      },
+      {
+        "Field": "sample_number",
+        "Type": "varchar(60)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "source_type",
+        "Type": "varchar(30)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "source_object_pk",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "received_datetime",
+        "Type": "timestamp",
+        "Null": "NO",
+        "Key": "",
+        "Default": "current_timestamp()",
+        "Extra": "on update current_timestamp()"
+      },
+      {
+        "Field": "status",
+        "Type": "varchar(30)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      }
+    ],
+    "primary_key": [
+      "sample_id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      {
+        "Table": "samples",
+        "Non_unique": 0,
+        "Key_name": "PRIMARY",
+        "Seq_in_index": 1,
+        "Column_name": "sample_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      }
+    ],
+    "referenced_by": []
+  },
+  "sites": {
+    "meta": {
+      "engine": "InnoDB",
+      "row_count": 0,
+      "comment": ""
+    },
+    "columns": [
+      {
+        "Field": "site_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment"
+      },
+      {
+        "Field": "name",
+        "Type": "varchar(100)",
+        "Null": "NO",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "country",
+        "Type": "varchar(50)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "address",
+        "Type": "text",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "gmp_scope",
+        "Type": "varchar(50)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      }
+    ],
+    "primary_key": [
+      "site_id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      {
+        "Table": "sites",
+        "Non_unique": 0,
+        "Key_name": "PRIMARY",
+        "Seq_in_index": 1,
+        "Column_name": "site_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      }
+    ],
+    "referenced_by": []
+  },
+  "spaces": {
+    "meta": {
+      "engine": "InnoDB",
+      "row_count": 0,
+      "comment": ""
+    },
+    "columns": [
+      {
+        "Field": "space_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment"
+      },
+      {
+        "Field": "area_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "name",
+        "Type": "varchar(100)",
+        "Null": "NO",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "type",
+        "Type": "varchar(50)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "capacity",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "used_for",
+        "Type": "varchar(50)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      }
+    ],
+    "primary_key": [
+      "space_id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      {
+        "Table": "spaces",
+        "Non_unique": 0,
+        "Key_name": "PRIMARY",
+        "Seq_in_index": 1,
+        "Column_name": "space_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      }
+    ],
+    "referenced_by": []
+  },
+  "stock_items": {
+    "meta": {
+      "engine": "InnoDB",
+      "row_count": 0,
+      "comment": ""
+    },
+    "columns": [
+      {
+        "Field": "stock_item_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment"
+      },
+      {
+        "Field": "material_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "batch_number",
+        "Type": "varchar(50)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "expiry_date",
+        "Type": "date",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "stock_location_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "qty_on_hand",
+        "Type": "float",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      }
+    ],
+    "primary_key": [
+      "stock_item_id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      {
+        "Table": "stock_items",
+        "Non_unique": 0,
+        "Key_name": "PRIMARY",
+        "Seq_in_index": 1,
+        "Column_name": "stock_item_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      }
+    ],
+    "referenced_by": []
+  },
+  "stock_locations": {
+    "meta": {
+      "engine": "InnoDB",
+      "row_count": 0,
+      "comment": ""
+    },
+    "columns": [
+      {
+        "Field": "stock_location_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment"
+      },
+      {
+        "Field": "site_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "area_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "space_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "name",
+        "Type": "varchar(100)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "type",
+        "Type": "varchar(30)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      }
+    ],
+    "primary_key": [
+      "stock_location_id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      {
+        "Table": "stock_locations",
+        "Non_unique": 0,
+        "Key_name": "PRIMARY",
+        "Seq_in_index": 1,
+        "Column_name": "stock_location_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      }
+    ],
+    "referenced_by": []
+  },
+  "storage_requirements": {
+    "meta": {
+      "engine": "InnoDB",
+      "row_count": 0,
+      "comment": ""
+    },
+    "columns": [
+      {
+        "Field": "storage_requirement_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment"
+      },
+      {
+        "Field": "description",
+        "Type": "text",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      }
+    ],
+    "primary_key": [
+      "storage_requirement_id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      {
+        "Table": "storage_requirements",
+        "Non_unique": 0,
+        "Key_name": "PRIMARY",
+        "Seq_in_index": 1,
+        "Column_name": "storage_requirement_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      }
+    ],
+    "referenced_by": []
+  },
+  "supplier_qualifications": {
+    "meta": {
+      "engine": "InnoDB",
+      "row_count": 0,
+      "comment": ""
+    },
+    "columns": [
+      {
+        "Field": "supplier_qualification_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment"
+      },
+      {
+        "Field": "supplier_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "qualification_status",
+        "Type": "varchar(30)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "effective_from",
+        "Type": "date",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "effective_to",
+        "Type": "date",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "qualification_document_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      }
+    ],
+    "primary_key": [
+      "supplier_qualification_id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      {
+        "Table": "supplier_qualifications",
+        "Non_unique": 0,
+        "Key_name": "PRIMARY",
+        "Seq_in_index": 1,
+        "Column_name": "supplier_qualification_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      }
+    ],
+    "referenced_by": []
+  },
+  "suppliers": {
+    "meta": {
+      "engine": "InnoDB",
+      "row_count": 0,
+      "comment": ""
+    },
+    "columns": [
+      {
+        "Field": "supplier_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment"
+      },
+      {
+        "Field": "name",
+        "Type": "varchar(100)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "gmp_approved",
+        "Type": "tinyint(1)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "ehs_approved",
+        "Type": "tinyint(1)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "status",
+        "Type": "varchar(30)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      }
+    ],
+    "primary_key": [
+      "supplier_id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      {
+        "Table": "suppliers",
+        "Non_unique": 0,
+        "Key_name": "PRIMARY",
+        "Seq_in_index": 1,
+        "Column_name": "supplier_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      }
+    ],
+    "referenced_by": []
+  },
+  "system_changes": {
+    "meta": {
+      "engine": "InnoDB",
+      "row_count": 0,
+      "comment": ""
+    },
+    "columns": [
+      {
+        "Field": "system_change_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment"
+      },
+      {
+        "Field": "system_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "change_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "validation_required",
+        "Type": "tinyint(1)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "validation_complete",
+        "Type": "tinyint(1)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      }
+    ],
+    "primary_key": [
+      "system_change_id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      {
+        "Table": "system_changes",
+        "Non_unique": 0,
+        "Key_name": "PRIMARY",
+        "Seq_in_index": 1,
+        "Column_name": "system_change_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      }
+    ],
+    "referenced_by": []
+  },
+  "system_incidents": {
+    "meta": {
+      "engine": "InnoDB",
+      "row_count": 0,
+      "comment": ""
+    },
+    "columns": [
+      {
+        "Field": "system_incident_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment"
+      },
+      {
+        "Field": "system_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "incident_number",
+        "Type": "varchar(60)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "description",
+        "Type": "text",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "impact",
+        "Type": "varchar(30)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "classification",
+        "Type": "varchar(30)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "status",
+        "Type": "varchar(20)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "linked_capa_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      }
+    ],
+    "primary_key": [
+      "system_incident_id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      {
+        "Table": "system_incidents",
+        "Non_unique": 0,
+        "Key_name": "PRIMARY",
+        "Seq_in_index": 1,
+        "Column_name": "system_incident_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      }
+    ],
+    "referenced_by": []
+  },
+  "task_assignments": {
+    "meta": {
+      "engine": "InnoDB",
+      "row_count": 0,
+      "comment": ""
+    },
+    "columns": [
+      {
+        "Field": "task_assignment_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment"
+      },
+      {
+        "Field": "task_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "assignee_employee_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "assignee_org_unit_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "assignee_role_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "assignment_type",
+        "Type": "varchar(20)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "assigned_datetime",
+        "Type": "timestamp",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "accepted_datetime",
+        "Type": "timestamp",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      }
+    ],
+    "primary_key": [
+      "task_assignment_id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      {
+        "Table": "task_assignments",
+        "Non_unique": 0,
+        "Key_name": "PRIMARY",
+        "Seq_in_index": 1,
+        "Column_name": "task_assignment_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      }
+    ],
+    "referenced_by": []
+  },
+  "task_cost_allocations": {
+    "meta": {
+      "engine": "InnoDB",
+      "row_count": 0,
+      "comment": ""
+    },
+    "columns": [
+      {
+        "Field": "task_cost_allocation_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment"
+      },
+      {
+        "Field": "task_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "cost_center_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "labour_cost",
+        "Type": "float",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "material_cost",
+        "Type": "float",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "other_cost",
+        "Type": "float",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      }
+    ],
+    "primary_key": [
+      "task_cost_allocation_id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      {
+        "Table": "task_cost_allocations",
+        "Non_unique": 0,
+        "Key_name": "PRIMARY",
+        "Seq_in_index": 1,
+        "Column_name": "task_cost_allocation_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      }
+    ],
+    "referenced_by": []
+  },
+  "task_dependencies": {
+    "meta": {
+      "engine": "InnoDB",
+      "row_count": 0,
+      "comment": ""
+    },
+    "columns": [
+      {
+        "Field": "task_dependency_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment"
+      },
+      {
+        "Field": "task_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "depends_on_task_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      }
+    ],
+    "primary_key": [
+      "task_dependency_id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      {
+        "Table": "task_dependencies",
+        "Non_unique": 0,
+        "Key_name": "PRIMARY",
+        "Seq_in_index": 1,
+        "Column_name": "task_dependency_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      }
+    ],
+    "referenced_by": []
+  },
+  "tasks": {
+    "meta": {
+      "engine": "InnoDB",
+      "row_count": 0,
+      "comment": ""
+    },
+    "columns": [
+      {
+        "Field": "task_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment"
+      },
+      {
+        "Field": "workflow_step_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "title",
+        "Type": "varchar(100)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "description",
+        "Type": "text",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "task_type",
+        "Type": "varchar(30)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "priority",
+        "Type": "enum('Low','Med','High','Urgent')",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "due_datetime",
+        "Type": "timestamp",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "status",
+        "Type": "enum('Open','In Progress','Completed','Rejected','Cancelled')",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "created_by_employee_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "completed_by_employee_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "completed_datetime",
+        "Type": "timestamp",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      }
+    ],
+    "primary_key": [
+      "task_id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      {
+        "Table": "tasks",
+        "Non_unique": 0,
+        "Key_name": "PRIMARY",
+        "Seq_in_index": 1,
+        "Column_name": "task_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      }
+    ],
+    "referenced_by": []
+  },
+  "test_requests": {
+    "meta": {
+      "engine": "InnoDB",
+      "row_count": 0,
+      "comment": ""
+    },
+    "columns": [
+      {
+        "Field": "test_request_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment"
+      },
+      {
+        "Field": "sample_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "lab_method_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "due_datetime",
+        "Type": "timestamp",
+        "Null": "NO",
+        "Key": "",
+        "Default": "current_timestamp()",
+        "Extra": "on update current_timestamp()"
+      },
+      {
+        "Field": "task_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      }
+    ],
+    "primary_key": [
+      "test_request_id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      {
+        "Table": "test_requests",
+        "Non_unique": 0,
+        "Key_name": "PRIMARY",
+        "Seq_in_index": 1,
+        "Column_name": "test_request_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      }
+    ],
+    "referenced_by": []
+  },
+  "test_results": {
+    "meta": {
+      "engine": "InnoDB",
+      "row_count": 0,
+      "comment": ""
+    },
+    "columns": [
+      {
+        "Field": "test_result_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment"
+      },
+      {
+        "Field": "test_request_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "result_value",
+        "Type": "varchar(60)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "unit",
+        "Type": "varchar(20)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "passed",
+        "Type": "tinyint(1)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "analyst_employee_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "authorised_by_employee_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      }
+    ],
+    "primary_key": [
+      "test_result_id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      {
+        "Table": "test_results",
+        "Non_unique": 0,
+        "Key_name": "PRIMARY",
+        "Seq_in_index": 1,
+        "Column_name": "test_result_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      }
+    ],
+    "referenced_by": []
+  },
+  "training_competency_links": {
+    "meta": {
+      "engine": "InnoDB",
+      "row_count": 0,
+      "comment": ""
+    },
+    "columns": [
+      {
+        "Field": "training_competency_link_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment"
+      },
+      {
+        "Field": "training_course_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "competency_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      }
+    ],
+    "primary_key": [
+      "training_competency_link_id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      {
+        "Table": "training_competency_links",
+        "Non_unique": 0,
+        "Key_name": "PRIMARY",
+        "Seq_in_index": 1,
+        "Column_name": "training_competency_link_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      }
+    ],
+    "referenced_by": []
+  },
+  "training_course_documents": {
+    "meta": {
+      "engine": "InnoDB",
+      "row_count": 0,
+      "comment": ""
+    },
+    "columns": [
+      {
+        "Field": "training_course_document_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment"
+      },
+      {
+        "Field": "training_course_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "document_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      }
+    ],
+    "primary_key": [
+      "training_course_document_id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      {
+        "Table": "training_course_documents",
+        "Non_unique": 0,
+        "Key_name": "PRIMARY",
+        "Seq_in_index": 1,
+        "Column_name": "training_course_document_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      }
+    ],
+    "referenced_by": []
+  },
+  "training_courses": {
+    "meta": {
+      "engine": "InnoDB",
+      "row_count": 0,
+      "comment": ""
+    },
+    "columns": [
+      {
+        "Field": "training_course_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment"
+      },
+      {
+        "Field": "code",
+        "Type": "varchar(50)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "title",
+        "Type": "varchar(100)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "delivery_type",
+        "Type": "varchar(30)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "validity_period_months",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "gmp_relevant",
+        "Type": "tinyint(1)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "ehs_relevant",
+        "Type": "tinyint(1)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      }
+    ],
+    "primary_key": [
+      "training_course_id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      {
+        "Table": "training_courses",
+        "Non_unique": 0,
+        "Key_name": "PRIMARY",
+        "Seq_in_index": 1,
+        "Column_name": "training_course_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      }
+    ],
+    "referenced_by": []
+  },
+  "waste_streams": {
+    "meta": {
+      "engine": "InnoDB",
+      "row_count": 0,
+      "comment": ""
+    },
+    "columns": [
+      {
+        "Field": "waste_stream_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment"
+      },
+      {
+        "Field": "name",
+        "Type": "varchar(100)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "hazard_class",
+        "Type": "varchar(30)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "storage_requirements",
+        "Type": "varchar(100)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "disposal_method",
+        "Type": "varchar(100)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      }
+    ],
+    "primary_key": [
+      "waste_stream_id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      {
+        "Table": "waste_streams",
+        "Non_unique": 0,
+        "Key_name": "PRIMARY",
+        "Seq_in_index": 1,
+        "Column_name": "waste_stream_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      }
+    ],
+    "referenced_by": []
+  },
+  "work_order_labour": {
+    "meta": {
+      "engine": "InnoDB",
+      "row_count": 0,
+      "comment": ""
+    },
+    "columns": [
+      {
+        "Field": "work_order_labour_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment"
+      },
+      {
+        "Field": "work_order_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "employee_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "hours",
+        "Type": "float",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "date",
+        "Type": "date",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      }
+    ],
+    "primary_key": [
+      "work_order_labour_id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      {
+        "Table": "work_order_labour",
+        "Non_unique": 0,
+        "Key_name": "PRIMARY",
+        "Seq_in_index": 1,
+        "Column_name": "work_order_labour_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      }
+    ],
+    "referenced_by": []
+  },
+  "work_order_materials": {
+    "meta": {
+      "engine": "InnoDB",
+      "row_count": 0,
+      "comment": ""
+    },
+    "columns": [
+      {
+        "Field": "work_order_material_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment"
+      },
+      {
+        "Field": "work_order_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "material_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "qty",
+        "Type": "float",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      }
+    ],
+    "primary_key": [
+      "work_order_material_id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      {
+        "Table": "work_order_materials",
+        "Non_unique": 0,
+        "Key_name": "PRIMARY",
+        "Seq_in_index": 1,
+        "Column_name": "work_order_material_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      }
+    ],
+    "referenced_by": []
+  },
+  "work_orders": {
+    "meta": {
+      "engine": "InnoDB",
+      "row_count": 0,
+      "comment": ""
+    },
+    "columns": [
+      {
+        "Field": "work_order_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment"
+      },
+      {
+        "Field": "work_order_number",
+        "Type": "varchar(60)",
+        "Null": "YES",
+        "Key": "UNI",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "equipment_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "type",
+        "Type": "varchar(20)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "priority",
+        "Type": "varchar(10)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "status",
+        "Type": "varchar(20)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "requested_by_employee_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "linked_task_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      }
+    ],
+    "primary_key": [
+      "work_order_id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      {
+        "Table": "work_orders",
+        "Non_unique": 0,
+        "Key_name": "PRIMARY",
+        "Seq_in_index": 1,
+        "Column_name": "work_order_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      },
+      {
+        "Table": "work_orders",
+        "Non_unique": 0,
+        "Key_name": "work_order_number",
+        "Seq_in_index": 1,
+        "Column_name": "work_order_number",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "YES",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      }
+    ],
+    "referenced_by": []
+  },
+  "workflow_instances": {
+    "meta": {
+      "engine": "InnoDB",
+      "row_count": 0,
+      "comment": ""
+    },
+    "columns": [
+      {
+        "Field": "workflow_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment"
+      },
+      {
+        "Field": "process_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "reference",
+        "Type": "varchar(60)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "initiator_employee_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "start_datetime",
+        "Type": "timestamp",
+        "Null": "NO",
+        "Key": "",
+        "Default": "current_timestamp()",
+        "Extra": "on update current_timestamp()"
+      },
+      {
+        "Field": "end_datetime",
+        "Type": "timestamp",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "status",
+        "Type": "varchar(20)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      }
+    ],
+    "primary_key": [
+      "workflow_id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      {
+        "Table": "workflow_instances",
+        "Non_unique": 0,
+        "Key_name": "PRIMARY",
+        "Seq_in_index": 1,
+        "Column_name": "workflow_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      }
+    ],
+    "referenced_by": []
+  },
+  "workflow_steps": {
+    "meta": {
+      "engine": "InnoDB",
+      "row_count": 0,
+      "comment": ""
+    },
+    "columns": [
+      {
+        "Field": "workflow_step_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment"
+      },
+      {
+        "Field": "workflow_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "step_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "planned_start",
+        "Type": "timestamp",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "planned_end",
+        "Type": "timestamp",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "actual_start",
+        "Type": "timestamp",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "actual_end",
+        "Type": "timestamp",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "status",
+        "Type": "varchar(20)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "blocking_reason",
+        "Type": "text",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      }
+    ],
+    "primary_key": [
+      "workflow_step_id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      {
+        "Table": "workflow_steps",
+        "Non_unique": 0,
+        "Key_name": "PRIMARY",
+        "Seq_in_index": 1,
+        "Column_name": "workflow_step_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      }
+    ],
+    "referenced_by": []
+  },
+  "working_time_records": {
+    "meta": {
+      "engine": "InnoDB",
+      "row_count": 0,
+      "comment": ""
+    },
+    "columns": [
+      {
+        "Field": "working_time_record_id",
+        "Type": "bigint(20) unsigned",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment"
+      },
+      {
+        "Field": "employee_id",
+        "Type": "int(11)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "date",
+        "Type": "date",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "hours_worked",
+        "Type": "float",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "overtime_hours",
+        "Type": "float",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "night_shift",
+        "Type": "tinyint(1)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      }
+    ],
+    "primary_key": [
+      "working_time_record_id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      {
+        "Table": "working_time_records",
+        "Non_unique": 0,
+        "Key_name": "PRIMARY",
+        "Seq_in_index": 1,
+        "Column_name": "working_time_record_id",
+        "Collation": "A",
+        "Cardinality": 0,
+        "Sub_part": null,
+        "Packed": null,
+        "Null": "",
+        "Index_type": "BTREE",
+        "Comment": "",
+        "Index_comment": ""
+      }
+    ],
+    "referenced_by": []
+  }
+}

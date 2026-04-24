@@ -1,0 +1,3433 @@
+/* File: sheener/css/styles.css */
+/* this file is located ->css/styles.css */
+body {
+  display: flex;
+  flex-direction: column;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f5f5f5;
+  min-height: 100vh;
+  color: #333;
+  animation: gradientBackground 10s ease infinite;
+  overflow-y: auto;
+
+  /* Adjust this based on total header height */
+}
+
+/* Prevent scrollbar on homepage */
+body.homepage {
+  overflow: hidden;
+  height: 100vh;
+}
+
+h1 {
+  font-size: 2.3rem;
+  font-weight: bold;
+  color: #0A2F64;
+  /* Matches --primary-color */
+  margin: 1.5rem 0 1rem 0;
+  line-height: 1.2;
+}
+
+h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #2c3e50;
+  border-bottom: 2px solid #3498db;
+  padding-bottom: 0.4rem;
+  margin: 1.2rem 0 0.7rem 0;
+  line-height: 1.3;
+}
+
+p {
+  font-size: 0.7rem;
+  color: #333;
+  margin: 0.5rem 0 1.2rem 0;
+  line-height: 1.6;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+
+
+
+/* html {
+  scrollbar-gutter: stable;
+} */
+
+
+#topbar {
+  background-color: #0a0a0a;
+  /* Premium Deep Black */
+  height: 72px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Center content wrapper */
+  padding: 0 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: var(--z-topbar);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* Topbar content wrapper */
+#topbar .header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1300px;
+  /* Optional, use container width */
+}
+
+/* Logo styling */
+#topbar .logo {
+  height: 48px;
+  display: block;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+#topbar .logo:hover {
+  filter: brightness(0.5) invert(1);
+}
+
+/* Right side buttons */
+#topbar .header-buttons {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-left: auto;
+}
+
+/* Typography for new logo */
+.logo1 {
+  font-family: var(--font-main);
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: white;
+  cursor: default;
+}
+
+.logo1 img {
+  height: 48px;
+  width: auto;
+}
+
+.dot {
+  color: var(--accent-glow);
+}
+
+
+/* Icon styling */
+#topbar .header-icon {
+  height: 24px;
+  width: 24px;
+  cursor: pointer;
+  filter: brightness(0) invert(1);
+  /* Makes icons white */
+  transition: filter 0.3s ease;
+}
+
+#topbar .header-icon:hover {
+  filter: brightness(0.5) invert(1);
+}
+
+/* Encrypt Text */
+#topbar #encryptText {
+  font-family: 'Segoe UI', sans-serif;
+  color: white;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+/* Clock styling */
+#topbar .clock-container {
+  display: flex;
+  align-items: center;
+  font-family: 'Aptos', sans-serif;
+  font-size: 1.1rem;
+  padding: 0 5px;
+}
+
+
+/* Main content */
+.main-content {
+  max-width: 1300px;
+  margin: 15px auto 0;
+  /* 85px top margin, centered horizontally */
+  padding: 10px 10px 10px var(--navbar-width);
+  /* top/right/bottom = 10px; left = navbar width */
+  transition: padding-left 0.3s;
+}
+
+/* Main wrapper */
+.main-content.container-fluid {
+  max-width: 1300px;
+  margin: 15px auto 0;
+  padding: 1rem;
+  /* Bootstrap’s py-4 ≈ 1.5rem vertically */
+  transition: padding-left 0.3s;
+}
+
+.chart1-container {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  /* fixed height for canvas */
+  margin-bottom: 1.5rem;
+  /* space below chart */
+}
+
+
+
+
+/* Permit cards container */
+#permitsContainer {
+  margin-top: 20px;
+
+}
+
+/* Loading indicator */
+#loadingIndicator {
+  margin-top: 40px;
+}
+
+@keyframes gradientBackground {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+:root {
+  --primary-color: #0a0a0a;
+  --secondary-color: #2a2a2a;
+  --success-color: #2ecc71;
+  --danger-color: #e74c3c;
+  --light-color: #ecf0f1;
+  --dark-color: #312c50;
+  --topbar-height: 72px;
+  --navbar-width: 50px;
+  --navbar-width-expanded: 200px;
+  --header-bg: var(--primary-color, #007bff);
+  --header-text: #fff;
+  --header-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  --z-modal: 1050;
+  --z-overlay: 1040;
+  --z-navbar: 1030;
+  --z-topbar: 1100;
+  --banner-height: 72px;
+  /* Or whatever your actual top banner height is */
+  --bg-color: #050510;
+  --text-color: #ffffff;
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --primary-gradient: linear-gradient(135deg, #00c6ff 0%, #0072ff 100%);
+  --accent-glow: #00c6ff;
+  --font-main: 'Outfit', sans-serif;
+}
+
+.home-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #062b5c;
+  color: #fff;
+  padding: 0.4em 1.1em;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 1.2em;
+  font-weight: 500;
+  border: none;
+  min-width: 40px;
+  min-height: 30px;
+  box-shadow: 0 2px 8px rgba(6, 43, 92, 0.06);
+  transition: background 0.15s;
+  margin: 1em 0;
+  gap: 0.8em;
+}
+
+.home-btn:hover {
+  background: #184289;
+}
+
+.home-icon {
+  width: 25px;
+  height: 25px;
+  margin: 0;
+  display: inline-block;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+.home-btn span {
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 40px;
+  font-size: 1.1em;
+}
+
+
+
+.header {
+  position: sticky;
+  /* or use fixed if you want it always visible */
+  top: 72px;
+  /* exactly the height of your topbar */
+  z-index: 1000;
+  /* should be below topbar (z-index: 1100) */
+  background-color: #f8f9fa;
+  /* or your bg-light */
+  height: 80px;
+
+}
+
+button:focus,
+input:focus,
+select:focus {
+  outline: none;
+}
+
+/* Enhanced Permit Header */
+.header-permit {
+  position: sticky;
+
+  z-index: 999;
+  background-color: var(--primary-color, #0A2F64);
+  /* DARK BLUE */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0);
+  padding: 1rem 2rem;
+  border-bottom: 2px solid #e8e8e800;
+  display: flex;
+  align-items: center;
+  width: 1600px;
+  color: #fff;
+  /* Ensures text is visible on dark background */
+}
+
+
+.header-permit .container-fluid {
+  padding: 0;
+
+}
+
+.header-permit .row {
+  width: 100%;
+  margin: 0;
+  align-items: center;
+
+}
+
+/* Title */
+.header-permit h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary-color, #ffffff);
+  display: flex;
+  align-items: left;
+  margin: 0;
+  white-space: nowrap;
+
+
+}
+
+.header-permit h1 i {
+  margin-right: 0.1rem;
+}
+
+/* Search */
+.header-permit .input-group {
+  height: 46px;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.header-permit .input-group-text {
+  background-color: #f8f9fa;
+  border: none;
+  color: #6c757d;
+}
+
+.header-permit #searchInput {
+  border: none;
+  font-size: 1rem;
+  padding: 0.5rem 0.75rem;
+}
+
+/* Dropdown */
+.header-permit #statusFilter {
+  height: 46px;
+  min-width: 140px;
+  /* Ensures label fits */
+  border-radius: 8px;
+  padding: 0 1rem;
+  font-size: 1rem;
+  border: 1px solid #ced4da;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.header-permit .d-flex {
+  flex-wrap: wrap;
+}
+
+
+/* Add Button */
+.header-permit #addPermitBtn {
+  height: 46px;
+  width: 100%;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  background-color: var(--primary-color, #0A2F64);
+  color: #fff;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(10, 47, 100, 0.2);
+}
+
+.header-permit #addPermitBtn i {
+  margin-right: 0.5rem;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .header-permit {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem;
+  }
+
+  .header-permit .row {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .header-permit .col-md-3,
+  .header-permit .col-md-6,
+  .header-permit .col-md-2,
+  .header-permit .col-md-1 {
+    width: 100%;
+  }
+}
+
+
+
+.header-icons {
+  display: flex;
+  align-items: center;
+  color: white;
+}
+
+.header-icons img,
+.header-icons .edit-icon {
+  filter: brightness(0) invert(1);
+}
+
+
+
+/* Fullscreen and centered main section without extra space for homepage */
+.homepage main {
+  z-index: 0;
+  height: calc(100vh - 60px - 40px);
+  /* Adjust based on actual header and footer height */
+  width: 100vw;
+  max-width: 100vw;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  color: white;
+  /* Adjust text color for better readability on a dark background */
+  font-family: "Arial Black", Arial, sans-serif;
+  box-sizing: border-box;
+  position: relative;
+}
+
+/* Button styling for transparent background */
+.homepage .hero .cta-button {
+  background-color: #3685fe;
+  /* Button background color */
+  color: white;
+  /* White text */
+}
+
+.homepage .hero .cta-button:hover {
+  background-color: #276ac8;
+  /* Darker on hover */
+}
+
+/* Additional styling for hero text to make it bold and match the example */
+.homepage .hero h2 {
+  font-size: 3.2rem;
+  /* Adjust font size to match example */
+  font-weight: 700;
+  /* Bold text */
+  line-height: 1.6;
+  /* Tighter line spacing */
+  text-align: center;
+  text-shadow: 0px 0px 9px rgba(0, 0, 0, 0.8);
+  color: #ffffff;
+  /* Add this line to ensure the text is white */
+}
+
+/* Hero section styling - Positioned above SVG overlay */
+.homepage .hero {
+  position: relative;
+  z-index: 2;
+  /* Ensures hero overlays the SVG */
+  text-align: center;
+  background-color: transparent;
+  color: #ffffff;
+  padding: 20vh 0;
+}
+
+.hero {
+  background-color: #e5e5e5;
+  /* Keeping secondary color for hero section */
+  color: #003366;
+  padding: 20px 20px;
+  text-align: center;
+}
+
+.hero h2 {
+  font-size: 2.5em;
+  margin-bottom: 10px;
+}
+
+.hero p {
+  font-size: 1.2em;
+  margin-bottom: 10px;
+  text-shadow: 0px 0px 9px rgba(0, 0, 0, 0.9);
+}
+
+/* SVG overlay styling - Positioned behind hero content */
+.svg-overlay {
+  position: absolute;
+  /* Position within main to avoid overflow */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* Cover the full height of main */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+  z-index: 1;
+  /* Lower than hero to keep it in the background */
+}
+
+/* Style for the SVG image with glowing effect */
+.logo-overlay {
+  width: 800px;
+  height: auto;
+  opacity: 0.1;
+  /* Subtle overlay effect */
+  filter: drop-shadow(0 0 10px rgba(0, 150, 255, 0.8)) drop-shadow(0 0 20px rgba(0, 100, 255, 0.5)) drop-shadow(0 0 40px rgba(0, 50, 255, 0.3));
+}
+
+.container {
+  max-width: 1200px;
+  margin: 100px auto 20px;
+  padding: 0 20px 20px;
+  margin-left: calc(60px + 20px);
+}
+
+/* Calendar Header Layout */
+
+.calendar-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  /* tight spacing between ‹, title, › */
+  position: relative;
+  margin-bottom: 15px;
+  width: 100%;
+}
+
+/* Left: navigation + title */
+.calendar-nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.month-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #0a2f64;
+}
+
+/* Right: view switch buttons */
+.calendar-view-switch {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.calendar-view-switch .btn {
+  border-radius: 6px;
+  font-size: 0.8rem;
+  padding: 4px 10px;
+}
+
+/* ✔ Title is normal flow (no absolute) */
+.calendar-header .calendar-title {
+  margin: 0;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #0A2F64;
+  text-align: center;
+}
+
+
+
+/* Navigation buttons on sides */
+.calendar-header button {
+  background: transparent;
+  border: 1px solid #007bff;
+  color: #007bff;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  line-height: 1;
+  transition: 0.2s;
+}
+
+.calendar-header button:hover {
+  background: #007bff;
+  color: #fff;
+}
+
+
+/* Month title */
+.calendar-header h5 {
+  margin: 0;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #0A2F64;
+  min-width: 150px;
+  /* keeps consistent spacing */
+  text-align: center;
+}
+
+
+#calendar-container {
+  background-color: #f2f1ff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  margin-top: 60px;
+  /* Adjust margin to align the calendar properly */
+}
+
+.navbar a:hover {
+  text-shadow: 0 0 1px;
+}
+
+.navbar a::before {
+  content: attr(data-text);
+  font-weight: bold;
+  visibility: hidden;
+  height: 0;
+  display: block;
+}
+
+/* Navigation Buttons on the Left */
+.nav-buttons-left {
+  display: flex;
+  gap: 10px;
+}
+
+.fc-button {
+  background-color: #5898f8 !important;
+  border: 2px transparent rgb(251, 250, 186) !important;
+  color: #ffffff;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-size: 1em;
+}
+
+.fc-button:hover {
+  background-color: #3685fe !important;
+  color: #ffffff;
+}
+
+/* CTA buttons - Now standardized in buttons.css */
+/* Legacy support maintained for backward compatibility */
+.cta-button0 {
+  padding: 10px 20px;
+  width: 120px;
+  background-color: var(--btn-primary-bg, #3685fe);
+  color: var(--btn-primary-color, white);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: transform 0.2s;
+}
+
+.cta-button {
+  padding: 10px 20px;
+  background-color: var(--btn-primary-bg, #3685fe);
+  color: var(--btn-primary-color, white);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: transform 0.2s;
+}
+
+.cta-button:hover {
+  background-color: var(--btn-primary-bg-hover, #276ac8);
+}
+
+/* Ensure consistent font across all form elements */
+input,
+textarea,
+select {
+  font-family: Arial, sans-serif;
+  /* Use the same font as the rest of the page */
+  font-size: 12px;
+  /* Optional: adjust font size for uniformity */
+  color: #333;
+  /* Optional: adjust text color if needed */
+}
+
+/* Adjusted header styling */
+header {
+  background-color: #003366;
+  /* Consistent theme color */
+  padding: 10px 20px;
+  text-align: center;
+  color: white;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  /* Use 100% instead of 100vw to avoid scrollbar issues */
+  max-width: 100%;
+  /* Prevent overflow beyond 100% */
+  box-sizing: border-box;
+  /* Include padding in width calculation */
+  z-index: 1000;
+  /* Ensure the header is above other content */
+  overflow: hidden;
+  /* Prevent any accidental overflow */
+}
+
+/* Icon hover effect */
+.header-icon {
+  transition: filter 0.3s ease;
+}
+
+.header-icon:hover {
+  filter: brightness(0) saturate(100%) invert(58%) sepia(19%) saturate(600%) hue-rotate(185deg) brightness(95%) contrast(88%);
+}
+
+/* Main content area */
+main {
+  flex: 1;
+  /* Allows main to expand and push footer to the bottom */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 100px;
+  /* Offset to leave space for the navbar */
+  padding: 20px;
+
+  /* Light background for contrast */
+  height: 80vh;
+  overflow-y: auto;
+  z-index: 1;
+  /* Below the navbar */
+  margin-top: 80px;
+}
+
+.dashboard-content {
+  margin-top: 80px;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.header-title {
+  margin: 0;
+  font-size: 1.8em;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.logo {
+  height: 50px;
+}
+
+.login-container {
+  display: flex;
+  align-items: center;
+}
+
+.banner-button {
+  padding: 10px 20px;
+  background-color: #3685fe;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  /* 👈 Force a more visible font size */
+  margin: 0;
+  /* 👈 Reset margin */
+  display: inline-flex;
+  /* 👈 Better for centering if needed */
+  align-items: center;
+  /* 👈 Optional: Vertical center */
+  justify-content: center;
+  /* 👈 Optional: Horizontal center */
+}
+
+
+.banner-button:hover {
+  background-color: #276ac8;
+}
+
+.login-box {
+  position: fixed;
+  font-family: Arial, sans-serif;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+  color: #1f1f1f;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  overflow-y: auto;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.popup {
+  background-color: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  margin: auto;
+}
+
+input {
+  width: 100%;
+  /* Ensure full width */
+  padding: 8px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  /* Include padding and border in the width */
+}
+
+
+
+/* Style for the date input fields */
+input[type="date"] {
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  height: 42px;
+  /* Ensure height matches the button */
+  box-sizing: border-box;
+  /* Maintain consistent sizing */
+  background-color: white;
+  color: black;
+  visibility: visible;
+}
+
+/* Updated button styling to align it with the date picker inputs */
+button#applyDateRangeButton {
+  padding: 8px 20px;
+  background-color: #3685fe;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  height: 42px;
+  /* Adjusted height to match input fields */
+  box-sizing: border-box;
+  /* Maintain consistent sizing */
+  margin-left: 10px;
+  /* Slight margin to create space between inputs and button */
+}
+
+/* Existing button styles, ensuring consistency */
+button {
+  background-color: #f8f9fa;
+  /* Default unselected state */
+  color: #333;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  display: inline-block;
+  /* or inline */
+  font-size: 10px;
+  /* Smaller font */
+  padding: 3px 4px;
+  /* Less padding for a smaller button */
+  width: auto;
+  /* Let the button size itself based on content */
+  margin: 2px;
+  cursor: pointer;
+}
+
+button.selected {
+  background-color: #007bff;
+  /* Active state */
+  color: #fff;
+  border-color: #007bff;
+}
+
+button:disabled {
+  background-color: #f5f5f5;
+  /* Disabled state */
+  color: #aaa;
+  cursor: not-allowed;
+}
+
+button:hover {
+  background-color: #276ac8;
+  color: #fff;
+}
+
+/* Container for charts and slicers */
+.chart-slicer-container {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.25rem;
+  /* 20px */
+}
+
+/* Chart box */
+.chart1-container {
+  position: relative;
+  width: 100%;
+  max-width: 1300px;
+  margin: 5rem auto 0;
+  /* 80px top, auto sides */
+  padding: 1.25rem;
+  /* 20px */
+  box-sizing: border-box;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 0.9375rem;
+  /* 15px */
+  box-shadow: 0 0.25rem 0.625rem rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Slicer panels */
+.slicer-container {
+  flex: 1;
+  max-width: 25rem;
+  /* 300px */
+  padding: 0.625rem;
+  /* 10px */
+  margin: 0.625rem;
+  /* 10px */
+  background: #fbfbfb;
+  border: 1px solid #ddd;
+  border-radius: 0.3125rem;
+  /* 5px */
+  text-align: center;
+  box-sizing: border-box;
+}
+
+/* Section title */
+.slicer-title,
+.slicer-group label {
+  font-weight: bold;
+  margin-bottom: 0.625rem;
+  /* 10px / 5px */
+  color: #c3c3c3;
+  display: block;
+}
+
+/* Description box */
+.desc {
+  padding: 0.3125rem 0.625rem;
+  /* 5px 10px */
+  background: #f4f8eb;
+  margin-bottom: 0.625rem;
+  font-size: 0.875rem;
+  /* 14px */
+}
+
+/* Buttons in slicers */
+.slicer-container button,
+.slicer-group button {
+  padding: 0.625rem 1rem;
+  /* 10px 15px */
+  margin: 0.3125rem;
+  /* 5px / 2px */
+  border: 1px solid #ccc;
+  border-radius: 0.1875rem;
+  /* 3px */
+  background: #f0f0f0;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.slicer-container button.selected,
+.slicer-group button.selected,
+.slicer-group button.active {
+  background: #007bff;
+  color: #fff;
+  border-color: #007bff;
+}
+
+/* Flex wrap for button groups */
+.slicer-group .slicer-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3125rem;
+  /* 5px */
+}
+
+/* Quarter slicer buttons */
+#quarterSlicerHost button {
+  margin: 5px;
+  padding: 5px 10px;
+  background-color: #f5f5f5;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+
+#quarterSlicerHost button.selected {
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
+#batchGraph {
+  width: 100%;
+  height: 400px;
+}
+
+.grouping-buttons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 24px;
+  margin-top: 8px;
+}
+
+.grouping-buttons label {
+  margin-right: 10px;
+  font-weight: 600;
+  color: #233047;
+  font-size: 1.05rem;
+}
+
+.grouping-option {
+  padding: 7px 20px;
+  border-radius: 5px;
+  background: #f5f7fa;
+  border: 1.5px solid #d8e1ed;
+  color: #2363b0;
+  font-weight: 600;
+  font-size: 0.7rem;
+  letter-spacing: 0.02em;
+  box-shadow: 0 1px 5px 0 rgba(120, 130, 170, 0.08);
+  margin-right: 2px;
+  margin-bottom: 2px;
+  transition: background 0.18s, color 0.18s, border-color 0.18s, box-shadow 0.15s;
+  cursor: pointer;
+  outline: none;
+}
+
+.grouping-option:last-child {
+  margin-right: 0;
+}
+
+.grouping-option:hover,
+.grouping-option:focus {
+  background: #e9f2ff;
+  border-color: #8bb6e5;
+  color: #2363b0;
+  box-shadow: 0 2px 10px 0 rgba(35, 99, 176, 0.10);
+}
+
+.grouping-option.active,
+.grouping-option.selected {
+  background: #2363b0;
+  color: #fff;
+  border-color: #2363b0;
+  box-shadow: 0 2px 12px 0 rgba(35, 99, 176, 0.16);
+}
+
+.close-button {
+  background-color: #ccc;
+  padding: 10px 20px;
+  color: white;
+  color: black;
+  margin-top: 10px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: transform 0.2s;
+  /* Only apply transform transition */
+}
+
+.close-button:hover {
+  background-color: #999;
+}
+
+/* Ensure footer stays on top of SVG */
+footer {
+  position: relative;
+  z-index: 2;
+  /* Make sure footer overlays the SVG */
+  background-color: #383838;
+  /* Footer background color */
+
+  text-align: center;
+  padding: 10px;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+  box-shadow: 0px -4px 10px rgba(0, 0, 0, 0.3);
+
+  color: #cce0ff;
+  /* Softer color for contrast */
+}
+
+footer p {
+  margin: 0;
+}
+
+/* Adjust for container inside #navbar */
+#navbar {
+  position: fixed;
+  top: 72px;
+  left: 0;
+  width: 50px;
+  height: calc(100vh - 72px);
+  z-index: 100;
+  overflow: visible;
+  /* Changed from hidden to visible to allow navbar expansion */
+  pointer-events: none;
+  /* Allow clicks to pass through to navbar-container */
+}
+
+/* Ensure navbar-container can receive pointer events */
+#navbar .navbar-container {
+  pointer-events: auto;
+}
+
+
+/* Vertical navbar */
+.navbar-container {
+  background-color: #2a2a2a;
+  /* Lighter Charcoal Gray */
+  position: fixed;
+  top: 72px;
+  /* Start below the top bar */
+  left: 0;
+  width: 50px;
+  height: calc(100vh - 72px);
+  z-index: 101;
+  /* Higher than #navbar to ensure it's on top */
+  transition: width 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: visible;
+  /* Changed from hidden to visible to allow expansion */
+  pointer-events: auto;
+  /* Ensure it can receive hover events */
+}
+
+.navbar-container:hover {
+  width: 200px;
+}
+
+/* Navbar menu icon */
+.navbar-menu {
+  width: 24px;
+  /* Adjust the size of the icon */
+  height: 24px;
+  position: fixed;
+  /* Fix the position */
+  top: 85px;
+  /* Distance from the top */
+  left: 15px;
+  /* Distance from the left */
+  z-index: 2000;
+  /* Ensure it stays above other elements */
+  cursor: pointer;
+  /* Show a pointer on hover */
+  transition: opacity 0.3s ease;/
+}
+
+/* Fade out the menu icon when navbar is open */
+.navbar-container.open .navbar-menu,
+.navbar-container:hover .navbar-menu {
+  opacity: 0;
+  pointer-events: none;
+  /* Optional: disables click while faded */
+}
+
+/* Initially, the links are hidden */
+.navbar-links {
+  opacity: 0;
+  transform: translateX(-100%);
+  /* Hide off screen */
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  /* Smooth slide and fade */
+  list-style: none;
+  padding: 0;
+  margin-top: 10px;
+  width: 150px;
+  /* Adjust based on expanded width */
+  text-align: left;
+}
+
+/* When hovered, links slide out */
+.navbar-container:hover .navbar-links {
+  opacity: 1;
+  transform: translateX(0);
+  /* Slide links into view */
+}
+
+/* Style for individual links */
+.navbar-links li {
+  margin: 5px 0;
+}
+
+.navbar-links a {
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+  display: block;
+  padding: 8px;
+}
+
+.navbar-links a:hover {
+  background-color: #3d3d3d;
+  /* Lighter Gray for hover contrast */
+  color: #00c6ff;
+  border-radius: 4px;
+}
+
+
+
+#navbar:hover {
+  width: var(--navbar-width-expanded);
+}
+
+
+
+.graph-section {
+  display: flex;
+  justify-content: center;
+  /* Centers horizontally */
+  align-items: center;
+  /* Centers vertically */
+  height: 100vh;
+  /* Adjust this as needed */
+}
+
+.chart-container {
+  position: relative;
+  width: 40vw;
+  padding: 20px;
+  box-sizing: border-box;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+  margin: 20px auto;
+  /* This centers it horizontally */
+  display: block;
+  /* Ensures margin:auto works */
+}
+
+canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Main Planner Layout */
+.planner-main-horizontal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+}
+
+/* Calendar Section */
+.calendar-section-horizontal {
+  width: 80%;
+  padding: 15px;
+  background-color: #f5f5f5;
+  border-radius: 5px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Updated Calendar Controls */
+.calendar-controls {
+  display: flex;
+  justify-content: space-between;
+  /* Spread buttons to the left and right edges */
+  align-items: center;
+  font-size: 12px;
+  width: 55%;
+  margin-bottom: 20px;
+  /* Add some space below */
+}
+
+/* Updated Button Styling */
+.calendar-btn {
+  width: 80px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.days-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Day box styling */
+.day-cell {
+  width: 120px;
+  /* Set a fixed width as desired */
+  min-height: 150px;
+  /* Adjust height as needed */
+  flex: 1;
+  padding: 0px;
+  border: 1px solid #ddd;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  box-sizing: border-box;
+  margin: 5px;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+  overflow: hidden;
+  height: 100px;
+  /* Set fixed height to match your screenshot */
+}
+
+.day-title {
+  width: 120px;
+  background-color: #003366;
+  color: #ffffff;
+  text-align: center;
+  padding: 5px;
+  font-weight: bold;
+  font-size: 9px;
+  margin-bottom: 5px;
+}
+
+/* Task tag styling in calendar */
+.task {
+  font-size: 10px;
+  /* Set font size to 8px */
+  padding: 2px;
+  text-align: center;
+  margin: 2px 0;
+  background-color: #709dff;
+  /* Optional: adjust background color if needed */
+  border-radius: 4px;
+}
+
+.time-slots-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.time-slot {
+  width: 100%;
+  padding: 5px;
+  text-align: center;
+  background-color: #e6e6e6;
+  border-bottom: 1px solid #ddd;
+}
+
+.time-slot:last-child {
+  border-bottom: none;
+}
+
+/* Departments Section */
+.departments-section-horizontal {
+  width: 100%;
+  text-align: center;
+  margin-top: 20px;
+}
+
+#departments-list {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  /* Space between buttons */
+  flex-wrap: wrap;
+}
+
+/* Style for Department Buttons */
+.department-btn {
+  padding: 10px 20px;
+  background-color: #3685fe;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  margin-bottom: 0;
+  /* Remove bottom margin for horizontal layout */
+}
+
+.department-btn:hover {
+  background-color: #276ac8;
+}
+
+/* Wrapper for Start Date and Finish Date fields */
+.date-fields {
+  display: flex;
+  gap: 20px;
+  /* Space between the two fields */
+  margin-bottom: 15px;
+  /* Space below the fields */
+}
+
+/* Adjusting width of the date input fields */
+.date-fields input[type="date"] {
+  width: 120px;
+  /* Slightly wider than 50% */
+  padding: 8px;
+  /* Add padding for better alignment */
+  box-sizing: border-box;
+  /* Ensure padding doesn’t affect width */
+}
+
+
+
+
+
+.hidden {
+  display: none;
+}
+
+/* Flex container to align fields side by side */
+.flex-container {
+  display: flex;
+  gap: 15px;
+  /* Space between the two dropdowns */
+  width: 100%;
+  /* Full width of the form */
+  margin-bottom: 10px;
+}
+
+input,
+select,
+textarea {
+  font-family: inherit;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 8px 12px;
+}
+
+/* Flex container to align Priority and Department fields side by side */
+.form-group {
+  display: flex;
+  align-items: center;
+  /* Align items vertically */
+  margin-bottom: 1rem;
+}
+
+/* Adjust the label to align with the input field */
+.form-group label {
+  margin-bottom: 0;
+  /* Remove default margin */
+  margin-right: 10px;
+  /* Add some space between label and input */
+  align-self: center;
+  /* Ensure label is vertically centered */
+}
+
+/* Each dropdown takes equal space */
+.half-width {
+  flex: 1;
+}
+
+
+
+
+
+.modal-overlay:not(.hidden) {
+  display: flex;
+  /* Show when the 'hidden' class is removed */
+}
+
+.modal-overlay.show {
+  display: flex;
+  /* Shows the modal when 'show' class is added */
+}
+
+
+
+
+
+
+/* Input and textarea styling (single definition) */
+.modal-content input[type="text"],
+.modal-content textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  background-color: #fff;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.modal-content input[type="text"]:focus,
+.modal-content textarea:focus {
+  border-color: #3685fe;
+  outline: none;
+  box-shadow: 0 0 5px rgba(54, 133, 254, 0.5);
+}
+
+/* Ensure modal is properly centered vertically */
+.modal.show .modal-dialog {
+  transform: translate(0, 0) !important;
+}
+
+/* General styles for form elements */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  /* Stack label and input vertically */
+  align-items: flex-start;
+  /* Align items to the left */
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  margin-bottom: 5px;
+  /* Add some space between label and input */
+  align-self: flex-start;
+  /* Ensure label is aligned to the left */
+}
+
+.form-group input[type="text"],
+.form-group textarea,
+.form-group input[type="date"],
+.form-group input[type="number"] {
+  width: 100%;
+  /* Make input fields take full width of their container */
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  background-color: #fff;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+/* Specific styles for date input */
+input[type="date"] {
+  width: 150px;
+  /* Adjust as needed */
+}
+
+/* Adjust the form-row to reduce the size of the boxes */
+.form-row {
+  display: flex;
+  align-items: center;
+  /* Align items vertically */
+  gap: 10px;
+  /* Space between the boxes */
+  margin-bottom: 15px;
+}
+
+/* Adjust the form-group to reduce the size of the boxes */
+.form-row .form-group {
+  flex: 1;
+  /* Each form group takes equal space */
+  margin-bottom: 0;
+  /* Remove margin to align properly */
+}
+
+/* Reduce the width of the input fields */
+.form-row .form-group input[type="number"] {
+  width: 60px;
+  /* Further reduce the width */
+  padding: 4px;
+  /* Reduce padding to make the boxes even smaller */
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  /* Reduce font size for smaller boxes */
+  background-color: #fff;
+  color: #333;
+}
+
+/* Adjust the label to align with the input field */
+.form-row .form-group label {
+  margin-bottom: 5px;
+  /* Add some space between label and input */
+  align-self: flex-start;
+  /* Ensure label is aligned to the left */
+  font-size: 12px;
+  /* Reduce label font size for consistency */
+}
+
+/* Align the Assessment Date to the right */
+.form-group[style*="margin-left: auto;"] {
+  margin-left: auto;
+}
+
+/* Styling for select dropdowns to match text input styling */
+select {
+  width: 100%;
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  appearance: none;
+  background-color: #fff;
+}
+
+/* Focus effect */
+select:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 4px rgba(0, 123, 255, 0.2);
+}
+
+/* Remove or fix conflicting rules */
+#permitModal .modal-dialog {
+  /* Remove margin-top: 100px !important; */
+  margin: 1.75rem auto;
+  /* Use Bootstrap default */
+}
+
+/* Use more specific selectors */
+#permitModal .editable-field {
+  background-color: #fff;
+  border-color: #86b7fe;
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+
+/* Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: var(--z-overlay);
+}
+
+@media (max-width: 768px) {
+  .task-table {
+    display: block;
+    overflow-x: auto;
+  }
+
+  .form-row.double {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  main {
+    padding: 15px;
+  }
+
+  .search {
+    flex-direction: column;
+  }
+
+  .modal-content {
+    max-width: 99vw;
+    width: 99vw;
+    border-radius: 0;
+  }
+
+  #addPermitForm {
+    padding: 10px;
+  }
+}
+
+/* Base Modal Content Style—applies to all if not overridden */
+.modal-content {
+  background: #fff;
+  border-radius: 8px;
+  max-width: 700px;
+  width: 95vw;
+  max-height: 90vh;
+  margin: 0 auto;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 0;
+}
+
+/* Specialized Modal for Main Views */
+.mainModal .modal-content {
+  border-radius: 12px;
+  max-width: 550px;
+  width: 96vw;
+  margin-top: 32px;
+  box-shadow: 0 10px 36px rgba(0, 0, 0, 0.14);
+  max-height: calc(100vh - var(--banner-height, 0px) - 48px);
+  padding: 0;
+}
+
+/* Edit Permit Modal */
+.editPermitModal .modal-content {
+  max-width: 800px;
+  width: 60vw;
+  padding: 24px 32px;
+  margin: 40px auto;
+  border-radius: 8px;
+}
+
+/* Task-Related Modals */
+#taskViewModal .modal-content,
+#taskEditModal .modal-content,
+#taskAddModal .modal-content {
+  max-height: calc(100vh - (var(--topbar-height, 72px) + 48px));
+  overflow: auto;
+}
+
+/* Add Task Modal – Ensuring NO overflow */
+#addTaskModal .modal-content {
+  max-height: calc(100vh - 80px);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Form-specific Layouts */
+form#editPermitForm,
+form.modal-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  height: 100%;
+  min-height: 0;
+}
+
+/* Modal Container (edit mode default) */
+.modal-container,
+.modal-content {
+  background: #fff;
+  border-radius: 8px;
+  max-width: 700px;
+  width: 95vw;
+  max-height: 90vh;
+  margin: 0 auto;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+
+.modal-overlay.hidden {
+  display: none;
+}
+
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  background: #fafbfc;
+  padding: 16px 24px;
+  position: sticky;
+  bottom: 0;
+  z-index: 0;
+}
+
+/* Responsive stacking for four-col-row on small screens */
+@media (max-width: 600px) {
+  .modal-footer {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    padding: 12px;
+  }
+}
+
+
+
+
+
+#editPermitModal .modal-content,
+#editPermitModal .modal-view-content {
+  max-width: 800px;
+  width: 60%;
+  padding: 24px 32px;
+  margin: 40px auto;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+}
+
+.assessment-entry-container {
+  padding: 10px;
+  background: #f5f5f5;
+}
+
+/* View Modal: fit content, page scrolls */
+.modal-view-content,
+.modal-view-content .modal-content,
+.modal-view-content .modal-body {
+  max-height: none !important;
+  height: auto !important;
+  overflow: visible !important;
+  display: block;
+  padding: 24px 32px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+  background: #fff;
+  border-radius: 8px;
+  margin: 60px auto;
+}
+
+.modal-view-content form {
+  background: none;
+  border-radius: 0;
+  box-shadow: none;
+  max-width: 100%;
+  width: 90%;
+  padding: 0;
+}
+
+/* === Harmonize VIEW modal with EDIT modal === */
+
+/* 1) Shared card look */
+.modal-content,
+.modal-view-content {
+  background: #fff !important;
+  border-radius: 8px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+  max-width: 800px;
+  width: 95vw;
+  margin: 40px auto;
+  padding: 0;
+  /* header/body/footer control spacing */
+  overflow: hidden;
+}
+
+/* Keep edit width preference when used inside #editPermitModal */
+#editPermitModal .modal-content,
+#editPermitModal .modal-view-content {
+  width: 60%;
+  max-width: 800px;
+}
+
+/* ===== Modal (Unified View + Edit) — Safe, scoped ===== */
+
+/* Card container look for both */
+.modal-content,
+.modal-view-content {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+  width: 95vw;
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 0;
+  /* header/body/footer control spacing */
+  overflow: hidden;
+  /* keep rounded corners clean */
+  box-sizing: border-box;
+}
+
+/* Optional: narrower edit modal on specific screen(s) */
+#editPermitModal .modal-content,
+#editPermitModal .modal-view-content {
+  width: 60%;
+  max-width: 800px;
+}
+
+/* Header (same in both) — SCOPED */
+.modal-content .modal-header,
+.modal-view-content .modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 20px;
+  background: var(--primary-color, #007bff);
+  color: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  margin: 0;
+  min-height: 56px;
+}
+
+.modal-content .modal-header .title-text,
+.modal-view-content .modal-header .title-text {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.modal-content .modal-header .close-btn,
+.modal-view-content .modal-header .close-btn {
+  font-size: 1.5rem;
+  line-height: 1;
+  margin: 0;
+  padding: 0 6px;
+  color: #fff;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+/* Body (shared base) — SCOPED */
+.modal-content .modal-body,
+.modal-view-content .modal-body {
+  padding: 18px 24px;
+  background: #fff;
+  color: #333;
+  font-size: 0.95rem;
+}
+
+/* Scroll behavior:
+   - Edit modal: scroll inside body
+   - View modal: no internal scroll (page scrolls) */
+.modal-content .modal-body {
+  max-height: calc(100vh - (56px + 56px + 88px));
+  /* header + footer + breathing */
+  overflow-y: auto;
+  padding-bottom: calc(18px + 56px);
+  /* ensure content isn't hidden under footer */
+}
+
+.modal-view-content .modal-body {
+  max-height: none;
+  overflow: visible;
+}
+
+/* Footer (same in both) — SCOPED */
+.modal-content .modal-footer,
+.modal-view-content .modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+  background: #fafbfc;
+  padding: 16px 24px;
+  position: sticky;
+  bottom: 0;
+  z-index: 1;
+  margin: 0;
+  min-height: 56px;
+}
+
+/* Buttons (footer) — SCOPED */
+/* Button styles are now standardized in buttons.css */
+.modal-content .modal-footer button,
+.modal-view-content .modal-footer button {
+  font-size: 1em;
+  padding: 9px 22px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+}
+
+.modal-content button.primary,
+.modal-view-content button.primary {
+  background: var(--btn-primary-bg, #3685fe);
+  color: var(--btn-primary-color, #fff);
+}
+
+.modal-content button.primary:hover,
+.modal-view-content button.primary:hover {
+  background: var(--btn-primary-bg-hover, #276ac8);
+}
+
+.modal-content button.secondary,
+.modal-view-content button.secondary {
+  background: var(--btn-secondary-bg-light, #e0e0e0);
+  color: #333;
+}
+
+.modal-content button:disabled,
+.modal-view-content button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Custom overlay used by task_list (does NOT affect Bootstrap .modal) */
+.modal-overlay.hidden {
+  display: none;
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, .45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1050;
+}
+
+/* Form elements — SCOPED */
+.modal-content input[type="text"],
+.modal-content textarea,
+.modal-content select,
+.modal-view-content input[type="text"],
+.modal-view-content textarea,
+.modal-view-content select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font: 14px/1.4 Arial, sans-serif;
+  background: #fff;
+  color: #333;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+
+.modal-content input[type="text"]:focus,
+.modal-content textarea:focus,
+.modal-content select:focus,
+.modal-view-content input[type="text"]:focus,
+.modal-view-content textarea:focus,
+.modal-view-content select:focus {
+  border-color: #3685fe;
+  outline: none;
+  box-shadow: 0 0 5px rgba(54, 133, 254, 0.5);
+}
+
+/* Optional: if you need a special inline variant, scope it explicitly */
+.inline-modal .modal-view-content {
+  margin: 60px auto;
+  padding: 0;
+}
+
+
+/* === Keep task modals clear of the fixed topbar === */
+#taskViewModal,
+#taskEditModal,
+#taskAddModal {
+  /* Push the dialog down by the topbar height + a little breathing space */
+  padding-top: calc(var(--topbar-height, 72px) + 12px);
+}
+
+
+
+/* Optional: small screens, a bit more padding */
+@media (max-width: 576px) {
+
+  #taskViewModal,
+  #taskEditModal,
+  #taskAddModal {
+    padding-top: calc(var(--topbar-height, 72px) + 18px);
+  }
+}
+
+
+
+
+/* Responsive padding for view modal */
+@media (max-width: 800px) {
+
+  #editPermitModal .modal-content,
+  #editPermitModal .modal-view-content {
+    padding: 10px 4vw;
+  }
+}
+
+
+/* Label & Field Styling (unified) */
+.form-group label,
+.form-group input,
+.form-group textarea,
+.form-group select,
+.four-col-row label,
+.four-col-row input,
+.four-col-row select {
+  font-size: 1em;
+  font-family: Arial, sans-serif;
+  font-weight: normal;
+}
+
+/* Four-column row for grouped fields */
+.four-col-row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.four-col-row .form-group {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Attachment styling */
+.attachments-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 8px;
+  width: 100%;
+}
+
+.attachment-item {
+  width: 140px;
+  font-size: 0.7em;
+  background: #f9f9f9;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  padding: 8px;
+  text-align: center;
+}
+
+.attachment-item img {
+  max-width: 80px;
+  max-height: 60px;
+  margin-top: 4px;
+  border: 1px solid #ccc;
+  background: #fff;
+}
+
+.attachment-desc {
+  font-size: 0.95em;
+  color: #666;
+  margin-bottom: 4px;
+}
+
+
+
+/* Button styles - Now standardized in buttons.css */
+/* Legacy support maintained for backward compatibility */
+button.primary {
+  background: var(--btn-primary-bg, #3685fe);
+  color: var(--btn-primary-color, #fff);
+  border: none;
+  border-radius: 4px;
+  padding: 9px 22px;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+button.primary:hover {
+  background: var(--btn-primary-bg-hover, #276ac8);
+}
+
+button.secondary {
+  background: var(--btn-secondary-bg-light, #e0e0e0);
+  color: #333;
+  border: none;
+  border-radius: 4px;
+  padding: 9px 22px;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+button.close-btn {
+  font-size: 1.5em;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #888;
+  margin-left: 8px;
+}
+
+button.close-btn.secondary {
+  font-size: 1em;
+  background: #e0e0e0;
+  color: #333;
+}
+
+/* Close button styles are now in buttons.css */
+
+
+/* Styling for the title */
+.title-text {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+/* Style for the edit icon */
+.edit-icon {
+  width: 15px;
+  /* Adjust the size as needed */
+  height: 15px;
+  margin-right: 15px;
+  /* Adds space between the icon and close button */
+  cursor: pointer;
+}
+
+
+.close-btn {
+  font-size: 2rem;
+  background: none;
+  border: none;
+  color: #888;
+  cursor: pointer;
+  margin-left: 0;
+  /* Remove any large margin */
+  margin-right: 0;
+  /* Remove any large margin */
+  align-self: flex-start;
+  line-height: 1;
+  padding: 0 4px;
+  transition: color 0.2s;
+}
+
+.close-btn:hover {
+  color: rgb(4, 142, 255);
+}
+
+
+
+
+
+.add-icon {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  display: inline-block;
+  vertical-align: middle;
+  filter: brightness(0) invert(1);
+  transition: transform 0.2s;
+}
+
+.add-icon:hover {
+  transform: scale(1.1);
+}
+
+
+/* Header */
+.standard-header {
+  display: flex;
+  position: sticky;
+  top: 65px;
+  z-index: 900;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 16px 20px;
+  background: var(--header-bg);
+  color: var(--header-text);
+  box-shadow: var(--header-shadow);
+}
+
+/* Title */
+.standard-header h1 {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: inherit;
+  /* follows header text color */
+}
+
+/* Search */
+.standard-search input {
+  height: 40px;
+  width: 320px;
+  max-width: 100%;
+
+  padding: 8px 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  background: #fff;
+  color: #212529;
+}
+
+
+
+
+
+
+
+
+.table-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
+  padding: 32px 24px;
+  margin: 32px auto;
+  max-width: 1100px;
+}
+
+.table-card-header {
+  display: flex;
+  align-items: center;
+  /* Vertically centers items */
+  justify-content: space-between;
+  /* Pushes items to edges */
+  gap: 24px;
+  /* Space between title and search */
+  margin-bottom: 24px;
+  /* Space below header */
+}
+
+.table-title {
+  font-size: 1.7rem;
+  font-weight: 600;
+  margin: 0;
+  color: #222;
+  letter-spacing: 0.5px;
+}
+
+.table-search {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.table-search input[type="text"] {
+  width: 320px;
+  max-width: 100%;
+  padding: 8px 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border 0.2s;
+}
+
+@media (max-width: 700px) {
+  .table-card-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .table-search input[type="text"] {
+    width: 100%;
+  }
+}
+
+/* Task Table Container and Table Layout */
+.task-table-container {
+  overflow-x: auto;
+
+  -webkit-overflow-scrolling: touch;
+}
+
+.task-table {
+  table-layout: fixed;
+  width: 100%;
+  max-width: 900px;
+  margin-top: 0px;
+  margin: 0 auto;
+  border-collapse: collapse;
+}
+
+
+/* Column Widths */
+.task-table th:nth-child(1) {
+  width: 50px;
+}
+
+/* Task ID: compact, no wrapping */
+.task-table th:nth-child(2) {
+  min-width: 240px;
+  width: 20%;
+}
+
+/* Task Name: flexible, min-width */
+.task-table th:nth-child(3) {
+  min-width: 480px;
+  width: 40%;
+}
+
+/* Description: flexible, min-width */
+.task-table th:nth-child(4) {
+  width: 90px;
+}
+
+/* Start Date: compact, no wrapping */
+.task-table th:nth-child(5) {
+  width: 130px;
+}
+
+/* Actions: fixed for buttons/icons */
+
+/* Cell Text Handling */
+.task-table td {
+  white-space: normal;
+  word-wrap: break-word;
+  word-break: break-word;
+}
+
+/* Prevent wrapping and truncate overflow for Task ID and Start Date */
+.task-table td:nth-child(1),
+.task-table td:nth-child(4) {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Table Cell and Header Styling */
+.task-table th,
+.task-table td {
+  font-size: 12px;
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.task-table th {
+  background-color: #363636;
+  color: white;
+  font-weight: bold;
+}
+
+/* Row Styling */
+.task-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.task-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+
+  /* Layout */
+  .main-content {
+    margin: 85px 10px 0;
+    padding: 10px;
+  }
+
+  .chart-slicer-container {
+    flex-direction: column;
+  }
+
+  /* Forms */
+  .form-row {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  input[type="date"] {
+    width: 100%;
+  }
+
+  .four-col-row {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  /* Tables */
+  .task-table th,
+  .task-table td {
+    font-size: 11px;
+    padding: 4px;
+    white-space: nowrap;
+  }
+
+  .sop-table th,
+  .sop-table td {
+    font-size: 12px;
+    padding: 6px;
+  }
+
+  /* Modals */
+  .modal-dialog {
+    margin: 20px auto;
+    max-width: 95%;
+  }
+
+  /* Headers */
+  .header-permit {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem;
+  }
+}
+
+
+
+.sop-table {
+  table-layout: fixed;
+  width: auto;
+  max-width: 1200px;
+  margin: 0 auto;
+  font-size: 12px;
+  border-collapse: collapse;
+  /* ✅ Important to collapse space between cells */
+  border: none;
+  /* ✅ No border around the table */
+}
+
+/* Column Widths */
+.sop-table th:nth-child(1) {
+  width: 5%;
+}
+
+.sop-table th:nth-child(2) {
+  width: 15%;
+}
+
+.sop-table th:nth-child(3) {
+  min-width: 300px;
+  width: 30%;
+}
+
+.sop-table th:nth-child(4) {
+  width: 15%;
+}
+
+.sop-table th:nth-child(5) {
+  width: 10%;
+}
+
+.sop-table th:nth-child(6) {
+  width: 10%;
+}
+
+.sop-table th:nth-child(7) {
+  width: 10%;
+}
+
+.sop-table th:nth-child(8) {
+  width: 10%;
+}
+
+/* Cell Text Handling */
+.sop-table td {
+  white-space: normal;
+  word-wrap: break-word;
+  word-break: break-word;
+  padding: 10px;
+  border: none;
+  /* ✅ Remove cell borders */
+}
+
+/* Prevent wrapping and truncate overflow for ID and Effective Date */
+.sop-table td:nth-child(1),
+.sop-table td:nth-child(7) {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Table Header Styling */
+.sop-table th {
+  background-color: #363636;
+  color: white;
+  font-weight: bold;
+  font-size: 12px;
+  padding: 10px;
+  text-align: left;
+  border: none;
+  /* ✅ Remove header borders */
+}
+
+/* Row Styling */
+.sop-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.sop-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+
+
+
+.search {
+  margin-bottom: 10px;
+}
+
+.search input {
+  padding: 5px;
+  width: 250px;
+}
+
+.search-container {
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  /* Reduce the gap between label and input */
+  justify-content: center;
+  /* Center the container */
+}
+
+input:focus,
+textarea:focus {
+  border-color: #3685fe;
+  outline: none;
+  box-shadow: 0 0 5px rgba(54, 133, 254, 0.5);
+}
+
+.search input:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+}
+
+input:invalid,
+textarea:invalid {
+  border-color: #ff0000;
+}
+
+/* Remove red border from date inputs */
+input[type="date"]:invalid {
+  border-color: #d1d5db;
+}
+
+.term-definition {
+  max-width: 300px;
+  white-space: normal;
+  word-wrap: break-word;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+
+
+
+.status-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.80em;
+  font-weight: bold;
+  text-align: center;
+  min-width: 70px;
+}
+
+.status-badge.active {
+  background: #fffbe6;
+  color: #8a6d3b;
+}
+
+.status-badge.issued {
+  background: #e6f7e6;
+  color: #256029;
+}
+
+.status-badge.requested {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.status-badge.expired {
+  background: #fdecea;
+  color: #a94442;
+}
+
+.status-badge.closed {
+  background: #e6e6e6;
+  color: #333;
+}
+
+.status-badge.revoked {
+  background: #f5e6ff;
+  color: #6c3483;
+}
+
+.status-badge.cancelled {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.status-badge.suspended {
+  background: #ffe6cc;
+  color: #cc6600;
+}
+
+
+#editPermitForm button[type="submit"] {
+  position: sticky;
+  bottom: 0;
+  background: #3685fe;
+  color: #fff;
+  width: 100%;
+  padding: 12px;
+  font-size: 1.1em;
+  border: none;
+  border-radius: 0 0 8px 8px;
+  z-index: 10;
+}
+
+
+#editPermitForm button[type="submit"]:hover {
+  background-color: #276ac8;
+}
+
+
+.actions-cell button {
+  display: inline-block;
+  margin: 0 3px 0 0;
+  padding: 4px 4px;
+  border: none;
+  width: 35px;
+  border-radius: 4px;
+  color: white;
+  font-size: 8px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+  background: #3498db;
+}
+
+.actions-cell button:first-child {
+  background: #3498db;
+}
+
+.actions-cell button:nth-child(2) {
+  background: #27ae60;
+}
+
+.actions-cell button:last-child {
+  background: #e74c3c;
+}
+
+.actions-cell button:hover {
+  transform: translateY(-1px);
+  filter: brightness(0.95);
+}
+
+/* Action Button Styles */
+.task-table td.actions-cell {
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+/* Add to your existing CSS */
+.table-sm th,
+.table-sm td {
+  padding: 0.25rem 0.4rem;
+}
+
+.step-row input[readonly] {
+  background-color: transparent;
+  border: 1px solid transparent;
+  padding: 0.1rem 0.3rem;
+  font-size: 0.8rem;
+  line-height: 1.2;
+}
+
+.step-row input:not([readonly]) {
+  background-color: white;
+  border: 1px solid #86b7fe;
+  box-shadow: 0 0 0 0.1rem rgba(13, 110, 253, 0.1);
+  padding: 0.1rem 0.3rem;
+  font-size: 0.8rem;
+  line-height: 1.2;
+}
+
+
+.step-table th {
+  font-weight: 600;
+  font-size: 0.8rem;
+  border-bottom: 2px solid #dee2e6;
+  padding: 0.25rem 0.4rem;
+}
+
+.step-table td {
+  vertical-align: middle;
+  padding: 0.25rem 0.4rem;
+}
+
+/* Make the table more compact */
+.table-responsive .table {
+  margin-bottom: 0;
+}
+
+/* Reduce the overall container spacing */
+#stepsContainer {
+  margin-bottom: 1rem;
+}
+
+#stepsContainer .form-label {
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+#generatePdfBtn {
+  background: #dca235;
+  border-color: #dca235;
+  margin-left: 10px;
+}
+
+#generatePdfBtn:hover {
+  background: #c82333;
+  border-color: #c82333;
+}
+
+
+
+.status-indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.custom-btn {
+  font-size: 0.85rem;
+  line-height: 1.2;
+}
+
+.custom-btn i {
+  font-size: 0.60em;
+}
+
+/* keep icon proportional */
+
+
+/* Fix for new task modal positioning */
+#newTaskModal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1060;
+  width: 90%;
+  max-width: 700px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+
+/* Make add task modal use same styling as edit modal */
+#addTaskModal .modal-dialog {
+  max-width: 800px;
+  width: 60%;
+  margin: 40px auto;
+  margin-top: 100px !important;
+}
+
+/* For view modals specifically */
+.modal-view-content .modal-dialog {
+  margin-top: 80px !important;
+}
+
+
+/* Modal z-index definitions moved to standardized modal styles section at end of file */
+
+
+#addTaskModal .modal-body {
+  flex: 1;
+  overflow-y: auto;
+  max-height: calc(100vh - 200px);
+  /* Account for header and footer */
+  padding: 18px 24px;
+}
+
+#addTaskModal .modal-header,
+#addTaskModal .modal-footer {
+  flex-shrink: 0;
+}
+
+/* Ensure consistent header styling */
+#addTaskModal .modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 20px;
+  background: var(--primary-color, #007bff);
+  color: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  margin: 0;
+  min-height: 56px;
+}
+
+#addTaskModal .modal-header .title-text {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#addTaskModal .modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+  background: #fafbfc;
+  padding: 16px 24px;
+  position: sticky;
+  bottom: 0;
+  z-index: 1;
+  margin: 0;
+  min-height: 56px;
+}
+
+
+#calPrev,
+#calNext {
+
+  background: #3685fe;
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  line-height: 1;
+  transition: 0.2s;
+}
+
+#calPrev:hover,
+#calNext:hover {
+  color: #fff;
+  border: 1px solid #3685fe;
+  /* Your accent color */
+  background: #63a2ff;
+}
+
+#listView,
+#weekView,
+#monthView {
+
+  background: #3685fe;
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  line-height: 1;
+  transition: 0.2s;
+}
+
+#listView:hover,
+#weekView:hover,
+#monthView:hover {
+  color: #fff;
+  border: 1px solid #3685fe;
+  /* Your accent color */
+  background: #63a2ff;
+}
+
+
+.modal {
+  z-index: 1055 !important;
+}
+
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1054 !important;
+}
+
+/* Add to your existing CSS */
+.loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.step-row.removing {
+  opacity: 0.5;
+  background-color: #fff3cd;
+}
+
+.thumbnail-container .file-size {
+  font-size: 0.7rem;
+  color: #666;
+  margin-top: 2px;
+}
+
+
+
+
+.form-row input[type="file"] {
+  background: white !important;
+  padding: 8px !important;
+}
+
+/* ===== Permit List Styles (moved from permitlist1.php) ===== */
+.permit-card {
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+  margin-bottom: 1.5rem;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.permit-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.permit-card .card-header {
+  background-color: var(--primary-color, #007bff);
+  color: white;
+  font-weight: bold;
+  padding: 0.75rem 1.25rem;
+}
+
+.badge-custom {
+  background-color: rgb(80, 138, 247);
+  color: rgb(97, 97, 97);
+}
+
+.badge-status {
+  padding: 0.5em 0.75em;
+  border-radius: 20px;
+  font-weight: 500;
+}
+
+.badge-active {
+  background-color: var(--success-color, #28a745);
+}
+
+.badge-expired {
+  background-color: var(--danger-color, #dc3545);
+}
+
+.badge-pending {
+  background-color: #f39c12;
+}
+
+.badge-issued {
+  background-color: rgb(18, 161, 243);
+}
+
+.badge-revoked {
+  background-color: rgba(123, 18, 243, 1);
+}
+
+.form-control:disabled,
+.form-control[readonly] {
+  background-color: #f8f9fa;
+  border-color: #e9ecef;
+}
+
+.editable-field {
+  background-color: #fff !important;
+  border-color: #86b7fe !important;
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25) !important;
+}
+
+.error-message {
+  color: var(--danger-color, #dc3545);
+  font-size: 0.9rem;
+  margin-top: 0.25rem;
+}
+
+.file-error {
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  font-size: 0.85rem;
+}
+
+.thumbnail-container {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  overflow: hidden;
+  background: #f8f9fa;
+  transition: all 0.3s ease;
+}
+
+.thumbnail-container.removing {
+  transform: scale(0.8);
+  opacity: 0;
+}
+
+.remove-attachment {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.remove-attachment:hover {
+  background: rgba(255, 0, 0, 0.7);
+}
+
+.file-info {
+  text-align: center;
+  padding: 0.25rem;
+}
+
+.smaller {
+  font-size: 0.75rem;
+}
+
+.thumbnail-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.thumbnail-pdf {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: #c62828;
+  height: 100%;
+}
+
+#toastNotification {
+  min-width: 250px;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.toast-body {
+  padding: 1rem;
+}
+
+.btn-success {
+  background-color: #28a745;
+  border-color: #28a745;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  transition: all 0.2s;
+}
+
+.btn-success:hover {
+  background-color: #218838;
+  border-color: #1e7e34;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-backup {
+  margin-left: auto;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  filter: invert(1);
+}
+
+.navbar-backup img {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  transition: opacity 0.3s;
+}
+
+.navbar-backup:hover img {
+  opacity: 0.7;
+}
+
+/* Invert backup icon colors */
+.header-icon.inverted-icon {
+  filter: invert(1);
+  transition: filter 0.3s ease;
+}
+
+.header-icon.inverted-icon:hover {
+  filter: invert(1) brightness(1.2);
+}
+
+/* Optional: Add a gentle glow effect on hover */
+.header-icon.inverted-icon:hover {
+  filter: invert(1) brightness(1.2) drop-shadow(0 0 2px rgba(255, 255, 255, 0.5));
+}
+
+/* ============================================
+   MODAL STYLES - Standardized across all pages
+   ============================================ */
+
+/* Universal modal positioning - optimized for viewport with topbar */
+.modal {
+  /* Ensure modal backdrop covers full viewport */
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  /* Ensure proper z-index stacking - above most elements but below topbar */
+  z-index: 1055 !important;
+}
+
+/* Position modals at top of viewport - no vertical centering */
+.modal.show,
+.modal.showing {
+  display: flex !important;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: calc(var(--topbar-height, 72px) + 20px);
+  padding-bottom: 1rem;
+  z-index: 1055 !important;
+}
+
+.modal-dialog {
+  margin: 0 auto;
+  max-height: calc(100vh - var(--topbar-height, 72px) - 40px);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 1056 !important;
+}
+
+.modal-content {
+  max-height: calc(100vh - var(--topbar-height, 72px) - 40px);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+  z-index: 1057 !important;
+}
+
+.modal-body {
+  overflow-y: auto;
+  flex: 1 1 auto;
+  max-height: calc(100vh - var(--topbar-height, 72px) - 160px);
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.3) transparent;
+}
+
+/* When modal is hidden, ensure it's not displayed */
+.modal:not(.show):not(.showing) {
+  display: none !important;
+}
+
+.modal-backdrop {
+  z-index: 1054 !important;
+}
+
+/* Bootstrap handles modal stacking, but ensure proper z-index */
+.modal.show {
+  z-index: 1055 !important;
+}
+
+/* Ensure all modals with modal-lg have consistent width */
+.modal-dialog.modal-lg {
+  max-width: 800px;
+  width: 90%;
+}
+
+/* Fix aria-hidden focus issue - ensure modals don't retain focus when hidden */
+.modal[aria-hidden="true"] {
+  pointer-events: none;
+}
+
+.modal[aria-hidden="true"] * {
+  pointer-events: none;
+}
+
+/* Ensure focus is removed from hidden modals */
+.modal[aria-hidden="true"]:focus,
+.modal[aria-hidden="true"] *:focus {
+  outline: none;
+}
+
+/* Webkit scrollbar styling - thin and subtle */
+.modal-body::-webkit-scrollbar {
+  width: 8px;
+}
+
+.modal-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.modal-body::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.modal-body::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+/* Hide scrollbar thumb when not hovering (only show on hover or when actively scrolling) */
+.modal-body:not(:hover)::-webkit-scrollbar-thumb {
+  background-color: transparent;
+}
+
+.modal-header,
+.modal-footer {
+  /* Prevent header/footer from shrinking */
+  flex-shrink: 0;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 576px) {
+  .modal-dialog {
+    margin: 72px auto 0.5rem auto;
+    max-height: calc(100vh - 72px - 0.5rem);
+    max-width: calc(100% - 1rem);
+  }
+
+  .modal-content {
+    max-height: calc(100vh - 72px - 0.5rem);
+  }
+
+  .modal-body {
+    max-height: calc(100vh - 72px - 0.5rem - 100px);
+  }
+}
+
+/* Extra small screens - ensure modal doesn't overflow */
+@media (max-height: 600px) {
+
+  .modal.show,
+  .modal.showing {
+    padding-top: 0;
+    padding-bottom: 0.5rem;
+  }
+
+  .modal-dialog {
+    margin: 72px auto 0.5rem auto;
+    max-height: calc(100vh - 72px - 0.5rem);
+  }
+
+  .modal-body {
+    max-height: calc(100vh - 72px - 0.5rem - 80px);
+  }
+}
+
+/* === MICRO-POLISH 1 : header tagline & beta badge === */
+.head-tagline {
+  display: block;
+  font-size: .45em;
+  font-weight: 400;
+  letter-spacing: .5px;
+  opacity: .85;
+  margin-top: 2px;
+}
+
+.head-beta {
+  position: absolute;
+  right: 20px;
+  top: 12px;
+  background: #ff9800;
+  color: #fff;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: .5em;
+  font-weight: 600;
+}
+
+/* === MICRO-POLISH 2 : WCAG contrast tweaks === */
+.homepage .hero h2 {
+  background: linear-gradient(135deg, #f5faff 0%, #c7e4ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-subtitle {
+  color: rgba(255, 255, 255, .95);
+}
+
+.feature-card p {
+  color: rgba(255, 255, 255, .92);
+}

@@ -1,0 +1,35 @@
+<!-- File: sheener/create_waste_collection.html -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Create Waste Collection</title>
+  <script src="JS/create_waste_collection.js"></script>
+</head>
+<body>
+  <h1>Create Waste Collection</h1>
+  <form id="createCollectionForm">
+    <label for="WasteCategoryID">Waste Category ID:</label>
+    <input type="text" id="WasteCategoryID" name="WasteCategoryID" required><br><br>
+    
+    <label for="WasteSubCategoryID">Waste Sub Category ID (optional):</label>
+    <input type="text" id="WasteSubCategoryID" name="WasteSubCategoryID"><br><br>
+    
+    <label for="Amount">Amount:</label>
+    <input type="number" step="0.01" id="Amount" name="Amount" required><br><br>
+    
+    <label for="UnitID">Unit ID:</label>
+    <input type="text" id="UnitID" name="UnitID" required><br><br>
+    
+    <label for="DisposalDate">Disposal Date:</label>
+    <input type="date" id="DisposalDate" name="DisposalDate" required><br><br>
+    
+    <label for="Comments">Comments:</label>
+    <textarea id="Comments" name="Comments"></textarea><br><br>
+    
+    <button type="submit">Create</button>
+  </form>
+  <br>
+  <a href="list_waste_collections.html">Back to List</a>
+</body>
+</html>

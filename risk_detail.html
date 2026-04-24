@@ -1,0 +1,360 @@
+<!-- File: sheener/risk_detail.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Risk Detail - Risk Management Center</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="img/favicon/faviconAY.ico">
+    <script src="js/navbar.js" defer></script>
+    <script src="js/topbar.js" defer></script>
+    <style>
+        :root {
+            --rmc-primary: #0A2F64;
+            --rmc-secondary: #2f5d9e;
+            --rmc-success: #27ae60;
+            --rmc-warning: #f39c12;
+            --rmc-danger: #e74c3c;
+            --rmc-info: #17a2b8;
+        }
+
+        .risk-detail-container {
+            margin-left: 50px;
+            margin-top: 72px;
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: calc(100vh - 72px);
+        }
+
+        .risk-header {
+            background: linear-gradient(135deg, var(--rmc-primary) 0%, var(--rmc-secondary) 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .risk-header h1 {
+            margin: 0;
+            font-size: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .risk-content {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .risk-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin: 5px;
+        }
+
+        .badge-critical {
+            background: #fee;
+            color: var(--rmc-danger);
+            border: 1px solid var(--rmc-danger);
+        }
+
+        .badge-high {
+            background: #fff4e6;
+            color: var(--rmc-warning);
+            border: 1px solid var(--rmc-warning);
+        }
+
+        .badge-medium {
+            background: #e6f7ff;
+            color: var(--rmc-info);
+            border: 1px solid var(--rmc-info);
+        }
+
+        .badge-low {
+            background: #e6ffe6;
+            color: var(--rmc-success);
+            border: 1px solid var(--rmc-success);
+        }
+
+        .info-section {
+            margin-bottom: 30px;
+        }
+
+        .info-section h3 {
+            color: var(--rmc-primary);
+            border-bottom: 2px solid var(--rmc-secondary);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .info-item {
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid var(--rmc-secondary);
+        }
+
+        .info-item label {
+            display: block;
+            font-weight: 600;
+            color: #7f8c8d;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .info-item .value {
+            font-size: 1.1rem;
+            color: var(--rmc-dark);
+        }
+
+        .btn-back {
+            background: var(--rmc-secondary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .btn-back:hover {
+            background: var(--rmc-primary);
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: var(--rmc-secondary);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="navbar"></div>
+    <div id="topbar"></div>
+
+    <main class="risk-detail-container">
+        <a href="RMC.html" class="btn-back">
+            <i class="fas fa-arrow-left"></i> Back to Risk Register
+        </a>
+
+        <div id="riskDetailContent">
+            <div class="loading">
+                <i class="fas fa-spinner fa-spin fa-2x"></i>
+                <p>Loading risk details...</p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const riskId = urlParams.get('id');
+
+        if (!riskId) {
+            document.getElementById('riskDetailContent').innerHTML = `
+                <div class="risk-content">
+                    <h2>Error</h2>
+                    <p>No risk ID provided. <a href="RMC.html">Return to Risk Register</a></p>
+                </div>
+            `;
+        } else {
+            loadRiskDetail(riskId);
+        }
+
+        async function loadRiskDetail(id) {
+            try {
+                const response = await fetch(`php/api_risk_register.php?action=get_risk&id=${id}&_t=${Date.now()}`);
+                const data = await response.json();
+
+                if (data.success) {
+                    renderRiskDetail(data.data);
+                } else {
+                    document.getElementById('riskDetailContent').innerHTML = `
+                        <div class="risk-content">
+                            <h2>Error</h2>
+                            <p>${data.error || 'Failed to load risk details'}</p>
+                            <a href="RMC.html" class="btn-back">Back to Risk Register</a>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                document.getElementById('riskDetailContent').innerHTML = `
+                    <div class="risk-content">
+                        <h2>Error</h2>
+                        <p>Network error: ${error.message}</p>
+                        <a href="RMC.html" class="btn-back">Back to Risk Register</a>
+                    </div>
+                `;
+            }
+        }
+
+        function renderRiskDetail(risk) {
+            const riskLevel = risk.current_risk_level || 'Low';
+            const riskScore = risk.current_risk_score || 0;
+            const levelClass = riskLevel.toLowerCase();
+
+            const html = `
+                <div class="risk-header">
+                    <h1>
+                        <i class="fas fa-exclamation-triangle"></i>
+                        ${escapeHtml(risk.risk_code)} - ${escapeHtml(risk.risk_title)}
+                    </h1>
+                    <div style="margin-top: 15px;">
+                        <span class="risk-badge badge-${levelClass}">
+                            ${riskLevel} Risk (Score: ${riskScore})
+                        </span>
+                        <span class="risk-badge" style="background: #e9ecef; color: #495057; border: 1px solid #dee2e6;">
+                            ${escapeHtml(risk.status)}
+                        </span>
+                    </div>
+                </div>
+
+                <div class="risk-content">
+                    <div class="info-section">
+                        <h3><i class="fas fa-info-circle"></i> Basic Information</h3>
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <label>Risk Code</label>
+                                <div class="value"><code>${escapeHtml(risk.risk_code)}</code></div>
+                            </div>
+                            <div class="info-item">
+                                <label>Category</label>
+                                <div class="value">${escapeHtml(risk.category_name || 'N/A')}</div>
+                            </div>
+                            <div class="info-item">
+                                <label>Subcategory</label>
+                                <div class="value">${escapeHtml(risk.subcategory_name || 'N/A')}</div>
+                            </div>
+                            <div class="info-item">
+                                <label>Status</label>
+                                <div class="value">${escapeHtml(risk.status)}</div>
+                            </div>
+                            <div class="info-item">
+                                <label>Lifecycle Stage</label>
+                                <div class="value">${escapeHtml(risk.lifecycle_stage || 'N/A')}</div>
+                            </div>
+                            <div class="info-item">
+                                <label>Product Line</label>
+                                <div class="value">${escapeHtml(risk.product_line || 'N/A')}</div>
+                            </div>
+                            <div class="info-item">
+                                <label>Date Identified</label>
+                                <div class="value">${new Date(risk.date_identified).toLocaleDateString()}</div>
+                            </div>
+                            <div class="info-item">
+                                <label>Identified By</label>
+                                <div class="value">${escapeHtml(risk.identified_by_name || 'N/A')}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="info-section">
+                        <h3><i class="fas fa-file-alt"></i> Description</h3>
+                        <p style="line-height: 1.6; color: #495057;">${escapeHtml(risk.risk_description || 'No description available')}</p>
+                    </div>
+
+                    ${risk.latest_assessment ? `
+                    <div class="info-section">
+                        <h3><i class="fas fa-chart-line"></i> Risk Assessment</h3>
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <label>Inherent Risk Score</label>
+                                <div class="value">${risk.latest_assessment.inherent_risk_score || 'N/A'}</div>
+                            </div>
+                            <div class="info-item">
+                                <label>Inherent Risk Level</label>
+                                <div class="value">${escapeHtml(risk.latest_assessment.inherent_risk_level || 'N/A')}</div>
+                            </div>
+                            <div class="info-item">
+                                <label>Residual Risk Score</label>
+                                <div class="value">${risk.latest_assessment.residual_risk_score || 'N/A'}</div>
+                            </div>
+                            <div class="info-item">
+                                <label>Residual Risk Level</label>
+                                <div class="value">${escapeHtml(risk.latest_assessment.residual_risk_level || 'N/A')}</div>
+                            </div>
+                            <div class="info-item">
+                                <label>Risk Acceptability</label>
+                                <div class="value">${escapeHtml(risk.latest_assessment.risk_acceptability || 'N/A')}</div>
+                            </div>
+                            <div class="info-item">
+                                <label>Assessment Date</label>
+                                <div class="value">${new Date(risk.latest_assessment.assessment_date).toLocaleDateString()}</div>
+                            </div>
+                        </div>
+                    </div>
+                    ` : ''}
+
+                    ${risk.controls && risk.controls.length > 0 ? `
+                    <div class="info-section">
+                        <h3><i class="fas fa-shield-alt"></i> Risk Controls (${risk.controls.length})</h3>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Description</th>
+                                        <th>Status</th>
+                                        <th>Effectiveness</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${risk.controls.map(control => `
+                                        <tr>
+                                            <td>${escapeHtml(control.control_type)}</td>
+                                            <td>${escapeHtml(control.control_description || 'N/A')}</td>
+                                            <td>${escapeHtml(control.implementation_status)}</td>
+                                            <td>${escapeHtml(control.control_effectiveness || 'N/A')}</td>
+                                        </tr>
+                                    `).join('')}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    ` : ''}
+
+                    <div style="margin-top: 30px; text-align: center;">
+                        <a href="risk_edit.html?id=${risk.risk_id}" class="btn-back" style="background: var(--rmc-warning);">
+                            <i class="fas fa-edit"></i> Edit Risk
+                        </a>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('riskDetailContent').innerHTML = html;
+        }
+
+        function escapeHtml(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+    </script>
+</body>
+
+</html>

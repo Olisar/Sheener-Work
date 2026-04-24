@@ -1,0 +1,101 @@
+<!-- File: sheener/training_tree.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Training & Documents - Process Management System</title>
+    <!-- Use the same stylesheets as the process map for consistency -->
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/process_map.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Specific overrides for Training Tree types using Process Map classes as base */
+        
+        /* Document - Blue (Process-like) */
+        .tree-node-document { border-left-color: #3498db; }
+        .tree-node-document .node-content i { color: #3498db; }
+        
+        /* Version - Orange (Substep-like) */
+        .tree-node-version { border-left-color: #f39c12; }
+        .tree-node-version .node-content i { color: #f39c12; }
+        
+        /* Quiz - Purple (Activity-like) */
+        .tree-node-quiz { border-left-color: #9b59b6; }
+        .tree-node-quiz .node-content i { color: #9b59b6; }
+        
+        /* Question - Green (Step-like) */
+        .tree-node-question { border-left-color: #27ae60; }
+        .tree-node-question .node-content i { color: #27ae60; }
+
+        /* Custom badge styles if needed, otherwise reusing process map's */
+        .node-meta-badge {
+            font-size: 0.75rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-left: 8px;
+            background: #edf2f7;
+            color: #718096;
+        }
+
+        /* Adjustments for the specific layout required */
+        #trainingMapDiagram {
+            min-height: 400px;
+        }
+        
+        /* Match the process map container override */
+        .process-map-container {
+             /* Ensure it respects the sidebar if present, otherwise default to full width minus margin */
+             /* existing styles in process_map.css should handle this, but dependent on body structure */
+        }
+    </style>
+</head>
+<body>
+    <!-- Optional: Navbar/Sidebar placeholders if they exist in the main app layout -->
+    <div id="navbar"></div>
+    <div id="topbar"></div>
+
+    <main class="process-map-container">
+        <header class="page-header">
+            <h1><i class="fas fa-sitemap"></i> Training & Documents Map</h1>
+            <div class="header-actions">
+                <div class="search-wrapper" style="position: relative;">
+                   <input type="search" id="docSearchInput" placeholder="Filter documents, versions, questions..." class="search-input" style="width: 300px;">
+                </div>
+                <button class="btn-filter" id="btnRefresh"><i class="fas fa-sync-alt"></i> Refresh</button>
+            </div>
+        </header>
+
+        <div class="map-controls">
+            <div class="collapse-controls">
+                <button class="btn-collapse" id="btnCollapseAll" title="Collapse All"><i class="fas fa-compress-alt"></i> Collapse All</button>
+                <button class="btn-collapse" id="btnExpandAll" title="Expand All"><i class="fas fa-expand-alt"></i> Expand All</button>
+            </div>
+        </div>
+
+        <div id="trainingMapDiagram" class="process-diagram">
+            <div class="loading-spinner">
+                <i class="fas fa-spinner fa-spin"></i> Loading data...
+            </div>
+        </div>
+    </main>
+
+    <!-- Context Menu (Optional, can be expanded later) -->
+    <div id="contextMenu" class="context-menu">
+        <ul class="context-menu-list">
+            <li class="context-menu-item" data-action="expand">
+                <i class="fas fa-expand-alt"></i> Expand Branch
+            </li>
+            <li class="context-menu-item" data-action="collapse">
+                <i class="fas fa-compress-alt"></i> Collapse Branch
+            </li>
+        </ul>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/navbar.js"></script>
+    <script src="js/topbar.js"></script>
+    <script src="js/training_tree.js"></script>
+</body>
+</html>

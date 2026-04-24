@@ -1,0 +1,407 @@
+<!-- File: sheener/HSTopics/SafetyFireSafetyCharging.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../img/favicon/faviconAY.ico">
+    <title>Amneal Access Safety Tips</title>
+    <style>
+        /* Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body and General Settings */
+        body {
+            font-family: Arial, sans-serif;
+            color: #333;
+            background-color: #F2F2F2;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background-color: #003366;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0 20px;
+            z-index: 1000;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .header-container {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            max-width: 1000px;
+            justify-content: center;
+            position: relative;
+        }
+
+        .logo-container {
+            position: absolute;
+            left: 20px;
+        }
+
+        .logo {
+            height: 40px;
+        }
+
+        .header-title {
+            color: #FFFFFF;
+            font-size: 1.5em;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        /* Smooth scrolling behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Hero Section */
+        #hero {
+            position: relative;
+            transition: transform 0.5s ease-in-out;
+            height: calc(100vh - 60px);
+            overflow: hidden;
+            padding-top: 60px;
+        }
+
+        .hero-hidden {
+            transform: translateY(-100%);
+            transition: transform 0.5s ease;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(100%);
+        }
+
+        .hero-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #FFFFFF;
+            text-align: center;
+        }
+
+        .hero-text h1 {
+            font-size: 3.2em;
+            margin-bottom: 20px;
+        }
+
+        .hero-text p {
+            font-size: 1.6em;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Tips Section */
+        #topics {
+            margin-top: 0;
+            padding-top: 20px;
+            position: relative;
+        }
+
+        .tips {
+            max-width: 700px;
+            margin: 40px auto;
+            padding: 0 15px;
+            text-align: center;
+        }
+
+        /* Centered Safety Image Styling */
+        .centered-safety-icon {
+            margin: 20px 0;
+            text-align: center;
+            margin-bottom: 100px;
+            transform: scale(1.8);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1.8);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(2);
+                opacity: 0.9;
+            }
+
+            100% {
+                transform: scale(1.8);
+                opacity: 1;
+            }
+        }
+
+        /* Tip Box Styling */
+        .tip {
+            background-color: #FFFFFF;
+            border-left: 4px solid #b88d00;
+            padding: 15px 20px;
+            margin: 15px 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            transform: scale(0.9);
+            opacity: 1;
+        }
+
+        .tip.active {
+            transform: scale(1.1);
+            opacity: 1;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .tip h2 {
+            font-size: 1.8em;
+            color: #003366;
+        }
+
+        .tip p {
+            font-size: 1.2em;
+            color: #555;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 10px 0;
+            background-color: #d9a460ff;
+            color: #FFFFFF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        footer a {
+            color: #FFFFFF;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-logo {
+            width: 40px;
+            height: 40px;
+        }
+
+        .flashing-arrow {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .flashing-arrow img {
+            width: 40px;
+            animation: flash 1.5s infinite;
+        }
+
+        @keyframes flash {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            50% {
+                opacity: 0.6;
+                transform: translateY(10px);
+            }
+        }
+
+        /* Styles for the previous icon */
+        .previous-icon {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            font-size: 2rem;
+            color: white;
+            cursor: pointer;
+            text-decoration: none;
+            z-index: 1001;
+        }
+
+        .previous-icon:hover {
+            color: #03bcf4;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo-container">
+                <img src="../Amneal_Logo_new.svg" alt="Amneal Logo" class="logo">
+            </div>
+            <div class="header-title">
+                EHS Newsletter
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Image Section -->
+    <section id="hero">
+        <img src="../img/fray.jpg" alt="USB-C Safety" class="hero-image">
+        <div class="hero-text">
+            <div class="centered-safety-icon">
+                <img src="img/fire.svg" alt="Safety Icon" width="80">
+            </div>
+            <h1 style="color: rgb(17, 67, 143); text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);">Chargers</h1>
+            <h1 style="color: rgb(17, 67, 143); text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);">Safety and Compatibility
+                Tips</h1>
+            <h2 style="color: rgb(255, 81, 0); text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);">"A Quick Guide to Safe
+                Charging Practices</h2>
+            <h2 style="color: rgb(255, 81, 0); text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);">and Risk Prevention."</h2>
+            <div class="flashing-arrow">
+                <img src="img/arrow.svg" alt="Flashing Arrow" />
+            </div>
+        </div>
+    </section>
+
+    <!-- Tips Section -->
+    <main>
+        <section id="topics">
+            <div class="tips">
+                <div class="tip" id="tip-1">
+                    <h2>1. Buy Electrical Chargers from Reputable Retailers</h2>
+                    <p>You should always purchase electrical chargers from reputable retailers to ensure safety and
+                        compliance with regulations.</p>
+                </div>
+                <div class="tip" id="tip-2">
+                    <h2>2. Check for the CE Mark</h2>
+                    <p>Ensure that the charger has the CE mark, which indicates compliance with EU safety standards.</p>
+                </div>
+                <div class="tip" id="tip-3">
+                    <h2>3. Avoid Cheap or Unbranded Chargers</h2>
+                    <p>Cheaper chargers, poor-quality ones, or chargers with unclear or misspelled labels may pose risks
+                        of electrocution, fire, or device damage. Ensure the manufacturer's contact details and branding
+                        are clearly provided.</p>
+                </div>
+                <div class="tip" id="tip-4">
+                    <h2>4. Verify Plug Compatibility</h2>
+                    <p>All electrical chargers must be suitable for a standard three-pin wall socket. Avoid chargers
+                        with two-pin plugs, as they are not compliant in Ireland.</p>
+                </div>
+                <div class="tip" id="tip-5">
+                    <h2>5. Follow Manufacturer Instructions</h2>
+                    <p>The charger should include instructions or a safety manual in clear English or Irish, with
+                        details on safe usage, electrical safety guidance, and proper disposal.</p>
+                </div>
+                <div class="tip" id="tip-6">
+                    <h2>6. Tips for Using Chargers Safely</h2>
+                    <ul>
+                        <li>
+                            <p>Read and follow the manufacturer’s safety manual.</p>
+                        </li>
+                        <li>
+                            <p>Stop using chargers that are difficult to plug in or damaged, and dispose of them safely.
+                            </p>
+                        </li>
+                        <li>
+                            <p>Do not leave devices charging overnight or unattended.</p>
+                        </li>
+                        <li>
+                            <p>Avoid charging on flammable surfaces like duvets or pillows.</p>
+                        </li>
+                        <li>
+                            <p>Do not overload wall sockets or daisy-chain extension leads.</p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="tip" id="tip-7">
+                    <h2>7. Beware of Counterfeit Chargers</h2>
+                    <p>Even if a charger appears to have a logo of a known brand, it could be counterfeit. Ensure
+                        authenticity and compatibility with your device to avoid fire or explosion risks.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Section -->
+    <footer>
+        <p><a href="https://www.ccpc.ie/consumers/product-safety/chargers/" target="_blank">
+                Reference: Top Tips to Charger Safety <img src="img/CCPC.svg" alt="CCPC Logo" class="footer-logo">
+            </a></p>
+    </footer>
+
+    <a class="previous-icon" onclick="history.back()">&#x21A9;</a>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tips = document.querySelectorAll('.tip');
+            const heroSection = document.getElementById('hero');
+            const topicsSection = document.getElementById('topics');
+            const headerHeight = document.querySelector('header').offsetHeight;
+
+            let currentIndex = 0;
+            let isInTopics = false;
+
+            tips[currentIndex].classList.add('active');
+
+            function activateTip(index) {
+                tips.forEach((tip, i) => {
+                    tip.classList.remove('active');
+                    if (i === index) {
+                        tip.classList.add('active');
+                        tip.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                });
+            }
+
+            window.addEventListener('wheel', (event) => {
+                const scrollPosition = window.scrollY;
+                const topicsStart = topicsSection.offsetTop - headerHeight;
+
+                if (event.deltaY > 0) {
+                    if (!isInTopics && scrollPosition < topicsStart) {
+                        isInTopics = true;
+                        topicsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        currentIndex = 0;
+                        activateTip(currentIndex);
+                    } else if (isInTopics && currentIndex < tips.length - 1) {
+                        currentIndex++;
+                        activateTip(currentIndex);
+                    }
+                } else if (event.deltaY < 0) {
+                    if (isInTopics && currentIndex > 0) {
+                        currentIndex--;
+                        activateTip(currentIndex);
+                    } else if (isInTopics && currentIndex === 0) {
+                        isInTopics = false;
+                        heroSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                }
+            });
+
+            window.addEventListener('keydown', (event) => {
+                if (event.key === 'ArrowDown' && currentIndex < tips.length - 1) {
+                    currentIndex++;
+                    activateTip(currentIndex);
+                } else if (event.key === 'ArrowUp' && currentIndex > 0) {
+                    currentIndex--;
+                    activateTip(currentIndex);
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

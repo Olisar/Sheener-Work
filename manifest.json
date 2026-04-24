@@ -1,0 +1,26 @@
+{
+  "name": "Sheener",
+  "short_name": "Sheener",
+  "description": "Safety, Health, Environment & Energy Event Reporter - Works Offline",
+  "id": "sheener-app-v1",
+  "start_url": "/sheener/mobile_report.php?source=pwa",
+  "scope": "/sheener/",
+  "display": "standalone",
+  "background_color": "#0A2F64",
+  "theme_color": "#0A2F64",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/sheener/img/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/sheener/img/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

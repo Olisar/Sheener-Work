@@ -1,0 +1,307 @@
+<!-- File: sheener/HSTopics/SafetyTopicEHSDuties.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../img/favicon/faviconAY.ico">
+    <title>HS Duties Tips</title>
+    <style>
+        /* Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* General Settings */
+        body {
+            font-family: Arial, sans-serif;
+            color: #333;
+            background-color: #F2F2F2;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 60px;
+            background-color: #003366;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .header-container {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            max-width: 1000px;
+            justify-content: center;
+            position: relative;
+        }
+
+        .logo-container {
+            position: absolute;
+            left: 20px;
+        }
+
+        .logo {
+            height: 40px;
+        }
+
+        .header-title {
+            color: #FFFFFF;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        /* Hero Section */
+        #hero {
+            height: calc(100vh - 60px);
+            padding-top: 60px;
+            position: relative;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 100vh;
+            /* Full viewport height */
+            object-fit: cover;
+            /* Ensures image covers the area while maintaining aspect ratio */
+            filter: brightness(90%);
+        }
+
+        .hero-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: #FFFFFF;
+        }
+
+        .hero-text h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+        }
+
+        .hero-text p {
+            font-size: 1.2em;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .flashing-arrow {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .flashing-arrow img {
+            width: 40px;
+            animation: flash 1.5s infinite;
+        }
+
+        @keyframes flash {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            50% {
+                opacity: 0.6;
+                transform: translateY(10px);
+            }
+        }
+
+        /* Tips Section */
+        .tips {
+            max-width: 700px;
+            margin: 40px auto;
+            padding: 0 15px;
+            text-align: center;
+        }
+
+        .tip {
+            background-color: #FFFFFF;
+            border-left: 4px solid #b88d00;
+            padding: 15px 20px;
+            margin: 15px 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transform: scale(0.9);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        .tip.active {
+            transform: scale(1.1);
+            opacity: 1;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .tip h2 {
+            font-size: 1.8em;
+            color: #003366;
+        }
+
+        .tip p {
+            font-size: 1.2em;
+            color: #555;
+        }
+
+        /* Footer */
+        footer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px 0;
+            background-color: #d9a460;
+            color: #FFFFFF;
+            gap: 8px;
+        }
+
+        footer a {
+            color: #FFFFFF;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-logo {
+            width: 60px;
+            height: 20px;
+        }
+
+        /* Styles for the previous icon */
+        .previous-icon {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            font-size: 2rem;
+            color: white;
+            cursor: pointer;
+            text-decoration: none;
+            z-index: 1001;
+            /* Ensure it's above other elements */
+        }
+
+        .previous-icon:hover {
+            color: #03bcf4;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo-container">
+                <img src="../img/Amneal_Logo_new.svg" alt="Amneal Logo" class="logo">
+            </div>
+            <div class="header-title">Health and Safety Duties Tips</div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero">
+        <img src="../img/HSA bgnd.svg" alt="Workplace Safety" class="hero-image">
+        <div class="hero-text">
+            <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+            <h1>The Safety, Health and Welfare at Work Act 2005</h1>
+            <p>duties as an employer and employee under the 2005 Act</p>
+            <div class="flashing-arrow">
+                <img src="../img/arrow.svg" alt="Flashing Arrow">
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Tips Section -->
+    <main>
+        <section class="tips">
+            <!-- Employer Responsibilities -->
+            <div class="tip">
+                <h2>1. Conduct Regular Risk Assessments</h2>
+                <p>Identify potential hazards in the workplace and implement measures to mitigate associated risks.</p>
+            </div>
+            <div class="tip">
+                <h2>2. Develop and Maintain a Safety Statement</h2>
+                <p>Create a written document outlining your company's health and safety policies, ensuring it's
+                    regularly updated and communicated to all staff.</p>
+            </div>
+            <div class="tip">
+                <h2>3. Provide Adequate Training and Supervision</h2>
+                <p>Ensure employees receive proper instruction and supervision to perform their tasks safely and
+                    competently.</p>
+            </div>
+            <div class="tip">
+                <h2>4. Maintain Safe Equipment and Facilities</h2>
+                <p>Regularly inspect and service all machinery and equipment, and ensure workplace facilities meet
+                    health and safety standards.</p>
+            </div>
+            <div class="tip">
+                <h2>5. Establish Clear Emergency Procedures</h2>
+                <p>Develop and communicate procedures for emergencies, ensuring all employees are familiar with them.
+                </p>
+            </div>
+
+            <!-- Employee Responsibilities -->
+            <div class="tip">
+                <h2>6. Use Provided Protective Equipment</h2>
+                <p>Always wear and correctly use any personal protective equipment supplied by your employer.</p>
+            </div>
+            <div class="tip">
+                <h2>7. Report Hazards and Incidents Promptly</h2>
+                <p>Inform your employer immediately about any unsafe conditions or practices observed in the workplace.
+                </p>
+            </div>
+            <div class="tip">
+                <h2>8. Adhere to Safety Policies and Procedures</h2>
+                <p>Follow all established safety guidelines and participate in required training sessions.</p>
+            </div>
+            <div class="tip">
+                <h2>9. Avoid Improper Conduct</h2>
+                <p>Refrain from engaging in behavior that could endanger yourself or others in the workplace.</p>
+            </div>
+            <div class="tip">
+                <h2>10. Maintain Personal Health and Safety</h2>
+                <p>Ensure you are fit for work and not under the influence of substances that could impair your ability
+                    to perform tasks safely.</p>
+            </div>
+        </section>
+    </main>
+
+
+    <!-- Footer -->
+    <footer>
+        <a href="https:/www.hsa.ie/eng/topics/managing_health_and_safety/safety,_health_and_welfare_at_work_act_2005/"
+            target="_blank">Reference: Duties of care - Safety Tips</a>
+        <img src="../img/HSA Logo 2.svg" alt="HSA Logo" class="footer-logo">
+    </footer>
+    <a class="previous-icon" onclick="history.back()">&#x21A9;</a>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tips = document.querySelectorAll('.tip');
+
+            window.addEventListener('scroll', () => {
+                tips.forEach(tip => {
+                    const rect = tip.getBoundingClientRect();
+                    if (rect.top <= window.innerHeight * 0.8 && rect.bottom >= 0) {
+                        tip.classList.add('active');
+                    } else {
+                        tip.classList.remove('active');
+                    }
+                });
+            });
+        });
+    </script>
+    # <a class="previous-icon" onclick="history.back()">&#x21A9;</a>
+</body>
+
+</html>

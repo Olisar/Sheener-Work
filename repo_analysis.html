@@ -1,0 +1,1059 @@
+<!-- File: sheener/repo_analysis.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Repository Analysis Dashboard</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .header h1 {
+            color: #2c3e50;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: #667eea;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header p {
+            color: #7f8c8d;
+            font-size: 1.1rem;
+        }
+
+        .upload-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .file-input-wrapper {
+            position: relative;
+            display: inline-block;
+            margin: 20px 0;
+        }
+
+        .file-input {
+            position: absolute;
+            left: -9999px;
+        }
+
+        .file-input-button {
+            display: inline-block;
+            padding: 15px 30px;
+            background: #667eea;
+            color: white;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .file-input-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 1.5rem;
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+
+        .metric-large {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #2c3e50;
+            margin: 10px 0;
+        }
+
+        .metric-small {
+            font-size: 1.1rem;
+            color: #7f8c8d;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #ecf0f1;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #667eea;
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 300px;
+            margin: 20px 0;
+        }
+
+        .list-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        .list-item:last-child {
+            border-bottom: none;
+        }
+
+        .badge {
+            background: #667eea;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .badge.warning {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+        }
+
+        .badge.danger {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+        }
+
+        .badge.success {
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+        }
+
+        .details-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .tab-container {
+            display: flex;
+            flex-wrap: wrap;
+            /* allow wrapping on smaller screens */
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .tab {
+            padding: 15px 30px;
+            /* increase size for better click area */
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            color: #7f8c8d;
+            background: white;
+            border: 1px solid #ecf0f1;
+        }
+
+        .tab:hover {
+            background: #f0f0f0;
+        }
+
+
+        .tab.active {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+
+            /* make it feel like it's lifted */
+        }
+
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeSlide 0.4s ease;
+            /* smoother */
+        }
+
+        @keyframes fadeSlide {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+
+        .hidden {
+            display: none !important;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #7f8c8d;
+        }
+
+        .spinner {
+            border: 4px solid #ecf0f1;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .no-data {
+            text-align: center;
+            padding: 40px;
+            color: #ffffff;
+            font-size: 1.2rem;
+        }
+
+        .optimization-item {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+
+        }
+
+        .optimization-title {
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .file-tree {
+            font-family: monospace;
+            background: #2363b0;
+            color: #ecf0f1;
+            padding: 20px;
+            border-radius: 10px;
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
+        .redundancy-group {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+
+        .redundancy-title {
+            color: #d68910;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .container {
+                padding: 10px;
+            }
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(44, 62, 80, 0.3);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: #fff;
+            border-radius: 18px;
+            padding: 40px 30px 30px 30px;
+            min-width: 320px;
+            max-width: 95vw;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .close {
+            position: absolute;
+            right: 22px;
+            top: 18px;
+            font-size: 2rem;
+            color: #7f8c8d;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: #e74c3c;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 Repository Analysis Dashboard</h1>
+            <p>Comprehensive code analysis and optimization insights</p>
+        </div>
+
+        <div class="upload-section">
+            <h2>Load Analysis Report</h2>
+            <p>Upload your analysis-report.json file generated by the repository analyzer</p>
+            <div class="file-input-wrapper">
+                <input type="file" id="reportFile" class="file-input" accept=".json">
+                <label for="reportFile" class="file-input-button">
+                    <i class="fas fa-folder"></i> Choose Report File
+                </label>
+            </div>
+        </div>
+
+        <div id="loadingIndicator" class="loading hidden">
+            <div class="spinner"></div>
+            <p>Processing your report...</p>
+        </div>
+
+        <div id="noDataMessage" class="no-data">
+            <h3><i class="fas fa-hand-wave"></i> Welcome!</h3>
+            <p>Upload your analysis report (analysis-report.json) to see detailed insights about your repository.</p>
+        </div>
+
+        <div id="dashboardContent" class="hidden">
+            <!-- Summary Dashboard -->
+            <div class="dashboard">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon"
+                            style="background: linear-gradient(135deg, #667eea, #764ba2); color: white;">
+                            <i class="fas fa-folder"></i>
+                        </div>
+                        <div class="card-title">Total Files</div>
+                    </div>
+                    <div class="metric-large" id="totalFiles">-</div>
+                    <div class="metric-small">Repository files analyzed</div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon"
+                            style="background: linear-gradient(135deg, #2ecc71, #27ae60); color: white;">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <div class="card-title">Total Size</div>
+                    </div>
+                    <div class="metric-large" id="totalSize">-</div>
+                    <div class="metric-small">Megabytes of code</div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon"
+                            style="background: linear-gradient(135deg, #f39c12, #e67e22); color: white;">
+                            <i class="fas fa-box"></i>
+                        </div>
+                        <div class="card-title">Dependencies</div>
+                    </div>
+                    <div class="metric-large" id="dependencies">-</div>
+                    <div class="metric-small">External packages</div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon"
+                            style="background: linear-gradient(135deg, #e74c3c, #c0392b); color: white;">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div class="card-title">Issues Found</div>
+                    </div>
+                    <div class="metric-large" id="issuesFound">-</div>
+                    <div class="metric-small">Optimization opportunities</div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon"
+                            style="background: linear-gradient(135deg, #9b59b6, #8e44ad); color: white;">
+                            <i class="fas fa-palette"></i>
+                        </div>
+                        <div class="card-title">Style Files</div>
+                    </div>
+                    <div class="metric-large" id="styleFiles">-</div>
+                    <div class="metric-small">CSS/SCSS/LESS files</div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon"
+                            style="background: linear-gradient(135deg, #1abc9c, #16a085); color: white;">
+                            <i class="fas fa-link"></i>
+                        </div>
+                        <div class="card-title">DB Connections</div>
+                    </div>
+                    <div class="metric-large" id="dbConnections">-</div>
+                    <div class="metric-small">Database integrations</div>
+                </div>
+            </div>
+
+            <!-- File Types Chart -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon" style="background: #667eea; color: white;">
+                        <i class="fas fa-chart-pie"></i>
+                    </div>
+                    <div class="card-title">File Type Distribution</div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="fileTypesChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Detailed Analysis -->
+            <div class="details-section">
+                <nav class="tab-container" role="tablist">
+                    <button class="tab active" role="tab" aria-selected="true" aria-controls="redundancies"
+                        id="tab-redundancies" tabindex="0" onclick="showTab('redundancies', this)"><i
+                            class="fas fa-search"></i>
+                        Redundancies</button>
+                    <button class="tab" role="tab" aria-selected="false" aria-controls="optimizations"
+                        id="tab-optimizations" tabindex="0" onclick="showTab('optimizations', this)"><i
+                            class="fas fa-bolt"></i>
+                        Optimizations</button>
+                    <button class="tab" role="tab" aria-selected="false" aria-controls="dependencies"
+                        id="tab-dependencies" tabindex="0" onclick="showTab('dependencies', this)"><i
+                            class="fas fa-box"></i>
+                        Dependencies</button>
+                    <button class="tab" role="tab" aria-selected="false" aria-controls="styles" id="tab-styles"
+                        tabindex="0" onclick="showTab('styles', this)"><i class="fas fa-palette"></i> Styles</button>
+                    <button class="tab" role="tab" aria-selected="false" aria-controls="backend" id="tab-backend"
+                        tabindex="0" onclick="showTab('backend', this)"><i class="fas fa-wrench"></i> Backend</button>
+                </nav>
+
+                <section id="redundancies" class="tab-content active" role="tabpanel"
+                    aria-labelledby="tab-redundancies">
+                    <h3>Redundancies Found</h3>
+                    <div id="redundanciesList"></div>
+                </section>
+
+                <section id="optimizations" class="tab-content" role="tabpanel" aria-labelledby="tab-optimizations">
+                    <h3>Optimization Suggestions</h3>
+                    <div id="optimizationsList"></div>
+                </section>
+
+                <section id="dependencies" class="tab-content" role="tabpanel" aria-labelledby="tab-dependencies">
+                    <h3>Dependency Analysis</h3>
+                    <div id="dependenciesContent"></div>
+                </section>
+
+                <section id="styles" class="tab-content" role="tabpanel" aria-labelledby="tab-styles">
+                    <h3>Style Analysis</h3>
+                    <div id="stylesContent"></div>
+                </section>
+
+                <section id="backend" class="tab-content" role="tabpanel" aria-labelledby="tab-backend">
+                    <h3>Backend Connections</h3>
+                    <div id="backendContent"></div>
+                </section>
+            </div>
+
+            <!-- Move the modal outside of .details-section for clarity and global access -->
+            <div id="detailModal" class="modal hidden" aria-modal="true" role="dialog">
+                <div class="modal-content">
+                    <span class="close" onclick="closeModal()" aria-label="Close">&times;</span>
+                    <div id="modalBody"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let analysisData = null;
+        let fileTypesChart = null;
+
+        // File upload handler
+        document.getElementById('reportFile').addEventListener('change', handleFileUpload);
+
+        function handleFileUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            if (file.type !== 'application/json') {
+                alert('Please upload a JSON file');
+                return;
+            }
+
+            showLoading();
+
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                try {
+                    analysisData = JSON.parse(e.target.result);
+                    processAnalysisData();
+                    hideLoading();
+                    showDashboard();
+                } catch (error) {
+                    alert('Error parsing JSON file: ' + error.message);
+                    hideLoading();
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        function showLoading() {
+            document.getElementById('loadingIndicator').classList.remove('hidden');
+
+        }
+
+        function hideLoading() {
+            document.getElementById('loadingIndicator').classList.add('hidden');
+        }
+
+
+
+        function processAnalysisData() {
+            // Update summary metrics
+            document.getElementById('totalFiles').textContent = analysisData.summary.totalFiles.toLocaleString();
+            document.getElementById('totalSize').textContent = (analysisData.summary.totalSize / 1024 / 1024).toFixed(
+                2) + ' MB';
+            document.getElementById('dependencies').textContent = analysisData.summary.dependencies.toLocaleString();
+            document.getElementById('issuesFound').textContent = (analysisData.summary.redundancies + analysisData
+                .summary.optimizations).toLocaleString();
+            document.getElementById('styleFiles').textContent = analysisData.summary.styleFiles.toLocaleString();
+            document.getElementById('dbConnections').textContent = analysisData.summary.dbConnections.toLocaleString();
+
+            // Create file types chart
+            createFileTypesChart();
+
+            // Populate detailed sections
+            populateRedundancies();
+            populateOptimizations();
+            populateDependencies();
+            populateStyles();
+            populateBackend();
+
+            // ✅ This must always be called here
+            showDashboard();
+        }
+
+
+        function createFileTypesChart() {
+            const ctx = document.getElementById('fileTypesChart').getContext('2d');
+
+            if (fileTypesChart) {
+                fileTypesChart.destroy();
+            }
+
+            const fileTypes = analysisData.summary.fileTypes;
+            const labels = Object.keys(fileTypes);
+            const data = Object.values(fileTypes);
+
+            const colors = [
+                'rgba(102, 126, 234, 0.8)',
+                'rgba(118, 75, 162, 0.8)',
+                'rgba(46, 204, 113, 0.8)',
+                'rgba(243, 156, 18, 0.8)',
+                'rgba(231, 76, 60, 0.8)',
+                'rgba(155, 89, 182, 0.8)',
+                'rgba(26, 188, 156, 0.8)',
+                'rgba(52, 152, 219, 0.8)'
+            ];
+
+            fileTypesChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: data,
+                        backgroundColor: colors,
+                        borderWidth: 0,
+                        hoverOffset: 10
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 20,
+                                usePointStyle: true,
+                                font: {
+                                    size: 12
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function populateRedundancies() {
+            const container = document.getElementById('redundanciesList');
+            const redundancies = analysisData.details.redundancies;
+
+            if (redundancies.length === 0) {
+                container.innerHTML =
+                    '<div class="no-data">🎉 No redundancies found! Your code is well organized.</div>';
+                return;
+            }
+
+            container.innerHTML = redundancies.map(redundancy => {
+                switch (redundancy.type) {
+                    case 'duplicate_files':
+                        return `
+                            <div class="redundancy-group">
+                                <div class="redundancy-title">📁 Duplicate Files: ${redundancy.name}</div>
+                                <ul>
+                                    ${redundancy.paths.map(path => `<li><code>${path}</code></li>`).join('')}
+                                </ul>
+                            </div>
+                        `;
+                    case 'unused_dependencies':
+                        return `
+                            <div class="redundancy-group">
+                                <div class="redundancy-title">📦 Unused Dependencies</div>
+                                <div class="file-tree">${redundancy.dependencies.join('\n')}</div>
+                            </div>
+                        `;
+                    case 'duplicate_css':
+                        return `
+                            <div class="redundancy-group">
+                                <div class="redundancy-title">🎨 Duplicate CSS Selectors</div>
+                                ${redundancy.duplicates.map(dup => `
+                                    <div style="margin: 10px 0;">
+                                        <strong>${dup.selector}</strong>
+                                        <div style="margin-left: 20px;">
+                                            ${dup.files.map(file => `<div><code>${file}</code></div>`).join('')}
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        `;
+                    default:
+                        return `
+                            <div class="redundancy-group">
+                                <div class="redundancy-title">${redundancy.type}</div>
+                                <pre>${JSON.stringify(redundancy, null, 2)}</pre>
+                            </div>
+                        `;
+                }
+            }).join('');
+        }
+
+        function populateOptimizations() {
+            const container = document.getElementById('optimizationsList');
+            const optimizations = analysisData.details.optimization;
+
+            if (optimizations.length === 0) {
+                container.innerHTML =
+                    '<div class="no-data">✨ No immediate optimizations needed! Your code is efficient.</div>';
+                return;
+            }
+
+            container.innerHTML = optimizations.map(opt => `
+                <div class="optimization-item">
+                    <div class="optimization-title">⚡ ${opt.type.replace(/_/g, ' ').toUpperCase()}</div>
+                    <p>${opt.description}</p>
+                    ${opt.files ? `
+                        <details style="margin-top: 10px;">
+                            <summary>Affected Files (${opt.files.length})</summary>
+                            <ul style="margin-top: 10px;">
+                                ${opt.files.map(file => `
+                                    <li><code>${file.path}</code> - ${(file.size / 1024).toFixed(1)} KB</li>
+                                `).join('')}
+                            </ul>
+                        </details>
+                    ` : ''}
+                    ${opt.dependencies ? `
+                        <div class="file-tree" style="margin-top: 10px;">${opt.dependencies.join('\n')}</div>
+                    ` : ''}
+                    ${opt.count ? `<div><strong>Count:</strong> ${opt.count}</div>` : ''}
+                    ${opt.connections ? `<div><strong>Connections:</strong> ${opt.connections}</div>` : ''}
+                </div>
+            `).join('');
+        }
+
+        function populateDependencies() {
+            const container = document.getElementById('dependenciesContent');
+            const deps = analysisData.details.dependencies;
+
+            container.innerHTML = `
+                <div class="card" style="margin-bottom: 20px;">
+                    <h4>📦 Frontend Dependencies</h4>
+                    <div class="metric-large">${deps.frontend.size}</div>
+                    <div class="file-tree">${Array.from(deps.frontend).join('\n')}</div>
+                </div>
+                
+                <div class="card" style="margin-bottom: 20px;">
+                    <h4>⚠️ Unused Dependencies</h4>
+                    <div class="metric-large">${deps.unused.size}</div>
+                    ${deps.unused.size > 0 ?
+                    `<div class="file-tree">${Array.from(deps.unused).join('\n')}</div>` :
+                    '<div class="no-data">All dependencies are being used! 🎉</div>'
+                }
+                </div>
+            `;
+        }
+
+        function populateStyles() {
+            const container = document.getElementById('stylesContent');
+            const styles = analysisData.details.styles;
+
+            container.innerHTML = `
+                <div class="dashboard" style="margin-bottom: 20px;">
+                    <div class="card">
+                        <h4>📄 Style Files</h4>
+                        <div class="metric-large">${styles.files.length}</div>
+                    </div>
+                    <div class="card">
+                        <h4>🔄 Duplicate Selectors</h4>
+                        <div class="metric-large">${styles.duplicates.length}</div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h4>📊 Style Files Breakdown</h4>
+                    ${styles.files.map(file => `
+                        <div class="list-item">
+                            <div>
+                                <strong>${file.path}</strong>
+                                <div style="font-size: 0.9rem; color: #7f8c8d;">
+                                    ${file.selectors} selectors • ${file.rules} rules
+                                </div>
+                            </div>
+                            <span class="badge">${(file.size / 1024).toFixed(1)} KB</span>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        function populateBackend() {
+            const container = document.getElementById('backendContent');
+            const backend = analysisData.details.dbConnections;
+
+            if (backend.length === 0) {
+                container.innerHTML =
+                    '<div class="no-data">🔍 No database connections detected in the analyzed files.</div>';
+                return;
+            }
+
+            container.innerHTML = backend.map(conn => `
+                <div class="card" style="margin-bottom: 20px;">
+                    <h4>🔗 ${conn.file}</h4>
+                    
+                    ${conn.connections.length > 0 ? `
+                        <div style="margin: 15px 0;">
+                            <strong>Database Connections (${conn.connections.length}):</strong>
+                            ${conn.connections.map(c => `
+                                <div class="file-tree" style="margin: 10px 0;">${c.code}</div>
+                            `).join('')}
+                        </div>
+                    ` : ''}
+                    
+                    ${conn.apiCalls.length > 0 ? `
+                        <div style="margin: 15px 0;">
+                            <strong>API Calls (${conn.apiCalls.length}):</strong>
+                            ${conn.apiCalls.map(api => `
+                                <div class="list-item">
+                                    <div>
+                                        <strong>${api.method.toUpperCase()}</strong>
+                                        <div style="font-size: 0.9rem; color: #7f8c8d;">${api.url}</div>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    ` : ''}
+                </div>
+            `).join('');
+        }
+
+        function showTab(tabName) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Remove active class from all tabs
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Show selected tab content
+            document.getElementById(tabName).classList.add('active');
+
+            // Add active class to clicked tab
+            event.target.classList.add('active');
+        }
+
+        function showDashboard() {
+            document.getElementById('dashboardContent').classList.remove('hidden');
+            document.getElementById('noDataMessage').classList.add('hidden');
+            setTimeout(addCardClickHandlers, 0); // Ensure DOM is updated
+        }
+
+        function addCardClickHandlers() {
+            const cardDetails = [{
+                id: 'totalFiles',
+                title: 'Total Files',
+                detail: () => `
+                <h2>📁 Total Files</h2>
+                <p>Your repository contains <strong>${analysisData.summary.totalFiles.toLocaleString()}</strong> files.</p>
+                <div class="file-tree" style="max-height:250px;overflow:auto;">
+                    ${analysisData.details.fileList ? analysisData.details.fileList.map(f => `<div>${escapeHtml(f)}</div>`).join('') : '<em>File list not available.</em>'}
+                </div>
+            `
+            },
+            {
+                id: 'totalSize',
+                title: 'Total Size',
+                detail: () => `
+                <h2>💾 Total Size</h2>
+                <p>Total codebase size: <strong>${(analysisData.summary.totalSize / 1024 / 1024).toFixed(2)} MB</strong></p>
+                <ul>
+                    ${Object.entries(analysisData.summary.fileTypes).map(([type, count]) => `<li><strong>${type}:</strong> ${count}</li>`).join('')}
+                </ul>
+            `
+            },
+            {
+                id: 'dependencies',
+                title: 'Dependencies',
+                detail: () => `
+                <h2>📦 Dependencies</h2>
+                <p>Total dependencies: <strong>${analysisData.summary.dependencies}</strong></p>
+                <div class="file-tree">
+                    ${analysisData.details.dependencies && analysisData.details.dependencies.frontend
+                        ? Array.from(analysisData.details.dependencies.frontend).join('<br>')
+                        : '<em>No dependency details available.</em>'}
+                </div>
+            `
+            },
+            {
+                id: 'issuesFound',
+                title: 'Issues Found',
+                detail: () => `
+                <h2>⚠️ Issues Found</h2>
+                <p>Redundancies: <strong>${analysisData.summary.redundancies}</strong></p>
+                <p>Optimization Opportunities: <strong>${analysisData.summary.optimizations}</strong></p>
+                <div>
+                    <h4>Redundancy Details</h4>
+                    ${analysisData.details.redundancies.length === 0
+                        ? '<div class="no-data">No redundancies found!</div>'
+                        : analysisData.details.redundancies.map(r => `<pre>${escapeHtml(JSON.stringify(r, null, 2))}</pre>`).join('')}
+                </div>
+                <div>
+                    <h4>Optimization Suggestions</h4>
+                    ${analysisData.details.optimization.length === 0
+                        ? '<div class="no-data">No optimizations suggested!</div>'
+                        : analysisData.details.optimization.map(o => `<pre>${escapeHtml(JSON.stringify(o, null, 2))}</pre>`).join('')}
+                </div>
+            `
+            },
+            {
+                id: 'styleFiles',
+                title: 'Style Files',
+                detail: () => `
+                <h2>🎨 Style Files</h2>
+                <p>Total style files: <strong>${analysisData.summary.styleFiles}</strong></p>
+                <div class="file-tree">
+                    ${analysisData.details.styles.files.map(f => `${escapeHtml(f.path)} (${f.selectors} selectors, ${f.rules} rules)`).join('<br>')}
+                </div>
+                <h4>Duplicate Selectors</h4>
+                ${analysisData.details.styles.duplicates.length === 0
+                        ? '<div class="no-data">No duplicate selectors!</div>'
+                        : analysisData.details.styles.duplicates.map(d => `<div>${escapeHtml(d.selector)}: ${d.files.map(f => `<code>${escapeHtml(f)}</code>`).join(', ')}</div>`).join('')}
+            `
+            },
+            {
+                id: 'dbConnections',
+                title: 'DB Connections',
+                detail: () => `
+                <h2>🔗 Database Connections</h2>
+                <p>Total DB connections: <strong>${analysisData.summary.dbConnections}</strong></p>
+                ${analysisData.details.dbConnections.length === 0
+                        ? '<div class="no-data">No DB connections found.</div>'
+                        : analysisData.details.dbConnections.map(conn => `
+                        <div>
+                            <h4>${escapeHtml(conn.file)}</h4>
+                            <div>
+                                ${conn.connections.map(c => `<div class="file-tree">${escapeHtml(c.code)}</div>`).join('')}
+                            </div>
+                        </div>
+                    `).join('')}
+            `
+            }
+            ];
+
+            // Attach click event to each card
+            cardDetails.forEach(card => {
+                const el = document.getElementById(card.id);
+                if (el) {
+                    el.parentElement.style.cursor = 'pointer';
+                    el.parentElement.onclick = () => showModal(card.title, card.detail());
+                }
+            });
+        }
+
+        // Modal logic
+        function showModal(title, html) {
+            document.getElementById('modalBody').innerHTML = `<h2 style="margin-bottom:20px;">${title}</h2>` + html;
+            document.getElementById('detailModal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('detailModal').classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+        // Close modal on background click or ESC key
+        document.getElementById('detailModal').addEventListener('click', function (e) {
+            if (e.target === this) closeModal();
+        });
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') closeModal();
+        });
+
+        // Escape HTML utility for safe rendering
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str.replace(/[&<>"']/g, function (m) {
+                return ({
+                    '&': '&amp;',
+                    '<': '&lt;',
+                    '>': '&gt;',
+                    '"': '&quot;',
+                    "'": '&#39;'
+                })[m];
+            });
+        }
+
+
+        function closeModal() {
+            document.getElementById('detailModal').classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        document.getElementById('detailModal').addEventListener('click', function (e) {
+            if (e.target === this) closeModal();
+        });
+
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') closeModal();
+        });
+    </script>
+</body>
+
+</html>

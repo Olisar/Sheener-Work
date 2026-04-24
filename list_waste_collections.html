@@ -1,0 +1,52 @@
+<!-- File: sheener/list_waste_collections.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Waste Collections List</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/ui-standard.css">
+  <link rel="stylesheet" href="css/ai-navigator.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="shortcut icon" href="img/favicon/faviconAY.ico">
+  <script src="js/navbar.js" defer></script>
+  <script src="js/topbar.js" defer></script>
+  <script src="js/ai-navigator.js" defer></script>
+  <script src="js/list_waste_collections.js"></script>
+</head>
+
+<body>
+  <div id="topbar"></div>
+  <div id="navbar"></div>
+
+  <!-- AI Navigator Sidebar -->
+  <div id="ai-navigator-container" data-role="User" data-user-id="" data-user-name="">
+  </div>
+
+  <main class="planner-main-horizontal">
+    <h1><i class="fas fa-recycle"></i> Waste Collections</h1>
+    <table border="1" id="wasteCollectionsTable">
+      <thead>
+        <tr>
+          <th>Record ID</th>
+          <th>Waste Category ID</th>
+          <th>Waste Sub Category ID</th>
+          <th>Amount</th>
+          <th>Unit</th>
+          <th>Disposal Date</th>
+          <th>Comments</th>
+          <th class="actions-cell">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Data will be dynamically inserted here -->
+      </tbody>
+    </table>
+    <br>
+    <a href="create_waste_collection.html">Create New Waste Collection</a>
+  </main>
+</body>
+
+</html>

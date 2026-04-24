@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- sheener/process_map_diagram.html -->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Process Map - Process Management System</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/process_map.css">
+    <link rel="stylesheet" href="css/ui-standard.css">
+    <link rel="stylesheet" href="css/ai-navigator.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="shortcut icon" href="img/favicon/faviconAY.ico">
+    <script src="js/navbar.js" defer></script>
+    <script src="js/topbar.js" defer></script>
+    <script src="js/ai-navigator.js" defer></script>
+</head>
+
+<body>
+    <div id="navbar"></div>
+    <div id="topbar"></div>
+
+    <!-- AI Navigator Sidebar -->
+    <div id="ai-navigator-container" data-role="User" data-user-id="" data-user-name="">
+    </div>
+
+    <main class="process-map-container">
+        <header class="page-header">
+            <h1><i class="fas fa-sitemap"></i> Process Map</h1>
+            <div class="header-actions">
+                <div class="branch-selector-wrapper">
+                    <label for="branchSelector" class="branch-label"><i class="fas fa-code-branch"></i> Branch:</label>
+                    <div class="view-switcher">
+                        <button class="btn-view active" data-view="tree"><i class="fas fa-project-diagram"></i> Tree</button>
+                        <button class="btn-view" data-view="orgchart"><i class="fas fa-sitemap"></i> Org Chart</button>
+                        <button class="btn-view" data-view="flow"><i class="fas fa-stream"></i> Flow</button>
+                    </div>
+                    <div class="branch-selector-container">
+                        <input type="text" id="branchSelector" class="branch-selector"
+                            placeholder="Type to search branches..." title="Filter by Branch" autocomplete="off">
+                        <div id="branchDropdown" class="branch-dropdown"></div>
+                        <input type="hidden" id="branchSelectorValue" value="">
+                    </div>
+                </div>
+                <button class="btn-add" id="btnAddProcess"><i class="fas fa-plus"></i> New Process</button>
+            </div>
+        </header>
+
+
+
+        <div class="bottom-toolbar">
+            <input type="search" id="processSearch" placeholder="Search processes..." class="search-input"
+                style="flex:1; max-width: 400px; margin: 0;">
+            <div class="zoom-controls">
+                <button class="btn-zoom" id="zoomIn" title="Zoom In"><i class="fas fa-search-plus"></i> Zoom</button>
+                <button class="btn-zoom" id="zoomOut" title="Zoom Out"><i class="fas fa-search-minus"></i></button>
+                <button class="btn-zoom" id="zoomReset" title="Reset Zoom"><i class="fas fa-compress"></i></button>
+                <button class="btn-zoom" id="fitToScreen" title="Fit to Screen"><i
+                        class="fas fa-expand-arrows-alt"></i></button>
+                <div class="zoom-level" id="zoomLevel">100%</div>
+            </div>
+            <div class="nav-history-controls">
+                <div class="nav-buttons">
+                    <button class="btn-nav" id="btnNavBack" title="Navigate Back (Ctrl+Backspace)" disabled>
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <button class="btn-nav" id="btnNavForward" title="Navigate Forward" disabled>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+                <span class="nav-hint">Use arrow keys to navigate</span>
+            </div>
+            <div class="collapse-controls">
+                <button class="btn-collapse" id="btnCollapseAll" title="Collapse All"><i
+                        class="fas fa-compress-alt"></i> Collapse All</button>
+                <button class="btn-collapse" id="btnExpandAll" title="Expand All"><i class="fas fa-expand-alt"></i>
+                    Expand All</button>
+                <label class="auto-collapse-toggle">
+                    <input type="checkbox" id="autoCollapseCheckbox" checked>
+                    <span>Auto-collapse</span>
+                </label>
+            </div>
+        </div>
+
+        <!-- Breadcrumb Navigation -->
+        <nav class="breadcrumb-nav" id="breadcrumbNav">
+            <ol class="breadcrumb-list">
+                <li class="breadcrumb-item">
+                    <a href="#" onclick="processMap.navigateToBreadcrumb(null); return false;">
+                        <i class="fas fa-home"></i> All Processes
+                    </a>
+                </li>
+            </ol>
+        </nav>
+        <div id="processMapDiagram" class="process-diagram">
+            <div class="loading-spinner">
+                <i class="fas fa-spinner fa-spin"></i> Loading process map...
+            </div>
+
+        </div>
+
+        <aside class="process-sidebar" id="processSidebar">
+            <div class="sidebar-header">
+                <h3>Process Details</h3>
+                <div class="header-icons">
+                    <img src="img/close.svg" alt="Close Icon" id="closeSidebar" class="edit-icon">
+                </div>
+            </div>
+            <div class="sidebar-content" id="sidebarContent">
+                <p class="sidebar-placeholder">Select a process node to view details</p>
+            </div>
+        </aside>
+    </main>
+
+    <!-- Context Menu -->
+    <div id="contextMenu" class="context-menu">
+        <ul class="context-menu-list">
+            <li class="context-menu-item" data-action="view">
+                <i class="fas fa-eye"></i> View Details
+            </li>
+            <li class="context-menu-item" data-action="edit">
+                <i class="fas fa-edit"></i> Edit
+            </li>
+            <li class="context-menu-item" data-action="add-child">
+                <i class="fas fa-plus-circle"></i> Add Child
+            </li>
+            <li class="context-menu-item" data-action="duplicate">
+                <i class="fas fa-copy"></i> Duplicate
+            </li>
+            <li class="context-menu-divider"></li>
+            <li class="context-menu-item" data-action="link-7ps">
+                <i class="fas fa-link"></i> Link 7Ps Elements
+            </li>
+            <li class="context-menu-item" data-action="bulk-assign">
+                <i class="fas fa-users"></i> Bulk Assign Resources
+            </li>
+            <li class="context-menu-divider"></li>
+            <li class="context-menu-item" data-action="expand">
+                <i class="fas fa-expand-alt"></i> Expand Branch
+            </li>
+            <li class="context-menu-item" data-action="collapse">
+                <i class="fas fa-compress-alt"></i> Collapse Branch
+            </li>
+            <li class="context-menu-divider"></li>
+            <li class="context-menu-item context-menu-danger" data-action="delete">
+                <i class="fas fa-trash"></i> Delete
+            </li>
+        </ul>
+    </div>
+
+    <!-- Bulk Assignment Modal -->
+    <div id="bulkAssignmentModal" class="modal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h3>Bulk Assign Resources</h3>
+                <div class="header-icons">
+                    <img src="img/close.svg" alt="Close Icon" onclick="closeModal('bulkAssignmentModal')" class="edit-icon">
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Select Resources to Assign</label>
+                    <div class="resource-selection">
+                        <div class="resource-tabs">
+                            <button class="resource-tab active" data-resource="people">People</button>
+                            <button class="resource-tab" data-resource="equipment">Equipment</button>
+                            <button class="resource-tab" data-resource="areas">Areas</button>
+                            <button class="resource-tab" data-resource="materials">Materials</button>
+                            <button class="resource-tab" data-resource="energy">Energy</button>
+                        </div>
+                        <div class="resource-list" id="resourceList">
+                            <!-- Resources will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Target Process Nodes</label>
+                    <div class="selected-nodes" id="selectedNodes">
+                        <p class="text-muted">No nodes selected. Select nodes from the diagram to assign resources.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closeModal('bulkAssignmentModal')">Cancel</button>
+                <button class="btn-primary" onclick="processMap.applyBulkAssignment()">Apply Assignment</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filter Modal -->
+    <div id="filterModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Filter Processes</h3>
+                <div class="header-icons">
+                    <img src="img/close.svg" alt="Close Icon" onclick="closeModal('filterModal')" class="edit-icon">
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="filterType">Type</label>
+                    <select id="filterType" multiple>
+                        <option value="process">Process</option>
+                        <option value="step">Step</option>
+                        <option value="substep">Substep</option>
+                        <option value="task">Task</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="filterStatus">Status</label>
+                    <select id="filterStatus" multiple>
+                        <option value="active">Active</option>
+                        <option value="inactive">Inactive</option>
+                        <option value="pending">Pending Review</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closeModal('filterModal')">Cancel</button>
+                <button class="btn-primary" onclick="applyFilters()">Apply</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/process_map.js"></script>
+</body>
+
+</html>

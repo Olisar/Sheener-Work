@@ -1,0 +1,186 @@
+<!-- File: sheener/process_detail.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Process Detail - Process Management System</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/process_detail.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="shortcut icon" href="img/favicon/faviconAY.ico">
+    <script src="js/navbar.js" defer></script>
+    <script src="js/topbar.js" defer></script>
+</head>
+
+<body>
+    <div id="navbar"></div>
+    <div id="topbar"></div>
+
+    <main class="process-detail-container">
+        <header class="page-header">
+            <div class="header-left">
+                <button class="btn-back" onclick="window.history.back()"><i class="fas fa-arrow-left"></i> Back</button>
+                <h1 id="processTitle"><i class="fas fa-cogs"></i> Process Detail</h1>
+            </div>
+            <div class="header-actions">
+                <button class="btn-action" id="btnEdit"><i class="fas fa-edit"></i> Edit</button>
+                <button class="btn-action" id="btnExport"><i class="fas fa-download"></i> Export</button>
+                <button class="btn-action" id="btnShare"><i class="fas fa-share"></i> Share</button>
+            </div>
+        </header>
+
+        <div class="process-info-bar">
+            <div class="info-item">
+                <span class="info-label">Status:</span>
+                <span class="badge" id="processStatus">Active</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Version:</span>
+                <span id="processVersion">1.0</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Owner:</span>
+                <span id="processOwner">N/A</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Last Updated:</span>
+                <span id="processUpdated">N/A</span>
+            </div>
+        </div>
+
+        <div class="tabs-container">
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="overview"><i class="fas fa-info-circle"></i> Overview</button>
+                <button class="tab-btn" data-tab="steps"><i class="fas fa-list-ol"></i> Steps</button>
+                <button class="tab-btn" data-tab="7ps"><i class="fas fa-users"></i> 7Ps</button>
+                <button class="tab-btn" data-tab="tasks"><i class="fas fa-tasks"></i> Tasks</button>
+                <button class="tab-btn" data-tab="events"><i class="fas fa-calendar-alt"></i> Events</button>
+            </div>
+
+            <div class="tab-content active" id="tab-overview">
+                <div class="content-section">
+                    <h2>Description</h2>
+                    <p id="processDescription">Loading...</p>
+                </div>
+
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-icon"><i class="fas fa-check-circle"></i></div>
+                        <div class="metric-value" id="completionRate">0%</div>
+                        <div class="metric-label">Completion Rate</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-icon"><i class="fas fa-shield-alt"></i></div>
+                        <div class="metric-value" id="complianceScore">0%</div>
+                        <div class="metric-label">Compliance Score</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-icon"><i class="fas fa-tasks"></i></div>
+                        <div class="metric-value" id="totalTasks">0</div>
+                        <div class="metric-label">Total Tasks</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                        <div class="metric-value" id="openIssues">0</div>
+                        <div class="metric-label">Open Issues</div>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h2>Recent Activity</h2>
+                    <div id="activityTimeline" class="activity-timeline">
+                        <div class="loading-spinner"><i class="fas fa-spinner fa-spin"></i> Loading activities...</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="tab-steps">
+                <div class="steps-header">
+                    <h2>Process Steps</h2>
+                    <button class="btn-add" id="btnAddStep"><i class="fas fa-plus"></i> Add Step</button>
+                </div>
+                <div id="stepsList" class="steps-list">
+                    <div class="loading-spinner"><i class="fas fa-spinner fa-spin"></i> Loading steps...</div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="tab-7ps">
+                <div class="seven-ps-container">
+                    <div class="7p-section" data-7p="people">
+                        <div class="7p-header">
+                            <h3><i class="fas fa-user"></i> People</h3>
+                            <button class="btn-link" onclick="open7PLinkModal('people')">Link People</button>
+                        </div>
+                        <div id="7p-people" class="7p-items"></div>
+                    </div>
+
+                    <div class="7p-section" data-7p="plant">
+                        <div class="7p-header">
+                            <h3><i class="fas fa-industry"></i> Plant (Equipment)</h3>
+                            <button class="btn-link" onclick="open7PLinkModal('equipment')">Link Equipment</button>
+                        </div>
+                        <div id="7p-equipment" class="7p-items"></div>
+                    </div>
+
+                    <div class="7p-section" data-7p="place">
+                        <div class="7p-header">
+                            <h3><i class="fas fa-map-marker-alt"></i> Place (Areas)</h3>
+                            <button class="btn-link" onclick="open7PLinkModal('areas')">Link Areas</button>
+                        </div>
+                        <div id="7p-areas" class="7p-items"></div>
+                    </div>
+
+                    <div class="7p-section" data-7p="product">
+                        <div class="7p-header">
+                            <h3><i class="fas fa-box"></i> Product (Materials)</h3>
+                            <button class="btn-link" onclick="open7PLinkModal('materials')">Link Materials</button>
+                        </div>
+                        <div id="7p-materials" class="7p-items"></div>
+                    </div>
+
+                    <div class="7p-section" data-7p="energy">
+                        <div class="7p-header">
+                            <h3><i class="fas fa-bolt"></i> Energy</h3>
+                            <button class="btn-link" onclick="open7PLinkModal('energy')">Link Energy</button>
+                        </div>
+                        <div id="7p-energy" class="7p-items"></div>
+                    </div>
+
+                    <div class="7p-section" data-7p="purpose">
+                        <div class="7p-header">
+                            <h3><i class="fas fa-file-alt"></i> Purpose (Documents/SOPs)</h3>
+                            <button class="btn-link" onclick="open7PLinkModal('documents')">Link Documents</button>
+                        </div>
+                        <div id="7p-documents" class="7p-items"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="tab-tasks">
+                <div class="tasks-header">
+                    <h2>Tasks</h2>
+                    <button class="btn-add" id="btnAddTask"><i class="fas fa-plus"></i> New Task</button>
+                </div>
+                <div id="tasksList" class="tasks-list">
+                    <div class="loading-spinner"><i class="fas fa-spinner fa-spin"></i> Loading tasks...</div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="tab-events">
+                <div class="events-header">
+                    <h2>Events & Incidents</h2>
+                    <button class="btn-add" id="btnAddEvent"><i class="fas fa-plus"></i> Record Event</button>
+                </div>
+                <div id="eventsList" class="events-list">
+                    <div class="loading-spinner"><i class="fas fa-spinner fa-spin"></i> Loading events...</div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/process_detail.js"></script>
+</body>
+
+</html>

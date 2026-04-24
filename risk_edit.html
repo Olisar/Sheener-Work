@@ -1,0 +1,371 @@
+<!-- File: sheener/risk_edit.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Risk - Risk Management Center</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="img/favicon/faviconAY.ico">
+    <script src="js/navbar.js" defer></script>
+    <script src="js/topbar.js" defer></script>
+    <style>
+        :root {
+            --rmc-primary: #0A2F64;
+            --rmc-secondary: #2f5d9e;
+        }
+
+        .risk-edit-container {
+            margin-left: 50px;
+            margin-top: 72px;
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: calc(100vh - 72px);
+        }
+
+        .risk-form {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .form-header {
+            background: linear-gradient(135deg, var(--rmc-primary) 0%, var(--rmc-secondary) 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: var(--rmc-primary);
+            margin-bottom: 8px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--rmc-secondary);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: var(--rmc-primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--rmc-secondary);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+
+        .btn-back {
+            background: var(--rmc-secondary);
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="navbar"></div>
+    <div id="topbar"></div>
+
+    <main class="risk-edit-container">
+        <a href="RMC.html" class="btn btn-back">
+            <i class="fas fa-arrow-left"></i> Back to Risk Register
+        </a>
+
+        <div id="riskEditContent">
+            <div class="loading">
+                <i class="fas fa-spinner fa-spin fa-2x"></i>
+                <p>Loading risk data...</p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const riskId = urlParams.get('id');
+
+        let categories = [];
+        let riskData = null;
+
+        if (!riskId) {
+            document.getElementById('riskEditContent').innerHTML = `
+                <div class="risk-form">
+                    <h2>Error</h2>
+                    <p>No risk ID provided. <a href="RMC.html">Return to Risk Register</a></p>
+                </div>
+            `;
+        } else {
+            init();
+        }
+
+        async function init() {
+            await loadCategories();
+            await loadRiskDetail(riskId);
+        }
+
+        async function loadCategories() {
+            try {
+                const response = await fetch('php/api_risk_register.php?action=list_categories');
+                const data = await response.json();
+                if (data.success) {
+                    categories = data.data;
+                }
+            } catch (error) {
+                console.error('Error loading categories:', error);
+            }
+        }
+
+        async function loadRiskDetail(id) {
+            try {
+                const response = await fetch(`php/api_risk_register.php?action=get_risk&id=${id}&_t=${Date.now()}`);
+                const data = await response.json();
+
+                if (data.success) {
+                    riskData = data.data;
+                    renderEditForm(data.data);
+                } else {
+                    document.getElementById('riskEditContent').innerHTML = `
+                        <div class="risk-form">
+                            <h2>Error</h2>
+                            <p>${data.error || 'Failed to load risk details'}</p>
+                            <a href="RMC.html" class="btn btn-secondary">Back to Risk Register</a>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                document.getElementById('riskEditContent').innerHTML = `
+                    <div class="risk-form">
+                        <h2>Error</h2>
+                        <p>Network error: ${error.message}</p>
+                        <a href="RMC.html" class="btn btn-secondary">Back to Risk Register</a>
+                    </div>
+                `;
+            }
+        }
+
+        function renderEditForm(risk) {
+            const parentCategories = categories.filter(c => !c.parent_category_id);
+            const subcategories = risk.category_id ?
+                categories.filter(c => c.parent_category_id == risk.category_id) : [];
+
+            const html = `
+                <div class="risk-form">
+                    <div class="form-header">
+                        <h2><i class="fas fa-edit"></i> Edit Risk: ${escapeHtml(risk.risk_code)}</h2>
+                    </div>
+
+                    <form id="riskEditForm">
+                        <div class="form-group">
+                            <label>Risk Code</label>
+                            <input type="text" name="risk_code" value="${escapeHtml(risk.risk_code)}" readonly style="background: #f8f9fa;">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Risk Title *</label>
+                            <input type="text" name="risk_title" value="${escapeHtml(risk.risk_title)}" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Risk Description</label>
+                            <textarea name="risk_description">${escapeHtml(risk.risk_description || '')}</textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Category *</label>
+                            <select name="category_id" id="categorySelect" required>
+                                <option value="">Select Category</option>
+                                ${parentCategories.map(cat => `
+                                    <option value="${cat.category_id}" ${cat.category_id == risk.category_id ? 'selected' : ''}>
+                                        ${escapeHtml(cat.category_name)}
+                                    </option>
+                                `).join('')}
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Subcategory</label>
+                            <select name="subcategory_id" id="subcategorySelect">
+                                <option value="">Select Subcategory</option>
+                                ${subcategories.map(sub => `
+                                    <option value="${sub.category_id}" ${sub.category_id == risk.subcategory_id ? 'selected' : ''}>
+                                        ${escapeHtml(sub.category_name)}
+                                    </option>
+                                `).join('')}
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Status *</label>
+                            <select name="status" required>
+                                <option value="Active" ${risk.status === 'Active' ? 'selected' : ''}>Active</option>
+                                <option value="Closed" ${risk.status === 'Closed' ? 'selected' : ''}>Closed</option>
+                                <option value="Escalated" ${risk.status === 'Escalated' ? 'selected' : ''}>Escalated</option>
+                                <option value="Monitoring" ${risk.status === 'Monitoring' ? 'selected' : ''}>Monitoring</option>
+                                <option value="Under Review" ${risk.status === 'Under Review' ? 'selected' : ''}>Under Review</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Lifecycle Stage</label>
+                            <select name="lifecycle_stage">
+                                <option value="">Select Stage</option>
+                                <option value="R&D" ${risk.lifecycle_stage === 'R&D' ? 'selected' : ''}>R&D</option>
+                                <option value="Manufacturing" ${risk.lifecycle_stage === 'Manufacturing' ? 'selected' : ''}>Manufacturing</option>
+                                <option value="Commercial" ${risk.lifecycle_stage === 'Commercial' ? 'selected' : ''}>Commercial</option>
+                                <option value="Post-Market" ${risk.lifecycle_stage === 'Post-Market' ? 'selected' : ''}>Post-Market</option>
+                                <option value="All Stages" ${risk.lifecycle_stage === 'All Stages' ? 'selected' : ''}>All Stages</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Product Line</label>
+                            <input type="text" name="product_line" value="${escapeHtml(risk.product_line || '')}">
+                        </div>
+
+                        <div class="btn-group">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> Save Changes
+                            </button>
+                            <a href="risk_detail.html?id=${risk.risk_id}" class="btn btn-secondary">
+                                <i class="fas fa-times"></i> Cancel
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            `;
+
+            document.getElementById('riskEditContent').innerHTML = html;
+
+            // Handle category change to update subcategories
+            document.getElementById('categorySelect').addEventListener('change', function () {
+                updateSubcategories(this.value);
+            });
+
+            // Handle form submission
+            document.getElementById('riskEditForm').addEventListener('submit', handleSubmit);
+        }
+
+        function updateSubcategories(categoryId) {
+            const subcategorySelect = document.getElementById('subcategorySelect');
+            const subcategories = categories.filter(c => c.parent_category_id == categoryId);
+
+            subcategorySelect.innerHTML = '<option value="">Select Subcategory</option>';
+            subcategories.forEach(sub => {
+                const option = document.createElement('option');
+                option.value = sub.category_id;
+                option.textContent = sub.category_name;
+                subcategorySelect.appendChild(option);
+            });
+        }
+
+        async function handleSubmit(e) {
+            e.preventDefault();
+
+            const formData = new FormData(e.target);
+            const data = {
+                action: 'update_risk',
+                id: riskId,
+                risk_title: formData.get('risk_title'),
+                risk_description: formData.get('risk_description'),
+                category_id: formData.get('category_id'),
+                subcategory_id: formData.get('subcategory_id') || null,
+                status: formData.get('status'),
+                lifecycle_stage: formData.get('lifecycle_stage') || null,
+                product_line: formData.get('product_line') || null
+            };
+
+            try {
+                const response = await fetch('php/api_risk_register.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    alert('Risk updated successfully!');
+                    window.location.href = `risk_detail.html?id=${riskId}`;
+                } else {
+                    alert('Error updating risk: ' + (result.error || 'Unknown error'));
+                }
+            } catch (error) {
+                alert('Network error: ' + error.message);
+            }
+        }
+
+        function escapeHtml(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+    </script>
+</body>
+
+</html>

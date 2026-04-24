@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- sheener/riskassessment.html -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Risk Assessment Management System</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/riskassessment.css">
+    <link rel="stylesheet" href="css/ai-navigator.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="js/navbar.js" defer></script>
+    <script src="js/topbar.js" defer></script>
+    <script src="js/ai-navigator.js" defer></script>
+</head>
+<body>
+    <div id="navbar"></div>
+    <div id="topbar"></div>
+    
+    <!-- AI Navigator Sidebar -->
+    <div id="ai-navigator-container" 
+         data-role="User"
+         data-user-id=""
+         data-user-name="">
+    </div>
+    
+    <!-- Navigation Header -->
+    <header class="main-header">
+        <div class="header-content">
+            <div class="logo-section">
+                <i class="fas fa-shield-alt"></i>
+                <h1>Risk Assessment Management</h1>
+            </div>
+            <nav class="main-nav">
+                <button class="nav-btn active" data-view="dashboard">
+                    <i class="fas fa-chart-line"></i> Dashboard
+                </button>
+                <button class="nav-btn" data-view="register">
+                    <i class="fas fa-clipboard-list"></i> Risk Register
+                </button>
+                <button class="nav-btn" data-view="reviews">
+                    <i class="fas fa-calendar-check"></i> Reviews
+                </button>
+                <button class="nav-btn" data-view="standards">
+                    <i class="fas fa-certificate"></i> Standards Mapping
+                </button>
+                <button class="nav-btn" data-view="analytics">
+                    <i class="fas fa-chart-bar"></i> Analytics
+                </button>
+            </nav>
+            <div class="user-section">
+                <span class="user-name" id="currentUser">User</span>
+                <button class="icon-btn" id="settingsBtn" title="Settings">
+                    <i class="fas fa-cog"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="main-content risk-assessment-main">
+        <!-- Dashboard View -->
+        <section id="dashboard-view" class="view-section active">
+            <div class="view-header">
+                <h2><i class="fas fa-chart-line"></i> Risk Dashboard</h2>
+                <div class="view-actions">
+                    <button class="btn btn-primary" id="btnAddRisk">
+                        <i class="fas fa-plus"></i> Risk Assessment
+                    </button>
+                    <button class="btn btn-secondary" id="refreshDashboard">
+                        <i class="fas fa-sync-alt"></i> Refresh
+                    </button>
+                </div>
+            </div>
+
+            <!-- Dashboard Stats -->
+            <div class="stats-grid">
+                <div class="stat-card critical">
+                    <div class="stat-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                    <div class="stat-content">
+                        <div class="stat-value" id="stat-critical">0</div>
+                        <div class="stat-label">Critical Risks</div>
+                    </div>
+                </div>
+                <div class="stat-card high">
+                    <div class="stat-icon"><i class="fas fa-exclamation-circle"></i></div>
+                    <div class="stat-content">
+                        <div class="stat-value" id="stat-high">0</div>
+                        <div class="stat-label">High Priority</div>
+                    </div>
+                </div>
+                <div class="stat-card active">
+                    <div class="stat-icon"><i class="fas fa-clipboard-check"></i></div>
+                    <div class="stat-content">
+                        <div class="stat-value" id="stat-active">0</div>
+                        <div class="stat-label">Active Risks</div>
+                    </div>
+                </div>
+                <div class="stat-card reviews">
+                    <div class="stat-icon"><i class="fas fa-calendar-alt"></i></div>
+                    <div class="stat-content">
+                        <div class="stat-value" id="stat-due-reviews">0</div>
+                        <div class="stat-label">Due Reviews</div>
+                    </div>
+                </div>
+                <div class="stat-card escalated">
+                    <div class="stat-icon"><i class="fas fa-arrow-up"></i></div>
+                    <div class="stat-content">
+                        <div class="stat-value" id="stat-escalated">0</div>
+                        <div class="stat-label">Escalated</div>
+                    </div>
+                </div>
+                <div class="stat-card compliant">
+                    <div class="stat-icon"><i class="fas fa-check-circle"></i></div>
+                    <div class="stat-content">
+                        <div class="stat-value" id="stat-compliant">0</div>
+                        <div class="stat-label">Compliant Standards</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dashboard Charts and Tables -->
+            <div class="dashboard-grid">
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h3>Risks by Status</h3>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="statusChart"></canvas>
+                    </div>
+                </div>
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h3>Risks by Priority</h3>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="priorityChart"></canvas>
+                    </div>
+                </div>
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h3>Upcoming Reviews</h3>
+                        <button class="btn-link" id="viewAllReviews">View All</button>
+                    </div>
+                    <div class="card-body">
+                        <div id="upcomingReviewsList" class="reviews-list"></div>
+                    </div>
+                </div>
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h3>Recent Risk Activity</h3>
+                    </div>
+                    <div class="card-body">
+                        <div id="recentActivityList" class="activity-list"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Risk Register View -->
+        <section id="register-view" class="view-section">
+            <div class="view-header">
+                <h2><i class="fas fa-clipboard-list"></i> Risk Register</h2>
+                <div class="view-actions">
+                    <button class="btn btn-secondary" id="filterBtn">
+                        <i class="fas fa-filter"></i> Filter
+                    </button>
+                    <button class="btn btn-primary" id="btnAddRisk">
+                        <i class="fas fa-plus"></i> Create Risk Assessment
+                    </button>
+                </div>
+            </div>
+
+            <!-- Filters Panel -->
+            <div class="filters-panel" id="filtersPanel" style="display: none;">
+                <div class="filters-content">
+                    <div class="filter-group">
+                        <label>Status</label>
+                        <select id="filterStatus" class="form-control" multiple>
+                            <option value="Active">Active</option>
+                            <option value="Closed">Closed</option>
+                            <option value="Escalated">Escalated</option>
+                            <option value="Monitoring">Monitoring</option>
+                            <option value="Under Review">Under Review</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Priority</label>
+                        <select id="filterPriority" class="form-control" multiple>
+                            <option value="Low">Low</option>
+                            <option value="Medium">Medium</option>
+                            <option value="High">High</option>
+                            <option value="Critical">Critical</option>
+                            <option value="Emergency">Emergency</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Category</label>
+                        <select id="filterCategory" class="form-control">
+                            <option value="">All Categories</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Risk Owner</label>
+                        <select id="filterOwner" class="form-control">
+                            <option value="">All Owners</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Search</label>
+                        <input type="text" id="filterSearch" class="form-control" placeholder="Search risks...">
+                    </div>
+                    <div class="filter-actions">
+                        <button class="btn btn-primary" id="applyFilters">Apply Filters</button>
+                        <button class="btn btn-secondary" id="clearFilters">Clear</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Risk Register Table -->
+            <div class="table-container">
+                <table class="data-table" id="riskRegisterTable">
+                    <thead>
+                        <tr>
+                            <th>Risk Code</th>
+                            <th>Title</th>
+                            <th>Category</th>
+                            <th>Priority</th>
+                            <th>Status</th>
+                            <th>Owner</th>
+                            <th>Next Review</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="riskRegisterBody">
+                        <tr>
+                            <td colspan="8" class="loading">Loading risks...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination" id="riskPagination"></div>
+        </section>
+
+        <!-- Risk Reviews View -->
+        <section id="reviews-view" class="view-section">
+            <div class="view-header">
+                <h2><i class="fas fa-calendar-check"></i> Risk Reviews</h2>
+                <div class="view-actions">
+                    <button class="btn btn-secondary" id="reviewFilterBtn">
+                        <i class="fas fa-filter"></i> Filter
+                    </button>
+                    <button class="btn btn-primary" id="scheduleReviewBtn">
+                        <i class="fas fa-calendar-plus"></i> Schedule Review
+                    </button>
+                </div>
+            </div>
+
+            <div class="reviews-container">
+                <div class="reviews-timeline" id="reviewsTimeline">
+                    <div class="loading">Loading reviews...</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Standards Mapping View -->
+        <section id="standards-view" class="view-section">
+            <div class="view-header">
+                <h2><i class="fas fa-certificate"></i> Standards Mapping</h2>
+                <div class="view-actions">
+                    <button class="btn btn-primary" id="mapStandardBtn">
+                        <i class="fas fa-link"></i> Map Standard
+                    </button>
+                </div>
+            </div>
+
+            <div class="standards-container">
+                <div class="standards-grid" id="standardsGrid">
+                    <div class="loading">Loading standards mappings...</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Analytics View -->
+        <section id="analytics-view" class="view-section">
+            <div class="view-header">
+                <h2><i class="fas fa-chart-bar"></i> Risk Analytics</h2>
+                <div class="view-actions">
+                    <button class="btn btn-secondary" id="exportReportBtn">
+                        <i class="fas fa-download"></i> Export Report
+                    </button>
+                </div>
+            </div>
+
+            <div class="analytics-container">
+                <div class="analytics-grid">
+                    <div class="analytics-card full-width">
+                        <div class="card-header">
+                            <h3>Risk Trends Over Time</h3>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="trendsChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="analytics-card">
+                        <div class="card-header">
+                            <h3>Risks by Category</h3>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="categoryChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="analytics-card">
+                        <div class="card-header">
+                            <h3>Compliance Status</h3>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="complianceChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modals -->
+    <!-- Add/Edit Risk Modal -->
+    <!-- Risk Assessment Form Modal -->
+    <div id="riskFormModal" class="modal risk-form-modal">
+        <div class="modal-content risk-form-content">
+            <div class="modal-header risk-form-header">
+                <div class="header-left">
+                    <div class="header-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="header-text">
+                        <h3 id="riskModalTitle">New Risk Assessment</h3>
+                        <p class="header-subtitle" id="riskModalSubtitle">Create a new risk assessment entry</p>
+                    </div>
+                </div>
+                <button class="modal-close" id="closeRiskModal" aria-label="Close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="modal-body risk-form-body">
+                <form id="riskForm" class="risk-form">
+                    <input type="hidden" id="riskId" name="riskId">
+                    
+                    <!-- Form Sections with Tabs -->
+                    <div class="form-tabs">
+                        <button type="button" class="form-tab active" data-tab="basic">
+                            <i class="fas fa-info-circle"></i>
+                            <span>Basic Info</span>
+                        </button>
+                        <button type="button" class="form-tab" data-tab="details">
+                            <i class="fas fa-clipboard-list"></i>
+                            <span>Details</span>
+                        </button>
+                        <button type="button" class="form-tab" data-tab="management">
+                            <i class="fas fa-cog"></i>
+                            <span>Management</span>
+                        </button>
+                    </div>
+                    
+                    <!-- Basic Information Tab -->
+                    <div class="form-tab-content active" data-content="basic">
+                        <div class="form-section">
+                            <div class="section-header">
+                                <i class="fas fa-tag"></i>
+                                <h4>Identification</h4>
+                            </div>
+                            <div class="form-grid-minimal">
+                                <div class="form-group-minimal">
+                                    <label for="riskCode" class="form-label">
+                                        <i class="fas fa-barcode"></i>
+                                        Risk Code <span class="required">*</span>
+                                    </label>
+                                    <input type="text" id="riskCode" name="riskCode" class="form-input" placeholder="e.g., QR-001" required>
+                                </div>
+                                <div class="form-group-minimal">
+                                    <label for="riskTitle" class="form-label">
+                                        <i class="fas fa-heading"></i>
+                                        Risk Title <span class="required">*</span>
+                                    </label>
+                                    <input type="text" id="riskTitle" name="riskTitle" class="form-input" placeholder="Enter risk title" required>
+                                </div>
+                            </div>
+                            <div class="form-group-minimal full-width">
+                                <label for="riskDescription" class="form-label">
+                                    <i class="fas fa-align-left"></i>
+                                    Risk Description <span class="required">*</span>
+                                </label>
+                                <textarea id="riskDescription" name="riskDescription" class="form-input form-textarea" rows="5" placeholder="Describe the risk in detail..." required></textarea>
+                            </div>
+                        </div>
+                        
+                        <div class="form-section">
+                            <div class="section-header">
+                                <i class="fas fa-folder-open"></i>
+                                <h4>Classification</h4>
+                            </div>
+                            <div class="form-grid-minimal">
+                                <div class="form-group-minimal">
+                                    <label for="riskCategory" class="form-label">
+                                        <i class="fas fa-layer-group"></i>
+                                        Category <span class="required">*</span>
+                                    </label>
+                                    <select id="riskCategory" name="riskCategory" class="form-input form-select" required>
+                                        <option value="">Select Category</option>
+                                    </select>
+                                </div>
+                                <div class="form-group-minimal">
+                                    <label for="riskSubcategory" class="form-label">
+                                        <i class="fas fa-sitemap"></i>
+                                        Subcategory
+                                    </label>
+                                    <select id="riskSubcategory" name="riskSubcategory" class="form-input form-select">
+                                        <option value="">Select Subcategory</option>
+                                    </select>
+                                </div>
+                                <div class="form-group-minimal">
+                                    <label for="riskSource" class="form-label">
+                                        <i class="fas fa-search"></i>
+                                        Risk Source <span class="required">*</span>
+                                    </label>
+                                    <select id="riskSource" name="riskSource" class="form-input form-select" required>
+                                        <option value="Audit">Audit</option>
+                                        <option value="FMEA">FMEA</option>
+                                        <option value="HAZOP">HAZOP</option>
+                                        <option value="Incident">Incident</option>
+                                        <option value="Change Control">Change Control</option>
+                                        <option value="CAPA">CAPA</option>
+                                        <option value="Management Review">Management Review</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Details Tab -->
+                    <div class="form-tab-content" data-content="details">
+                        <div class="form-section">
+                            <div class="section-header">
+                                <i class="fas fa-calendar-alt"></i>
+                                <h4>Timeline & Ownership</h4>
+                            </div>
+                            <div class="form-grid-minimal">
+                                <div class="form-group-minimal">
+                                    <label for="dateIdentified" class="form-label">
+                                        <i class="fas fa-calendar"></i>
+                                        Date Identified <span class="required">*</span>
+                                    </label>
+                                    <input type="date" id="dateIdentified" name="dateIdentified" class="form-input" required>
+                                </div>
+                                <div class="form-group-minimal">
+                                    <label for="identifiedBy" class="form-label">
+                                        <i class="fas fa-user"></i>
+                                        Identified By <span class="required">*</span>
+                                    </label>
+                                    <select id="identifiedBy" name="identifiedBy" class="form-input form-select" required>
+                                        <option value="">Select Person</option>
+                                    </select>
+                                </div>
+                                <div class="form-group-minimal">
+                                    <label for="riskOwner" class="form-label">
+                                        <i class="fas fa-user-tie"></i>
+                                        Risk Owner
+                                    </label>
+                                    <select id="riskOwner" name="riskOwner" class="form-input form-select">
+                                        <option value="">Select Owner</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-section">
+                            <div class="section-header">
+                                <i class="fas fa-industry"></i>
+                                <h4>Context</h4>
+                            </div>
+                            <div class="form-grid-minimal">
+                                <div class="form-group-minimal">
+                                    <label for="lifecycleStage" class="form-label">
+                                        <i class="fas fa-project-diagram"></i>
+                                        Lifecycle Stage
+                                    </label>
+                                    <select id="lifecycleStage" name="lifecycleStage" class="form-input form-select">
+                                        <option value="R&D">R&D</option>
+                                        <option value="Manufacturing">Manufacturing</option>
+                                        <option value="Commercial">Commercial</option>
+                                        <option value="Post-Market">Post-Market</option>
+                                        <option value="All Stages" selected>All Stages</option>
+                                    </select>
+                                </div>
+                                <div class="form-group-minimal">
+                                    <label for="productLine" class="form-label">
+                                        <i class="fas fa-box"></i>
+                                        Product Line
+                                    </label>
+                                    <input type="text" id="productLine" name="productLine" class="form-input" placeholder="e.g., MDI Products">
+                                </div>
+                                <div class="form-group-minimal">
+                                    <label for="siteLocation" class="form-label">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        Site Location
+                                    </label>
+                                    <input type="text" id="siteLocation" name="siteLocation" class="form-input" placeholder="e.g., Manufacturing Site A">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Management Tab -->
+                    <div class="form-tab-content" data-content="management">
+                        <div class="form-section">
+                            <div class="section-header">
+                                <i class="fas fa-chart-line"></i>
+                                <h4>Status & Priority</h4>
+                            </div>
+                            <div class="form-grid-minimal">
+                                <div class="form-group-minimal">
+                                    <label for="riskStatus" class="form-label">
+                                        <i class="fas fa-toggle-on"></i>
+                                        Status
+                                    </label>
+                                    <select id="riskStatus" name="riskStatus" class="form-input form-select">
+                                        <option value="Active">Active</option>
+                                        <option value="Closed">Closed</option>
+                                        <option value="Escalated">Escalated</option>
+                                        <option value="Monitoring">Monitoring</option>
+                                        <option value="Under Review">Under Review</option>
+                                    </select>
+                                </div>
+                                <div class="form-group-minimal">
+                                    <label for="riskPriority" class="form-label">
+                                        <i class="fas fa-exclamation-triangle"></i>
+                                        Priority
+                                    </label>
+                                    <select id="riskPriority" name="riskPriority" class="form-input form-select">
+                                        <option value="Low">Low</option>
+                                        <option value="Medium" selected>Medium</option>
+                                        <option value="High">High</option>
+                                        <option value="Critical">Critical</option>
+                                        <option value="Emergency">Emergency</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-section">
+                            <div class="section-header">
+                                <i class="fas fa-sync-alt"></i>
+                                <h4>Review Schedule</h4>
+                            </div>
+                            <div class="form-grid-minimal">
+                                <div class="form-group-minimal">
+                                    <label for="reviewFrequency" class="form-label">
+                                        <i class="fas fa-redo"></i>
+                                        Review Frequency
+                                    </label>
+                                    <select id="reviewFrequency" name="reviewFrequency" class="form-input form-select">
+                                        <option value="Monthly">Monthly</option>
+                                        <option value="Quarterly" selected>Quarterly</option>
+                                        <option value="Semi-Annually">Semi-Annually</option>
+                                        <option value="Annually">Annually</option>
+                                        <option value="As Needed">As Needed</option>
+                                        <option value="Continuous">Continuous</option>
+                                    </select>
+                                </div>
+                                <div class="form-group-minimal">
+                                    <label for="nextReviewDate" class="form-label">
+                                        <i class="fas fa-calendar-check"></i>
+                                        Next Review Date
+                                    </label>
+                                    <input type="date" id="nextReviewDate" name="nextReviewDate" class="form-input">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-section">
+                            <div class="section-header">
+                                <i class="fas fa-check-circle"></i>
+                                <h4>Approval</h4>
+                            </div>
+                            <div class="form-group-minimal">
+                                <label for="approvalStatus" class="form-label">
+                                    <i class="fas fa-stamp"></i>
+                                    Approval Status
+                                </label>
+                                <select id="approvalStatus" name="approvalStatus" class="form-input form-select">
+                                    <option value="Draft" selected>Draft</option>
+                                    <option value="Pending Approval">Pending Approval</option>
+                                    <option value="Approved">Approved</option>
+                                    <option value="Rejected">Rejected</option>
+                                    <option value="Superseded">Superseded</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Form Actions -->
+                    <div class="form-actions-minimal">
+                        <button type="button" class="btn btn-ghost" id="cancelRiskBtn">
+                            <i class="fas fa-times"></i> Cancel
+                        </button>
+                        <div class="action-group">
+                            <button type="button" class="btn btn-secondary" id="exportRiskPDFBtn" style="display: none;">
+                                <i class="fas fa-file-pdf"></i> Export PDF
+                            </button>
+                            <button type="submit" class="btn btn-primary btn-save">
+                                <i class="fas fa-save"></i> Save Risk Assessment
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Review Modal -->
+    <div id="reviewModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="reviewModalTitle">Schedule Risk Review</h3>
+                <button class="modal-close" id="closeReviewModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="reviewForm">
+                    <input type="hidden" id="reviewId">
+                    <input type="hidden" id="reviewRiskId">
+                    <div class="form-group">
+                        <label for="reviewRiskSelect">Risk <span class="required">*</span></label>
+                        <select id="reviewRiskSelect" class="form-control" required>
+                            <option value="">Select Risk</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="reviewDate">Review Date <span class="required">*</span></label>
+                        <input type="date" id="reviewDate" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="reviewType">Review Type</label>
+                        <select id="reviewType" class="form-control">
+                            <option value="Scheduled" selected>Scheduled</option>
+                            <option value="Ad Hoc">Ad Hoc</option>
+                            <option value="Triggered">Triggered</option>
+                            <option value="Management Review">Management Review</option>
+                            <option value="Regulatory Review">Regulatory Review</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="reviewer">Reviewer <span class="required">*</span></label>
+                        <select id="reviewer" class="form-control" required>
+                            <option value="">Select Reviewer</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="reviewOutcome">Review Outcome</label>
+                        <select id="reviewOutcome" class="form-control">
+                            <option value="No Change">No Change</option>
+                            <option value="Risk Increased">Risk Increased</option>
+                            <option value="Risk Decreased">Risk Decreased</option>
+                            <option value="Controls Added">Controls Added</option>
+                            <option value="Controls Modified">Controls Modified</option>
+                            <option value="Risk Closed">Risk Closed</option>
+                            <option value="Escalated">Escalated</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="riskStatusReview">Risk Status</label>
+                        <select id="riskStatusReview" class="form-control">
+                            <option value="Active">Active</option>
+                            <option value="Closed">Closed</option>
+                            <option value="Escalated">Escalated</option>
+                            <option value="Monitoring">Monitoring</option>
+                            <option value="Under Review">Under Review</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="statusChangeRationale">Status Change Rationale</label>
+                        <textarea id="statusChangeRationale" class="form-control" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="nextReviewDateReview">Next Review Date</label>
+                        <input type="date" id="nextReviewDateReview" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="escalationRequired">Escalation Required</label>
+                        <select id="escalationRequired" class="form-control">
+                            <option value="No" selected>No</option>
+                            <option value="Yes">Yes</option>
+                        </select>
+                    </div>
+                    <div class="form-group" id="escalatedToGroup" style="display: none;">
+                        <label for="escalatedTo">Escalated To</label>
+                        <input type="text" id="escalatedTo" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="actionItems">Action Items</label>
+                        <textarea id="actionItems" class="form-control" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="reviewNotes">Review Notes</label>
+                        <textarea id="reviewNotes" class="form-control" rows="4"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="reviewApprovedBy">Review Approved By</label>
+                        <select id="reviewApprovedBy" class="form-control">
+                            <option value="">Select Approver</option>
+                        </select>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" id="cancelReviewBtn">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Save Review</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Standards Mapping Modal -->
+    <div id="standardModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="standardModalTitle">Map Standard to Risk</h3>
+                <button class="modal-close" id="closeStandardModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="standardForm">
+                    <input type="hidden" id="mappingId">
+                    <div class="form-group">
+                        <label for="standardRiskSelect">Risk <span class="required">*</span></label>
+                        <select id="standardRiskSelect" class="form-control" required>
+                            <option value="">Select Risk</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="standardSelect">Standard <span class="required">*</span></label>
+                        <select id="standardSelect" class="form-control" required>
+                            <option value="">Select Standard</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="relevanceLevel">Relevance Level <span class="required">*</span></label>
+                        <select id="relevanceLevel" class="form-control" required>
+                            <option value="Primary">Primary</option>
+                            <option value="Secondary">Secondary</option>
+                            <option value="Related" selected>Related</option>
+                            <option value="Indirect">Indirect</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="applicableSections">Applicable Sections</label>
+                        <textarea id="applicableSections" class="form-control" rows="3" placeholder="e.g., ISO 45001 Section 6.1.2"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="complianceStatus">Compliance Status</label>
+                        <select id="complianceStatus" class="form-control">
+                            <option value="Under Review" selected>Under Review</option>
+                            <option value="Compliant">Compliant</option>
+                            <option value="Non-Compliant">Non-Compliant</option>
+                            <option value="Partial">Partial</option>
+                            <option value="Not Applicable">Not Applicable</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="standardNotes">Notes</label>
+                        <textarea id="standardNotes" class="form-control" rows="3"></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" id="cancelStandardBtn">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Save Mapping</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- View Risk Details Modal -->
+    <div id="riskDetailsModal" class="modal">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h3 id="riskDetailsTitle">Risk Details</h3>
+                <button class="modal-close" id="closeRiskDetailsModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="riskDetailsContent"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay" style="display: none;">
+        <div class="spinner"></div>
+        <p>Loading...</p>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="js/riskassessment-api.js"></script>
+    <script src="js/riskassessment-utils.js"></script>
+    <script src="js/riskassessment.js"></script>
+</body>
+</html>

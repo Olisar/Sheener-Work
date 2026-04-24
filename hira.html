@@ -1,0 +1,192 @@
+<!-- File: sheener/hira.html -->
+<!DOCTYPE html>
+<html lang="en">
+<!-- hira/hira_console.php -->
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://unpkg.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; script-src 'self' 'unsafe-inline' https://unpkg.com https://cdnjs.cloudflare.com;" />
+
+  <title>HIRA Lifecycle Console</title>
+
+  <!-- Bootstrap + FontAwesome -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <!-- Cytoscape -->
+  <script src="https://unpkg.com/cytoscape@3.28.1/dist/cytoscape.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/modal.css" />
+  <link rel="shortcut icon" href="img/favicon/faviconAY.ico" />
+
+  <script src="js/navbar.js" defer></script>
+  <script src="js/topbar.js" defer></script>
+  <script src="js/modal.js" defer></script>
+</head>
+
+<body>
+  <!-- Premium Loading Overlay -->
+  <div id="loadingOverlay" class="loading-overlay show">
+      <div class="loading-spinner-container">
+          <div class="loading-spinner-icon">
+              <i class="fas fa-spinner fa-spin"></i>
+          </div>
+          <div class="loading-spinner-text" id="loadingText">Loading HIRA Console</div>
+          <div class="loading-spinner-subtext" id="loadingSubtext">Preparing risk assessment workbench...</div>
+          <div class="loading-progress-bar">
+              <div class="loading-progress-bar-fill"></div>
+          </div>
+      </div>
+  </div>
+
+  <div id="topbar"></div>
+  <div id="navbar"></div>
+
+  <main class="container mt-6">
+    <div class="text-center mb-4">
+      <h1><i class="fas fa-sitemap me-2"></i>HIRA Lifecycle Console</h1>
+      <p class="text-muted">
+        Create, approve, finalize & visualize lifecycle assessments.
+      </p>
+    </div>
+
+    <div class="row mb-4">
+      <div class="col-md-4">
+        <div class="card shadow-sm mb-3">
+          <div class="card-header bg-primary text-white fw-bold">
+            Create HIRA
+          </div>
+          <div class="card-body">
+            <form id="formCreate">
+              <div class="mb-2">
+                <label class="form-label">Scope Type</label>
+                <select class="form-select" name="scope_type">
+                  <option>Project</option>
+                  <option>Task</option>
+                  <option>Permit</option>
+                  <option>Change</option>
+                  <option>Batch</option>
+                  <option>Generic</option>
+                </select>
+              </div>
+              <div class="mb-2">
+                <label class="form-label">Scope ID</label>
+                <input type="number" class="form-control" name="scope_id" placeholder="101" required />
+              </div>
+              <div class="mb-2">
+                <label class="form-label">Stage Name</label>
+                <select class="form-select" name="stage_name">
+                  <option>URS</option>
+                  <option>Concept & Design</option>
+                  <option>Procurement/Fabrication</option>
+                  <option>Installation & Commissioning</option>
+                  <option>Operation</option>
+                  <option>Maintenance/Servicing</option>
+                  <option>Modification/Change Control</option>
+                  <option>Decommissioning/Disposal</option>
+                </select>
+              </div>
+              <button class="btn btn-success w-100" type="submit">
+                <i class="fa-solid fa-plus me-1"></i> Create
+              </button>
+            </form>
+            <div id="createResult" class="small mt-2"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card shadow-sm mb-3">
+          <div class="card-header bg-secondary text-white fw-bold">
+            Approve HIRA
+          </div>
+          <div class="card-body">
+            <form id="formApprove">
+              <div class="mb-2">
+                <label class="form-label">HIRA ID</label>
+                <input type="number" class="form-control" name="hira_id" required />
+              </div>
+              <div class="mb-2">
+                <label class="form-label">Approved By (people_id)</label>
+                <input type="number" class="form-control" name="approved_by" required />
+              </div>
+              <button class="btn btn-secondary w-100" type="submit">
+                <i class="fa-solid fa-check me-1"></i> Approve
+              </button>
+            </form>
+            <div id="approveResult" class="small mt-2"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card shadow-sm mb-3">
+          <div class="card-header bg-light fw-bold">Finalize HIRA</div>
+          <div class="card-body">
+            <form id="formFinalize">
+              <div class="mb-2">
+                <label class="form-label">HIRA ID</label>
+                <input type="number" class="form-control" name="hira_id" required />
+              </div>
+              <button class="btn btn-outline-dark w-100" type="submit">
+                <i class="fa-solid fa-sync me-1"></i> Finalize
+              </button>
+            </form>
+            <div id="finalizeResult" class="small mt-2"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Heatmap and Network Panels -->
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card shadow-sm">
+          <div class="card-header bg-info text-white fw-bold">
+            Heatmap Summary
+          </div>
+          <div class="card-body">
+            <form id="formHeatmap" class="input-group mb-3">
+              <input type="number" class="form-control" name="hira_id" placeholder="HIRA ID" />
+              <button type="submit" class="btn btn-info text-white">
+                Load
+              </button>
+            </form>
+            <div id="heatmapTable" class="table-responsive small"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="card shadow-sm mb-5">
+          <div class="card-header bg-dark text-white fw-bold">
+            Component Risk Network
+          </div>
+          <div class="card-body">
+            <form id="formNetwork" class="input-group mb-3">
+              <input type="number" class="form-control" name="hira_id" placeholder="HIRA ID" />
+              <button class="btn btn-primary" type="submit">Load</button>
+            </form>
+            <div id="cy" style="
+                  width: 100%;
+                  height: 420px;
+                  border: 1px solid #ddd;
+                  border-radius: 8px;
+                "></div>
+            <div id="edgesTable" class="table-responsive small mt-2"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/hira_console.js"></script>
+</body>
+
+</html>

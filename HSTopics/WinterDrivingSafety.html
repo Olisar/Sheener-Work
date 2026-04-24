@@ -1,0 +1,425 @@
+<!-- File: sheener/HSTopics/WinterDrivingSafety.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../img/favicon/faviconAY.ico">
+    <title>Winter Driving Safety Tips</title>
+    <style>
+        /* Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body and General Settings */
+        body {
+            font-family: Arial, sans-serif;
+            color: #333;
+            background-color: #F2F2F2;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background-color: #003366;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0 20px;
+            z-index: 1000;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background-color: #003366;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0 20px;
+            z-index: 1000;
+            /* Keeps the header on top of all other content */
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+            /* Adds a slight shadow for better visibility */
+        }
+
+        .header-container {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            max-width: 1000px;
+            /* Limits content width for centered alignment */
+            justify-content: center;
+            position: relative;
+        }
+
+        .logo-container {
+            position: absolute;
+            left: 20px;
+            /* Aligns the logo to the left side of the header */
+        }
+
+        .logo {
+            height: 40px;
+        }
+
+        .header-title {
+            color: #FFFFFF;
+            font-size: 1.5em;
+            font-weight: bold;
+            text-align: center;
+        }
+
+
+        /* Smooth scrolling behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+
+
+
+        /* Hero Section */
+        #hero {
+            position: relative;
+            transition: transform 0.5s ease-in-out;
+            height: calc(100vh - 00px);
+            /* Full viewport height minus header */
+            overflow: hidden;
+            padding-top: 60px;
+            /* Matches header height */
+
+        }
+
+        #hero.hero-hidden {
+            transform: translateY(-100%);
+        }
+
+        .hero-hidden {
+            transform: translateY(-100%);
+            transition: transform 0.5s ease;
+        }
+
+
+        .hero-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(70%);
+        }
+
+        .hero-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #FFFFFF;
+            text-align: center;
+        }
+
+        /* Tips Section */
+        #topics {
+            margin-top: 0;
+            padding-top: 20px;
+            /* Add padding for visual separation */
+            position: relative;
+
+        }
+
+
+        .hero-text h1 {
+            font-size: 3.2em;
+            margin-bottom: 20px;
+        }
+
+        .hero-text p {
+            font-size: 1.6em;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Tips Section */
+        .tips {
+            max-width: 700px;
+            margin: 40px auto;
+            padding: 0 15px;
+            text-align: center;
+        }
+
+        /* Centered Snow Image Styling */
+        .centered-snow-icon {
+            margin: 20px 0;
+            text-align: center;
+            margin-bottom: 100px;
+            transform: scale(1.8);
+            animation: pulse 2s infinite;
+            /* Add animation to the element */
+        }
+
+        /* Keyframes for Pulsing Animation */
+        @keyframes pulse {
+            0% {
+                transform: scale(1.8);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(2);
+                /* Slightly larger */
+                opacity: 0.8;
+                /* Slightly transparent */
+            }
+
+            100% {
+                transform: scale(1.8);
+                /* Back to original size */
+                opacity: 1;
+            }
+        }
+
+
+        /* Tip Box Styling */
+        .tip {
+            background-color: #FFFFFF;
+            border-left: 4px solid #b88d00;
+            padding: 15px 20px;
+            margin: 15px 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            transform: scale(0.9);
+            opacity: 0.7;
+        }
+
+        .tip.active {
+            transform: scale(1.1);
+            opacity: 1;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            /* More pronounced shadow */
+        }
+
+        .tip h2 {
+            font-size: 1.8em;
+            color: #003366;
+        }
+
+        .tip p {
+            font-size: 1.2em;
+            color: #555;
+        }
+
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            background-color: #8E44AD;
+            color: #FFFFFF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        footer a {
+            color: #FFFFFF;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-logo {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Hide hero section completely */
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo-container">
+                <img src="../img/Amneal_Logo_new.svg" alt="Amneal Logo" class="logo">
+            </div>
+            <div class="header-title">
+                EHS Newsletter
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Image Section -->
+    <section id="hero">
+        <img src="../img/image.png" alt="Winter Driving" class="hero-image">
+        <div class="hero-text">
+            <div class="centered-snow-icon">
+                <img src="../img/snow.svg" alt="Snow Icon" width="80">
+            </div>
+            <h1>Winter Driving Safety Tips</h1>
+            <p>"With winter and colder conditions approaching, staying safe on the roads is more important than ever."
+            </p>
+        </div>
+    </section>
+
+    <!-- Tips Section -->
+    <main>
+        <section id="topics">
+            <div class="tips">
+                <div class="tip" id="tip-1">
+                    <h2>1. Be Alert to the Risk of Fatigue</h2>
+                    <p>Fatigue is a year-round issue, but winter driving in darkness and juggling additional seasonal
+                        commitments can cause concentration to slip.</p>
+                </div>
+
+                <div class="tip" id="tip-2">
+                    <h2>2. What to Do When Driving Fatigued</h2>
+                    <p>If you feel fatigued, pull over somewhere safe and take a 10-15 minute break, ideally with a
+                        coffee if possible.</p>
+                </div>
+
+                <div class="tip" id="tip-3">
+                    <h2>3. Plan Your Winter Journey in Advance</h2>
+                    <p>Winter mornings may mean slower car starts, so plan ahead by getting up at least 10 minutes early
+                        to prepare your car. Always clear the windscreen fully before starting your journey.</p>
+                </div>
+
+                <div class="tip" id="tip-4">
+                    <h2>4. Allow Extra Time for Winter Journeys</h2>
+                    <p>Expect delays, especially during morning and night travel. Avoid rushing without fully clearing
+                        your windscreen, windows, and mirrors.</p>
+                </div>
+                <div class="tip" id="tip-5">
+                    <h2>5. Be Prepared for Driving in Snow and Ice</h2>
+                    <p>Winter can bring snow, high winds, and rain. Drive slower, use gentle maneuvers, and remember
+                        that stopping distances are up to 10 times longer in icy conditions.</p>
+                </div>
+
+                <div class="tip" id="tip-6">
+                    <h2>6. Uphill Driving in Winter Conditions</h2>
+                    <p>On snowy or icy roads, use a low gear when driving uphill and leave plenty of distance from the
+                        car in front. When driving downhill, reduce speed before reaching the slope, use a low gear, and
+                        avoid sudden braking.</p>
+                </div>
+
+                <div class="tip" id="tip-7">
+                    <h2>7. Wear Proper Footwear for Winter Driving</h2>
+                    <p>Wet shoes from rain or snow may slip off pedals. Keep a pair of flat shoes in the car
+                        specifically for driving.</p>
+                </div>
+
+                <div class="tip" id="tip-8">
+                    <h2>8. Watch Out for Breakdowns and Vulnerable Road Users</h2>
+                    <p>While pedestrian and cyclist numbers may drop in winter, remain alert and allow
+                        extra space when overtaking, especially during high winds when they could be blown off course.
+                    </p>
+                </div>
+
+                <div class="tip" id="tip-9">
+                    <h2>9. What to Do When Encountering a Winter Breakdown</h2>
+                    <p>If you encounter a breakdown, slow down, only overtake when it's safe, and use hazard lights to
+                        alert others of the obstruction.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Section -->
+    <footer>
+
+        <p><a href="https://www.theaa.ie/blog/top-tips-stay-safe-roads/" target="_blank">
+                Reference: Top Tips to Stay Safe on the Roads <img src="../img/AA.png" alt="AA Logo"
+                    class="footer-logo">
+            </a></p>
+    </footer>
+
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tips = document.querySelectorAll('.tip');
+            const heroSection = document.getElementById('hero');
+            const topicsSection = document.getElementById('topics');
+            const headerHeight = document.querySelector('header').offsetHeight;
+
+            let currentIndex = 0; // Start with the first topic
+            let isInTopics = false; // Track whether the user is in the topics section
+
+            // Initialize the first topic as active
+            tips[currentIndex].classList.add('active');
+
+            // Function to activate a specific topic
+            function activateTip(index) {
+                tips.forEach((tip, i) => {
+                    tip.classList.remove('active');
+                    if (i === index) {
+                        tip.classList.add('active');
+                        tip.scrollIntoView({ behavior: 'smooth', block: 'center' }); // Center the topic in view
+                    }
+                });
+            }
+
+            // Scroll behavior for transitioning between sections
+            window.addEventListener('wheel', (event) => {
+                const scrollPosition = window.scrollY;
+                const topicsStart = topicsSection.offsetTop - headerHeight;
+
+                if (event.deltaY > 0) {
+                    // Scrolling down
+                    if (!isInTopics && scrollPosition < topicsStart) {
+                        // Move from hero to topics
+                        isInTopics = true;
+                        topicsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        currentIndex = 0; // Start with the first topic
+                        activateTip(currentIndex);
+                    } else if (isInTopics && currentIndex < tips.length - 1) {
+                        // Move to the next topic
+                        currentIndex++;
+                        activateTip(currentIndex);
+                    }
+                } else if (event.deltaY < 0) {
+                    // Scrolling up
+                    if (isInTopics && currentIndex > 0) {
+                        // Move to the previous topic
+                        currentIndex--;
+                        activateTip(currentIndex);
+                    } else if (isInTopics && currentIndex === 0) {
+                        // Move from topics to hero
+                        isInTopics = false;
+                        heroSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                }
+            });
+
+            // Optional: Add keyboard navigation for finer control
+            window.addEventListener('keydown', (event) => {
+                if (event.key === 'ArrowDown' && currentIndex < tips.length - 1) {
+                    currentIndex++;
+                    activateTip(currentIndex);
+                } else if (event.key === 'ArrowUp' && currentIndex > 0) {
+                    currentIndex--;
+                    activateTip(currentIndex);
+                }
+            });
+        });
+
+
+    </script>
+
+
+
+</body>
+
+</html>

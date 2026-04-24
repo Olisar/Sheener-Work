@@ -1,0 +1,310 @@
+{
+    "documents": [
+        {
+            "title": "INVESTIGATION OF OUT-OF-SPECIFICATION (OOS) LABORATORY RESULTS",
+            "file": "QC-001C",
+            "owner": "Agnieszka Lagocka",
+            "prepared_by": "Agnieszka Lagocka",
+            "reviewed_by": ["David Ryan", "Paul O'Mahony"],
+            "approved_by": "Kuldeep Joshi",
+            "effective_date": "22-Jun-2022",
+            "review_date": null,
+            "supersedes": null,
+            "related_to": ["Laboratory Data Management"],
+            "key_points": [
+                "Details steps for investigating OOS results.",
+                "Defines responsibilities of lab personnel.",
+                "Outlines reporting and corrective actions."
+            ]
+        },
+        {
+            "title": "SAMPLING OF RAW MATERIALS AT AMNEAL",
+            "file": "QC-002G",
+            "owner": "David Ryan",
+            "prepared_by": "David Ryan",
+            "reviewed_by": ["Paul O'Mahony", "Donnchadh Ryan"],
+            "approved_by": "Kuldeep Joshi",
+            "effective_date": "03-Apr-2023",
+            "review_date": "03-Apr-2025",
+            "supersedes": "QC-002F",
+            "related_to": ["Raw Material Sampling"],
+            "key_points": [
+                "Guidelines for sampling raw materials.",
+                "Ensures consistency and accuracy in testing.",
+                "Outlines documentation and labeling requirements."
+            ]
+        },
+        {
+            "title": "SETTLE PLATE SAMPLING",
+            "file": "QC-003F",
+            "owner": "John Doe",
+            "prepared_by": "John Doe",
+            "reviewed_by": ["Jane Smith", "Alex Brown"],
+            "approved_by": "Anna White",
+            "effective_date": "15-Mar-2023",
+            "review_date": null,
+            "supersedes": "QC-003E",
+            "related_to": ["Microbial Sampling"],
+            "key_points": [
+                "Describes procedure for settle plate sampling.",
+                "Covers aseptic handling and incubation requirements.",
+                "Focuses on contamination prevention."
+            ]
+        },
+        {
+            "title": "OPERATION OF MAS-100 AIR SAMPLER",
+            "file": "QC-004G",
+            "owner": "Karen Barry",
+            "prepared_by": "Karen Barry",
+            "reviewed_by": ["Anne McGrath", "Linda Bannon"],
+            "approved_by": "Kuldeep Joshi",
+            "effective_date": "09-Mar-2023",
+            "review_date": "06-Sep-2025",
+            "supersedes": "QC-004F",
+            "related_to": ["Environmental Monitoring"],
+            "key_points": [
+                "Details operating procedure for MAS-100 air sampler.",
+                "Covers calibration, setup, and maintenance.",
+                "Focuses on sampling in controlled environments."
+            ]
+        },
+        {
+            "title": "OPERATION OF NON-VIABLE SAMPLER",
+            "file": "QC-005D",
+            "owner": "Linda Bannon",
+            "prepared_by": "Linda Bannon",
+            "reviewed_by": ["Karen Barry", "Anne McGrath"],
+            "approved_by": "Mary White",
+            "effective_date": "21-Dec-2022",
+            "review_date": "21-Dec-2025",
+            "supersedes": "QC-005C",
+            "related_to": ["Non-Viable Particulate Monitoring"],
+            "key_points": [
+                "Describes operation of non-viable particle monitoring equipment.",
+                "Focus on compliance with environmental standards.",
+                "Includes troubleshooting common issues."
+            ]
+        },
+        {
+            "title": "REVIEW OF LABORATORY RECORDS",
+            "file": "QC-006G",
+            "owner": "Agnieszka Lagocka",
+            "prepared_by": "Agnieszka Lagocka",
+            "reviewed_by": ["David Ryan", "Paul O'Mahony"],
+            "approved_by": "Kuldeep Joshi",
+            "effective_date": "17-Nov-2021",
+            "review_date": "17-Nov-2024",
+            "supersedes": "QC-006F",
+            "related_to": ["Laboratory Records Management"],
+            "key_points": [
+                "Defines protocol for reviewing lab records.",
+                "Focus on identifying inconsistencies and errors.",
+                "Supports compliance with regulatory requirements."
+            ]
+        },
+        {
+            "title": "CONTACT PLATE SAMPLING",
+            "file": "QC-007C",
+            "owner": "Karen Barry",
+            "prepared_by": "Karen Barry",
+            "reviewed_by": ["Anne McGrath", "Katherina Russell"],
+            "approved_by": "Kuldeep Joshi",
+            "effective_date": "08-Nov-2021",
+            "review_date": "08-Nov-2024",
+            "supersedes": "QC-007B",
+            "related_to": ["Environmental Monitoring"],
+            "key_points": [
+                "Procedure for using contact plates to monitor microbial contamination.",
+                "Covers preparation, incubation, and result interpretation.",
+                "Focus on aseptic technique."
+            ]
+        },
+        {
+            "title": "OPERATION, CALIBRATION AND MAINTENANCE OF KARL FISCHER TITRATOR",
+            "file": "QC-008E",
+            "owner": "Patrick Flynn",
+            "prepared_by": "Patrick Flynn",
+            "reviewed_by": ["David Ryan", "Paul O'Mahony"],
+            "approved_by": "Kuldeep Joshi",
+            "effective_date": "30-Jul-2021",
+            "review_date": "30-Jul-2024",
+            "supersedes": "QC-008D",
+            "related_to": ["Instrument Calibration"],
+            "key_points": [
+                "Instructions for Karl Fischer Titrator operation.",
+                "Covers calibration and periodic maintenance.",
+                "Ensures accurate moisture content analysis."
+            ]
+        },
+        {
+            "title": "RECEIPT AND HANDLING OF INCOMING SAMPLES IN QC/ARD MICROBIOLOGY LAB",
+            "file": "QC-009I",
+            "owner": "David Ryan",
+            "prepared_by": "David Ryan",
+            "reviewed_by": ["Ashok Gulati", "Paul O'Mahony"],
+            "approved_by": "Kuldeep Joshi",
+            "effective_date": "03-Apr-2023",
+            "review_date": "03-Apr-2025",
+            "supersedes": "QC-009H",
+            "related_to": ["Sample Handling"],
+            "key_points": [
+                "Procedure for receiving and handling microbiology samples.",
+                "Outlines labeling, storage, and chain-of-custody protocols.",
+                "Ensures compliance with microbiological testing standards."
+            ]
+        },
+        {
+            "title": "RECORDING AND REPORTING OF LABORATORY TEST DATA",
+            "file": "QC-010H",
+            "owner": "Ashok Gulati",
+            "prepared_by": "Ashok Gulati",
+            "reviewed_by": ["Paul O'Mahony"],
+            "approved_by": "Kuldeep Joshi",
+            "effective_date": "18-Nov-2022",
+            "review_date": "18-Nov-2025",
+            "supersedes": "QC-010G",
+            "related_to": ["Data Integrity"],
+            "key_points": [
+                "Outlines procedures for recording test results in the laboratory.",
+                "Ensures data integrity and compliance with standards.",
+                "Includes steps for reporting and archiving data."
+            ]
+        },
+        {
+            "title": "ROUTINE MICROBIOLOGICAL ENVIRONMENTAL MONITORING",
+            "file": "QC-011K",
+            "owner": "Anne McGrath",
+            "prepared_by": "Anne McGrath",
+            "reviewed_by": ["Linda Bannon", "Katherina Russell"],
+            "approved_by": "Kuldeep Joshi",
+            "effective_date": "31-May-2023",
+            "review_date": "31-May-2025",
+            "supersedes": "QC-011J",
+            "related_to": ["Environmental Monitoring"],
+            "key_points": [
+                "Details procedures for routine microbiological environmental monitoring.",
+                "Ensures compliance with microbiological standards.",
+                "Includes techniques for sampling and analysis."
+            ]
+        },
+        {
+            "title": "CHROMATOGRAPHIC COLUMN MANAGEMENT",
+            "file": "QC-012B",
+            "owner": "Linda Bannon",
+            "prepared_by": "Linda Bannon",
+            "reviewed_by": ["Patrick Flynn", "David Ryan"],
+            "approved_by": "Kuldeep Joshi",
+            "effective_date": "05-Jun-2021",
+            "review_date": "05-Jun-2024",
+            "supersedes": "QC-012A",
+            "related_to": ["Chromatography"],
+            "key_points": [
+                "Guidelines for managing chromatographic columns.",
+                "Ensures consistent performance and longevity.",
+                "Covers cleaning, storage, and replacement criteria."
+            ]
+        },
+        {
+            "title": "OPERATION, CALIBRATION, AND MAINTENANCE OF THE METTLER TOLEDO SEVENCOMPACT PH METER",
+            "file": "QC-013B",
+            "owner": "Patrick Flynn",
+            "prepared_by": "Patrick Flynn",
+            "reviewed_by": ["Linda Bannon", "David Ryan"],
+            "approved_by": "Kuldeep Joshi",
+            "effective_date": "08-Mar-2022",
+            "review_date": "08-Mar-2025",
+            "supersedes": "QC-013A",
+            "related_to": ["Instrument Calibration"],
+            "key_points": [
+                "Describes operation and maintenance of the pH meter.",
+                "Covers calibration processes and sensor care.",
+                "Focus on accuracy in pH measurement for lab analysis."
+            ]
+        },
+        {
+            "title": "USAGE, HANDLING AND QUALIFICATION OF REFERENCE STANDARDS",
+            "file": "QC-016C",
+            "owner": "Ashok Gulati",
+            "prepared_by": "Ashok Gulati",
+            "reviewed_by": ["Agnieszka Lagocka", "David Ryan"],
+            "approved_by": "Kuldeep Joshi",
+            "effective_date": "05-Aug-2020",
+            "review_date": "04-Aug-2023",
+            "supersedes": "QC-016B",
+            "related_to": ["Reference Standards"],
+            "key_points": [
+                "Describes procedures for acquiring, storing, handling, and qualifying reference standards.",
+                "Ensures proper usage and maintenance of reference standards.",
+                "Covers labeling, distribution, and documentation requirements."
+            ]
+        },
+        {
+            "title": "OPERATION AND MAINTENANCE OF VWR USC 300T/1700T/2600T ULTRASONIC CLEANING BATHS",
+            "file": "QC-017A",
+            "owner": "Brigid Hayes",
+            "prepared_by": "Brigid Hayes",
+            "reviewed_by": ["Agnieszka Lagocka"],
+            "approved_by": "Kuldeep Joshi",
+            "effective_date": "24-Apr-2019",
+            "review_date": "23-Apr-2022",
+            "supersedes": "QC-017",
+            "related_to": ["Ultrasonic Cleaning"],
+            "key_points": [
+                "Defines procedures for operating and maintaining ultrasonic cleaning baths.",
+                "Covers safety precautions, sonication of samples, and degassing of HPLC solutions.",
+                "Includes routine maintenance and cleaning protocols."
+            ]
+        },
+        {
+            "title": "OPERATION, QUALIFICATION AND MAINTENANCE OF THE BINDER DRYING OVENS",
+            "file": "QC-018B",
+            "owner": "Eva Quinlan",
+            "prepared_by": "Eva Quinlan",
+            "reviewed_by": ["Elizabeth Moore"],
+            "approved_by": "Kuldeep Joshi",
+            "effective_date": "15-Oct-2020",
+            "review_date": "14-Oct-2023",
+            "supersedes": "QC-018A",
+            "related_to": ["Drying Ovens"],
+            "key_points": [
+                "Defines procedures for operating, qualifying, and maintaining Binder drying ovens.",
+                "Covers safety checks, calibration, and maintenance protocols.",
+                "Ensures proper usage and documentation of oven operations."
+            ]
+        },
+        {
+            "title": "INTEGRATION OF CHROMATOGRAMS IN THE QC/ARD LABORATORY",
+            "file": "QC-019C",
+            "owner": "David Ryan",
+            "prepared_by": "David Ryan",
+            "reviewed_by": ["Agnieszka Lagocka", "Paul O'Mahony"],
+            "approved_by": "Kuldeep Joshi",
+            "effective_date": "17-Nov-2021",
+            "review_date": "17-Nov-2024",
+            "supersedes": "QC-019B",
+            "related_to": ["Chromatography"],
+            "key_points": [
+                "Provides a systematic approach to peak identification and integration for chromatograms.",
+                "Covers peak marking, integration methods, and system suitability.",
+                "Ensures accurate and consistent chromatographic data analysis."
+            ]
+        }
+    ],
+    "relationships": [
+        {
+            "source": "OPERATION OF MAS-100 AIR SAMPLER",
+            "target": "CONTACT PLATE SAMPLING",
+            "relation": "Environmental Monitoring"
+        },
+        {
+            "source": "OPERATION OF NON-VIABLE SAMPLER",
+            "target": "OPERATION OF MAS-100 AIR SAMPLER",
+            "relation": "Environmental Monitoring"
+        },
+        {
+            "source": "REVIEW OF LABORATORY RECORDS",
+            "target": "RECORDING AND REPORTING OF LABORATORY TEST DATA",
+            "relation": "Data Integrity"
+        }
+    ]
+}

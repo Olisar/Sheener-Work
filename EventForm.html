@@ -1,0 +1,431 @@
+<!-- File: sheener/EventForm.html -->
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Incident Investigation Form</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="shortcut icon" href="img/favicon/faviconAY.ico">
+  <script src="js/navbar.js" defer></script>
+  <script src="js/topbar.js" defer></script><!-- Optional for custom styling -->
+  <script src="js/create_permit.js" defer></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      font-size: 12px;
+    }
+
+    .container {
+      width: 800px;
+      margin: 0 auto;
+    }
+
+    .header {
+      text-align: left;
+      margin-bottom: 20px;
+    }
+
+    .section {
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      padding: 10px;
+    }
+
+    .section-title {
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .subsection {
+      margin-bottom: 10px;
+    }
+
+    .label {
+      font-weight: bold;
+    }
+
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .table th,
+    .table td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: left;
+    }
+
+    .signature-line {
+      border-bottom: 1px solid #000;
+      width: 200px;
+      display: inline-block;
+      margin-right: 10px;
+    }
+
+    .checkbox-group {
+      display: flex;
+      flex-direction: row;
+    }
+
+    .checkbox-item {
+      margin-right: 15px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="topbar"></div>
+  <div id="navbar"></div>
+  <div class="container">
+
+    <div class="header">
+      <h1>Incident Investigation Form</h1>
+      <p>FM-ES-009-02</p>
+      <p>Printed on 12-Feb-25</p>
+      <p>Ref. SOP no. ES-008</p>
+      <p>Investigation reports must be completed within 7 calendar days.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Incident Information</div>
+      <div class="subsection">
+        <label class="label">Incident Start Date:</label> 07-Feb-25
+      </div>
+      <div class="subsection">
+        <label class="label">Incident Start Time:</label> 15:00
+      </div>
+      <div class="subsection">
+        <label class="label">Incident End Date (if applicable):</label> N/A
+      </div>
+      <div class="subsection">
+        <label class="label">Incident End Time (if applicable):</label> N/A
+      </div>
+      <div class="subsection">
+        <label class="label">Location:</label> XP-21
+      </div>
+      <div class="subsection">
+        <label class="label">Name of Affected Person:</label> Kristina Adomaviciute
+      </div>
+      <div class="subsection">
+        <label class="label">Job Title:</label> xxxxx
+      </div>
+      <div class="subsection">
+        <label class="label">Department:</label> xxxx
+      </div>
+      <div class="subsection">
+        <label class="label">Date Reported:</label> 07-Feb-25
+      </div>
+      <div class="subsection">
+        <label class="label">Time Reported:</label> 16:00
+      </div>
+      <div class="subsection">
+        <label class="label">Reported to:</label> Mary White
+      </div>
+      <div class="subsection">
+        <label class="label">Job Title:</label> QA Manager
+      </div>
+      <div class="subsection">
+        <label class="label">Witness Names:</label> Dean Butler, Ciara Lonergan, Sylwia Boguska, Eoghan Walsh
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Report Information</div>
+      <div class="subsection">
+        <label class="label">Report Date:</label> 10-Feb-2025
+      </div>
+      <div class="subsection">
+        <label class="label">Time Report Initiated:</label> 08:00
+      </div>
+      <div class="subsection">
+        <label class="label">Name and Title of Person Completing Report:</label> Mary White
+      </div>
+      <div class="subsection">
+        <label class="label">Report Number (provided by EHS):</label> 25-001
+      </div>
+      <div class="subsection">
+        <label class="label">Revision Number:</label> 0
+      </div>
+      <div class="subsection">
+        <label class="label">Report Type:</label>
+        <input type="checkbox" id="initialReport" name="reportType" value="initial">
+        <label for="initialReport">Initial Report</label>
+        <input type="checkbox" id="finalReport" name="reportType" value="final">
+        <label for="finalReport">Final Report</label>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Injury Details (If an injury occurred please provide details)</div>
+      <div class="subsection">
+        <p>Kristina reported feeling hot and dizzy while working in XP-21 with a respirator. Witnesses observed that she
+          looked red in the face and flustered, potentially due to respirator use and room temperature (23°C). No
+          abnormal incident was officially reported at the time.</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Documents to be included (as appropriate) with this Form to EHS</div>
+      <ul>
+        <li>Witness Statements</li>
+        <li>SOP (Standard Operating Procedure)</li>
+        <li>Permits</li>
+        <li>Risk Assessments</li>
+        <li>SDS (Safety Data Sheets)</li>
+        <li>Method Statement</li>
+        <li>Chemical Risk Assessments</li>
+        <li>Complete Root Cause Analysis including Diagrams</li>
+        <li>Photos</li>
+        <li>Email Correspondence</li>
+      </ul>
+      <p>These documents can be emailed to EHS if appropriate.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Incident (or Potential Incident) Summary (include in chronological order. Attach
+        photos/sketches as appropriate.)</div>
+      <div class="subsection">
+        <p>Kristina completed a sampling activity individually in XP-21 while wearing appropriate PPE, including a
+          respirator. After completing the task, she reported feeling hot, and witnesses noted that she looked red-faced
+          and flustered. Dean Butler confirmed that Kristina commented about feeling hot and dizzy. Ciara Lonergan also
+          stated that Kristina looked red and mentioned not feeling well. Sylwia Boguska did not recall interacting with
+          Kristina during this time. The elevated temperature in XP-21 (23°C) and respirator use are potential
+          contributing factors.</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Environmental or Biological Release</div>
+      <div class="subsection">
+        <label class="label">Name of material(s) released and % composition:</label> N/A
+      </div>
+      <div class="subsection">
+        <label class="label">Amount released:</label> N/A
+      </div>
+      <div class="subsection">
+        <label class="label">Amount outside secondary containment:</label> N/A
+      </div>
+      <div class="subsection">
+        <label class="label">Amount leaving the site boundary:</label> N/A
+      </div>
+      <div class="subsection">
+        <label class="label">Where did the release occur? (check all that apply)</label>
+        <div class="checkbox-group">
+          <div class="checkbox-item">
+            <input type="checkbox" id="air" name="release_location" value="air">
+            <label for="air">Air</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="wastewater" name="release_location" value="wastewater">
+            <label for="wastewater">Wastewater/Chemical Sewer</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="ground" name="release_location" value="ground">
+            <label for="ground">Ground</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="stormwater" name="release_location" value="stormwater">
+            <label for="stormwater">Storm water</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="other" name="release_location" value="other">
+            <label for="other">Other (Describe): N/A</label>
+          </div>
+        </div>
+      </div>
+      <div class="subsection">
+        <label class="label">Actions taken to mitigate/stop release:</label> N/A
+      </div>
+    </div>
+
+    <div class="section">
+      <p>Please attach RCA drawings and/or photographs to this form including tools used e.g. 5 Why Worksheet</p>
+      <div class="section-title">Problem Statement from RCA</div>
+      <div class="subsection">
+        <p>An employee experienced discomfort, feeling hot and dizzy, while working in XP-21 with a respirator. The root
+          cause of the incident is yet to be determined through further investigation.</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">CAPA Actions</div>
+      <div class="subsection">
+        <label class="label">CAPA Summary Actions</label>
+        <label class="label">Due Date</label>
+        <label class="label">Owner</label>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">RCA Team</div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Job Title</th>
+            <th>Signature</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section">
+      <div class="section-title">EHS Departmental Review</div>
+      <div class="subsection">
+        <label>Major Accident Prevention:</label>
+      </div>
+      <div class="subsection">
+        <label>Should the accident/incident be evaluated for impact on Major Accident Prevention?</label>
+        <div class="checkbox-group">
+          <div class="checkbox-item">
+            <input type="checkbox" id="majorAccidentYes" name="major_accident" value="yes">
+            <label for="majorAccidentYes">Yes</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="majorAccidentNo" name="major_accident" value="no">
+            <label for="majorAccidentNo">No</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <label>Should the accident/incident be investigated as a Dangerous occurrence?</label>
+        <div class="checkbox-group">
+          <div class="checkbox-item">
+            <input type="checkbox" id="dangerousOccurrenceYes" name="dangerous_occurrence" value="yes">
+            <label for="dangerousOccurrenceYes">Yes</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="dangerousOccurrenceNo" name="dangerous_occurrence" value="no">
+            <label for="dangerousOccurrenceNo">No</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <label>Has this incident or a similar incident occurred previously (Trending)?</label>
+        <div class="checkbox-group">
+          <div class="checkbox-item">
+            <input type="checkbox" id="previousIncidentYes" name="previous_incident" value="yes">
+            <label for="previousIncidentYes">Yes</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="previousIncidentNo" name="previous_incident" value="no">
+            <label for="previousIncidentNo">No</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <label>Has this incident the potential to reoccur elsewhere on site?</label>
+        <div class="checkbox-group">
+          <div class="checkbox-item">
+            <input type="checkbox" id="reoccurPotentialYes" name="reoccur_potential" value="yes">
+            <label for="reoccurPotentialYes">Yes</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="reoccurPotentialNo" name="reoccur_potential" value="no">
+            <label for="reoccurPotentialNo">No</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <label>Does the accident need to be reported to external authorities?</label>
+        <div class="checkbox-group">
+          <div class="checkbox-item">
+            <input type="checkbox" id="reportExternalYes" name="report_external" value="yes">
+            <label for="reportExternalYes">Yes</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="reportExternalNo" name="report_external" value="no">
+            <label for="reportExternalNo">No</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <label>Incident RCA has been reviewed by:</label>
+      </div>
+      <div class="subsection">
+        <label>Name:</label> <span class="signature-line"></span>
+      </div>
+      <div class="subsection">
+        <label>Signature:</label> <span class="signature-line"></span>
+      </div>
+      <div class="subsection">
+        <label>Date:</label> <span class="signature-line"></span>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Site Management Review (Verification CAPA are appropriate, and sustainable)</div>
+      <div class="subsection">
+        <label>Name:</label> <span class="signature-line"></span>
+      </div>
+      <div class="subsection">
+        <label>Signature:</label> <span class="signature-line"></span>
+      </div>
+      <div class="subsection">
+        <label>Date:</label> <span class="signature-line"></span>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Site Management Review (Verification CAPA’s have been closed out satisfactorily)</div>
+      <div class="subsection">
+        <label>Name:</label> <span class="signature-line"></span>
+      </div>
+      <div class="subsection">
+        <label>Signature:</label> <span class="signature-line"></span>
+      </div>
+      <div class="subsection">
+        <label>Date:</label> <span class="signature-line"></span>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">EHS Review (Verification CAPA’s have been closed out satisfactorily)</div>
+      <div class="subsection">
+        <label>Name:</label> Olivier Gras <span class="signature-line"></span>
+      </div>
+      <div class="subsection">
+        <label>Signature:</label> <span class="signature-line"></span>
+      </div>
+      <div class="subsection">
+        <label>Date:</label> <span class="signature-line"></span>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>

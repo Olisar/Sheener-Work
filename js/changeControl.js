@@ -65,13 +65,16 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function formatDate(dateString) {
+        if (typeof formatDDMMMYYYY === 'function') {
+            return formatDDMMMYYYY(dateString);
+        }
         if (!dateString) return "N/A";
         const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
         let dateObj = new Date(dateString);
         if (isNaN(dateObj)) return dateString;
         let day = dateObj.getDate().toString().padStart(2, '0');
         let month = months[dateObj.getMonth()];
-        let year = dateObj.getFullYear().toString().slice(-2);
+        let year = dateObj.getFullYear();
         return `${day}-${month}-${year}`;
     }
 
@@ -84,6 +87,11 @@ document.addEventListener("DOMContentLoaded", () => {
         if (form) form.reset();
         const idField = document.getElementById('modal_cc_id');
         if (idField) idField.value = '';
+        
+        // Clear hidden date fields
+        const targetDateHidden = document.getElementById('modal_targetDate_hidden');
+        if (targetDateHidden) targetDateHidden.value = '';
+
         const titleEl = document.getElementById('modalTitle');
         if (titleEl) titleEl.textContent = 'Create New Change Control';
         const submitBtn = document.getElementById('modalSubmitButton');
@@ -142,7 +150,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (cc) {
             const fields = {
                 'modal_cc_id': cc.cc_id,
-                'modal_targetDate': cc.target_date,
+                'modal_targetDate': typeof formatDDMMMYYYY === 'function' ? formatDDMMMYYYY(cc.target_date) : cc.target_date,
                 'modal_impactedSites': cc.impacted_sites,
                 'modal_market': cc.market,
                 'modal_title': cc.title,
@@ -166,7 +174,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
             for (const [id, value] of Object.entries(fields)) {
                 const el = document.getElementById(id);
-                if (el) el.value = value;
+                if (el) {
+                    el.value = value;
+                    // Trigger sync for date fields
+                    if (id === 'modal_targetDate' && window.DateInputHandler) {
+                        window.DateInputHandler.validateAndSync(el);
+                    }
+                }
             }
 
             const titleEl = document.getElementById('modalTitle');

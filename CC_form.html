@@ -7,7 +7,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Change Control Form</title>
   <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/date-picker.css">
   <link rel="shortcut icon" href="img/favicon/faviconAY.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     form {
       max-width: 1000px;
@@ -64,6 +66,10 @@
 
 
   <script src="js/taskHandler.js"></script>
+  <!-- Load Date Utilities and Picker -->
+  <script src="js/date-utils.js"></script>
+  <script src="js/date-input-handler.js"></script>
+  <script src="js/date-picker.js"></script>
   <!-- Load JavaScript -->
   <script src="js/changeControl.js"></script>
   <!-- Load JavaScript -->
@@ -83,7 +89,10 @@
         <div class="form-row">
           <div class="form-group">
             <label for="targetDate">Target Date of Closure:</label>
-            <input type="date" id="targetDate" name="target_date" required />
+            <div class="date-picker-input-wrapper">
+              <input type="text" id="targetDate" class="form-control date-input-ddmmmyyyy" placeholder="dd-mmm-yyyy" required />
+              <input type="hidden" id="targetDate_hidden" name="target_date">
+            </div>
           </div>
 
           <div class="form-group">
@@ -227,7 +236,19 @@
                 const cc = data.data.find(item => item.cc_id == ccId);
                 if (cc) {
                   document.getElementById('cc_id').value = cc.cc_id;
-                  document.getElementById('targetDate').value = cc.target_date;
+                  
+                  // Handle Date Formatting
+                  const targetDateInput = document.getElementById('targetDate');
+                  if (targetDateInput && typeof formatDDMMMYYYY === 'function') {
+                    targetDateInput.value = formatDDMMMYYYY(cc.target_date);
+                    // Trigger validation/sync to hidden field
+                    if (window.DateInputHandler) {
+                      window.DateInputHandler.validateAndSync(targetDateInput);
+                    }
+                  } else {
+                    document.getElementById('targetDate').value = cc.target_date;
+                  }
+
                   document.getElementById('impactedSites').value = cc.impacted_sites;
                   document.getElementById('market').value = cc.market;
                   document.getElementById('title').value = cc.title;

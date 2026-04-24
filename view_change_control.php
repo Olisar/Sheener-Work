@@ -69,7 +69,7 @@ include 'includes/header.php';
             </span>
         </div>
         <div class="meta-item-standard">
-            <i class="fas fa-calendar-alt"></i> <span>Target: <?= htmlspecialchars($changeControl['target_date']) ?></span>
+            <i class="fas fa-calendar-alt"></i> <span>Target: <?= $changeControl['target_date'] ? date('d-M-Y', strtotime($changeControl['target_date'])) : 'N/A' ?></span>
         </div>
         <div class="meta-item-standard">
             <i class="fas fa-globe"></i> <span>Site: <?= htmlspecialchars($changeControl['impacted_sites']) ?></span>

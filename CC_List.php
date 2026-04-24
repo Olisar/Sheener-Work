@@ -78,7 +78,8 @@ include 'includes/header.php';
                 <div class="modal-field-row modal-field-row-3">
                     <div class="modal-field">
                         <label for="modal_targetDate">Target Date of Closure:</label>
-                        <input type="date" id="modal_targetDate" name="target_date" class="form-control" required>
+                        <input type="text" id="modal_targetDate" class="form-control date-input-ddmmmyyyy" placeholder="dd-mmm-yyyy" required>
+                        <input type="hidden" id="modal_targetDate_hidden" name="target_date">
                     </div>
                     <div class="modal-field">
                         <label for="modal_impactedSites">Impacted Sites:</label>

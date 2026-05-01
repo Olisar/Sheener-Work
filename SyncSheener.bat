@@ -28,6 +28,28 @@ if not exist %GIT_PATH% (
     exit /b 1
 )
 
+:: ==========================================================
+:: DATABASE EXPORT
+:: ==========================================================
+echo [+] Exporting database...
+set MYSQLDUMP_PATH="d:\xampp\mysql\bin\mysqldump.exe"
+set DB_USER=root
+set DB_NAME=sheener
+set SQL_OUTPUT_FILE=sql\sheener_backup.sql
+
+if not exist d:\xampp\mysql\bin\mysqldump.exe (
+    echo [WARNING] mysqldump not found at %MYSQLDUMP_PATH%
+    echo Skipping database backup.
+) else (
+    %MYSQLDUMP_PATH% -u%DB_USER% %DB_NAME% > %SQL_OUTPUT_FILE%
+    if %errorlevel% equ 0 (
+        echo [SUCCESS] Database exported to %SQL_OUTPUT_FILE%
+    ) else (
+        echo [ERROR] Database export failed!
+    )
+)
+echo.
+
 echo [+] Adding changes...
 %GIT_PATH% add .
 

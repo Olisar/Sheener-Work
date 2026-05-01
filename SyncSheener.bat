@@ -54,11 +54,10 @@ echo [+] Adding changes...
 %GIT_PATH% add .
 
 echo [+] Committing changes...
-:: Get current date and time for the commit message
-for /f "tokens=2-4 delims=/ " %%a in ('date /t') do (set mydate=%%c-%%a-%%b)
-for /f "tokens=1-2 delims=: " %%a in ('time /t') do (set mytime=%%a:%%b)
+:: Get current date and time for the commit message using PowerShell for robustness
+for /f "tokens=*" %%i in ('powershell -NoProfile -Command "Get-Date -Format 'yyyy-MM-dd HH:mm'"') do set TIMESTAMP=%%i
 
-%GIT_PATH% commit -m "Sync: %mydate% %mytime%"
+%GIT_PATH% commit -m "Sync: %TIMESTAMP%"
 
 echo [+] Pushing to GitHub (origin main)...
 %GIT_PATH% push origin main

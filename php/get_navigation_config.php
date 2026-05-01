@@ -405,7 +405,7 @@ p.IsActive,
             ],
             'permission' => null,
             'attributes' => null,
-            'action' => 'profile'
+            'action' => 'profile.php'
         ],
         'planner' => [
             'roles' => [

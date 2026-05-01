@@ -89,7 +89,7 @@ include 'includes/header.php';
 
         <div class="tab-content" id="tab-energy">
             <div class="content-header">
-                <h2>Energy Registry</h2>
+                <h2>Power Registry</h2>
                 <button class="btn-add" onclick="openAddModal('energy')"><i class="fas fa-plus"></i> Add
                     Energy</button>
             </div>
@@ -126,7 +126,7 @@ include 'includes/header.php';
     </div>
 </main>
 
-<?php 
+<?php
 include 'includes/7ps_modals_html.php';
-include 'includes/footer.php'; 
+include 'includes/footer.php';
 ?>

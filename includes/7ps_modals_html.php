@@ -12,13 +12,23 @@
         </h3>
         <div class="modal-body">
             <div class="modal-form-grid view-mode">
-                <div class="form-group form-group-2col">
-                    <label>First Name:</label>
-                    <input type="text" class="view-field" id="view_first_name" readonly>
-                </div>
-                <div class="form-group form-group-2col">
-                    <label>Last Name:</label>
-                    <input type="text" class="view-field" id="view_last_name" readonly>
+                <div class="form-group form-group-full">
+                    <div class="modal-field-row modal-field-row-3">
+                        <div class="modal-field">
+                            <label>First Name:</label>
+                            <input type="text" class="view-field" id="view_first_name" readonly>
+                        </div>
+                        <div class="modal-field">
+                            <label>Last Name:</label>
+                            <input type="text" class="view-field" id="view_last_name" readonly>
+                        </div>
+                        <div class="modal-field">
+                            <label>Active:</label>
+                            <div style="height: 38px; display: flex; align-items: center;">
+                                <input type="checkbox" id="view_is_active" disabled style="width: 20px; height: 20px; margin: 0;">
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="form-group form-group-full">
                     <label>Email:</label>
@@ -36,9 +46,13 @@
                     <label>Position:</label>
                     <input type="text" class="view-field" id="view_position" readonly>
                 </div>
-                <div class="form-group form-group-full">
-                    <label>Is Active:</label>
-                    <input type="text" class="view-field" id="view_is_active" readonly>
+                <div class="form-group form-group-2col">
+                    <label>Department:</label>
+                    <input type="text" class="view-field" id="view_department" readonly>
+                </div>
+                <div class="form-group form-group-2col">
+                    <label>Department Location:</label>
+                    <input type="text" class="view-field" id="view_department_location" readonly>
                 </div>
             </div>
         </div>
@@ -60,13 +74,23 @@
         <div class="modal-body">
             <form id="editPersonForm" class="modal-form-grid">
                 <input type="hidden" id="edit_people_id" name="people_id">
-                <div class="form-group form-group-2col">
-                    <label for="edit_first_name">First Name:</label>
-                    <input type="text" id="edit_first_name" name="first_name" required>
-                </div>
-                <div class="form-group form-group-2col">
-                    <label for="edit_last_name">Last Name:</label>
-                    <input type="text" id="edit_last_name" name="last_name" required>
+                <div class="form-group form-group-full">
+                    <div class="modal-field-row modal-field-row-3">
+                        <div class="modal-field">
+                            <label for="edit_first_name">First Name:</label>
+                            <input type="text" id="edit_first_name" name="first_name" required>
+                        </div>
+                        <div class="modal-field">
+                            <label for="edit_last_name">Last Name:</label>
+                            <input type="text" id="edit_last_name" name="last_name" required>
+                        </div>
+                        <div class="modal-field">
+                            <label for="edit_is_active">Active:</label>
+                            <div style="height: 38px; display: flex; align-items: center;">
+                                <input type="checkbox" id="edit_is_active" name="is_active" value="1" style="width: 20px; height: 20px; margin: 0;">
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="form-group form-group-full">
                     <label for="edit_email">Email:</label>
@@ -85,7 +109,7 @@
                     <label for="edit_position">Position:</label>
                     <input type="text" id="edit_position" name="position">
                 </div>
-                <div class="form-group form-group-full form-group-autocomplete">
+                <div class="form-group form-group-2col form-group-autocomplete">
                     <label for="edit_department_id_display">Department:</label>
                     <div style="position: relative;">
                         <input type="text" id="edit_department_id_display" autocomplete="off" placeholder="Type to search department...">
@@ -93,12 +117,9 @@
                         <div id="edit_department_id_autocomplete" class="autocomplete-dropdown"></div>
                     </div>
                 </div>
-                <div class="form-group form-group-full">
-                    <label for="edit_is_active">Is Active:</label>
-                    <select id="edit_is_active" name="is_active">
-                        <option value="1">Yes</option>
-                        <option value="0">No</option>
-                    </select>
+                <div class="form-group form-group-2col">
+                    <label for="edit_department_location">Location:</label>
+                    <input type="text" id="edit_department_location" readonly class="view-field" style="background: #f0f0f0;">
                 </div>
             </form>
         </div>
@@ -602,11 +623,9 @@
                     </div>
                 </div>
                 <div class="form-group form-group-full">
-                    <label for="add_is_active">Is Active:</label>
-                    <select id="add_is_active" name="is_active">
-                        <option value="1">Yes</option>
-                        <option value="0">No</option>
-                    </select>
+                    <label>
+                        <input type="checkbox" id="add_is_active" name="is_active" value="1" checked> Is Active
+                    </label>
                 </div>
             </form>
         </div>

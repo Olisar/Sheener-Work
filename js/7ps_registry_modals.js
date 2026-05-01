@@ -124,6 +124,8 @@ function init7PsAutocomplete(displayInputId, hiddenInputId, dropdownId, type) {
                 } else if (type === 'department') {
                     displayInput.value = item.DepartmentName || '';
                     hiddenInput.value = item.department_id || item.DepartmentName;
+                    const locInput = document.getElementById(displayInputId.replace('_display', '') + '_location');
+                    if (locInput) locInput.value = item.Location || '—';
                 } else if (type === 'location') {
                     displayInput.value = item.area_name || '';
                     hiddenInput.value = item.area_name;
@@ -172,13 +174,15 @@ function openViewPersonModal(personId) {
         .then(data => {
             if (data.success && data.data) {
                 const person = data.data;
-                document.getElementById('view_first_name').value = person.FirstName || '—';
-                document.getElementById('view_last_name').value = person.LastName || '—';
+                document.getElementById('view_first_name').value = person.FirstName || person.first_name || '—';
+                document.getElementById('view_last_name').value = person.LastName || person.last_name || '—';
                 document.getElementById('view_email').value = person.Email || '—';
                 document.getElementById('view_phone_number').value = person.PhoneNumber || '—';
                 document.getElementById('view_date_of_birth').value = person.DateOfBirth && person.DateOfBirth !== '0000-00-00' ? formatDDMMMYYYY(person.DateOfBirth) : '—';
                 document.getElementById('view_position').value = person.Position || '—';
-                document.getElementById('view_is_active').value = person.IsActive == 1 ? 'Yes' : 'No';
+                document.getElementById('view_department').value = person.department_name || '—';
+                document.getElementById('view_department_location').value = person.department_location || '—';
+                document.getElementById('view_is_active').checked = person.IsActive == 1;
 
                 // Add Edit button handler
                 const editBtn = document.getElementById('editBtnFromViewPerson');
@@ -209,8 +213,8 @@ function openEditPersonModal(personId) {
             if (data.success && data.data) {
                 const person = data.data;
                 document.getElementById('edit_people_id').value = person.people_id;
-                document.getElementById('edit_first_name').value = person.FirstName || '';
-                document.getElementById('edit_last_name').value = person.LastName || '';
+                document.getElementById('edit_first_name').value = person.FirstName || person.first_name || '';
+                document.getElementById('edit_last_name').value = person.LastName || person.last_name || '';
                 document.getElementById('edit_email').value = person.Email || '';
                 document.getElementById('edit_phone_number').value = person.PhoneNumber || '';
 
@@ -223,13 +227,15 @@ function openEditPersonModal(personId) {
                 }
 
                 document.getElementById('edit_position').value = person.Position || '';
-                document.getElementById('edit_is_active').value = person.IsActive !== undefined ? person.IsActive : 1;
+                document.getElementById('edit_is_active').checked = person.IsActive !== undefined ? person.IsActive == 1 : true;
 
                 if (person.department_id) {
                     const dept = departmentsData.find(d => d.department_id == person.department_id);
-                    document.getElementById('edit_department_id_display').value = dept ? dept.DepartmentName : '';
+                    document.getElementById('edit_department_id_display').value = dept ? dept.DepartmentName : (person.department_name || '');
+                    document.getElementById('edit_department_location').value = dept ? (dept.Location || '—') : (person.department_location || '—');
                 } else {
                     document.getElementById('edit_department_id_display').value = '';
+                    document.getElementById('edit_department_location').value = '—';
                 }
                 document.getElementById('edit_department_id').value = person.department_id || '';
 
@@ -676,7 +682,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 DateOfBirth: document.getElementById('edit_date_of_birth_hidden').value || null,
                 Position: document.getElementById('edit_position').value || null,
                 department_id: document.getElementById('edit_department_id').value ? parseInt(document.getElementById('edit_department_id').value) : null,
-                IsActive: parseInt(document.getElementById('edit_is_active').value)
+                IsActive: document.getElementById('edit_is_active').checked ? 1 : 0
             };
 
             fetch('php/update_person.php', {

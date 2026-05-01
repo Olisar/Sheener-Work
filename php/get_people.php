@@ -37,10 +37,14 @@ try {
             p.PhoneNumber,
             p.Position,
             p.IsActive,
+            p.department_id,
+            d.DepartmentName AS department_name,
+            d.Location AS department_location,
             r.RoleID,
             r.RoleName,
             r.Description AS RoleDescription
           FROM people p
+          LEFT JOIN departments d ON p.department_id = d.department_id
           LEFT JOIN people_roles pr ON p.people_id = pr.PersonID
           LEFT JOIN roles r ON pr.RoleID = r.RoleID
           WHERE p.people_id = :people_id
@@ -85,16 +89,15 @@ try {
             p.PhoneNumber,
             p.Position,
             p.IsActive,
-            (SELECT GROUP_CONCAT(DISTINCT d.DepartmentName SEPARATOR ', ') 
-             FROM people_departments pd 
-             JOIN departments d ON pd.DepartmentID = d.department_id 
-             WHERE pd.PersonID = p.people_id) AS department_name,
+            p.department_id,
+            d.DepartmentName AS department_name,
             NULL AS company_name,
             (SELECT GROUP_CONCAT(DISTINCT CONCAT(r.RoleID, ':', r.RoleName) SEPARATOR '|') 
              FROM people_roles pr 
              JOIN roles r ON pr.RoleID = r.RoleID 
              WHERE pr.PersonID = p.people_id) AS roles
           FROM people p
+          LEFT JOIN departments d ON p.department_id = d.department_id
           WHERE p.IsActive = 1
           ORDER BY p.FirstName, p.LastName
         ";

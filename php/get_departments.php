@@ -16,7 +16,7 @@ try {
     $database = new Database();
     $pdo = $database->getConnection();
 
-    $query = "SELECT department_id, DepartmentName FROM departments ORDER BY DepartmentName";
+    $query = "SELECT department_id, DepartmentName, Location FROM departments ORDER BY DepartmentName";
     $stmt = $pdo->query($query);
     $departments = $stmt->fetchAll(PDO::FETCH_ASSOC);
 

@@ -244,7 +244,7 @@ class SevenPsManager {
     getItemName(tabName, item) {
         switch(tabName) {
             case 'people':
-                return `${item.FirstName || ''} ${item.LastName || ''}`.trim() || item.name || 'Unnamed';
+                return `${item.FirstName || item.first_name || ''} ${item.LastName || item.last_name || ''}`.trim() || item.name || 'Unnamed';
             case 'plant':
                 return item.item_name || item.name || 'Unnamed Equipment';
             case 'place':

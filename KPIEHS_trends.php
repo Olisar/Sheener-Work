@@ -98,16 +98,19 @@ include 'includes/header.php';
 
     .chart-card {
         background: white;
-        padding: 25px;
+        padding: 30px;
         border-radius: 15px;
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
         border: 1px solid #ddd;
+        min-height: 400px;
     }
 
     .chart-card h3 {
         margin-top: 0;
-        margin-bottom: 20px;
-        font-size: 18px;
+        margin-bottom: 24px;
+        font-size: 16px;
+        font-weight: 700;
+        letter-spacing: 0.3px;
         color: var(--dark-grey);
         border-left: 4px solid var(--accent-yellow);
         padding-left: 12px;
@@ -115,7 +118,7 @@ include 'includes/header.php';
 
     canvas {
         width: 100% !important;
-        height: 300px !important;
+        height: 320px !important;
     }
 
     .action-bar {
@@ -392,3 +395,4 @@ include 'includes/header.php';
 </script>
 
 <?php include 'includes/footer.php'; ?>
+

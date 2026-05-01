@@ -125,10 +125,10 @@ function attachTopbarEvents(config) {
         };
     }
 
-    // Profile handler - redirects to user's dashboard (disabled for permit users)
+    // Profile handler - redirects to Profile Settings (disabled for permit users)
     if (topbarFunctions.profile && !isPermitUser) {
         iconMap["Profile"] = () => {
-            window.location.href = 'dashboard.php';
+            window.location.href = 'profile.php';
         };
     }
 

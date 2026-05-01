@@ -37,12 +37,12 @@
 .kpi-header {
     background-color: #1a1a1a;
     color: white;
-    padding: 20px 40px;
+    padding: 10px 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 95%;
-    margin: 30px auto 0 auto;
+    width: 90%;
+    margin: 15px auto 0 auto;
     border-radius: 12px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     position: relative;
@@ -84,16 +84,50 @@
 
 .kpi-main-grid {
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-columns: 45fr 30fr 25fr;
     gap: 20px;
-    padding: 30px;
+    padding: 20px;
 }
 
 /* Section Columns */
 .section-column {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 15px;
+}
+
+/* Health & Safety Sub-Grid */
+.hs-sub-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-top: 20px;
+    border-top: 2px solid rgba(0, 0, 0, 0.08);
+    padding-top: 20px;
+}
+
+/* Ensure the border is visible in H&S */
+.hs-section {
+    position: relative;
+}
+
+.hs-sub-column {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Metric Grouping & Visual Dividers */
+.metric-group {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.metric-group:not(:first-child) {
+    margin-top: 20px;
+    border-top: 2px solid rgba(0, 0, 0, 0.08);
+    padding-top: 20px;
 }
 
 .section-header {
@@ -104,6 +138,7 @@
     font-weight: 700;
     color: #444;
     margin-bottom: 5px;
+    min-height: 40px; /* Ensure alignment across columns with comparison text */
 }
 
 .section-header i {
@@ -114,24 +149,125 @@
 .kpi-card {
     background-color: var(--card-bg);
     border-radius: var(--border-radius);
-    padding: 15px;
+    padding: 8px 20px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    gap: 8px;
     position: relative;
-    min-height: 100px;
+    min-height: 50px;
     box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.05);
+}
+
+.kpi-card + .kpi-card:not(.double-card > .kpi-card):not(.hs-sub-column > .kpi-card) {
+    margin-top: 12px;
+}
+
+/* Ensure no margins interfere with grid layouts */
+.double-card > .kpi-card,
+.hs-sub-grid .kpi-card {
+    margin-top: 0 !important;
+}
+
+.hs-sub-column .kpi-card + .kpi-card {
+    margin-top: 8px; /* Tighter vertical stack for H&S columns */
+}
+
+.section-column > .kpi-card:not(:last-child) {
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    padding-bottom: 8px;
 }
 
 /* Section-specific card backgrounds */
 .hs-section .kpi-card {
     background-color: #fff6e7;
-    /* Pastel Orange */
+    padding: 3px 15px; /* More aggressive shrink */
+    min-height: 36px;
+}
+
+.hs-section .kpi-card .card-title {
+    font-size: 10px; /* Smaller title for shrunk cards */
+    margin-bottom: 2px;
+}
+
+.hs-section .kpi-card input {
+    font-size: 28px; /* Smaller numbers */
+    height: 32px;
+}
+
+/* CO2e Divergent Chart */
+.co2-chart-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 15px 0;
+    width: 100%;
+}
+
+.chart-row {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.chart-label {
+    font-size: 9px;
+    font-weight: 900;
+    color: #666;
+    min-width: 65px;
+    text-transform: uppercase;
+}
+
+.chart-track {
+    flex-grow: 1;
+    height: 12px;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 6px;
+    position: relative;
+    overflow: hidden;
+}
+
+.chart-center-line {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: rgba(0, 0, 0, 0.15);
+    z-index: 5;
+}
+
+.chart-fill.divergent {
+    position: absolute;
+    height: 100%;
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 3;
+}
+
+.chart-value {
+    font-size: 11px;
+    font-weight: 900;
+    min-width: 75px;
+    text-align: right;
+    color: #333;
 }
 
 .energy-section .kpi-card {
     background-color: #cdeaff;
     /* Pastel Blue */
+}
+
+.energy-section .kpi-card .card-content {
+    min-height: 120px; /* Ensure uniform height for Energy cards */
+}
+
+.energy-section .fa-bolt {
+    font-size: 32px !important;
+}
+
+.energy-section .card-icon-img {
+    height: 32px !important;
+    width: auto;
 }
 
 .waste-section .kpi-card {
@@ -140,10 +276,12 @@
 }
 
 .kpi-card .card-title {
-    font-size: 14px;
-    font-weight: 800;
-    color: #444;
-    margin-bottom: 10px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0;
 }
 
 .kpi-card .card-content {
@@ -156,13 +294,13 @@
     background: rgba(255, 255, 255, 0.2);
     border: 1px solid transparent;
     color: #1a1a1a;
-    font-size: 42px;
-    font-weight: 800;
-    width: 120px;
+    font-size: 36px;
+    font-weight: 900;
+    width: 100px;
     text-align: left;
     outline: none;
     border-radius: 8px;
-    padding: 5px 10px;
+    padding: 2px 10px;
     transition: all 0.3s ease;
 }
 
@@ -193,7 +331,7 @@ input[type=number] {
 
 .kpi-card .card-icon,
 .kpi-card .card-icon-img {
-    font-size: 40px;
+    font-size: 28px;
     color: #646464;
     /* Darker for better visibility */
     opacity: 1 !important;
@@ -213,7 +351,27 @@ input[type=number] {
 .double-card {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 15px;
+    gap: 10px;
+}
+
+/* Compact cards for H&S right column */
+.hs-sub-column .kpi-card.compact {
+    padding: 4px 20px;
+    min-height: 40px;
+    gap: 4px;
+}
+
+.hs-sub-column .kpi-card.compact .card-title {
+    font-size: 10px;
+}
+
+.hs-sub-column .kpi-card.compact input {
+    font-size: 28px;
+    height: 32px;
+}
+
+.hs-sub-column .kpi-card.compact .card-icon {
+    font-size: 22px;
 }
 
 /* Percentage Inputs (Energy/Waste) */
@@ -224,12 +382,13 @@ input[type=number] {
 }
 
 .percentage-box {
-    padding: 8px 10px;
-    border-radius: 8px;
+    padding: 3px 12px;
+    border-radius: 6px;
     font-weight: 800;
-    font-size: 24px;
-    min-width: 110px;
-    /* Slightly wider */
+    font-size: 20px;
+    line-height: 1;
+    min-width: 100px;
+    height: 28px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -239,20 +398,22 @@ input[type=number] {
     background: transparent !important;
     border: none !important;
     color: white !important;
-    font-size: 32px !important;
+    font-size: 22px !important;
     font-weight: 900 !important;
-    width: 100px !important;
+    line-height: 1 !important;
+    height: auto !important;
+    width: 60px !important;
     /* Fixed width to allow space for % */
-    text-align: right !important;
-    /* Align right to sit next to % */
+    text-align: center !important;
     padding: 0 !important;
+    margin: 0 !important;
     box-shadow: none !important;
 }
 
-.percentage-box::after {
-    content: '%';
+.percentage-symbol {
     font-size: 24px;
     font-weight: 900;
+    line-height: 1;
     color: white;
     margin-left: 2px;
 }
@@ -270,6 +431,14 @@ input[type=number] {
 .percentage-box.neutral {
     background-color: #777;
     color: white;
+}
+
+/* Visual Grouping for Main Metrics */
+.energy-section .kpi-card:nth-child(4),
+.waste-section .kpi-card:nth-child(4) {
+    margin-top: 24px;
+    border-top: 2px solid rgba(0,0,0,0.08);
+    padding-top: 24px;
 }
 
 /* Inspections Card Special */

@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <li><a href="javascript:navigateTo('task_list.php')">Task List</a></li>   
         <li><a href="javascript:selectYearForKPI()">EHS KPI</a></li> 
         <li><a href="javascript:navigateTo('assessment_list.php')">Assessment</a></li>
-        <li><a href="javascript:navigateTo('sop_list.php')">SOP List</a></li>
+        <li><a href="javascript:navigateTo('7ps_registry.php?tab=purpose')">SOP List</a></li>
         <li><a href="javascript:navigateTo('treestructure.html')">Visual Tests</a></li>   
         <li><a href="javascript:navigateTo('KPIEHS_form.php')">EHS KPI Form</a></li>   
      

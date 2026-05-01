@@ -86,10 +86,10 @@ include 'includes/header.php';
     }
 
     .report-card-body {
-        padding: 20px;
+        padding: 24px;
         display: flex;
         flex-direction: column;
-        gap: 15px;
+        gap: 16px;
         flex-grow: 1;
     }
 
